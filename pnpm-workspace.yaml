@@ -1,0 +1,12 @@
+packages:
+  # Applications
+  - 'apps/*'
+
+  # Packages partagés
+  - 'packages/*'
+
+  # Infrastructure (optionnel, si configs partagées)
+  - 'infrastructure/*'
+
+  # Tools (optionnel, si packages utilitaires)
+  - 'tools/*'
