@@ -98,24 +98,24 @@ function DashboardContent() {
                   <div className="mb-6">
                     <p className="text-white/80 text-sm font-semibold mb-2">{t('holisticProfile.neurodivergent')}</p>
                     <div className="flex flex-wrap gap-2">
-                      {holisticProfile.neurodivergence_analysis.adhd.score >= 50 && (
+                      {(holisticProfile.neurodivergence_analysis.adhd?.score ?? 0) >= 50 && (
                         <span className="px-3 py-1 bg-white/30 rounded-full text-sm font-medium">
-                          TDAH ({holisticProfile.neurodivergence_analysis.adhd.score})
+                          TDAH ({holisticProfile.neurodivergence_analysis.adhd?.score})
                         </span>
                       )}
-                      {holisticProfile.neurodivergence_analysis.hpi.score >= 50 && (
+                      {(holisticProfile.neurodivergence_analysis.hpi?.score ?? 0) >= 50 && (
                         <span className="px-3 py-1 bg-white/30 rounded-full text-sm font-medium">
-                          HPI ({holisticProfile.neurodivergence_analysis.hpi.score})
+                          HPI ({holisticProfile.neurodivergence_analysis.hpi?.score})
                         </span>
                       )}
-                      {holisticProfile.neurodivergence_analysis.hypersensitivity.score >= 50 && (
+                      {(holisticProfile.neurodivergence_analysis.hypersensitivity?.score ?? 0) >= 50 && (
                         <span className="px-3 py-1 bg-white/30 rounded-full text-sm font-medium">
-                          Hypersensible ({holisticProfile.neurodivergence_analysis.hypersensitivity.score})
+                          Hypersensible ({holisticProfile.neurodivergence_analysis.hypersensitivity?.score})
                         </span>
                       )}
-                      {holisticProfile.neurodivergence_analysis.multipotentiality.score >= 50 && (
+                      {(holisticProfile.neurodivergence_analysis.multipotentiality?.score ?? 0) >= 50 && (
                         <span className="px-3 py-1 bg-white/30 rounded-full text-sm font-medium">
-                          Multipotentiel ({holisticProfile.neurodivergence_analysis.multipotentiality.score})
+                          Multipotentiel ({holisticProfile.neurodivergence_analysis.multipotentiality?.score})
                         </span>
                       )}
                     </div>
