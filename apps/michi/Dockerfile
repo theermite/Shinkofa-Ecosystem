@@ -13,8 +13,8 @@ WORKDIR /app
 # Copy package files from web/
 COPY web/package.json web/package-lock.json* ./
 
-# Install dependencies (with legacy peer deps for React 19 compatibility)
-RUN npm ci --legacy-peer-deps
+# Install dependencies (use npm install instead of npm ci for better compatibility)
+RUN npm install --legacy-peer-deps
 
 # ─────────────────────────────────────────────────────────────────────
 # STAGE 2: DEVELOPMENT (with hot reload)
