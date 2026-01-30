@@ -12,12 +12,50 @@ interface NumerologyInterpretation {
   traits?: string[]
 }
 
+// New API format for numerology numbers (with Master Number support)
+interface NumerologyNumberObject {
+  value: number
+  display: string
+  is_master_number: boolean
+  base_number: number | null
+}
+
+// Support both old (number) and new (object) API formats
+type NumerologyValue = number | NumerologyNumberObject
+
+// Helper to extract numeric value from either format
+const getNumValue = (val: NumerologyValue): number => {
+  if (typeof val === 'number') return val
+  return val?.value ?? 0
+}
+
+// Helper to get display string (for master numbers: "11/2")
+const getNumDisplay = (val: NumerologyValue): string => {
+  if (typeof val === 'number') return String(val)
+  return val?.display ?? String(val?.value ?? 0)
+}
+
+// Helper to check if it's a master number
+const isMasterNum = (val: NumerologyValue): boolean => {
+  if (typeof val === 'number') return val in { 11: true, 22: true, 33: true }
+  return val?.is_master_number ?? false
+}
+
+// Helper to get base number for master numbers
+const getBaseNum = (val: NumerologyValue): number | null => {
+  if (typeof val === 'number') {
+    const bases: { [key: number]: number } = { 11: 2, 22: 4, 33: 6 }
+    return bases[val] ?? null
+  }
+  return val?.base_number ?? null
+}
+
 interface Numerology {
-  life_path: number
-  expression: number
-  soul_urge: number
-  personality: number
-  personal_year: number
+  life_path: NumerologyValue
+  expression: NumerologyValue
+  soul_urge: NumerologyValue
+  personality: NumerologyValue
+  personal_year: NumerologyValue
   interpretations: {
     life_path: NumerologyInterpretation
     expression: NumerologyInterpretation
@@ -188,37 +226,37 @@ export const NumerologyCard: React.FC<NumerologyCardProps> = ({ data }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <NumberCard
           title="Chemin de Vie"
-          number={data.life_path}
+          number={getNumValue(data.life_path)}
           keyword={translateKeyword(data.interpretations.life_path.keyword)}
           description={data.interpretations.life_path.traits?.map(t => translateTrait(t)).join(', ') || ''}
-          meaning={getNumberMeaning(data.life_path)}
+          meaning={getNumberMeaning(getNumValue(data.life_path))}
           gradient="from-purple-500 to-indigo-500"
           icon="🛤️"
         />
         <NumberCard
           title="Expression"
-          number={data.expression}
+          number={getNumValue(data.expression)}
           keyword={translateKeyword(data.interpretations.expression.keyword)}
           description={data.interpretations.expression.traits?.map(t => translateTrait(t)).join(', ') || ''}
-          meaning={getNumberMeaning(data.expression)}
+          meaning={getNumberMeaning(getNumValue(data.expression))}
           gradient="from-blue-500 to-cyan-500"
           icon="🎭"
         />
         <NumberCard
           title="Désir de l'Âme"
-          number={data.soul_urge}
+          number={getNumValue(data.soul_urge)}
           keyword={translateKeyword(data.interpretations.soul_urge.keyword)}
           description={data.interpretations.soul_urge.traits?.map(t => translateTrait(t)).join(', ') || ''}
-          meaning={getNumberMeaning(data.soul_urge)}
+          meaning={getNumberMeaning(getNumValue(data.soul_urge))}
           gradient="from-green-500 to-teal-500"
           icon="💚"
         />
         <NumberCard
           title="Personnalité"
-          number={data.personality}
+          number={getNumValue(data.personality)}
           keyword={translateKeyword(data.interpretations.personality.keyword)}
           description={data.interpretations.personality.traits?.map(t => translateTrait(t)).join(', ') || ''}
-          meaning={getNumberMeaning(data.personality)}
+          meaning={getNumberMeaning(getNumValue(data.personality))}
           gradient="from-yellow-500 to-orange-500"
           icon="🎨"
         />
@@ -229,9 +267,9 @@ export const NumerologyCard: React.FC<NumerologyCardProps> = ({ data }) => {
         {/* Life Path */}
         <DetailedNumber
           title="Chemin de Vie"
-          number={data.life_path}
+          number={getNumValue(data.life_path)}
           keyword={translateKeyword(data.interpretations.life_path.keyword)}
-          description={getDetailedNumberDescription(data.life_path)}
+          description={getDetailedNumberDescription(getNumValue(data.life_path))}
           icon="🛤️"
           color="purple"
           explanation="Votre mission principale dans cette vie, les leçons à apprendre et le chemin à parcourir."
@@ -240,9 +278,9 @@ export const NumerologyCard: React.FC<NumerologyCardProps> = ({ data }) => {
         {/* Expression */}
         <DetailedNumber
           title="Nombre d'Expression"
-          number={data.expression}
+          number={getNumValue(data.expression)}
           keyword={translateKeyword(data.interpretations.expression.keyword)}
-          description={getDetailedNumberDescription(data.expression)}
+          description={getDetailedNumberDescription(getNumValue(data.expression))}
           icon="🎭"
           color="blue"
           explanation="Vos talents naturels, capacités et la manière dont vous vous exprimez dans le monde."
@@ -251,9 +289,9 @@ export const NumerologyCard: React.FC<NumerologyCardProps> = ({ data }) => {
         {/* Soul Urge */}
         <DetailedNumber
           title="Désir de l'Âme"
-          number={data.soul_urge}
+          number={getNumValue(data.soul_urge)}
           keyword={translateKeyword(data.interpretations.soul_urge.keyword)}
-          description={getDetailedNumberDescription(data.soul_urge)}
+          description={getDetailedNumberDescription(getNumValue(data.soul_urge))}
           icon="💚"
           color="green"
           explanation="Vos motivations profondes, ce qui vous nourrit intérieurement et vos aspirations secrètes."
@@ -262,9 +300,9 @@ export const NumerologyCard: React.FC<NumerologyCardProps> = ({ data }) => {
         {/* Personality */}
         <DetailedNumber
           title="Nombre de Personnalité"
-          number={data.personality}
+          number={getNumValue(data.personality)}
           keyword={translateKeyword(data.interpretations.personality.keyword)}
-          description={getDetailedNumberDescription(data.personality)}
+          description={getDetailedNumberDescription(getNumValue(data.personality))}
           icon="🎨"
           color="yellow"
           explanation="L'image que vous projetez, comment les autres vous perçoivent au premier abord."
@@ -277,17 +315,17 @@ export const NumerologyCard: React.FC<NumerologyCardProps> = ({ data }) => {
           <span className="text-4xl">📅</span>
           <div>
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-              Année Personnelle : {data.personal_year}
+              Année Personnelle : {getNumDisplay(data.personal_year)}
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">Cycle annuel actuel (2026)</p>
           </div>
         </div>
         <div className="bg-white/70 dark:bg-gray-800/70 rounded-lg p-5">
           <p className="text-gray-700 dark:text-gray-300 font-semibold mb-3 text-lg">
-            {getNumberMeaning(data.personal_year)}
+            {getNumberMeaning(getNumValue(data.personal_year))}
           </p>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-            {getPersonalYearMeaning(data.personal_year)}
+            {getPersonalYearMeaning(getNumValue(data.personal_year))}
           </p>
         </div>
       </div>
