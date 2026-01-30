@@ -583,24 +583,23 @@ class DesignHumanService:
         has_motor_to_throat = False
 
         if gates:
-            # Channels that connect MOTOR centers to THROAT
-            # Format: (gate1, gate2, motor_center_involved)
+            # Channels that connect MOTOR centers DIRECTLY to THROAT
+            # Format: (throat_gate, motor_gate, motor_center_involved)
+            # CRITICAL: Only include channels where one gate is IN the Throat
+            # and the other gate is IN a Motor center (Sacral, Solar Plexus, Heart, Root)
             motor_throat_channels = [
-                # Sacral → Throat (direct)
-                (20, 34, "sacral"),  # Channel 20-34: The Brainwave
-                (34, 57, "sacral"),  # Channel 34-57: Power (indirect via G Center)
-                (20, 57, "sacral"),  # Channel 20-57: The Brainwave (if both present)
+                # Sacral → Throat (DIRECT - the defining MG channel)
+                (20, 34, "sacral"),  # Channel 20-34: Charisma - Throat(20) ↔ Sacral(34)
 
-                # Root → Throat (must check if Root connects to Throat)
-                # Note: Root typically connects to Sacral or other centers, rarely direct to Throat
+                # Solar Plexus → Throat (DIRECT)
+                (12, 22, "solar_plexus"),  # Channel 12-22: Openness - Throat(12) ↔ Solar Plexus(22)
+                (35, 36, "solar_plexus"),  # Channel 35-36: Transitoriness - Throat(35) ↔ Solar Plexus(36)
 
-                # Solar Plexus → Throat (via intermediate centers)
-                (12, 22, "solar_plexus"),  # Channel 12-22: Openness (indirect)
-                (35, 36, "solar_plexus"),  # Channel 35-36: Transitoriness (indirect)
+                # Heart/Ego → Throat (DIRECT)
+                (21, 45, "heart_will"),  # Channel 21-45: Money Line - Heart(21) ↔ Throat(45)
 
-                # Heart/Ego → Throat
-                (21, 45, "heart_will"),  # Channel 21-45: The Money Line (indirect)
-                (26, 44, "heart_will"),  # Channel 26-44: Surrender (Ego → Spleen → ... )
+                # Root → Throat (no direct channel exists in Human Design)
+                # Root connects to Sacral, Spleen, or Solar Plexus, not directly to Throat
             ]
 
             # Get activated gate numbers
