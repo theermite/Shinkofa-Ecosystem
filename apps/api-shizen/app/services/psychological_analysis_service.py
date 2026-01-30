@@ -987,35 +987,100 @@ Le score global est une MOYENNE PONDÉRÉE des dimensions, PAS un chiffre arbitr
 5. **Routines** : Besoin prévisibilité, résistance au changement
 
 ═══════════════════════════════════════════════════════════════
-## 📝 FORMAT DE RÉPONSE (JSON STRICT)
+## 🔄 TOC (TROUBLES OBSESSIONNELS COMPULSIFS)
 
-Retourne **UNIQUEMENT** ce JSON, sans texte avant/après :
+**PROFILS** : TOC léger / TOC modéré / TOC sévère
+
+**DIMENSIONS À SCORER** :
+1. **Obsessions** : Pensées intrusives récurrentes, ruminations
+2. **Compulsions** : Rituels, vérifications, comportements répétitifs
+3. **Impact fonctionnel** : Temps consacré, interférence vie quotidienne
+
+═══════════════════════════════════════════════════════════════
+## 📚 TROUBLES DYS- (APPRENTISSAGE)
+
+**TYPES** : Dyslexie / Dyscalculie / Dysorthographie / Dyspraxie / Dysphasie
+
+**DIMENSIONS À SCORER** :
+1. **Lecture/écriture** : Difficultés lecture, orthographe, expression écrite
+2. **Calcul/logique** : Difficultés mathématiques, raisonnement séquentiel
+3. **Coordination** : Difficultés motrices, organisation spatiale
+4. **Langage oral** : Difficultés expression/compréhension orale
+
+═══════════════════════════════════════════════════════════════
+## 😰 ANXIÉTÉ GÉNÉRALISÉE
+
+**NIVEAUX** : Anxiété légère / Anxiété modérée / Anxiété sévère
+
+**DIMENSIONS À SCORER** :
+1. **Inquiétude chronique** : Préoccupations excessives, anticipation négative
+2. **Symptômes physiques** : Tension musculaire, fatigue, troubles sommeil
+3. **Évitement** : Comportements d'évitement, procrastination anxieuse
+4. **Impact social** : Interférence relations, travail, activités
+
+═══════════════════════════════════════════════════════════════
+## 🎭 BIPOLARITÉ (TROUBLES DE L'HUMEUR)
+
+**NIVEAUX** : Cyclothymie / Bipolarité type II / Bipolarité type I
+
+**DIMENSIONS À SCORER** :
+1. **Épisodes hauts** : Périodes d'énergie excessive, euphorie, hyperactivité
+2. **Épisodes bas** : Périodes de dépression, fatigue, perte d'intérêt
+3. **Cyclicité** : Fréquence et prévisibilité des cycles
+4. **Impulsivité** : Décisions impulsives, dépenses excessives
+
+═══════════════════════════════════════════════════════════════
+## 💔 PTSD / SSPT (STRESS POST-TRAUMATIQUE)
+
+**NIVEAUX** : Stress post-traumatique léger / modéré / sévère
+
+**DIMENSIONS À SCORER** :
+1. **Reviviscences** : Flashbacks, cauchemars, souvenirs intrusifs
+2. **Évitement** : Évitement situations, pensées, lieux rappelant trauma
+3. **Hypervigilance** : Sursauts, difficultés concentration, irritabilité
+4. **Altérations cognitives** : Croyances négatives, détachement émotionnel
+
+═══════════════════════════════════════════════════════════════
+## 🍽️ TROUBLES ALIMENTAIRES
+
+**TYPES** : Anorexie / Boulimie / Hyperphagie / Orthorexie / ARFID
+
+**DIMENSIONS À SCORER** :
+1. **Relation à la nourriture** : Restrictions, compulsions, rituels alimentaires
+2. **Image corporelle** : Préoccupation poids/apparence, dysmorphie
+3. **Comportements compensatoires** : Purge, exercice excessif, jeûne
+4. **Impact santé** : Conséquences physiques et émotionnelles
+
+═══════════════════════════════════════════════════════════════
+## 😴 TROUBLES DU SOMMEIL
+
+**TYPES** : Insomnie / Hypersomnie / Apnée / Parasomnies / Décalage circadien
+
+**DIMENSIONS À SCORER** :
+1. **Endormissement** : Difficultés à s'endormir, temps d'endormissement
+2. **Maintien du sommeil** : Réveils nocturnes, sommeil fragmenté
+3. **Qualité récupératrice** : Fatigue au réveil, sensation de repos insuffisant
+4. **Rythme circadien** : Décalage horaire, chronotype perturbé
+
+═══════════════════════════════════════════════════════════════
+## 📝 FORMAT DE RÉPONSE (JSON STRICT - TOUS LES 12 TYPES)
+
+Retourne **UNIQUEMENT** ce JSON complet, sans texte avant/après :
 
 {{
   "adhd": {{
     "score_global": 72,
     "profil": "inattention_predominante",
     "profil_label": "TDAH type Inattention prédominante",
-    "dimensions": {{
-      "inattention": 85,
-      "hyperactivite": 45,
-      "impulsivite": 60,
-      "dysregulation_emotionnelle": 70
-    }},
-    "manifestations_principales": ["Difficulté à maintenir l'attention sur tâches longues", "Oublis fréquents dans activités quotidiennes", "Désorganisation chronique"],
-    "strategies_adaptation": ["Utiliser des listes et rappels", "Fractionner les tâches", "Environnement calme pour concentration"]
+    "dimensions": {{"inattention": 85, "hyperactivite": 45, "impulsivite": 60, "dysregulation_emotionnelle": 70}},
+    "manifestations_principales": ["Difficulté concentration", "Oublis fréquents", "Désorganisation"],
+    "strategies_adaptation": ["Listes et rappels", "Fractionner tâches", "Environnement calme"]
   }},
   "autism": {{
     "score_global": 45,
     "profil": "traits_legers",
     "profil_label": "Traits autistiques légers",
-    "dimensions": {{
-      "communication_sociale": 50,
-      "interactions_sociales": 55,
-      "interets_restreints": 40,
-      "sensorialite": 35,
-      "routines": 45
-    }},
+    "dimensions": {{"communication_sociale": 50, "interactions_sociales": 55, "interets_restreints": 40, "sensorialite": 35, "routines": 45}},
     "manifestations_principales": [],
     "strategies_adaptation": []
   }},
@@ -1023,37 +1088,84 @@ Retourne **UNIQUEMENT** ce JSON, sans texte avant/après :
     "score_global": 82,
     "profil": "complexe",
     "profil_label": "HPI Profil Complexe",
-    "dimensions": {{
-      "intellectuelle": 90,
-      "emotionnelle": 85,
-      "creative": 75,
-      "sensorielle": 70
-    }},
-    "manifestations_principales": ["Pensée arborescente intense", "Besoin constant de stimulation intellectuelle", "Empathie et intensité émotionnelle élevées"],
-    "strategies_adaptation": ["Projets complexes et stimulants", "Temps de récupération après interactions sociales intenses", "Canaliser créativité dans projets concrets"]
+    "dimensions": {{"intellectuelle": 90, "emotionnelle": 85, "creative": 75, "sensorielle": 70}},
+    "manifestations_principales": ["Pensée arborescente", "Besoin stimulation", "Intensité émotionnelle"],
+    "strategies_adaptation": ["Projets complexes", "Temps récupération", "Canaliser créativité"]
   }},
   "multipotentiality": {{
     "score_global": 70,
     "profil_label": "Multipotentiel modéré",
-    "manifestations_principales": ["Intérêts multiples et variés", "Difficulté à choisir une seule voie"],
-    "strategies_adaptation": ["Portfolio career", "Rotation de projets"]
+    "manifestations_principales": ["Intérêts multiples", "Difficulté à choisir"],
+    "strategies_adaptation": ["Portfolio career", "Rotation projets"]
   }},
   "hypersensitivity": {{
     "score_global": 80,
     "types": ["emotionnelle", "sensorielle"],
     "profil_label": "Hypersensibilité émotionnelle et sensorielle",
-    "dimensions": {{
-      "emotionnelle": 85,
-      "sensorielle": 75
-    }},
-    "manifestations_principales": ["Réactions émotionnelles intenses", "Sensibilité aux ambiances"],
-    "strategies_adaptation": ["Temps seul pour récupérer", "Environnement sensoriel contrôlé"]
+    "dimensions": {{"emotionnelle": 85, "sensorielle": 75}},
+    "manifestations_principales": ["Réactions émotionnelles intenses", "Sensibilité ambiances"],
+    "strategies_adaptation": ["Temps seul", "Environnement contrôlé"]
+  }},
+  "toc": {{
+    "score_global": 25,
+    "profil_label": "Pas de TOC significatif",
+    "dimensions": {{"obsessions": 20, "compulsions": 25, "impact_fonctionnel": 15}},
+    "manifestations_principales": [],
+    "strategies_adaptation": []
+  }},
+  "dys": {{
+    "score_global": 30,
+    "profil_label": "Pas de trouble Dys- significatif",
+    "types_detectes": [],
+    "dimensions": {{"lecture_ecriture": 25, "calcul_logique": 35, "coordination": 30, "langage_oral": 25}},
+    "manifestations_principales": [],
+    "strategies_adaptation": []
+  }},
+  "anxiety": {{
+    "score_global": 55,
+    "profil": "legere",
+    "profil_label": "Anxiété légère",
+    "dimensions": {{"inquietude_chronique": 60, "symptomes_physiques": 50, "evitement": 45, "impact_social": 55}},
+    "manifestations_principales": ["Tendance à l'anticipation négative"],
+    "strategies_adaptation": ["Techniques de relaxation", "Restructuration cognitive"]
+  }},
+  "bipolar": {{
+    "score_global": 20,
+    "profil_label": "Pas de bipolarité détectée",
+    "dimensions": {{"episodes_hauts": 15, "episodes_bas": 25, "cyclicite": 10, "impulsivite": 20}},
+    "manifestations_principales": [],
+    "strategies_adaptation": []
+  }},
+  "ptsd": {{
+    "score_global": 15,
+    "profil_label": "Pas de SSPT détecté",
+    "dimensions": {{"reviviscences": 10, "evitement": 20, "hypervigilance": 15, "alterations_cognitives": 10}},
+    "manifestations_principales": [],
+    "strategies_adaptation": []
+  }},
+  "eating_disorder": {{
+    "score_global": 25,
+    "profil_label": "Pas de trouble alimentaire significatif",
+    "types_detectes": [],
+    "dimensions": {{"relation_nourriture": 30, "image_corporelle": 25, "comportements_compensatoires": 15, "impact_sante": 20}},
+    "manifestations_principales": [],
+    "strategies_adaptation": []
+  }},
+  "sleep_disorder": {{
+    "score_global": 45,
+    "profil": "leger",
+    "profil_label": "Difficultés de sommeil légères",
+    "types_detectes": ["insomnie_legere"],
+    "dimensions": {{"endormissement": 50, "maintien_sommeil": 45, "qualite_recuperatrice": 40, "rythme_circadien": 35}},
+    "manifestations_principales": ["Difficultés occasionnelles d'endormissement"],
+    "strategies_adaptation": ["Hygiène de sommeil", "Routine coucher régulière"]
   }}
 }}
 
 **RAPPEL CRITIQUE** :
+- TOUS les 12 types DOIVENT être présents dans la réponse
 - Le score global DOIT refléter la moyenne pondérée des dimensions
-- Deux personnes avec le même profil peuvent avoir des scores DIFFÉRENTS selon l'intensité
+- Score < 50 = "Pas de X détecté" avec profil_label approprié
 - Justifie chaque score par les réponses concrètes du questionnaire
 """
 
