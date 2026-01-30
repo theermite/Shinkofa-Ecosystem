@@ -2,14 +2,12 @@
 
 import { useAuth } from '@/contexts/AuthContext'
 import { useHolisticProfileByUser } from '@/hooks/api/useHolisticProfile'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
 import { Link } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
+import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 
-export default function DashboardPage() {
-  const { user, isAuthenticated, isLoading } = useAuth()
-  const router = useRouter()
+function DashboardContent() {
+  const { user } = useAuth()
   const t = useTranslations('dashboard')
 
   // Load holistic profile for current user
@@ -18,21 +16,7 @@ export default function DashboardPage() {
     !!user?.id
   )
 
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      router.push('/auth/login')
-    }
-  }, [isAuthenticated, isLoading, router])
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600 dark:border-blue-400"></div>
-      </div>
-    )
-  }
-
-  if (!isAuthenticated || !user) {
+  if (!user) {
     return null
   }
 
@@ -377,5 +361,13 @@ export default function DashboardPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function DashboardPage() {
+  return (
+    <ProtectedRoute>
+      <DashboardContent />
+    </ProtectedRoute>
   )
 }

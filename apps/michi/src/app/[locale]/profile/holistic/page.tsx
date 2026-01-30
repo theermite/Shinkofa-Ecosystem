@@ -16,6 +16,7 @@ import { NumerologyCard } from '@/components/profile/NumerologyCard'
 import { NameAnalysisCard } from '@/components/profile/NameAnalysisCard'
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer'
 import { HolisticProfileWarning } from '@/components/profile/HolisticProfileWarning'
+import { ShizenEnrichButton } from '@/components/profile/ShizenEnrichButton'
 
 type TabType = 'synthesis' | 'psychological' | 'neurodivergence' | 'shinkofa' | 'design_human' | 'astrology' | 'numerology' | 'name_analysis' | 'recommendations'
 
@@ -218,13 +219,21 @@ export default function HolisticProfilePage() {
         <div className="transition-all duration-300">
           {activeTab === 'synthesis' && profile.synthesis && (
             <div className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-2xl shadow-2xl p-10 mb-8 border-2 border-purple-200 dark:border-purple-800">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full flex items-center justify-center text-4xl shadow-lg">
-                  ✨
+              <div className="flex items-center justify-between gap-4 mb-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full flex items-center justify-center text-4xl shadow-lg">
+                    ✨
+                  </div>
+                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+                    Synthèse Holistique Personnalisée
+                  </h2>
                 </div>
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-                  Synthèse Holistique Personnalisée
-                </h2>
+                <ShizenEnrichButton
+                  sectionId="synthesis"
+                  sectionLabel="Synthèse"
+                  profileId={profile.id}
+                  onEnrichmentComplete={() => refetch()}
+                />
               </div>
               <div className="bg-white/80 dark:bg-gray-800/80 rounded-xl p-6 border border-purple-300 dark:border-purple-700">
                 <MarkdownRenderer
@@ -236,42 +245,121 @@ export default function HolisticProfilePage() {
           )}
 
           {activeTab === 'psychological' && profile.psychological_analysis && (
-            <PsychologicalCard data={profile.psychological_analysis} />
+            <div className="space-y-4">
+              <div className="flex justify-end">
+                <ShizenEnrichButton
+                  sectionId="psychological"
+                  sectionLabel="Psychologie"
+                  profileId={profile.id}
+                  onEnrichmentComplete={() => refetch()}
+                />
+              </div>
+              <PsychologicalCard data={profile.psychological_analysis} />
+            </div>
           )}
 
           {activeTab === 'neurodivergence' && profile.neurodivergence_analysis && (
-            <NeurodivergenceCard data={profile.neurodivergence_analysis} />
+            <div className="space-y-4">
+              <div className="flex justify-end">
+                <ShizenEnrichButton
+                  sectionId="neurodivergence"
+                  sectionLabel="Neurodivergence"
+                  profileId={profile.id}
+                  onEnrichmentComplete={() => refetch()}
+                />
+              </div>
+              <NeurodivergenceCard data={profile.neurodivergence_analysis} />
+            </div>
           )}
 
           {activeTab === 'shinkofa' && profile.shinkofa_analysis && (
-            <ShinkofaCard data={profile.shinkofa_analysis} />
+            <div className="space-y-4">
+              <div className="flex justify-end">
+                <ShizenEnrichButton
+                  sectionId="shinkofa"
+                  sectionLabel="Shinkofa"
+                  profileId={profile.id}
+                  onEnrichmentComplete={() => refetch()}
+                />
+              </div>
+              <ShinkofaCard data={profile.shinkofa_analysis} />
+            </div>
           )}
 
           {activeTab === 'design_human' && profile.design_human && (
-            <DesignHumanCard data={profile.design_human} />
+            <div className="space-y-4">
+              <div className="flex justify-end">
+                <ShizenEnrichButton
+                  sectionId="design_human"
+                  sectionLabel="Design Humain"
+                  profileId={profile.id}
+                  onEnrichmentComplete={() => refetch()}
+                />
+              </div>
+              <DesignHumanCard data={profile.design_human} />
+            </div>
           )}
 
           {activeTab === 'astrology' && profile.astrology_western && profile.astrology_chinese && (
-            <AstrologyCard western={profile.astrology_western} chinese={profile.astrology_chinese} />
+            <div className="space-y-4">
+              <div className="flex justify-end">
+                <ShizenEnrichButton
+                  sectionId="astrology"
+                  sectionLabel="Astrologie"
+                  profileId={profile.id}
+                  onEnrichmentComplete={() => refetch()}
+                />
+              </div>
+              <AstrologyCard western={profile.astrology_western} chinese={profile.astrology_chinese} />
+            </div>
           )}
 
           {activeTab === 'numerology' && profile.numerology && (
-            <NumerologyCard data={profile.numerology} />
+            <div className="space-y-4">
+              <div className="flex justify-end">
+                <ShizenEnrichButton
+                  sectionId="numerology"
+                  sectionLabel="Numérologie"
+                  profileId={profile.id}
+                  onEnrichmentComplete={() => refetch()}
+                />
+              </div>
+              <NumerologyCard data={profile.numerology} />
+            </div>
           )}
 
           {activeTab === 'name_analysis' && profile.numerology?.active !== undefined && profile.numerology?.hereditary !== undefined && (
-            <NameAnalysisCard data={{
-              active: profile.numerology.active,
-              hereditary: profile.numerology.hereditary,
-              interpretations: {
-                active: profile.numerology.interpretations?.active || { keyword: 'unknown', traits: [] },
-                hereditary: profile.numerology.interpretations?.hereditary || { keyword: 'unknown', traits: [] },
-              },
-            }} />
+            <div className="space-y-4">
+              <div className="flex justify-end">
+                <ShizenEnrichButton
+                  sectionId="name_analysis"
+                  sectionLabel="Analyse du Nom"
+                  profileId={profile.id}
+                  onEnrichmentComplete={() => refetch()}
+                />
+              </div>
+              <NameAnalysisCard data={{
+                active: profile.numerology.active,
+                hereditary: profile.numerology.hereditary,
+                interpretations: {
+                  active: profile.numerology.interpretations?.active || { keyword: 'unknown', traits: [] },
+                  hereditary: profile.numerology.interpretations?.hereditary || { keyword: 'unknown', traits: [] },
+                },
+              }} />
+            </div>
           )}
 
           {activeTab === 'recommendations' && profile.recommendations && (
             <div className="space-y-6">
+              {/* Enrich Button */}
+              <div className="flex justify-end">
+                <ShizenEnrichButton
+                  sectionId="recommendations"
+                  sectionLabel="Recommandations"
+                  profileId={profile.id}
+                  onEnrichmentComplete={() => refetch()}
+                />
+              </div>
               {/* Header Section */}
               <div className="bg-gradient-to-r from-green-100 to-teal-100 dark:from-green-900/30 dark:to-teal-900/30 rounded-2xl shadow-2xl p-10 border-2 border-green-200 dark:border-green-800">
                 <div className="flex items-center gap-4 mb-6">
