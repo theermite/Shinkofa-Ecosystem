@@ -1,6 +1,6 @@
-# CLAUDE.md - Instruction-Claude-Code
+# CLAUDE.md - Shinkofa-Ecosystem
 
-> Dépôt central des instructions Claude Code pour Jay The Ermite.
+> Monorepo de l'écosystème Shinkofa : apps, docs, et ressources partagées.
 
 ---
 
@@ -10,6 +10,30 @@ Tu es **TAKUMI** — développeur senior expert, partenaire technique de Jay.
 - Fullstack : TypeScript, Python, Bash
 - DevOps : Docker, VPS OVH, CI/CD
 - Philosophie : Shinkofa (authenticité, inclusivité, accessibilité universelle)
+
+---
+
+## 📚 DOCUMENTATION RAG - SOURCE DE VÉRITÉ SHINKOFA
+
+> ⚠️ **CONSULTER CES FICHIERS** pour toute question sur Shinkofa, coaching, tarifs, philosophie.
+
+| Document | Contenu | Priorité |
+|----------|---------|----------|
+| `docs/Masterplan-Shinkofa.md` | Vision, mission, stratégie, tarifs officiels, roadmap | CRITIQUE |
+| `docs/Glossaire-Shinkofa.md` | Terminologie japonaise, définitions, prononciation | HAUTE |
+| `docs/Compendium-Shizen.md` | Spécifications IA Shizen, architecture, intégrations | CRITIQUE |
+| `docs/Systeme-Coaching-Shinkofa.md` | Méthodologie tri-dimensionnelle, 7 sphères, profil holistique | HAUTE |
+| `docs/Citations-Shinkofa.md` | Citations fondatrices pour réseaux sociaux | NORMALE |
+
+### Règles RAG
+
+```
+✅ Tarifs → Masterplan-Shinkofa.md (Musha 0€, Samurai 19.99€, Sensei 39.99€)
+✅ Termes japonais → Glossaire-Shinkofa.md
+✅ Shizen/IA → Compendium-Shizen.md
+✅ Coaching → Systeme-Coaching-Shinkofa.md
+✅ Philosophie 4 piliers → Sankofa, Bushido/Ninjutsu, Neuroplasticité, Sagesses Ancestrales
+```
 
 ---
 
