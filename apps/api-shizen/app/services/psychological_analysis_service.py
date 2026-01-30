@@ -476,31 +476,43 @@ class PsychologicalAnalysisService:
 
 ### 🧬 NEURODIVERGENCES - ANALYSE COMPLÈTE (12 types évalués)
 
-**📊 TABLEAU RÉCAPITULATIF DE TOUS LES TYPES ANALYSÉS :**
+**📊 LÉGENDE DES NIVEAUX (basée sur standards cliniques GAD-7, PHQ-9, RAADS-R) :**
+- 🔴 **MARQUÉ** (81-100) : Impact significatif, évaluation pro recommandée
+- 🟠 **MODÉRÉ** (61-80) : Significativité clinique, accompagnement conseillé
+- 🟡 **LÉGER** (41-60) : Attention recommandée, stratégies d'adaptation
+- 🔵 **TRAITS PRÉSENTS** (26-40) : Sous le seuil clinique mais notable
+- ✅ **ABSENT** (0-25) : Aucun indicateur significatif
 
-| Neurodivergence | Score | Statut |
+**📊 TABLEAU RÉCAPITULATIF :**
+
+| Neurodivergence | Score | Niveau |
 |-----------------|-------|--------|
-| TDA(H) | {adhd_score}/100 | {"🔴 **DÉTECTÉ**" if adhd_score > 50 else "✅ Non détecté"} |
-| Autisme (TSA) | {autism_score}/100 | {"🔴 **DÉTECTÉ**" if autism_score > 50 else "✅ Non détecté"} |
-| HPI | {hpi_score}/100 | {"🔴 **DÉTECTÉ**" if hpi_score > 50 else "✅ Non détecté"} |
-| Multipotentialité | {multipotential_score}/100 | {"🔴 **DÉTECTÉ**" if multipotential_score > 50 else "✅ Non détecté"} |
-| Hypersensibilité | {hypersensitivity_score}/100 | {"🔴 **DÉTECTÉ**" if hypersensitivity_score > 50 else "✅ Non détecté"} |
-| TOC | {toc_score}/100 | {"🔴 **DÉTECTÉ**" if toc_score > 50 else "✅ Non détecté"} |
-| Troubles Dys- | {dys_score}/100 | {"🔴 **DÉTECTÉ**" if dys_score > 50 else "✅ Non détecté"} |
-| Anxiété généralisée | {anxiety_score}/100 | {"🔴 **DÉTECTÉ**" if anxiety_score > 50 else "✅ Non détecté"} |
-| Bipolarité | {bipolar_score}/100 | {"🔴 **DÉTECTÉ**" if bipolar_score > 50 else "✅ Non détecté"} |
-| SSPT (PTSD) | {ptsd_score}/100 | {"🔴 **DÉTECTÉ**" if ptsd_score > 50 else "✅ Non détecté"} |
-| Troubles alimentaires | {eating_disorder_score}/100 | {"🔴 **DÉTECTÉ**" if eating_disorder_score > 50 else "✅ Non détecté"} |
-| Troubles du sommeil | {sleep_disorder_score}/100 | {"🔴 **DÉTECTÉ**" if sleep_disorder_score > 50 else "✅ Non détecté"} |
+| TDA(H) | {adhd_score}/100 | {self._get_severity_label(adhd_score)} |
+| Autisme (TSA) | {autism_score}/100 | {self._get_severity_label(autism_score)} |
+| HPI | {hpi_score}/100 | {self._get_severity_label(hpi_score)} |
+| Multipotentialité | {multipotential_score}/100 | {self._get_severity_label(multipotential_score)} |
+| Hypersensibilité | {hypersensitivity_score}/100 | {self._get_severity_label(hypersensitivity_score)} |
+| TOC | {toc_score}/100 | {self._get_severity_label(toc_score)} |
+| Troubles Dys- | {dys_score}/100 | {self._get_severity_label(dys_score)} |
+| Anxiété généralisée | {anxiety_score}/100 | {self._get_severity_label(anxiety_score)} |
+| Bipolarité | {bipolar_score}/100 | {self._get_severity_label(bipolar_score)} |
+| SSPT (PTSD) | {ptsd_score}/100 | {self._get_severity_label(ptsd_score)} |
+| Troubles alimentaires | {eating_disorder_score}/100 | {self._get_severity_label(eating_disorder_score)} |
+| Troubles du sommeil | {sleep_disorder_score}/100 | {self._get_severity_label(sleep_disorder_score)} |
 
 ---
 
-**🔴 PROFILS DÉTAILLÉS DES NEURODIVERGENCES DÉTECTÉES (score > 50) :**
+**🔴🟠🟡 PROFILS DÉTAILLÉS (score ≥ 41 = seuil clinique) :**
 {self._format_detected_neurodiv(neurodivergence_profile)}
 
 ---
 
-**✅ CE QUI N'EST PAS DÉTECTÉ (score ≤ 50) :**
+**🔵 TRAITS PRÉSENTS MAIS SOUS LE SEUIL CLINIQUE (26-40) :**
+{self._format_subthreshold_neurodiv(neurodivergence_profile)}
+
+---
+
+**✅ ABSENT (score ≤ 25) :**
 {self._format_not_detected_neurodiv(neurodivergence_profile)}
 
 ---
@@ -776,29 +788,42 @@ Génère la synthèse holistique complète MAINTENANT.
 """
         return result
 
-    def _format_detected_neurodiv(self, neuro_profile: Dict) -> str:
-        """Format detected neurodivergences (score > 50) for synthesis prompt with prominent profile display"""
-        detected = []
-        threshold = 50
+    def _get_severity_label(self, score: int) -> str:
+        """Get severity label with emoji for a given score (based on clinical standards)"""
+        if score >= 81:
+            return "🔴 **MARQUÉ**"
+        elif score >= 61:
+            return "🟠 **MODÉRÉ**"
+        elif score >= 41:
+            return "🟡 **LÉGER**"
+        elif score >= 26:
+            return "🔵 Traits présents"
+        else:
+            return "✅ Absent"
 
-        # Score interpretation guide
+    def _format_detected_neurodiv(self, neuro_profile: Dict) -> str:
+        """Format detected neurodivergences (score >= 41 = clinical threshold) with prominent profile display"""
+        detected = []
+        clinical_threshold = 41  # Based on GAD-7, PHQ-9 standards (~40% of scale)
+
+        # Score interpretation guide (5 levels based on clinical standards)
         score_guide = {
-            (51, 70): "Modéré",
-            (71, 85): "Marqué",
-            (86, 100): "Très marqué"
+            (41, 60): ("Léger", "🟡"),
+            (61, 80): ("Modéré", "🟠"),
+            (81, 100): ("Marqué", "🔴")
         }
 
         def get_intensity(score):
-            for (low, high), label in score_guide.items():
+            for (low, high), (label, emoji) in score_guide.items():
                 if low <= score <= high:
-                    return label
-            return "Modéré"
+                    return f"{emoji} {label}"
+            return "🟡 Léger"
 
         for key, data in neuro_profile.items():
             if isinstance(data, dict):
                 # Support both old format (score) and new format (score_global)
                 score = data.get('score_global', data.get('score', 0))
-                if score > threshold:
+                if score >= clinical_threshold:  # 41+ = clinical significance
                     # Get profile label (new format) or profile (old format)
                     profile_label = data.get('profil_label', data.get('profile', 'Non spécifié'))
                     manifestations = data.get('manifestations_principales', data.get('manifestations', []))
@@ -837,23 +862,22 @@ Génère la synthèse holistique complète MAINTENANT.
 
         if detected:
             header = """
-## 📊 INTERPRÉTATION DES SCORES
+## 📊 INTERPRÉTATION DES NIVEAUX (Standards cliniques)
 
-| Plage | Signification |
-|-------|--------------|
-| 51-70 | **Modéré** — Pattern identifiable, impact fonctionnel léger |
-| 71-85 | **Marqué** — Pattern clair, impact fonctionnel modéré |
-| 86-100 | **Très marqué** — Pattern dominant, impact significatif |
+| Plage | Niveau | Signification |
+|-------|--------|---------------|
+| 41-60 | 🟡 **Léger** | Attention recommandée, stratégies d'adaptation utiles |
+| 61-80 | 🟠 **Modéré** | Significativité clinique, accompagnement conseillé |
+| 81-100 | 🔴 **Marqué** | Impact significatif, évaluation professionnelle recommandée |
 
 """
             return header + "\n".join(detected)
         else:
-            return "- Aucune neurodivergence significative détectée (scores ≤ 50)"
+            return "- Aucune neurodivergence au-dessus du seuil clinique (scores < 41)"
 
-    def _format_not_detected_neurodiv(self, neuro_profile: Dict) -> str:
-        """Format neurodivergences NOT detected (score ≤ 50) for synthesis prompt"""
-        not_detected = []
-        threshold = 50
+    def _format_subthreshold_neurodiv(self, neuro_profile: Dict) -> str:
+        """Format neurodivergences with traits present but below clinical threshold (26-40)"""
+        subthreshold = []
 
         # Labels for each type
         type_labels = {
@@ -875,13 +899,45 @@ Génère la synthèse holistique complète MAINTENANT.
             data = neuro_profile.get(key, {})
             if isinstance(data, dict):
                 score = data.get('score_global', data.get('score', 0))
-                if score <= threshold:
-                    not_detected.append(f"- ✅ **{label}** : {score}/100 — Non détecté")
+                if 26 <= score <= 40:
+                    subthreshold.append(f"- 🔵 **{label}** : {score}/100 — Quelques traits présents (sous le seuil clinique)")
+
+        if subthreshold:
+            return "\n".join(subthreshold)
+        else:
+            return "- Aucun trait sous-clinique détecté (tous les scores sont soit < 26, soit ≥ 41)"
+
+    def _format_not_detected_neurodiv(self, neuro_profile: Dict) -> str:
+        """Format neurodivergences truly ABSENT (score ≤ 25)"""
+        not_detected = []
+
+        # Labels for each type
+        type_labels = {
+            "adhd": "TDA(H)",
+            "autism": "Autisme (TSA)",
+            "hpi": "HPI (Haut Potentiel Intellectuel)",
+            "multipotentiality": "Multipotentialité",
+            "hypersensitivity": "Hypersensibilité",
+            "toc": "TOC (Troubles Obsessionnels Compulsifs)",
+            "dys": "Troubles Dys- (apprentissage)",
+            "anxiety": "Anxiété généralisée",
+            "bipolar": "Bipolarité",
+            "ptsd": "SSPT (Stress Post-Traumatique)",
+            "eating_disorder": "Troubles alimentaires",
+            "sleep_disorder": "Troubles du sommeil"
+        }
+
+        for key, label in type_labels.items():
+            data = neuro_profile.get(key, {})
+            if isinstance(data, dict):
+                score = data.get('score_global', data.get('score', 0))
+                if score <= 25:
+                    not_detected.append(f"- ✅ **{label}** : {score}/100 — Absent (aucun indicateur)")
 
         if not_detected:
             return "\n".join(not_detected)
         else:
-            return "- Toutes les neurodivergences analysées ont été détectées (scores > 50)"
+            return "- Toutes les neurodivergences analysées présentent au moins quelques traits (scores > 25)"
 
     # ===== HELPER METHODS =====
 
@@ -980,17 +1036,27 @@ Retourne un JSON structuré **UNIQUEMENT** :
 {responses_summary}
 
 ═══════════════════════════════════════════════════════════════
-## 📊 MÉTHODOLOGIE DE SCORING (CRITIQUE - À RESPECTER)
+## 📊 MÉTHODOLOGIE DE SCORING (BASÉE SUR STANDARDS CLINIQUES)
 
 **PRINCIPE** : Chaque neurodivergence est évaluée sur PLUSIEURS DIMENSIONS indépendantes.
 Le score global est une MOYENNE PONDÉRÉE des dimensions, PAS un chiffre arbitraire.
 
-### GRILLE DE SCORING :
-- **0-25** : Absent - Aucun indicateur significatif
-- **26-50** : Léger - Quelques traits présents mais non prédominants
-- **51-70** : Modéré - Pattern identifiable, impact fonctionnel léger
-- **71-85** : Marqué - Pattern clair, impact fonctionnel modéré
-- **86-100** : Très marqué - Pattern dominant, impact fonctionnel significatif
+**RÉFÉRENCES** : Basé sur GAD-7, PHQ-9, RAADS-R, Y-BOCS et autres outils validés.
+
+### GRILLE DE SCORING À 5 NIVEAUX (OBLIGATOIRE) :
+
+| Score | Niveau | Signification | Action |
+|-------|--------|---------------|--------|
+| **0-25** | ABSENT | Aucun indicateur significatif | Aucune |
+| **26-40** | TRAITS PRÉSENTS | Quelques traits, SOUS le seuil clinique | Mentionner, surveiller |
+| **41-60** | LÉGER | Présentation légère, attention recommandée | Stratégies d'adaptation |
+| **61-80** | MODÉRÉ | Significativité clinique, impact fonctionnel | Accompagnement conseillé |
+| **81-100** | MARQUÉ | Présentation forte, impact significatif | Évaluation professionnelle recommandée |
+
+### SEUILS IMPORTANTS :
+- **Seuil de détection clinique** : 41+ (équivalent aux seuils GAD-7 ≥10, PHQ-9 ≥10)
+- **Zone "Traits présents"** : 26-40 (sous-clinique mais notable, à mentionner)
+- **Absence** : 0-25 (aucun trait significatif)
 
 ═══════════════════════════════════════════════════════════════
 ## 🧠 HPI (HAUT POTENTIEL INTELLECTUEL) - ANALYSE DÉTAILLÉE
