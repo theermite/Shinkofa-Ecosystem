@@ -87,8 +87,10 @@ export function Navbar() {
 
   const hasPaidSubscription = () => {
     if (!user?.subscription) return false
-    const isActiveSub = ['active', 'trialing'].includes(user.subscription.status)
-    const isPaidTier = user.subscription.tier !== 'musha'
+    const status = (user.subscription.status || '').toLowerCase()
+    const tier = (user.subscription.tier || 'musha').toLowerCase()
+    const isActiveSub = ['active', 'trialing'].includes(status)
+    const isPaidTier = tier !== 'musha'
     return isActiveSub && isPaidTier
   }
 

@@ -33,7 +33,7 @@ export function ShizenEnrichButton({
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
 
-  const userTier = (user?.subscription?.tier || 'musha') as SubscriptionTier
+  const userTier = ((user?.subscription?.tier || 'musha') as string).toLowerCase() as SubscriptionTier
   const canUseEnrichment = ALLOWED_TIERS.includes(userTier)
 
   const apiUrl = process.env.NEXT_PUBLIC_API_SHIZEN_URL || 'https://app.shinkofa.com/api'
