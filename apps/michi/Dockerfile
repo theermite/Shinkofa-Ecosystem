@@ -55,6 +55,9 @@ COPY web/ ./
 # Copy toolbox-theermite submodule (widgets are referenced via ../toolbox-theermite)
 COPY toolbox-theermite/ ../toolbox-theermite/
 
+# Create symlink so widgets can find react in main node_modules
+RUN ln -s /app/node_modules ../toolbox-theermite/node_modules || true
+
 # Build arguments for Next.js public env vars
 # IMPORTANT: These are BASE API URLs - code adds specific paths (/auth/login, /rituals, etc.)
 ARG NEXT_PUBLIC_API_URL=https://app.shinkofa.com/api
