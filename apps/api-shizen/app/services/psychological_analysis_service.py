@@ -156,7 +156,11 @@ class PsychologicalAnalysisService:
             )
 
             neuro_data = self._parse_json_response(result)
-            logger.info(f"✅ Neurodivergence analyzed: ADHD={neuro_data.get('adhd', {}).get('score')}, HPI={neuro_data.get('hpi', {}).get('score')}")
+            # Support both old (score) and new (score_global) formats
+            adhd_score = neuro_data.get('adhd', {}).get('score_global') or neuro_data.get('adhd', {}).get('score')
+            hpi_score = neuro_data.get('hpi', {}).get('score_global') or neuro_data.get('hpi', {}).get('score')
+            logger.info(f"✅ Neurodivergence analyzed: ADHD={adhd_score}, HPI={hpi_score}")
+            logger.debug(f"📊 Neurodivergence keys: {list(neuro_data.keys())}")
             return neuro_data
 
         except Exception as e:
@@ -1627,13 +1631,31 @@ Retourne UNIQUEMENT un JSON valide, sans texte explicatif avant/après."""
         }
 
     def _get_fallback_neurodivergence(self) -> Dict:
-        """Fallback neurodivergence if analysis fails"""
+        """Fallback neurodivergence if analysis fails - uses score_global for new format compatibility"""
+        empty_profile = {
+            "score_global": 0,
+            "score": 0,  # Keep for backwards compatibility
+            "profil_label": "Analyse non disponible",
+            "profile": "",
+            "dimensions": {},
+            "manifestations_principales": [],
+            "manifestations": [],
+            "strategies_adaptation": [],
+            "strategies": [],
+        }
         return {
-            "adhd": {"score": 0, "profile": "", "manifestations": [], "strategies": []},
-            "autism": {"score": 0, "profile": "", "manifestations": [], "strategies": []},
-            "hpi": {"score": 0, "profile": "", "manifestations": [], "strategies": []},
-            "multipotentiality": {"score": 0, "manifestations": []},
-            "hypersensitivity": {"score": 0, "types": [], "manifestations": [], "strategies": []},
+            "adhd": {**empty_profile},
+            "autism": {**empty_profile},
+            "hpi": {**empty_profile},
+            "multipotentiality": {**empty_profile},
+            "hypersensitivity": {**empty_profile, "types": []},
+            "toc": {**empty_profile},
+            "dys": {**empty_profile, "types_detectes": []},
+            "anxiety": {**empty_profile},
+            "bipolar": {**empty_profile},
+            "ptsd": {**empty_profile},
+            "eating_disorder": {**empty_profile, "types_detectes": []},
+            "sleep_disorder": {**empty_profile, "types_detectes": []},
         }
 
     def _get_fallback_shinkofa(self) -> Dict:

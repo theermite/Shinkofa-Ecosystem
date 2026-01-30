@@ -760,8 +760,13 @@ class HolisticProfileService:
                     "rationale": "Autorité Splénique - intuition du moment",
                 }]
 
+        # Helper to get score from both old (score) and new (score_global) formats
+        def get_neuro_score(data: Dict, key: str) -> int:
+            item = data.get(key, {})
+            return item.get("score_global") or item.get("score") or 0
+
         # ADHD recommendations
-        if neurodivergence.get("adhd", {}).get("score", 0) > 60:
+        if get_neuro_score(neurodivergence, "adhd") > 60:
             recommendations["task_organization"].append({
                 "category": "TDAH",
                 "recommendation": "Pomodoro adaptatif (25 min focus + 5 min pause)",
@@ -769,7 +774,7 @@ class HolisticProfileService:
             })
 
         # HPI recommendations
-        if neurodivergence.get("hpi", {}).get("score", 0) > 70:
+        if get_neuro_score(neurodivergence, "hpi") > 70:
             recommendations["growth_areas"].append({
                 "category": "HPI",
                 "recommendation": "Stimulation intellectuelle quotidienne + projets complexes",
