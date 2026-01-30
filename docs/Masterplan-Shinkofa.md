@@ -27,7 +27,7 @@ Transformer 1 million de vies d'ici 2030 en créant un OS de vie holistique qui 
 - Fusionne sagesses ancestrales et innovations modernes
 - Respecte les cycles énergétiques naturels
 
-### Philosophie des Trois Piliers
+### Philosophie des Quatre Piliers
 
 #### 1. Sankofa (Sagesse Africaine)
 *"Regarder en arrière pour mieux avancer"*
@@ -36,8 +36,8 @@ Transformer 1 million de vies d'ici 2030 en créant un OS de vie holistique qui 
 - Rituels de réconciliation et libération émotionnelle
 - Honneur aux ancêtres et transmission intergénérationnelle
 
-#### 2. Bushido (Voie du Guerrier)
-*Les 7 vertus du guerrier bienveillant*
+#### 2. Bushido & Ninjutsu (Voie du Guerrier)
+*Les 7 vertus du guerrier bienveillant + l'art de l'adaptation*
 
 | Vertu | Kanji | Application |
 |-------|-------|-------------|
@@ -49,12 +49,22 @@ Transformer 1 million de vies d'ici 2030 en créant un OS de vie holistique qui 
 | Meiyo | 名誉 | Honneur - Pacte de valeurs |
 | Chugi | 忠義 | Loyauté - Engagement durable |
 
+*Ninjutsu Moderne* : Adaptabilité, discrétion stratégique, conscience 360°
+
 #### 3. Neuroplasticité Moderne
 *Le cerveau se transforme continuellement*
 
 - Adaptation cognitive par micro-habitudes
 - Optimisation fonctions exécutives (TDAH, HPI)
 - Intégration somatique et coaching transcognitif
+
+#### 4. Sagesses Spirituelles Ancestrales (Monde)
+*La sagesse universelle à travers les traditions*
+
+- Kabbale : Structure de l'être, arbre de vie
+- Philosophies orientales : Tao, équilibre yin-yang, qi
+- Traditions chamaniques : Guérison holistique, vision élargie
+- Pratiques contemplatives universelles
 
 ---
 
@@ -99,61 +109,123 @@ Transformer 1 million de vies d'ici 2030 en créant un OS de vie holistique qui 
 
 ---
 
-## Modèle Économique
+## Modèle Économique Actuel
 
-### Offres Tarifaires
+### Plateforme Shinkofa - Grille Tarifaire Officielle
 
-| Offre | Prix/mois | Cible | Inclus |
-|-------|-----------|-------|--------|
-| Explorer | 29€ | Individuel | Shizen + Michi + 3 apps |
-| Créatif | 79€ | Créateurs | Suite créative complète |
-| Pro | 149€ | Entrepreneurs | Écosystème complet + IA avancée |
-| Famille | 199€ | Foyers | 6 profils + domotique + finance |
-| Entreprise | 499€/user | PME/ETI | Customisation + APIs + SLA |
+| Plan | Mensuel | Annuel (-20%) | Cible |
+|------|---------|---------------|-------|
+| **Musha** (Gratuit) | 0€ | 0€ | Découverte, premiers pas |
+| **Samurai** (Premium) | 19,99€ | 191,90€ | Individus engagés dans leur développement |
+| **Samurai Famille** | 59,99€ | 575,90€ | Familles, couples, parents avec enfants (5 profils) |
+| **Sensei** (VIP) | 39,99€ | 383,90€ | Chercheurs avancés, coaches, thérapeutes |
+| **Sensei Famille** | 119,99€ | 1 151,90€ | Familles investies, praticiens (5 profils VIP) |
 
-### Projections Financières
+### Produit Complémentaire
 
-| Année | Utilisateurs | CA | Profit |
-|-------|--------------|-----|--------|
-| 2025 | 1K | 0.5M€ | -0.2M€ |
-| 2026 | 10K | 5M€ | 0.5M€ |
-| 2027 | 100K | 50M€ | 15M€ |
-| 2028 | 250K | 100M€ | 30M€ |
-| 2029 | 500K | 150M€ | 50M€ |
+| Produit | Prix Standard | Prix Samurai | Prix Sensei |
+|---------|---------------|--------------|-------------|
+| **Manuel Holistique Complet** (PDF 150+ pages) | 29€ | 20,30€ (-30%) | 14,50€ (-50%) |
+
+### Offres de Coaching (À développer)
+
+| Offre | Prix | Description | Statut |
+|-------|------|-------------|--------|
+| Coaching Individuel avec Jay | Sur devis | Sessions 1:1 transformation profonde | Actif |
+| Coaching Groupe (Mastermind) | À définir | Cercle de transformation collective | À planifier |
+| Séminaire Immersif | À définir | Week-end ou semaine transformation | En réflexion |
+| Formations Certifiantes | 997€ - 4997€ | Praticien / Guide / Sensei Shinkofa | À développer |
+
+### Programme de Fidélité
+
+- Après 1 an : -10% à vie sur renouvellement annuel
+- Après 2 ans : Manuel Holistique gratuit + accès beta permanente
+- Après 3 ans : Statut "Pionnier" (badge, avantages exclusifs)
+
+---
+
+## Stratégie de Financement
+
+### Situation Actuelle
+
+Jay travaille exclusivement sur Shinkofa sans financement externe. La stratégie de croissance privilégie la génération de revenus organiques tout en explorant des options de financement complémentaires.
+
+### Options de Financement à Explorer
+
+| Option | Montant Potentiel | Avantages | Considérations |
+|--------|-------------------|-----------|----------------|
+| **Crowdfunding (Kickstarter/Ulule)** | 50K - 150K€ | Validation marché, communauté engagée, pré-ventes | Préparation marketing intense requise |
+| **Financement Participatif Equity** | 200K - 500K€ | Investisseurs ambassadeurs, pas de dette | Dilution, reporting |
+| **BPI France / Subventions** | 50K - 300K€ | Non dilutif, crédibilité institutionnelle | Dossiers complexes, délais |
+| **Business Angels Tech for Good** | 100K - 500K€ | Expertise + réseau, alignement valeurs | Identification des bons profils |
+| **Pré-ventes Lifetime** | 30K - 100K€ | Trésorerie immédiate, engagement early adopters | Volume à limiter |
+| **Concours & Prix Innovation** | 10K - 100K€ | Visibilité, non dilutif | Temps de préparation |
+
+> **Note** : Les options de financement seront explorées plus en détail selon l'évolution du projet et les opportunités qui se présentent.
+
+### Projections Financières (Indicatives)
+
+| Étape | Utilisateurs | MRR Estimé | CA Annuel Estimé |
+|-------|--------------|------------|------------------|
+| Lancement | 500 | 15K€ | 180K€ |
+| Croissance | 2,500 | 75K€ | 900K€ |
+| Expansion | 10,000 | 300K€ | 3.6M€ |
+| Scale | 35,000 | 1M€ | 12M€ |
+| Maturité | 100,000 | 3M€ | 36M€ |
 
 ---
 
 ## Roadmap Stratégique
 
-### Phase 1 : Foundation (2025)
+L'avancement du projet se fait par validation d'étapes, selon le développement des applications et les retours utilisateurs.
+
+### Phase 1 : Foundation
+**Objectif** : Poser les bases de l'écosystème
 - Shizen Avatar IA (coaching holistique)
 - Michi Plateforme (questionnaire + planneur + journal)
-- 1,000 beta users
+- Communauté early adopters
 
-### Phase 2 : Creative (2026)
+**Validation** : 1,000 utilisateurs actifs
+
+### Phase 2 : Creative
+**Objectif** : Enrichir l'écosystème créatif
 - Sakusei Studio (podcast/vidéo/blog)
 - Hibiki Dictate (dictée vocale)
-- 10,000 utilisateurs, première rentabilité
+- Première rentabilité
 
-### Phase 3 : Unified (2027)
+**Validation** : 10,000 utilisateurs, revenus récurrents stables
+
+### Phase 3 : Unified
+**Objectif** : Suite complète intégrée
 - Suite bureautique Jimu
 - Communication Musubu Hub
-- 100,000 utilisateurs, licorne
+- Expansion internationale
 
-### Phase 4 : Smart (2028)
+**Validation** : 100,000 utilisateurs
+
+### Phase 4 : Smart
+**Objectif** : Écosystème intelligent
 - Domotique Home Hub
 - Finance Master
 - Hardware Shinkofa custom
 
-### Phase 5 : Ecosystem (2029)
-- Token SHINK blockchain
-- 50 centres physiques Dojos
-- Préparation IPO
+**Validation** : Intégration complète vie quotidienne
 
-### Phase 6 : Global (2030)
-- Shin OS (système exploitation)
-- 2M utilisateurs
-- Leader mondial tech holistique
+### Phase 5 : Ecosystem
+**Objectif** : Économie Shinkofa
+- Token SHINK (optionnel, selon évolution marché)
+- Centres physiques Dojos
+- Réseau praticiens certifiés
+
+**Validation** : Communauté autonome et florissante
+
+### Phase 6 : Global
+**Objectif** : Leadership mondial
+- Shin OS (système exploitation dédié)
+- Présence internationale massive
+- Impact sociétal mesurable
+
+**Validation** : 1M+ vies transformées
 
 ---
 
@@ -161,11 +233,20 @@ Transformer 1 million de vies d'ici 2030 en créant un OS de vie holistique qui 
 
 ### Fondateur
 
-**Jay "The Ermite" Gonçalves** - CEO & Visionary
+**Jay "The Ermite"** - Maître Shinkofa, CEO & Visionary
 - Projecteur Splénique 1/3 (Design Humain)
 - Coach certifié (ontologique/transcognitif/somatique)
-- Multipotentiel neurodivergent (TDAH, HPI, hypersensible)
+- Multipotentiel neurodivergent (HPI, hypersensible)
 - 15 ans entrepreneuriat tech + coaching
+
+### Co-Fondatrice
+
+**Angélique "Ange"** - Marketing, Communication & Design
+- Pure Générateur 5/1 (Design Humain)
+- Neurodivergente (TDA, HPI, multipotentiel, hypersensible)
+- Stratégie marketing et communication
+- Gestion réseaux sociaux
+- Direction artistique et design
 
 ---
 
@@ -187,9 +268,9 @@ Transformer 1 million de vies d'ici 2030 en créant un OS de vie holistique qui 
 
 ## Citation Fondatrice
 
-> "Je rêve d'un monde où chaque être humain, quelle que soit sa neurodiversité, peut s'épanouir pleinement en honorant son authenticité, ses cycles naturels, et sa contribution unique. Shinkofa est ce chemin."
+> "Je rêve d'un monde où chaque être humain, qu'importe son individualité, peut s'épanouir pleinement en honorant son authenticité, ses cycles naturels, sa contribution unique. C'est ça la voie Shinkofa."
 >
-> — Jay "The Ermite" Gonçalves
+> — Jay "The Ermite", Maître Shinkofa
 
 ---
 

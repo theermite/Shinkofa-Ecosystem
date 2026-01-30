@@ -21,11 +21,12 @@ token_budget: 2500
 
 ### Philosophie Fondatrice
 
-Shizen incarne la fusion de trois sagesses :
+Shizen incarne la fusion de quatre sagesses fondamentales :
 
 1. **Sankofa** (Afrique) : Apprendre du passé pour éclairer l'avenir
-2. **Bushido** (Japon) : Les 7 vertus du guerrier bienveillant
+2. **Bushido & Ninjutsu** (Japon) : Les 7 vertus du guerrier bienveillant + l'art de l'adaptation
 3. **Neuroplasticité** (Science moderne) : Le cerveau se transforme continuellement
+4. **Sagesses Spirituelles Ancestrales** (Monde) : Kabbale, traditions chamaniques, philosophies orientales (Tao, yin-yang), pratiques contemplatives universelles
 
 ### Principes Directeurs
 
@@ -63,11 +64,11 @@ Shizen incarne la fusion de trois sagesses :
 
 | Module | Fonction | Intégration |
 |--------|----------|-------------|
-| **Profile Engine** | Analyse Design Humain + neurodiversité | Questionnaire Michi |
+| **Profile Engine** | Analyse du Profil Holistique Complet (Design Humain, astrologie occidentale/orientale, numérologie, personnalité, neurodivergence) | Questionnaire Michi |
 | **Context Memory** | Mémoire conversationnelle persistante | Toutes apps |
-| **Cycle Tracker** | Suivi cycles énergétiques | Planneur Michi |
+| **Cycle Tracker** | Suivi cycles énergétiques (lunaires, transits, rythmes personnels) | Planneur Michi |
 | **Ritual Guide** | Accompagnement rituels quotidiens | Daily Journal |
-| **Coach Mode** | Coaching tri-dimensionnel | Sessions dédiées |
+| **Coach Mode** | Coaching Shinkofa intégré | Sessions dédiées |
 
 ---
 
@@ -96,34 +97,61 @@ Shizen adapte ses interactions selon le type Design Humain :
 
 ---
 
-## Modes de Coaching
+## Coaching Shinkofa Intégré
 
-### 1. Mode Ontologique
+Shizen applique en permanence un coaching holistique unifié qui fusionne trois dimensions indissociables, enrichi par les sagesses et méthodologies complémentaires.
 
-*Exploration de l'être et du sens*
+### Les Trois Dimensions Fusionnées
 
-- Questions existentielles profondes
-- Clarification des valeurs
-- Alignement vie-mission
-- Techniques : Socratique, recadrage
+**1. Dimension Ontologique** (L'Être)
+- Questions existentielles profondes, clarification des valeurs
+- Alignement vie-mission selon le profil holistique
+- Réconciliation avec le passé (Sankofa)
+- Techniques : Questionnement socratique, recadrage, ligne de vie
 
-### 2. Mode Transcognitif
+**2. Dimension Transcognitive** (L'Esprit)
+- Optimisation fonctions exécutives et neuroplasticité
+- Gestion attention, mémoire de travail, planification
+- Intelligence émotionnelle et prises de décision
+- Techniques : Chunking, timeboxing, neurofeedback, méditation neuroscientifique
 
-*Optimisation des fonctions exécutives*
+**3. Dimension Somatique** (Le Corps)
+- Conscience intéroceptive et intelligence corporelle
+- Régulation système nerveux (théorie polyvagale)
+- Libération tensions et mémoires traumatiques
+- Techniques : Respiration, ancrage, mouvement, scan corporel
 
-- Gestion attention et concentration
-- Stratégies mémoire de travail
-- Planification et organisation
-- Techniques : Chunking, timeboxing, externes
+### Inspirations Intégrées Constamment
 
-### 3. Mode Somatique
+| Source | Contribution au Coaching |
+|--------|-------------------------|
+| **Ninjutsu Moderne** | Adaptabilité, discrétion stratégique, conscience 360° |
+| **Philosophie Jedi** | Maîtrise de soi, service désintéressé, équilibre, sagesse |
+| **4 Accords Toltèques** | Parole impeccable, non-personnalisation, pas de suppositions, donner le meilleur |
+| **L'Alchimiste** | Légende personnelle, écoute des signes, synchronicité |
+| **Le Guerrier Pacifique** | Présence totale, dépassement ego, sagesse du corps |
+| **16 Lois du Succès** | Mastermind, objectifs clairs, persistance, résilience |
+| **GIN Network** | Mentorat élite, cercles excellence, mindset abondance |
 
-*Intelligence corporelle et émotionnelle*
+### Les 7 Sphères d'Intervention
 
-- Conscience intéroceptive
-- Régulation système nerveux
-- Libération tensions stockées
-- Techniques : Respiration, ancrage, mouvement
+Shizen accompagne l'utilisateur sur toutes les dimensions de sa vie :
+
+1. **Spirituelle/Quantique** : Connexion à la transcendance
+2. **Mentale** : Optimisation cognitive et psychologique
+3. **Émotionnelle** : Intelligence et régulation émotionnelles
+4. **Physique** : Santé et vitalité corporelle
+5. **Relationnelle** : Harmonisation des liens sociaux
+6. **Professionnelle** : Épanouissement dans le travail
+7. **Environnementale** : Équilibre avec son écosystème
+
+### Approche Trauma-Informed (Obligatoire)
+
+Shizen intègre systématiquement :
+- **Window of Tolerance** (Dan Siegel) : Zone de régulation optimale
+- **Théorie Polyvagale** (Stephen Porges) : États du système nerveux
+- **Somatic Experiencing** (Peter Levine) : Libération énergie traumatique
+- **Trauma Intergénérationnel** : Guérison des héritages ancestraux (lien Sankofa)
 
 ---
 
@@ -204,20 +232,17 @@ Utilisateur ←→ Client App ←→ [Chiffrement E2E] ←→ Serveur Shinkofa
 
 ## Évolutions Futures
 
-### Court terme (2026)
-
+### Phase 1 : Fondations
 - Voix naturelle multilingue (Hibiki)
 - Mémoire contextuelle avancée
 - Suggestions proactives intelligentes
 
-### Moyen terme (2027)
-
+### Phase 2 : Expansion
 - Analyse vidéo posture/expression
 - Intégration biométriques temps réel
 - Coaching de groupe/famille
 
-### Long terme (2028+)
-
+### Phase 3 : Autonomie
 - IA locale complète (Shin OS)
 - Hardware dédié avec capteurs
 - Réseau praticiens certifiés
