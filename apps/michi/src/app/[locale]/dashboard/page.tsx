@@ -6,6 +6,12 @@ import { Link } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 
+// Helper to get score from either format (score or score_global)
+const getNeuroScore = (item: { score?: number; score_global?: number } | undefined): number => {
+  if (!item) return 0
+  return (item as { score_global?: number }).score_global ?? item.score ?? 0
+}
+
 function DashboardContent() {
   const { user } = useAuth()
   const t = useTranslations('dashboard')
@@ -66,12 +72,12 @@ function DashboardContent() {
                     </div>
                   )}
 
-                  {holisticProfile.astrology_western && (
+                  {holisticProfile.astrology_western && holisticProfile.astrology_western.sun_sign && (
                     <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 border border-white/30">
                       <p className="text-white/80 text-xs font-semibold mb-1">{t('holisticProfile.sunSign')}</p>
-                      <p className="text-2xl font-bold">{holisticProfile.astrology_western.sun_sign.toUpperCase()}</p>
+                      <p className="text-2xl font-bold">{holisticProfile.astrology_western.sun_sign?.toUpperCase() || 'N/A'}</p>
                       <p className="text-sm text-white/80 mt-1">
-                        Asc: {holisticProfile.astrology_western.ascendant.toUpperCase()}
+                        Asc: {holisticProfile.astrology_western.ascendant?.toUpperCase() || 'N/A'}
                       </p>
                     </div>
                   )}
@@ -93,29 +99,29 @@ function DashboardContent() {
                   )}
                 </div>
 
-                {/* Dominant Neurodivergence */}
+                {/* Dominant Neurodivergence - Support both score and score_global formats */}
                 {holisticProfile.neurodivergence_analysis && (
                   <div className="mb-6">
                     <p className="text-white/80 text-sm font-semibold mb-2">{t('holisticProfile.neurodivergent')}</p>
                     <div className="flex flex-wrap gap-2">
-                      {(holisticProfile.neurodivergence_analysis.adhd?.score ?? 0) >= 50 && (
+                      {getNeuroScore(holisticProfile.neurodivergence_analysis.adhd) >= 50 && (
                         <span className="px-3 py-1 bg-white/30 rounded-full text-sm font-medium">
-                          TDAH ({holisticProfile.neurodivergence_analysis.adhd?.score})
+                          TDAH ({getNeuroScore(holisticProfile.neurodivergence_analysis.adhd)})
                         </span>
                       )}
-                      {(holisticProfile.neurodivergence_analysis.hpi?.score ?? 0) >= 50 && (
+                      {getNeuroScore(holisticProfile.neurodivergence_analysis.hpi) >= 50 && (
                         <span className="px-3 py-1 bg-white/30 rounded-full text-sm font-medium">
-                          HPI ({holisticProfile.neurodivergence_analysis.hpi?.score})
+                          HPI ({getNeuroScore(holisticProfile.neurodivergence_analysis.hpi)})
                         </span>
                       )}
-                      {(holisticProfile.neurodivergence_analysis.hypersensitivity?.score ?? 0) >= 50 && (
+                      {getNeuroScore(holisticProfile.neurodivergence_analysis.hypersensitivity) >= 50 && (
                         <span className="px-3 py-1 bg-white/30 rounded-full text-sm font-medium">
-                          Hypersensible ({holisticProfile.neurodivergence_analysis.hypersensitivity?.score})
+                          Hypersensible ({getNeuroScore(holisticProfile.neurodivergence_analysis.hypersensitivity)})
                         </span>
                       )}
-                      {(holisticProfile.neurodivergence_analysis.multipotentiality?.score ?? 0) >= 50 && (
+                      {getNeuroScore(holisticProfile.neurodivergence_analysis.multipotentiality) >= 50 && (
                         <span className="px-3 py-1 bg-white/30 rounded-full text-sm font-medium">
-                          Multipotentiel ({holisticProfile.neurodivergence_analysis.multipotentiality?.score})
+                          Multipotentiel ({getNeuroScore(holisticProfile.neurodivergence_analysis.multipotentiality)})
                         </span>
                       )}
                     </div>
