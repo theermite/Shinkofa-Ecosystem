@@ -22,7 +22,7 @@ class QuestionnaireSession(Base):
     """
     Questionnaire session tracking
 
-    Tracks user's progress through the 168-question holistic questionnaire
+    Tracks user's progress through the 144-question holistic questionnaire
     Stores birth data for Design Human, Astrology, Numerology calculations
     """
     __tablename__ = "questionnaire_sessions"

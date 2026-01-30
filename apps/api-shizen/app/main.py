@@ -42,7 +42,6 @@ app.add_middleware(
         "http://localhost:3000",
         "https://shinkofa.com",
         "https://app.shinkofa.com",
-        "https://alpha.shinkofa.com",  # Alpha deployment
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -72,7 +71,7 @@ async def root():
         "features": [
             "AI Chat (Shizen)",
             "AI Coaching (Design Humain)",
-            "Holistic Questionnaire (168 questions)",
+            "Holistic Questionnaire (144 questions)",
             "Tasks Management (AI-powered)",
             "Goals Tracking",
             "Energy Logging",

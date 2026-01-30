@@ -12,7 +12,7 @@ class QuestionnaireResponse(Base):
     """
     Individual question responses
 
-    Stores all 168 answers from the holistic questionnaire
+    Stores all 144 answers from the holistic questionnaire
     Organized by bloc (A-I) and question ID
     """
     __tablename__ = "questionnaire_responses"

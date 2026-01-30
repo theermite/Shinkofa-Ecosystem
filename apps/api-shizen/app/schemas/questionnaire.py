@@ -222,7 +222,7 @@ class BlocSchema(BaseModel):
 class AllBlocsResponse(BaseModel):
     """All questionnaire blocs"""
     blocs: List[BlocSchema]
-    total_questions: int = Field(..., description="Total number of questions (should be 168)")
+    total_questions: int = Field(..., description="Total number of questions (should be 144)")
 
 
 # ═════════════════════════════════════════════════════════════

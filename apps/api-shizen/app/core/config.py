@@ -40,7 +40,7 @@ class Settings(BaseSettings):
 
     # Application
     NODE_ENV: str = "production"
-    API_URL: str = "https://alpha.shinkofa.com/api"
+    API_URL: str = "https://app.shinkofa.com/api"
 
     class Config:
         # Load from environment variables (passed by Docker)

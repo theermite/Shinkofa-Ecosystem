@@ -1,6 +1,6 @@
 """
 Questionnaire API routes
-Shinkofa Platform - Holistic Questionnaire (168 questions)
+Shinkofa Platform - Holistic Questionnaire (144 questions)
 """
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
 from sqlalchemy.orm import Session
@@ -63,7 +63,7 @@ def start_questionnaire_session(
     """
     Start new questionnaire session
 
-    Creates a new session for the 168-question holistic questionnaire
+    Creates a new session for the 144-question holistic questionnaire
     Optionally includes birth data for Design Humain/Astrology/Numerology
     """
     # Create new session
@@ -1293,7 +1293,7 @@ async def get_questionnaire_sections():
 
     Get all questionnaire sections (blocs A-I)
 
-    Returns complete 168-question structure
+    Returns complete 144-question structure
     """
     # Return placeholder for backward compatibility
     blocs = [
@@ -1355,5 +1355,5 @@ async def get_questionnaire_sections():
 
     return AllBlocsResponse(
         blocs=blocs,
-        total_questions=168
+        total_questions=144
     )

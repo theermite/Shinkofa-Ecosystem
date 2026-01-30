@@ -378,14 +378,16 @@ Chaque projet doit avoir `.claude/session-state.md` :
 
 ```markdown
 ## Environnement Actuel
-| Target | PROD / ALPHA / LOCAL |
+| Target | PROD / LOCAL |
 | Branche | main / develop |
 | Projet | [nom] |
 ```
 
 **Si absent** : Context-Guardian le crée automatiquement.
 
-**Recommandation** : Je te suggère de vérifier session-state avant toute action sur PROD/ALPHA.
+**Recommandation** : Je te suggère de vérifier session-state avant toute action sur PROD.
+
+> **Note** : Il n'y a plus d'environnement ALPHA. Uniquement PROD (app.shinkofa.com) et LOCAL.
 
 ---
 
