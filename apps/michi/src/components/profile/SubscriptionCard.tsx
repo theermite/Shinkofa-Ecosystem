@@ -8,6 +8,7 @@
 import { Link } from '@/i18n/routing'
 import type { User, SubscriptionTier } from '@/types/auth'
 import { useTranslations } from 'next-intl'
+import { useUsageStats } from '@/hooks/useUsageStats'
 
 interface SubscriptionCardProps {
   user: User
@@ -81,6 +82,8 @@ const LIMITS: Record<SubscriptionTier | 'none', {
 
 export function SubscriptionCard({ user }: SubscriptionCardProps) {
   const t = useTranslations('profile.subscription')
+  const { shizenMessages, isLoading: usageLoading } = useUsageStats()
+
   const tier = (user.subscription?.tier || 'musha') as SubscriptionTier
   const status = user.subscription?.status || 'active'
   const isActive = ['active', 'trialing'].includes(status)
@@ -139,22 +142,23 @@ export function SubscriptionCard({ user }: SubscriptionCardProps) {
         <LimitItem
           label={t('shizenMessagesLabel')}
           icon="🤖"
-          limit={limits.shizenMessages}
-          current={null} // TODO: Get from API
+          limit={shizenMessages?.limit ?? limits.shizenMessages}
+          current={shizenMessages?.current ?? null}
           unlimitedText={t('unlimited')}
+          isLoading={usageLoading}
         />
         <LimitItem
           label={t('projectsLabel')}
           icon="📁"
           limit={limits.projects}
-          current={null} // TODO: Get from API
+          current={null}
           unlimitedText={t('unlimited')}
         />
         <LimitItem
           label={t('tasksLabel')}
           icon="✅"
           limit={limits.tasks}
-          current={null} // TODO: Get from API
+          current={null}
           unlimitedText={t('unlimited')}
         />
       </div>
@@ -214,13 +218,15 @@ function LimitItem({
   icon,
   limit,
   current,
-  unlimitedText
+  unlimitedText,
+  isLoading = false
 }: {
   label: string
   icon: string
   limit: number | null
   current: number | null
   unlimitedText: string
+  isLoading?: boolean
 }) {
   const isUnlimited = limit === null
   const percentage = current !== null && limit !== null ? Math.min((current / limit) * 100, 100) : 0
@@ -231,7 +237,9 @@ function LimitItem({
         <span>{icon}</span>
         <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{label}</span>
       </div>
-      {isUnlimited ? (
+      {isLoading ? (
+        <div className="h-7 bg-gray-200 dark:bg-gray-600 rounded animate-pulse" />
+      ) : isUnlimited ? (
         <p className="text-lg font-bold text-green-600 dark:text-green-400">{unlimitedText}</p>
       ) : (
         <>

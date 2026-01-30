@@ -38,12 +38,10 @@ export default function ShizenChat({ conversationId, userId }: ShizenChatProps) 
   useEffect(() => {
     const wsBaseUrl = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8001/ws'
     const wsUrl = `${wsBaseUrl}/${conversationId}`
-    console.log('🔌 Connecting to WebSocket:', wsUrl)
 
     const ws = new WebSocket(wsUrl)
 
     ws.onopen = () => {
-      console.log('✅ WebSocket connected')
       setIsConnected(true)
 
       // Add system message
@@ -55,7 +53,6 @@ export default function ShizenChat({ conversationId, userId }: ShizenChatProps) 
     }
 
     ws.onmessage = (event) => {
-      console.log('📨 Message received:', event.data)
       try {
         const data = JSON.parse(event.data)
 
@@ -95,7 +92,6 @@ export default function ShizenChat({ conversationId, userId }: ShizenChatProps) 
     }
 
     ws.onclose = () => {
-      console.log('🔌 WebSocket disconnected')
       setIsConnected(false)
       setMessages(prev => [...prev, {
         role: 'system',
@@ -134,7 +130,6 @@ export default function ShizenChat({ conversationId, userId }: ShizenChatProps) 
         message: inputMessage,
         user_id: userId
       }))
-      console.log('📤 Message sent:', inputMessage)
     }
 
     setInputMessage('')

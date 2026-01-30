@@ -70,8 +70,8 @@ export function ChangePasswordForm({ onUpdate }: ChangePasswordFormProps) {
         setIsOpen(false)
         setSuccess(null)
       }, 2000)
-    } catch (err: any) {
-      setError(err.message || t('errorGeneric'))
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t('errorGeneric'))
     } finally {
       setIsSaving(false)
     }

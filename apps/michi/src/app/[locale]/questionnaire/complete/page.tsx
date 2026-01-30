@@ -46,13 +46,11 @@ function CompletePageContent() {
 
         if (profileResponse.ok) {
           // Profile exists, redirect to results
-          console.log('✅ Profile already exists, redirecting to results')
           router.push(`/questionnaire/results/${sessionId}`)
           return
         }
 
         // Profile doesn't exist, auto-generate it
-        console.log('🔄 Auto-generating holistic profile...')
         setAutoAnalyzing(true)
 
         const analyzeResponse = await fetch(
@@ -68,7 +66,6 @@ function CompletePageContent() {
         )
 
         if (analyzeResponse.ok) {
-          console.log('✅ Profile generated successfully')
           // Wait 2 seconds for UI feedback, then redirect
           setTimeout(() => {
             router.push(`/questionnaire/results/${sessionId}`)

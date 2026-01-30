@@ -240,7 +240,6 @@ export default function AdminPage() {
 
       if (res.ok) {
         const session: SuperAdminSession = await res.json()
-        console.log('Super admin session status:', session)
 
         if (session.impersonated_user_id) {
           const userRes = await fetch(
@@ -249,7 +248,6 @@ export default function AdminPage() {
           )
           if (userRes.ok) {
             const userData = await userRes.json()
-            console.log('Impersonated user data:', userData)
             setImpersonatedUser(userData)
           } else {
             console.error('Failed to fetch impersonated user details:', await userRes.text())

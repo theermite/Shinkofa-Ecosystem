@@ -35,8 +35,8 @@ export default function LoginPage() {
         : { username: identifier, password }
 
       await login(credentials, rememberMe)
-    } catch (err: any) {
-      setError(err.message || t('error'))
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t('error'))
     } finally {
       setIsLoading(false)
     }

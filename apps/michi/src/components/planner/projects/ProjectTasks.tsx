@@ -31,11 +31,10 @@ export function ProjectTasks({ projectId, projectName, onEditTask }: ProjectTask
       }
 
       await createTaskMutation.mutateAsync(taskWithProject)
-      console.log('✅ Tâche créée avec succès dans le projet !')
       setShowCreateModal(false)
-    } catch (error: any) {
-      console.error('❌ Erreur création tâche:', error)
-      alert(`Erreur: ${error.message || 'Impossible de créer la tâche'}`)
+    } catch (error) {
+      console.error('Erreur création tâche:', error)
+      alert(`Erreur: ${error instanceof Error ? error.message : 'Impossible de créer la tâche'}`)
     }
   }
 

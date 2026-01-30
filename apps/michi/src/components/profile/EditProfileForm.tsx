@@ -142,8 +142,8 @@ export function EditProfileForm({ user, onUpdate }: EditProfileFormProps) {
 
       const data = await response.json()
       return data.avatar_url
-    } catch (err: any) {
-      throw new Error(err.message || 'Erreur lors de l\'upload de l\'avatar')
+    } catch (err) {
+      throw new Error(err instanceof Error ? err.message : 'Erreur lors de l\'upload de l\'avatar')
     }
   }
 
@@ -208,8 +208,8 @@ export function EditProfileForm({ user, onUpdate }: EditProfileFormProps) {
       setIsEditing(false)
       setAvatarFile(null) // Reset avatar file after successful upload
       onUpdate()
-    } catch (err: any) {
-      setError(err.message || t('errorUpdate'))
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t('errorUpdate'))
     } finally {
       setIsSaving(false)
     }

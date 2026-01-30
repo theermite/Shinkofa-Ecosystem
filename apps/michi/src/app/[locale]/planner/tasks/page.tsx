@@ -58,8 +58,6 @@ export default function TasksPage() {
         token: token || undefined,
       })
 
-      console.log(`✅ Task Manager API sync configured for user: ${currentUserId}, token: ${token ? 'present' : 'MISSING'}`)
-
       // Load initial data from API and merge with localStorage
       if (loadFromApi && token) {
         loadFromApi().then((apiData) => {
@@ -72,62 +70,49 @@ export default function TasksPage() {
           const localIsEmpty = localTaskCount === 0 && localProjectCount === 0
 
           if (apiData && apiData.lastUpdated) {
-            console.log('✅ Task Manager data loaded from API:', apiData.lastUpdated)
             const localTimestamp = new Date(store.lastUpdated).getTime()
             const apiTimestamp = new Date(apiData.lastUpdated).getTime()
             const apiTaskCount = apiData.tasks?.length || 0
             const apiProjectCount = apiData.projects?.length || 0
             const apiHasData = apiTaskCount > 0 || apiProjectCount > 0
 
-            console.log(`📊 Comparing: API=${apiTimestamp} (${apiTaskCount} tasks, ${apiProjectCount} projects) vs Local=${localTimestamp} (${localTaskCount} tasks, ${localProjectCount} projects)`)
-            console.log(`📊 Local empty: ${localIsEmpty}, API has data: ${apiHasData}`)
-
             // RULE 1: If local is empty but API has data, ALWAYS load from API
             if (localIsEmpty && apiHasData) {
-              console.log('📥 Local is empty but API has data - loading from API (preventing data loss)')
               store.importData(JSON.stringify(apiData))
             }
             // RULE 2: If both have data, use timestamp comparison
             else if (apiTimestamp > localTimestamp) {
-              console.log('📥 API data is newer, updating local store')
               store.importData(JSON.stringify(apiData))
             } else if (apiTimestamp === localTimestamp) {
-              console.log('⚖️ Timestamps equal, no sync needed')
+              // Timestamps equal, no sync needed
             } else if (!localIsEmpty) {
               // RULE 3: Only push to API if local actually has data
-              console.log('📤 Local data is newer and has content, syncing to API...')
               const currentData = { tasks: store.tasks, projects: store.projects, lastUpdated: store.lastUpdated }
               fetch(`/api/v1/widget-data/task-manager/${currentUserId}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ data: currentData })
-              }).then(() => console.log('✅ Local data synced to API'))
-                .catch(err => console.error('❌ Failed to sync to API:', err))
-            } else {
-              console.log('⏭️ Local is empty and API is older - no action needed')
+              }).catch(err => console.error('Failed to sync to API:', err))
             }
+            // else: Local is empty and API is older - no action needed
           } else {
-            console.log('ℹ️ No Task Manager data on server')
-            // Only sync local to API if we actually have data
+            // No Task Manager data on server - sync local to API if we have data
             if (!localIsEmpty) {
-              console.log('📤 Syncing local data to API...')
               const currentData = { tasks: store.tasks, projects: store.projects, lastUpdated: store.lastUpdated }
               fetch(`/api/v1/widget-data/task-manager/${currentUserId}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ data: currentData })
-              }).then(() => console.log('✅ Initial local data synced to API'))
-                .catch(err => console.error('❌ Failed to sync to API:', err))
-            } else {
-              console.log('⏭️ Both local and API are empty - nothing to sync')
+              }).catch(err => console.error('Failed to sync to API:', err))
             }
+            // else: Both local and API are empty - nothing to sync
           }
         }).catch((err) => {
-          console.error('❌ Failed to load Task Manager data from API:', err)
+          console.error('Failed to load Task Manager data from API:', err)
         })
       }
     }).catch((err) => {
-      console.error('❌ Failed to import Task Manager store:', err)
+      console.error('Failed to import Task Manager store:', err)
     })
   }, [isInitialized, userId])
 

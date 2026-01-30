@@ -190,38 +190,29 @@ function QuestionnairePageContent() {
 
   // Super Admin: Go to specific question by number
   function handleGoToQuestion(questionNumber: number) {
-    console.log(`[SuperAdmin] Navigating to question ${questionNumber}`)
-    console.log(`[SuperAdmin] Map size: ${questionNumberMap.size}, flatQuestions: ${flatQuestions.length}`)
-
     // If map is empty but flatQuestions exist, the question number IS the index - 1
     if (questionNumberMap.size === 0 && flatQuestions.length > 0) {
       const index = questionNumber - 1; // Questions are 1-indexed
       if (index >= 0 && index < flatQuestions.length) {
-        console.log(`[SuperAdmin] Using direct index: ${index}`)
         setCurrentIndex(index);
         setShowIntroduction(false);
-        setShowResumeModal(false); // Also close resume modal if open
+        setShowResumeModal(false);
         return;
       }
     }
 
     const index = questionNumberMap.get(questionNumber);
     if (index !== undefined && index >= 0 && index < flatQuestions.length) {
-      console.log(`[SuperAdmin] Found in map, index: ${index}`)
       setCurrentIndex(index);
       setShowIntroduction(false);
-      setShowResumeModal(false); // Also close resume modal if open
+      setShowResumeModal(false);
     } else {
-      console.warn(`[SuperAdmin] Question ${questionNumber} not found in mapping (map size: ${questionNumberMap.size})`);
       // Fallback: try direct index calculation
       const fallbackIndex = questionNumber - 1;
       if (fallbackIndex >= 0 && fallbackIndex < flatQuestions.length) {
-        console.log(`[SuperAdmin] Using fallback index: ${fallbackIndex}`)
         setCurrentIndex(fallbackIndex);
         setShowIntroduction(false);
         setShowResumeModal(false);
-      } else {
-        console.error(`[SuperAdmin] Could not navigate to question ${questionNumber}`)
       }
     }
   }
@@ -231,8 +222,6 @@ function QuestionnairePageContent() {
     if (!sessionId || flatQuestions.length === 0) {
       throw new Error('Session or questions not loaded')
     }
-
-    console.log(`[SuperAdmin] Filling ${flatQuestions.length} questions with random answers`)
 
     // Test data for realistic answers
     const testNames = ['Dupont', 'Martin', 'Bernard', 'Petit', 'Robert']
@@ -351,12 +340,8 @@ function QuestionnairePageContent() {
         }
         await submitAnswer(sessionId, answer)
 
-        // Log progress every 10 questions
-        if ((i + 1) % 10 === 0) {
-          console.log(`[SuperAdmin] Filled ${i + 1}/${flatQuestions.length} questions`)
-        }
       } catch (err) {
-        console.error(`[SuperAdmin] Error submitting Q${i + 1}:`, err)
+        console.error(`Error submitting Q${i + 1}:`, err)
       }
     }
 
@@ -364,8 +349,6 @@ function QuestionnairePageContent() {
     setAnswers(randomAnswers)
     setCurrentIndex(flatQuestions.length - 1) // Go to last question
     setShowIntroduction(false)
-
-    console.log(`[SuperAdmin] Completed filling ${flatQuestions.length} questions`)
   }
 
   // Current question

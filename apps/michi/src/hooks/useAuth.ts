@@ -54,9 +54,7 @@ export function useAuth() {
     if (extractedUserId) {
       localStorage.setItem('userId', extractedUserId)
       setUserIdState(extractedUserId)
-      console.log('✅ User authenticated with ID:', extractedUserId)
     } else {
-      console.warn('⚠️ No userId found, using fallback')
       localStorage.setItem('userId', DEFAULT_USER_ID)
       setUserIdState(DEFAULT_USER_ID)
     }
@@ -84,7 +82,6 @@ export function getUserId(): string | null {
 export function setUserId(userId: string) {
   if (typeof window === 'undefined') return
   localStorage.setItem('userId', userId)
-  console.log('🔑 User ID set:', userId)
 }
 
 /**
@@ -93,7 +90,6 @@ export function setUserId(userId: string) {
 export function clearUserId() {
   if (typeof window === 'undefined') return
   localStorage.removeItem('userId')
-  console.log('🚪 User logged out')
 }
 
 /**

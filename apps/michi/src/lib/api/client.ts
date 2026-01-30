@@ -142,7 +142,6 @@ apiClient.interceptors.response.use(
             throw new Error('No refresh token available')
           }
 
-          console.log('🔄 Refreshing access token...')
           const tokens = await refreshAccessToken(refreshToken)
 
           // Store new tokens
@@ -159,8 +158,6 @@ apiClient.interceptors.response.use(
           // Notify all waiting requests
           onRefreshed(tokens.access_token)
           isRefreshing = false
-
-          console.log('✅ Token refreshed successfully - retrying original request')
 
           // Retry original request with new token
           return apiClient(originalRequest)

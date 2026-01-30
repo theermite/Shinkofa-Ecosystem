@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir /b \"D:\\\\30-Dev-Projects\\\\Shinkofa-Ecosystem\\\\apps\")",
+      "Bash(npm run lint)",
+      "Bash(npx tsc:*)",
+      "Bash(npm audit:*)",
+      "Bash(npm test)",
+      "Bash(git add:*)"
+    ]
+  }
+}

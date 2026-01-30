@@ -61,17 +61,15 @@ export function SuperAdminQuestionsPanel({ onGoToQuestion, onFillRandomAnswers, 
   async function fetchQuestionsIndex() {
     try {
       const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/admin/questions/index`
-      console.log('[SuperAdmin] Fetching questions index from:', apiUrl)
 
       const response = await fetch(apiUrl)
       if (!response.ok) {
         const errorText = await response.text()
-        console.error(`[SuperAdmin] API error ${response.status}:`, errorText)
+        console.error(`API error ${response.status}:`, errorText)
         throw new Error(`Failed to fetch questions index: ${response.status}`)
       }
 
       const data = await response.json()
-      console.log(`[SuperAdmin] Loaded ${data.total_questions} questions`)
       setQuestionsIndex(data)
       setFilteredQuestions(data.questions)
     } catch (error) {

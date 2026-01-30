@@ -46,7 +46,6 @@ function ChatPageContent() {
       }
 
       const data = await response.json()
-      console.log('✅ Conversation créée:', data)
       setConversationId(data.id)
     } catch (err) {
       console.error('❌ Erreur création conversation:', err)

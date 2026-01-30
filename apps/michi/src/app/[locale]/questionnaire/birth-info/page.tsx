@@ -153,7 +153,6 @@ function BirthInfoContent() {
         const tzData = await tzResponse.json()
         if (tzData && tzData.timeZone) {
           detectedTimezone = tzData.timeZone
-          console.log(`✅ Timezone detected from API: ${detectedTimezone}`)
         }
       }
     } catch (tzErr: any) {
@@ -291,9 +290,10 @@ function BirthInfoContent() {
       } else {
         setError(t('errorSaving'))
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error('Submit error:', err)
-      setError(err.response?.data?.detail || t('errorSaving'))
+      const axiosError = err as { response?: { data?: { detail?: string } } }
+      setError(axiosError.response?.data?.detail || t('errorSaving'))
     } finally {
       setIsSubmitting(false)
     }

@@ -34,8 +34,9 @@ export async function getJournalByDate(date: string): Promise<Journal | null> {
   try {
     const response = await apiClient.get<Journal>(`/journals/date/${date}`)
     return response.data
-  } catch (error: any) {
-    if (error.response?.status === 404) {
+  } catch (error) {
+    const axiosError = error as { response?: { status?: number } }
+    if (axiosError.response?.status === 404) {
       return null // No journal for this date
     }
     throw error

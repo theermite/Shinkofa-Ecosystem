@@ -76,9 +76,9 @@ function VerifyEmailContent() {
           setStatus('error')
           setMessage(t('errors.unknownStatus'))
         }
-      } catch (error: any) {
+      } catch (error) {
         setStatus('error')
-        setMessage(error.message || t('errors.connectionError'))
+        setMessage(error instanceof Error ? error.message : t('errors.connectionError'))
       }
     }
 

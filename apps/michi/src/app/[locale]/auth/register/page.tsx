@@ -52,8 +52,8 @@ export default function RegisterPage() {
         password,
         full_name: fullName || undefined,
       })
-    } catch (err: any) {
-      setError(err.message || t('errors.generic'))
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t('errors.generic'))
     } finally {
       setIsLoading(false)
     }

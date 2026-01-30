@@ -25,8 +25,8 @@ export default function ForgotPasswordPage() {
     try {
       await forgotPassword(email)
       setSuccess(true)
-    } catch (err: any) {
-      setError(err.message || 'Une erreur est survenue')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Une erreur est survenue')
     } finally {
       setIsLoading(false)
     }
