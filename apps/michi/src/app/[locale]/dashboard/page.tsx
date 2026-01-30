@@ -11,6 +11,13 @@ const getNeuroScore = (item: { score?: number; score_global?: number } | undefin
   return (item as { score_global?: number }).score_global ?? item.score ?? 0
 }
 
+// Helper to display numerology value (handles both number and object formats)
+const getNumDisplay = (val: number | { value: number; display: string } | undefined): string => {
+  if (val === undefined || val === null) return '0'
+  if (typeof val === 'number') return String(val)
+  return val.display ?? String(val.value ?? 0)
+}
+
 function DashboardContent() {
   const { user } = useAuth()
   const t = useTranslations('dashboard')
@@ -92,7 +99,7 @@ function DashboardContent() {
                   {holisticProfile.numerology && (
                     <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 border border-white/30">
                       <p className="text-white/80 text-xs font-semibold mb-1">{t('holisticProfile.lifePath')}</p>
-                      <p className="text-2xl font-bold">{holisticProfile.numerology.life_path}</p>
+                      <p className="text-2xl font-bold">{getNumDisplay(holisticProfile.numerology.life_path)}</p>
                       <p className="text-sm text-white/80 mt-1">{t('holisticProfile.numerology')}</p>
                     </div>
                   )}
