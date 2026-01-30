@@ -1,0 +1,74 @@
+{
+  "$schema": "https://claude.ai/schemas/mcp-config.json",
+  "description": "Configuration MCP Claude Code - Template Jay The Ermite",
+  "version": "1.0.0",
+
+  "settings": {
+    "toolSearch": {
+      "autoEnable": "auto:15",
+      "description": "Active lazy loading quand outils > 15% du contexte",
+      "savings": "134K → 5K tokens (96% économie)"
+    }
+  },
+
+  "servers": {
+    "github": {
+      "command": "npx",
+      "args": ["@anthropic/mcp-server-github"],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "description": "PRs, issues, CI/CD GitHub",
+      "usage": "Review PR, créer issues, vérifier checks"
+    },
+
+    "filesystem": {
+      "command": "npx",
+      "args": ["@anthropic/mcp-server-filesystem"],
+      "env": {
+        "ALLOWED_PATHS": "${PROJECT_ROOT}"
+      },
+      "description": "Accès filesystem étendu",
+      "usage": "Opérations fichiers avancées"
+    },
+
+    "postgres": {
+      "command": "npx",
+      "args": ["@anthropic/mcp-server-postgres"],
+      "env": {
+        "DATABASE_URL": "${DATABASE_URL}"
+      },
+      "description": "Queries PostgreSQL directes",
+      "usage": "Debug DB, vérifier données",
+      "note": "⚠️ Utiliser avec précaution en prod"
+    },
+
+    "browser": {
+      "command": "npx",
+      "args": ["@anthropic/mcp-server-puppeteer"],
+      "description": "Automation navigateur",
+      "usage": "Tests E2E, screenshots, scraping"
+    },
+
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["@anthropic/mcp-server-sequential-thinking"],
+      "description": "Raisonnement structuré step-by-step",
+      "usage": "Problèmes complexes, debugging difficile"
+    }
+  },
+
+  "notes": {
+    "installation": "Configurer les variables d'environnement avant utilisation",
+    "activation": "claude mcp add <server-name> --scope user",
+    "debug": "claude --mcp-debug pour troubleshooting",
+    "docker": "Voir Docker MCP Toolkit pour installation simplifiée"
+  },
+
+  "recommended_for_projects": {
+    "fullstack": ["github", "postgres", "filesystem"],
+    "website": ["github", "browser"],
+    "tooling": ["github", "filesystem"],
+    "coaching": ["github", "sequential-thinking"]
+  }
+}

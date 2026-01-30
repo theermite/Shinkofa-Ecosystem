@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(if [ -f \"TODO.md\" ])",
+      "Bash(then cat TODO.md)",
+      "Bash(else echo \"Pas de TODO.md\")",
+      "Bash(fi:*)",
+      "Bash(git fetch:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(ssh:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(cmd /c \"dir D:\\\\30-Dev-Projects\\\\ /B /AD\")"
+    ]
+  }
+}

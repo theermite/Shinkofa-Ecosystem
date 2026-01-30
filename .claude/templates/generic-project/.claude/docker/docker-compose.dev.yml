@@ -1,0 +1,92 @@
+# Docker Compose - Override Développement
+# Projet : [Nom Projet]
+#
+# Ce fichier override docker-compose.yml pour l'environnement de développement.
+#
+# Usage:
+#   docker-compose -f .claude/docker/docker-compose.yml -f .claude/docker/docker-compose.dev.yml up -d
+
+version: '3.8'
+
+services:
+  # ============================================
+  # Application - Configuration Dev
+  # ============================================
+  app:
+    build:
+      target: development  # Stage Dockerfile pour dev
+    ports:
+      - "${API_PORT:-8000}:${API_PORT:-8000}"  # Exposer port pour accès direct
+    volumes:
+      # Monter code pour hot-reload
+      - ../../:/app
+      - /app/node_modules  # Éviter écraser node_modules dans container
+      # OU pour Python:
+      # - ../../:/app
+      # - /app/__pycache__
+    environment:
+      - DEBUG=true
+      - LOG_LEVEL=debug
+      - HOT_RELOAD=true
+    command: >
+      sh -c "
+        echo 'Starting in DEVELOPMENT mode...' &&
+        npm run dev
+      "
+      # OU pour Python/FastAPI:
+      # uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+      # OU pour Django:
+      # python manage.py runserver 0.0.0.0:8000
+
+  # ============================================
+  # Database - Configuration Dev
+  # ============================================
+  db:
+    ports:
+      - "${DB_PORT:-5432}:5432"  # Exposer pour accès direct (pgAdmin, DBeaver, etc.)
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust  # UNIQUEMENT EN DEV (pas de password requis)
+
+  # ============================================
+  # Redis - Configuration Dev
+  # ============================================
+  redis:
+    ports:
+      - "${REDIS_PORT:-6379}:6379"  # Exposer pour accès direct (Redis CLI)
+
+  # ============================================
+  # Services additionnels DEV uniquement
+  # ============================================
+
+  # pgAdmin (interface web PostgreSQL)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: ${PROJECT_NAME:-app}_pgadmin
+    restart: unless-stopped
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL:-admin@example.com}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD:-admin}
+      - PGADMIN_CONFIG_SERVER_MODE=False
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - app-network
+    depends_on:
+      - db
+
+  # Mailhog (capture emails en dev)
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: ${PROJECT_NAME:-app}_mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025"  # SMTP
+      - "8025:8025"  # Web UI
+    networks:
+      - app-network
+
+volumes:
+  pgadmin-data:
+    driver: local
