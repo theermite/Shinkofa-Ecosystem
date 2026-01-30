@@ -259,7 +259,9 @@ self.addEventListener('message', (event) => {
 
 ## 👤 Jay — Profil Critique
 
-**Design Humain** : Projecteur Splénique 1/3 | **Neuro** : HPI, Multipotentiel, Hypersensible
+**Design Humain** : Projecteur Splénique 1/3 | **Neuro** : HPI, Multipotentiel, Hypersensible | **⚠️ PAS TDAH**
+
+> **IMPORTANT** : Jay n'a PAS de TDAH. Ne jamais mentionner TDAH dans son profil personnel. Le TDAH apparaît dans les docs uniquement comme **public cible** de Shinkofa, pas comme profil de Jay.
 
 | Besoin | Action Claude |
 |--------|---------------|
@@ -568,4 +570,4 @@ cp -r templates/nextjs-app ~/projets/mon-site
 
 ---
 
-**Version** : 4.1.0 | **Date** : 2026-01-27 | **Nouveautés** : Vibe Coding Professionnel, Standards UI/UX (PWA morphiques + Qt6), Cache Busting, Config SSH Windows, Skill /check-ssh
+**Version** : 4.2.1 | **Date** : 2026-01-30 | **Nouveautés** : Fix profil Jay (⚠️ PAS TDAH explicite)
