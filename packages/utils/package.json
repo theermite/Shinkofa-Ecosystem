@@ -1,0 +1,27 @@
+{
+  "name": "@shinkofa/utils",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shared utility functions for Shinkofa ecosystem",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@shinkofa/types": "workspace:*"
+  },
+  "devDependencies": {
+    "@shinkofa/tsconfig": "workspace:*",
+    "typescript": "^5.3.3"
+  }
+}

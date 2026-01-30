@@ -1,0 +1,21 @@
+{
+  "app": {
+    "title": "Shizen - Compagnon IA",
+    "welcome": "Bienvenue sur Shizen"
+  },
+  "home": {
+    "title": "Bienvenue",
+    "subtitle": "Ton compagnon IA personnalisé",
+    "description": "Shizen s'adapte à ton profil holistique pour t'accompagner au quotidien"
+  },
+  "chat": {
+    "title": "Discute avec Shizen",
+    "placeholder": "Interface de chat à venir"
+  },
+  "energy": {
+    "level": "Niveau d'énergie",
+    "optimal": "Optimal",
+    "low": "Faible",
+    "normal": "Normal"
+  }
+}

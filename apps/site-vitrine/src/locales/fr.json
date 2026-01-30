@@ -1,0 +1,1260 @@
+{
+  "nav": {
+    "laVoie": "La Voie",
+    "home": "Accueil",
+    "ecosystem": "L'Ecosysteme",
+    "presentation": "Presentation",
+    "pricing": "Tarifs",
+    "support": "Soutenir",
+    "pioneers": "Pionniers",
+    "contact": "Contact",
+    "testimonials": "Temoignages"
+  },
+  "home": {
+    "badge": {
+      "title": "OFFRE PIONNIERS ALPHA 2026",
+      "subtitle": "100 Places Limitees",
+      "discount": "-25% a Vie"
+    },
+    "hero": {
+      "title": "Tu te sens",
+      "titleAccent": "different-e",
+      "subtitle": "TDAH ? HPI ? Autiste ? Hypersensible ?",
+      "description": "L'ecosysteme intelligent concu pour accompagner les neurodivergents vers l'epanouissement personnel et professionnel.",
+      "socialProof": "neurodivergents faconnent deja Shinkofa avec nous",
+      "socialProofCount": "150+",
+      "socialProofText": "neurodivergents faconnent deja Shinkofa avec nous",
+      "cta": "Commencer le Questionnaire",
+      "ctaPrimary": "Commencer le Questionnaire",
+      "ctaPrimaryDetails": "Gratuit - 155 questions - ~1h - Sauvegarde auto",
+      "ctaSubtext": "Gratuit - 155 questions - ~1h - Sauvegarde auto",
+      "ctaSecondary": "Decouvrir Shinkofa",
+      "discover": "Decouvrir Shinkofa"
+    },
+    "painPoints": {
+      "title": "Tu te reconnais ?",
+      "subtitle": "Comme des milliers de neurodivergents, tu fais face a ces defis au quotidien...",
+      "exhausted": {
+        "title": "Epuise par les Outils Generiques",
+        "description": "Les apps \"one-size-fits-all\" ignorent ton fonctionnement unique et tes cycles energetiques."
+      },
+      "overload": {
+        "title": "Surcharge Cognitive Constante",
+        "description": "Trop d'outils fragmentes qui epuisent ton attention au lieu de la canaliser efficacement."
+      },
+      "mismatch": {
+        "title": "Decalage Permanent",
+        "description": "Les methodes \"normales\" ne fonctionnent pas pour toi. Sentiment d'etre constamment en decalage."
+      },
+      "disconnect": {
+        "title": "Decalage Permanent",
+        "description": "Les methodes \"normales\" ne fonctionnent pas pour toi. Sentiment d'etre constamment en decalage."
+      },
+      "conclusion": "Et si c'etait enfin la technologie qui s'adaptait a TOI ?",
+      "cta": "Et si c'etait enfin la technologie qui s'adaptait a TOI ?"
+    },
+    "story": {
+      "title": "Qui sommes-nous ?",
+      "subtitle": "Une histoire familiale de neurodivergence, de passion et d'innovation",
+      "p1": "Je m'appelle Jay, et je developpe Shinkofa avec ma compagne Angelique. Nous sommes une famille de 6 personnes (2 parents + 4 enfants), tous neuroatypiques. Ce projet est notre passion mais aussi notre principale source de revenus.",
+      "p2": "En tant que Projecteur Splenique 1/3, HPI multipotentiel, j'ai cree Shinkofa parce que j'avais besoin d'un outil qui comprenne reellement mon fonctionnement unique. Si ce projet te parle, c'est probablement parce que toi aussi, tu fonctionnes differemment.",
+      "p3": "Nous croyons en la diversite des sources de revenus : vos abonnements financent le developpement des fonctionnalites, mais vos dons nous permettent de prendre des risques creatifs, d'experimenter, et d'ajouter des fonctionnalites audacieuses."
+    },
+    "solution": {
+      "title": "La Solution Shinkofa",
+      "adapted": {
+        "title": "Adapte a Ton Cerveau",
+        "description": "Une technologie qui s'adapte a TON fonctionnement unique, pas l'inverse. Fini les solutions generiques."
+      },
+      "empathetic": {
+        "title": "Intelligence Empathique",
+        "description": "Une IA qui comprend tes cycles energetiques, respecte tes limites et celebre tes victoires."
+      },
+      "empathic": {
+        "title": "Intelligence Empathique",
+        "description": "Une IA qui comprend tes cycles energetiques, respecte tes limites et celebre tes victoires."
+      },
+      "evolution": {
+        "title": "Evolution Continue",
+        "description": "Plus tu l'utilises, mieux il te connait. Un compagnon qui grandit avec toi."
+      }
+    },
+    "pricing": {
+      "title": "Un Investissement Accessible",
+      "subtitle": "Une alternative intelligente et abordable a la therapie traditionnelle",
+      "therapy": {
+        "title": "Therapie Traditionnelle",
+        "item1": "400-800EUR pour 1 analyse de profil",
+        "item2": "Rendez-vous espaces (3-4 semaines)",
+        "item3": "Approche generique, peu adaptee aux neurodivergents",
+        "item4": "Pas de suivi quotidien ni d'outils pratiques",
+        "point1": "400-800EUR pour 1 analyse de profil",
+        "point2": "Rendez-vous espaces (3-4 semaines)",
+        "point3": "Approche generique, peu adaptee aux neurodivergents",
+        "point4": "Pas de suivi quotidien ni d'outils pratiques"
+      },
+      "shinkofa": {
+        "title": "Ecosysteme Shinkofa",
+        "price": "19,99EUR",
+        "perMonth": "/mois",
+        "period": "/mois",
+        "plan": "Samurai Plan (offre complete)",
+        "item1": "Profil holistique complet (152 questions)",
+        "item2": "IA compagnon disponible 24/7",
+        "item3": "Planner intelligent adapte a ton energie",
+        "item4": "Concu PAR et POUR les neurodivergents",
+        "item5": "Communaute bienveillante incluse",
+        "point1": "<strong>Profil holistique complet</strong> (152 questions)",
+        "point2": "<strong>IA compagnon</strong> disponible 24/7",
+        "point3": "<strong>Planner intelligent</strong> adapte a ton energie",
+        "point4": "Concu PAR et POUR les neurodivergents",
+        "point5": "Communaute bienveillante incluse"
+      }
+    },
+    "pioneers": {
+      "title": "Offre Pionniers Alpha 2026",
+      "subtitle": "Sois parmi les <strong>100 premiers</strong> et beneficie d'avantages <strong>a VIE</strong>",
+      "remaining": "PLACES RESTANTES",
+      "releasedDate": "Places liberees le 20 janvier 2026",
+      "counter": {
+        "label": "PLACES RESTANTES",
+        "value": "100 / 100",
+        "releaseDate": "Places liberees le 20 janvier 2026"
+      },
+      "benefits": {
+        "discount": {
+          "title": "-25% a Vie (Prix Fige)",
+          "description": "14,99EUR/mois au lieu de 19,99EUR pour toujours"
+        },
+        "badge": {
+          "title": "Badge Pionnier Numerote",
+          "description": "Badge unique #001 a #100 sur ton profil"
+        },
+        "calls": {
+          "title": "Visioconferences Exclusives",
+          "description": "Rencontres mensuelles avec Jay (jan-juin 2026)"
+        },
+        "visio": {
+          "title": "Visioconferences Exclusives",
+          "description": "Rencontres mensuelles avec Jay (jan-juin 2026)"
+        },
+        "influence": {
+          "title": "Influence sur le Developpement",
+          "description": "Votes prioritaires, acces betas, feedback direct"
+        }
+      },
+      "cta": "Devenir Pionnier Alpha",
+      "availability": "Offre disponible du 20 janvier au 3 fevrier 2026"
+    },
+    "testimonials": {
+      "title": "Ils Temoignent",
+      "subtitle": "Des neurodivergents partagent leur experience avec Shinkofa",
+      "alex": {
+        "name": "Alex",
+        "profile": "TDAH, 28 ans",
+        "quote": "Enfin une approche qui ne me demande pas de me forcer dans des methodes neurotypiques. Le questionnaire m'a aide a mieux comprendre mon fonctionnement."
+      },
+      "sarah": {
+        "name": "Sarah",
+        "profile": "Autiste, 34 ans",
+        "quote": "La communaute Telegram est bienveillante et je me sens enfin comprise. Shinkofa place la neurodiversite au centre, pas en peripherie."
+      },
+      "jordan": {
+        "name": "Jordan",
+        "profile": "HPI + Hypersensible, 25 ans",
+        "quote": "Le questionnaire holistique m'a fait prendre conscience de patterns que je n'avais jamais identifies. J'ai hate de voir l'ecosysteme complet."
+      }
+    },
+    "howItWorks": {
+      "title": "Comment Ca Marche ?",
+      "step1": {
+        "title": "Reponds au Questionnaire",
+        "description": "155 questions holistiques (~1h) pour cerner ton profil unique : energie, cognition, neurodivergence, valeurs. Tu peux sauvegarder ta progression et revenir plus tard."
+      },
+      "step2": {
+        "title": "Rejoins la Communaute",
+        "description": "Partage tes experiences, entraide avec d'autres neurodivergents et co-cree l'ecosysteme sur Telegram."
+      },
+      "step3": {
+        "title": "Accede a l'Ecosysteme",
+        "description": "Beta-testeurs prioritaires : acces anticipe aux outils (Compagnon IA, Planeur, Suite creative)."
+      }
+    },
+    "faq": {
+      "title": "Questions Frequentes",
+      "subtitle": "Tout ce que tu dois savoir avant de commencer",
+      "q1": {
+        "question": "Est-ce que Shinkofa est reellement adapte aux neurodivergents ?",
+        "answer": "Absolument. Shinkofa a ete cree PAR un neurodivergent qui est coach depuis bientot 15 ans et qui est un passionne de la comprehension de l'humain. Jay (Projecteur Splenique 1/3, HPI multipotentiel) a cree Shinkofa POUR les neurodivergents. Toute notre famille de 6 personnes est neuroatypique. Nous vivons les defis que tu rencontres quotidiennement. Chaque fonctionnalite est pensee pour respecter tes cycles energetiques, ta surcharge cognitive, et ton fonctionnement unique."
+      },
+      "q2": {
+        "question": "Je n'ai pas le temps de repondre a 155 questions...",
+        "answer": "On comprend. Le questionnaire complet prend environ 1 heure. Mais tu peux le faire en plusieurs sessions : le questionnaire sauvegarde automatiquement ta progression. Rien ne t'oblige a tout remplir en une seule fois. Et cette heure te permettra de mieux te comprendre pendant des ANNEES. Un investissement minime pour un impact maximal."
+      },
+      "q3": {
+        "question": "Mes donnees sont-elles securisees ?",
+        "answer": "Oui, a 100%. Tes donnees t'appartiennent. Hebergement europeen (RGPD), chiffrement end-to-end. Tes donnees ne seront jamais revendues ou utilisees a des fins commerciales. SI cette regle change, tous les utilisateurs seront prevenus et ca ne sera utilise qu'avec le consentement explicite de l'utilisateur. Tu peux exporter ou supprimer tes donnees a tout moment. Nous respectons ta souverainete numerique."
+      },
+      "q4": {
+        "question": "Pourquoi payer alors que des apps gratuites existent ?",
+        "answer": "Les apps gratuites vendent tes donnees ou t'inondent de publicites. Shinkofa est ethique : ton abonnement finance le developpement des fonctionnalites, pas la revente de tes informations personnelles. Nous croyons en un modele transparent : tu payes pour un service de qualite, pas pour etre le produit. Sur la Voie Shinkofa, l'utilisateur ne sera jamais le produit, il sera reconnu pour son individualite."
+      },
+      "q5": {
+        "question": "Quand l'ecosysteme complet sera-t-il disponible ?",
+        "answer": "Shinkofa est en developpement actif. Le questionnaire holistique est deja fonctionnel. L'IA Shizen et le Planner intelligent arrivent progressivement. En t'inscrivant maintenant, tu deviens beta-testeur prioritaire et influences le developpement. Les Pionniers Alpha auront un acces anticipe a toutes les fonctionnalites."
+      },
+      "q6": {
+        "question": "Et si je ne suis pas satisfait-e ?",
+        "answer": "Garantie satisfait ou rembourse 30 jours. Si Shinkofa ne te convient pas, nous te remboursons integralement, sans poser de questions. Nous voulons que tu sois pleinement convaincu-e de la valeur de notre ecosysteme."
+      }
+    },
+    "afterQuestionnaire": {
+      "title": "Apres le Questionnaire ?",
+      "subtitle": "Decouvre comment tes reponses deviennent ton manuel holistique personnalise",
+      "step1": {
+        "title": "Fin du Questionnaire : Compte Cree Automatiquement",
+        "description": "Lorsque tu termines le questionnaire, ton compte est cree automatiquement. Toutes tes reponses sont sauvegardees dans ton profil."
+      },
+      "step2": {
+        "title": "Dashboard : Accede a Toutes tes Reponses",
+        "description": "Connecte-toi a ton dashboard pour consulter l'integralite de tes reponses, ton profil holistique complet et tes insights personnalises."
+      },
+      "step3": {
+        "title": "Shizen IA : Genere ton Manuel Holistique",
+        "description": "Utilise Shizen, notre IA empathique, pour generer ton manuel holistique personnalise base sur tes reponses et obtenir des insights profonds sur ton profil unique."
+      },
+      "step4": {
+        "title": "Planner Intelligent : Organise ta Vie",
+        "description": "Accede au Planner intelligent qui s'adapte a tes cycles energetiques et ton fonctionnement unique pour t'aider a organiser tes taches, projets et rituels."
+      }
+    },
+    "community": {
+      "title": "Rejoins la Communaute Shinkofa",
+      "description": "partagent deja leurs experiences, s'entraident et co-creent l'ecosysteme.",
+      "count": "150+ neurodivergents",
+      "telegram": "Rejoindre le Telegram",
+      "telegramBtn": "Rejoindre le Telegram",
+      "discord": "Rejoindre le Discord",
+      "discordBtn": "Rejoindre le Discord",
+      "support": "Soutenir le Projet",
+      "supportBtn": "Soutenir le Projet"
+    },
+    "cta": {
+      "title": "Pret-e a Commencer ?",
+      "description": "Reponds au questionnaire pour recevoir ton <strong>manuel holistique personnalise</strong> genere par Shizen et co-creer l'ecosysteme Shinkofa.",
+      "button": "Repondre au Questionnaire",
+      "subtext": "Gratuit - 155 questions - ~1h - Sauvegarde auto - Donnees securisees",
+      "buttonDetails": "Gratuit - 155 questions - ~1h - Sauvegarde auto - Donnees securisees"
+    },
+    "philosophy": {
+      "japanese": "Shin-Ko-Fa",
+      "quote": "Chaque pas authentique sur ton chemin unique est plus precieux que mille pas empruntes sur le chemin d'un autre."
+    }
+  },
+  "presentation": {
+    "intro": {
+      "title": "Hey toi, cerveau atypique !",
+      "subtitle": "Encore une app qui promet de \"revolutionner ta productivite\"...",
+      "uniqueBrain": {
+        "title": "Ton Cerveau Unique",
+        "description": "On le sait tous les deux : tu fonctionnes differemment. Et devine quoi ? C'est exactement pour ca qu'on a cree Shinkofa."
+      },
+      "promise": {
+        "title": "Notre Promesse",
+        "description": "Plus d'adaptation forcee ! Ici, c'est la technologie qui s'adapte a TOI. Sagesse ancestrale + IA empathique = revolution."
+      },
+      "imagine": "Imagine un instant",
+      "imagineText": "un compagnon digital qui comprend tes cycles energetiques, respecte tes hypersensibilites, et celebre tes forces au lieu de corriger tes \"defauts\".",
+      "thisShinkofa": "C'est ca, Shinkofa.",
+      "ecosystem": "L'ecosysteme qui revele enfin tout ton potentiel."
+    },
+    "intro": {
+      "title": "Hey toi, cerveau atypique !",
+      "subtitle": "Encore une app qui promet de \"revolutionner ta productivite\"...",
+      "uniqueBrain": {
+        "title": "Ton Cerveau Unique",
+        "description": "On le sait tous les deux : tu fonctionnes differemment. Et devine quoi ? C'est exactement pour ca qu'on a cree Shinkofa."
+      },
+      "promise": {
+        "title": "Notre Promesse",
+        "description": "Plus d'adaptation forcee ! Ici, c'est la technologie qui s'adapte a TOI. Sagesse ancestrale + IA empathique = revolution."
+      },
+      "imagine": {
+        "intro": "Imagine un instant",
+        "description": " un compagnon digital qui comprend tes cycles energetiques, respecte tes hypersensibilites, et celebre tes forces au lieu de corriger tes \"defauts\".",
+        "conclusion": "C'est ca, Shinkofa."
+      }
+    },
+    "challenge": {
+      "title": "Le Defi Neurodivergent",
+      "subtitle": "Deja teste 47 apps de productivite sans succes ?",
+      "organization": {
+        "title": "Defis d'Organisation",
+        "description": "Planners rigides inadaptes aux cycles energetiques variables et aux priorites changeantes."
+      },
+      "overload": {
+        "title": "Surcharge Cognitive",
+        "description": "Outils multiples qui fragmentent l'attention au lieu de la canaliser efficacement."
+      },
+      "cognitive": {
+        "title": "Surcharge Cognitive",
+        "description": "Outils multiples qui fragmentent l'attention au lieu de la canaliser efficacement."
+      },
+      "misunderstanding": {
+        "title": "Incomprehension Sociale",
+        "description": "Conseils generiques qui ignorent les specificites du fonctionnement neurodivergent."
+      },
+      "social": {
+        "title": "Incomprehension Sociale",
+        "description": "Conseils generiques qui ignorent les specificites du fonctionnement neurodivergent."
+      },
+      "result": {
+        "label": "Resultat :",
+        "description": "Frustration, epuisement, sentiment d'etre en decalage permanent avec les methodes \"classiques\"."
+      },
+      "resultText": "Frustration, epuisement, sentiment d'etre en decalage permanent avec les methodes \"classiques\"."
+    },
+    "mission": {
+      "title": "Notre Mission",
+      "mainText": "Creer le premier OS de vie holistique",
+      "description": "parfaitement adapte aux profils neurodivergents et a l'individu singulier.",
+      "details": "Shinkofa fusionne coaching ontologique, transcognitif et somatique avec un ecosysteme digital intelligent. Une revolution douce de la transformation personnelle, ou sagesse ancestrale et technologie empathique se rencontrent."
+    },
+    "philosophy": {
+      "title": "Nos Fondations Philosophiques",
+      "sankofa": {
+        "icon": "🌍",
+        "title": "Sankofa",
+        "quote": "\"Retourne et va chercher\"",
+        "description": " - Sagesse ancestrale Akan qui honore le passe pour eclairer l'avenir. Reconciliation memorielle et ancrage identitaire."
+      },
+      "bushido": {
+        "icon": "⚔️",
+        "title": "Bushido",
+        "description": "Le code des samourais structure notre ethique : Rectitude, Courage, Bienveillance, Respect, Sincerite, Honneur, Loyaute."
+      },
+      "jedi": {
+        "icon": "✨",
+        "title": "Philosophie Jedi",
+        "description": "Maitrise de soi, connexion a la Force vitale, equilibre entre sagesse et action. La voie du guerrier spirituel moderne."
+      }
+    },
+    "revolution": {
+      "title": "Notre Revolution : La Tech qui S'Adapte",
+      "subtitle": "Et si c'etait enfin a la technologie de se plier a TON fonctionnement ?",
+      "personalization": {
+        "icon": "🎨",
+        "title": "Personnalisation Extreme",
+        "description": "Ton interface, tes regles, tes couleurs, ton rythme. Zero compromis sur ce dont tu as besoin."
+      },
+      "empathy": {
+        "icon": "❤️",
+        "title": "Intelligence Empathique",
+        "description": "Une IA qui sent quand tu es fatigue-e, respecte tes limites et celebre tes victoires."
+      },
+      "evolution": {
+        "icon": "🌱",
+        "title": "Evolution Mutuelle",
+        "description": "Plus tu l'utilises, mieux il te connait. Un compagnon qui grandit avec toi, pas contre toi."
+      },
+      "conclusion": {
+        "bold": "Fini de te forcer dans des moules inadaptes.",
+        "text": "Shinkofa place ta neurodivergence au centre, pas en peripherie."
+      },
+      "conclusionText": "Shinkofa place ta neurodivergence au centre, pas en peripherie."
+    },
+    "triDimensional": {
+      "title": "L'Approche Tri-Dimensionnelle",
+      "subtitle": "Transformation complete Corps-Esprit-Etre",
+      "somatic": {
+        "title": "Coaching Somatique",
+        "description": "Reconnexion au corps, gestion des sensations, liberation des tensions. Ton corps comme allie de transformation."
+      },
+      "transcognitive": {
+        "title": "Coaching Transcognitif",
+        "description": "Metacognition, patterns de pensee, neurodivergence celebree. Comprendre comment TU penses pour optimiser ton potentiel."
+      },
+      "ontological": {
+        "title": "Coaching Ontologique",
+        "description": "Identite profonde, valeurs, sens de vie. Qui es-tu vraiment, au-dela des masques sociaux ?"
+      }
+    },
+    "ecosystem": {
+      "title": "L'Ecosysteme Holistique",
+      "companion": {
+        "title": "Le Compagnon IA",
+        "description": "Coaching personnalise, analyse comportementale, soutien emotionnel. Plus qu'un assistant : un veritable compagnon de route."
+      },
+      "planner": {
+        "title": "Le Planeur Intelligent",
+        "description": "Planification intuitive qui s'adapte a tes cycles energetiques. Ton agenda qui anticipe tes besoins."
+      },
+      "community": {
+        "title": "Communaute Bienveillante",
+        "description": "Reseau de pairs neurodivergents pour partage d'experiences et entraide mutuelle."
+      },
+      "sovereignty": {
+        "title": "Souverainete Numerique",
+        "description": "Tes donnees t'appartiennent. Chiffrement end-to-end, hebergement ethique, controle total."
+      }
+    },
+    "status": {
+      "title": "Statut Actuel du Projet",
+      "description": "Shinkofa est actuellement en phase de developpement actif. Nous construisons les fondations de cet ecosysteme holistique avec passion et rigueur.",
+      "questionnaire": "En repondant au questionnaire, tu recois ton manuel holistique personnalise genere par Shizen (notre IA). Tes reponses t'aident a mieux te comprendre ET nous aident a ajuster Shinkofa selon les besoins reels des neurodivergents."
+    },
+    "cta": {
+      "title": "Rejoins l'Aventure Shinkofa",
+      "description": "Ta legende commence maintenant. Reponds au questionnaire pour recevoir ton manuel holistique personnalise et contribue a faconner l'ecosysteme qui revelera ton plein potentiel.",
+      "questionnaire": "Repondre au Questionnaire",
+      "offers": "Decouvrir les Offres"
+    }
+  },
+  "ecosystem": {
+    "hero": {
+      "title": "L'Ecosysteme Shinkofa",
+      "subtitle": "Un ensemble d'applications interconnectees concues pour accompagner les neurodivergents vers l'epanouissement personnel et professionnel",
+      "ctaPrimary": "Decouvrir Michi Shinkofa",
+      "ctaQuestionnaire": "Faire votre questionnaire gratuitement",
+      "ctaSupport": "Soutenir le projet"
+    },
+    "shizen": {
+      "title": "Shizen IA",
+      "subtitle": "Coeur Adaptatif de l'Ecosysteme",
+      "description": "L'intelligence artificielle holistique qui comprend ton profil complet (Design Humain, neurodivergence, cycles energetiques) et orchestre tous les outils Shinkofa pour s'adapter a TOI.",
+      "status": "En ligne (Beta)",
+      "feature1": {
+        "title": "Profilage Holistique",
+        "description": "Integre Design Humain, neurodivergence (TDAH, TSA, HPI), cycles energetiques et preferences personnelles"
+      },
+      "feature2": {
+        "title": "Delegation Intelligente",
+        "description": "Optimise automatiquement les workflows entre KAIDA (execution) et TAKUMI (creation) selon ton profil"
+      },
+      "feature3": {
+        "title": "Adaptation Continue",
+        "description": "Apprend de tes patterns, respecte tes limites, celebre tes victoires"
+      },
+      "feature4": {
+        "title": "Contexte Complet",
+        "description": "Vision unifiee sur calendrier, famille, gaming, coaching, journal - zero repetition"
+      }
+    },
+    "michi": {
+      "title": "Michi Shinkofa",
+      "subtitle": "Hub Central - Plateforme Holistique",
+      "description": "La plateforme centrale qui regroupe tous les modules essentiels de ton quotidien, avec une interface morphique qui s'adapte a ton profil neurodivergent.",
+      "calendar": {
+        "title": "Calendrier Morphique",
+        "status": "En ligne",
+        "description": "Calendrier intelligent adapte a ton Design Humain et tes cycles energetiques",
+        "feature1": "Time-blocking automatique selon ton energie",
+        "feature2": "Synchronisation calendriers externes (Google, Outlook)",
+        "feature3": "Vue par projets, rituels, cycles"
+      },
+      "coaching": {
+        "title": "Coaching Holistique",
+        "status": "En ligne",
+        "description": "Sessions coaching integrees avec Shizen IA pour transformation tri-dimensionnelle",
+        "feature1": "Coaching ontologique (identite, valeurs)",
+        "feature2": "Coaching transcognitif (metacognition, patterns)",
+        "feature3": "Coaching somatique (corps, sensations)",
+        "cta": "Faire le questionnaire"
+      },
+      "planner": {
+        "title": "Planner Intelligent",
+        "status": "En ligne",
+        "description": "Planification adaptative qui respecte tes cycles et ton fonctionnement unique",
+        "feature1": "Gestion projets et taches TDAH-friendly",
+        "feature2": "Priorisation dynamique selon energie",
+        "feature3": "Rappels intelligents contextuels",
+        "cta": "Acceder au Planner"
+      },
+      "family": {
+        "title": "Kazoku Hub (Famille)",
+        "status": "Integration",
+        "description": "Organisation familiale avec coordination garde alternee et co-parentalite",
+        "feature1": "Calendrier garde partage",
+        "feature2": "Routines enfants personnalisees",
+        "feature3": "Communication parents apaisee"
+      },
+      "gaming": {
+        "title": "Gemu Dojo (Gaming)",
+        "status": "Integration",
+        "description": "Training gaming PC + Mobile avec optimisation performance",
+        "feature1": "Exercices cognitifs gamifies",
+        "feature2": "Optimisation setup/FPS/latence",
+        "feature3": "Suivi progression competences"
+      },
+      "social": {
+        "title": "Nakama Hub (Social)",
+        "status": "Integration",
+        "description": "Reseau social interne pour collaboration et coordination multi-utilisateurs",
+        "feature1": "Partage calendriers entre utilisateurs",
+        "feature2": "Shizen suggere creneaux reunion optimaux",
+        "feature3": "Coordination projets collaboratifs"
+      }
+    },
+    "apps": {
+      "title": "Applications Separees",
+      "subtitle": "Outils specialises complementaires a Michi Shinkofa",
+      "hibiki": {
+        "title": "Hibiki Dictate",
+        "category": "Productivite",
+        "status": "En developpement (alpha interne)",
+        "description": "Dictee vocale multilingue IA pour capture rapide d'idees",
+        "platforms": "Desktop Windows/Linux (Qt6)",
+        "feature1": "Transcription temps reel FR/EN/ES",
+        "feature2": "Export TXT/PDF/DOCX",
+        "feature3": "Fonctionne 100% hors-ligne"
+      },
+      "sakusei": {
+        "title": "Sakusei Studio",
+        "category": "Creation Contenu",
+        "status": "Planifie",
+        "description": "Suite creation contenu multimedia (podcast, video, blog)",
+        "platforms": "PWA Web + Desktop",
+        "feature1": "Creation/edition podcast et video",
+        "feature2": "Gestion publication cross-platform",
+        "feature3": "Templates TDAH-friendly"
+      },
+      "hikari": {
+        "title": "Hikari Stream",
+        "category": "Streaming",
+        "status": "Planifie",
+        "description": "Plateforme streaming multi-plateforme (Twitch/YouTube/TikTok)",
+        "platforms": "Desktop + Web",
+        "feature1": "Multi-stream simultanees",
+        "feature2": "Chat unifie multi-plateforme",
+        "feature3": "Analytics post-stream"
+      },
+      "slf": {
+        "title": "SLF eSport",
+        "category": "Gaming Pro",
+        "status": "Partenaire Shinkofa",
+        "description": "Academie formation gaming professionnelle en collaboration avec Gauthier",
+        "platforms": "PWA Web",
+        "feature1": "Formation gaming competitive",
+        "feature2": "Community building",
+        "feature3": "Competitions organisees",
+        "cta": "Visiter SLF eSport"
+      },
+      "communication": {
+        "title": "Musubu Hub + Tegami Mail + Kaigi Meet",
+        "category": "Communication",
+        "status": "Planifies",
+        "description": "Ecosysteme communication complet",
+        "platforms": "Desktop + PWA Web",
+        "feature1": "Messaging multi-plateformes unifie",
+        "feature2": "Client email intelligent",
+        "feature3": "Visio integree avec enregistrement",
+        "tegami": "Client email natif",
+        "musubu": "Hub messaging unifie",
+        "kaigi": "Visioconference integree"
+      },
+      "productivity": {
+        "title": "Jimu Suite + Dezain Suite",
+        "category": "Bureautique & Creativite",
+        "status": "Vision long-terme",
+        "description": "Suite complete bureautique et creative",
+        "platforms": "Desktop principal (Qt6), PWA web secondaire",
+        "feature1": "Alternative Office complete",
+        "feature2": "Compatible formats standards",
+        "feature3": "Outils graphiques professionnels",
+        "kodo": "Hub developpement",
+        "kankei": "CRM integre",
+        "jimu": "Suite bureautique",
+        "dezain": "Suite creative"
+      },
+      "media": {
+        "title": "Media Kura + Administration",
+        "category": "Media & Systeme",
+        "status": "Vision long-terme",
+        "description": "Hub media et outils systeme",
+        "platforms": "Desktop principal (Qt6), PWA web secondaire",
+        "feature1": "Bibliotheque media personnelle",
+        "feature2": "Integration services externes",
+        "feature3": "Administration systeme",
+        "kura": "Bibliotheque media",
+        "tobira": "Launcher Android",
+        "admin": "Admin Windows/Linux"
+      },
+      "shinOS": {
+        "title": "Shin OS",
+        "category": "Systeme d'exploitation",
+        "status": "Revolution finale",
+        "description": "OS proprietaire complet (base Linux) avec morphisme universel",
+        "platforms": "Desktop",
+        "feature1": "Souverainete digitale complete",
+        "feature2": "Morphisme natif dans tout l'OS",
+        "feature3": "Ecosysteme Shinkofa integre"
+      }
+    },
+    "roadmap": {
+      "title": "Notre Feuille de Route",
+      "subtitle": "Construction progressive de l'ecosysteme, au rythme de ton evolution",
+      "priority1": {
+        "title": "Actuellement Disponible",
+        "items": "Les outils essentiels pour commencer ton parcours : ton profil holistique, ton calendrier adapte, ta planification intelligente, et ton compagnon IA Shizen qui t'accompagne au quotidien."
+      },
+      "priority2": {
+        "title": "Prochaines Etapes",
+        "items": "Outils de creation et visibilite pour partager ton unicite : studio de creation contenu, plateforme de streaming, et espaces pour exprimer ta creativite."
+      },
+      "priority3": {
+        "title": "Connexions et Collaboration",
+        "items": "Espaces pour te connecter avec d'autres neurodivergents, coordonner ta vie familiale, et collaborer sur des projets communs dans un environnement adapte."
+      },
+      "priority4": {
+        "title": "Vision Long Terme",
+        "items": "Un ecosysteme complet avec outils de communication, suites bureautiques adaptees, et a terme un systeme d'exploitation concu pour les neurodivergents."
+      }
+    },
+    "vision": {
+      "title": "Notre Vision",
+      "description": "Creer un ecosysteme complet ou chaque neurodivergent trouve les outils, le soutien et la communaute dont il a besoin pour s'epanouir pleinement.",
+      "personalization": {
+        "title": "Adapte a Toi",
+        "description": "Chaque outil s'adapte a ton profil unique, ton energie, tes cycles"
+      },
+      "interconnection": {
+        "title": "Tout Connecte",
+        "description": "Tous les outils travaillent ensemble pour te simplifier la vie"
+      },
+      "kindness": {
+        "title": "Bienveillance",
+        "description": "Un espace safe, sans jugement, qui celebre ta singularite"
+      }
+    },
+    "cta": {
+      "title": "Rejoins l'Ecosysteme Shinkofa",
+      "subtitle": "Commence par Michi Shinkofa - la plateforme centrale deja en ligne",
+      "discover": "Decouvrir Michi Shinkofa",
+      "questionnaire": "Faire le questionnaire gratuitement",
+      "support": "Soutenir le projet"
+    }
+  },
+  "contact": {
+    "title": "Contacte-nous",
+    "subtitle": "Rejoins la communaute ou envoie-nous un message. Nous sommes la pour t'accompagner.",
+    "joinCommunity": "Rejoins la Communaute",
+    "telegram": {
+      "title": "Telegram",
+      "description": "150+ neurodivergents partagent leurs experiences, s'entraident et co-creent l'ecosysteme au quotidien.",
+      "cta": "Rejoindre le Telegram"
+    },
+    "discord": {
+      "title": "Discord",
+      "description": "Serveur Discord pour des conversations plus structurees, des evenements communautaires et du support en temps reel.",
+      "cta": "Rejoindre le Discord"
+    },
+    "email": {
+      "title": "Email Direct",
+      "description": "Pour les questions privees ou les partenariats :"
+    },
+    "form": {
+      "title": "Envoie-nous un Message",
+      "name": "Nom",
+      "namePlaceholder": "Ton nom ou pseudonyme",
+      "emailLabel": "Email",
+      "emailPlaceholder": "ton.email@exemple.com",
+      "subject": "Sujet",
+      "subjectPlaceholder": "Selectionne un sujet",
+      "subjectOptions": {
+        "support": "Support technique",
+        "subscription": "Question sur l'abonnement",
+        "feedback": "Feedback / Suggestion",
+        "partnership": "Partenariat",
+        "media": "Presse / Media",
+        "other": "Autre"
+      },
+      "message": "Message",
+      "messagePlaceholder": "Decris ta question ou ta demande...",
+      "submit": "Envoyer le message",
+      "submitting": "Envoi en cours...",
+      "responseTime": "Nous repondons generalement sous 48h",
+      "error": "Une erreur est survenue. Merci de reessayer."
+    },
+    "success": {
+      "title": "Message envoye !",
+      "description": "Merci pour ton message ! Nous te repondrons dans les plus brefs delais (generalement sous 48h).",
+      "another": "Envoyer un autre message"
+    },
+    "faq": {
+      "title": "Questions Frequentes",
+      "q1": {
+        "question": "Quelle est la difference entre Telegram et Discord ?",
+        "answer": "Telegram est plus informel et actif au quotidien (discussions spontanees, partages rapides). Discord est structure en salons thematiques, ideal pour les evenements et le support organise."
+      },
+      "q2": {
+        "question": "Combien de temps pour recevoir une reponse ?",
+        "answer": "Formulaire de contact : sous 48h en semaine. Communautes : souvent en quelques minutes/heures grace a l'entraide communautaire."
+      },
+      "q3": {
+        "question": "Mes coordonnees sont-elles securisees ?",
+        "answer": "Oui ! Toutes les donnees sont chiffrees et conformes RGPD. Nous n'utilisons jamais tes coordonnees a des fins commerciales."
+      },
+      "q4": {
+        "question": "Dois-je m'abonner pour rejoindre la communaute ?",
+        "answer": "Non ! L'acces aux communautes Telegram et Discord est 100% gratuit pour tous."
+      }
+    }
+  },
+  "support": {
+    "title": "Soutenez la Voie Shinkofa",
+    "subtitle": "Aidez-nous a creer des outils qui transforment la vie des neurodivergents",
+    "whoWeAre": {
+      "title": "Qui sommes-nous ?",
+      "p1": "Je m'appelle Jay, et je developpe Shinkofa avec ma compagne Angelique. Nous sommes une famille de 6 personnes (2 parents + 4 enfants), tous neuroatypiques. Ce projet est notre passion mais aussi notre principale source de revenus.",
+      "p2": "En tant que Projecteur Splenique 1/3, HPI multipotentiel, j'ai cree Shinkofa parce que j'avais besoin d'un outil qui comprenne reellement mon fonctionnement unique. Si ce projet vous parle, c'est probablement parce que vous aussi, vous fonctionnez differemment.",
+      "p3": "Nous croyons en la diversite des sources de revenus : vos abonnements financent le developpement des fonctionnalites, mais vos dons nous permettent de prendre des risques creatifs, d'experimenter, et d'ajouter des fonctionnalites audacieuses."
+    },
+    "impact": {
+      "title": "A quoi servent vos dons ?",
+      "rd": {
+        "title": "Recherche & Developpement",
+        "description": "Experimentation de nouvelles fonctionnalites, integration d'IA avancees, amelioration continue des algorithmes de Design Humain."
+      },
+      "design": {
+        "title": "Design & Accessibilite",
+        "description": "Amelioration de l'UX, accessibilite WCAG AAA, design inclusif pour tous les types de neurodivergence."
+      },
+      "content": {
+        "title": "Contenus Educatifs",
+        "description": "Creation de guides, tutoriels video, articles de blog, formations gratuites sur le Design Humain et la neurodivergence."
+      },
+      "community": {
+        "title": "Communaute & Soutien",
+        "description": "Organisation d'evenements, moderation de la communaute, soutien direct aux utilisateurs dans leur parcours."
+      }
+    },
+    "howToSupport": {
+      "title": "Comment nous soutenir ?",
+      "oneTime": {
+        "title": "Don Unique",
+        "description": "Un coup de pouce ponctuel via PayPal. Chaque euro compte !",
+        "cta": "Donner via PayPal"
+      },
+      "monthly": {
+        "title": "Soutien Mensuel",
+        "description": "Devenez Patreon et soutenez-nous chaque mois. Acces a du contenu exclusif !",
+        "cta": "Devenir Patreon"
+      },
+      "transparency": {
+        "title": "Transparence & Reconnaissance",
+        "item1": "Tous nos supporters sont publiquement remercies (avec consentement)",
+        "item2": "Les donateurs ont une influence sur le developpement (votes fonctionnalites)",
+        "item3": "Rapports financiers transparents des creation de l'association 1901 (en cours)"
+      }
+    },
+    "noMoney": {
+      "title": "Vous n'avez pas les moyens ? Vous pouvez quand meme aider !",
+      "share": {
+        "title": "Parlez-en",
+        "description": "Partagez Shinkofa autour de vous, sur les reseaux, dans vos communautes !"
+      },
+      "testify": {
+        "title": "Temoignez",
+        "description": "Laissez un avis, partagez votre experience, aidez d'autres utilisateurs !"
+      },
+      "bugs": {
+        "title": "Rapportez bugs",
+        "description": "Signalez bugs et suggestions d'amelioration, ca nous aide enormement !"
+      }
+    },
+    "thanks": "Merci d'etre la. Ensemble, on cree quelque chose de beau.",
+    "backHome": "Retour a l'accueil"
+  },
+  "pioneers": {
+    "title": "Hall of Fame",
+    "subtitle": "Les Pionniers Alpha 2026",
+    "description": "100 visionnaires qui ont cru en La Voie Shinkofa des janvier 2026. Merci d'avoir ose croire en ce projet fou.",
+    "slotsRemaining": "PLACES RESTANTES",
+    "releasedDate": "Places liberees le 20 janvier 2026",
+    "privileges": {
+      "title": "Privileges a Vie des Pionniers",
+      "discount": {
+        "title": "-25% a Vie (Prix Fige)",
+        "description": "Votre tarif reste fige a -25% pour toujours, meme si les prix augmentent. Samurai -> 14,99EUR/mois au lieu de 19,99EUR."
+      },
+      "badge": {
+        "title": "Badge Numerote Unique",
+        "description": "Badge \"Pionnier Alpha #001\" a \"#100\" visible sur votre profil. Collection limitee !"
+      },
+      "calls": {
+        "title": "Visioconferences Exclusives",
+        "description": "Rencontres mensuelles (jan-juin 2026) puis trimestrielles avec Jay pour echanger, influencer le developpement."
+      },
+      "influence": {
+        "title": "Influence sur le Developpement",
+        "description": "Votes prioritaires sur les nouvelles fonctionnalites, acces anticipe aux betas, feedback direct pris en compte."
+      }
+    },
+    "list": {
+      "title": "Les 100 Pionniers",
+      "empty": {
+        "title": "Soyez le premier Pionnier !",
+        "description": "Les inscriptions ouvrent le 20 janvier 2026. Les 100 premiers inscrits rejoindront ce Hall of Fame.",
+        "cta": "Devenir Pionnier Alpha"
+      },
+      "pioneerBadge": "Pionnier Alpha",
+      "anonymous": "Anonyme",
+      "world": "Monde",
+      "since": "Pionnier depuis le"
+    },
+    "cta": {
+      "text": "Rejoignez cette communaute de visionnaires.",
+      "button": "Devenir Pionnier Alpha"
+    }
+  },
+  "testimonials": {
+    "title": "Partage ton Experience",
+    "subtitle": "Ton temoignage peut inspirer d'autres neurodivergents a decouvrir leur fonctionnement unique",
+    "form": {
+      "coordinates": "Tes Coordonnees",
+      "firstName": "Prenom ou pseudonyme",
+      "firstNamePlaceholder": "Ton prenom ou pseudonyme",
+      "lastName": "Nom (optionnel)",
+      "lastNamePlaceholder": "Ton nom (ou initiale)",
+      "email": "Email",
+      "emailPlaceholder": "ton.email@exemple.com",
+      "emailNote": "Ton email ne sera pas publie. Il nous sert uniquement a te contacter si besoin.",
+      "photo": "Photo de profil (optionnel)",
+      "photoFormats": "Formats acceptes : JPG, PNG, GIF. Taille max : 5 MB",
+      "removePhoto": "Supprimer la photo",
+      "testimonial": "Ton Temoignage",
+      "testimonialLabel": "Partage ton experience",
+      "testimonialPlaceholder": "Comment Shinkofa t'a aide ? Qu'as-tu decouvert sur toi ? Que recommanderais-tu a d'autres neurodivergents ?",
+      "testimonialNote": "Sois authentique ! Partage ce qui t'a vraiment marque (positif ou constructif).",
+      "authorization": "J'autorise Shinkofa a publier mon temoignage sur le site, les reseaux sociaux et les supports marketing. Je comprends que mon prenom (ou initiale) et ma photo (si fournie) seront visibles publiquement.",
+      "submit": "Envoyer mon temoignage",
+      "submitting": "Envoi en cours...",
+      "privacyNote": "En envoyant ce formulaire, tu acceptes notre",
+      "privacyLink": "politique de confidentialite",
+      "error": "Une erreur est survenue. Merci de reessayer.",
+      "photoError": "Veuillez selectionner une image valide (JPG, PNG, etc.)",
+      "photoSizeError": "La taille de l'image ne doit pas depasser 5 MB"
+    },
+    "success": {
+      "title": "Merci pour ton temoignage !",
+      "description": "Ton partage est precieux et aidera d'autres personnes neurodivergentes a decouvrir Shinkofa.",
+      "review": "Nous l'examinerons et le publierons prochainement sur le site (avec ton autorisation).",
+      "another": "Partager un autre temoignage"
+    }
+  },
+  "pricing": {
+    "title": "Nos Tarifs",
+    "subtitle": "Choisis l'offre qui te correspond",
+    "alphaOffer": "Offre Pionniers Alpha 2026 : -25% a VIE sur tous les plans !",
+    "samuraiPlan": "Samurai Plan",
+    "fullAccess": "Acces complet a l'ecosysteme",
+    "perMonth": "/mois",
+    "features": {
+      "questionnaire": "Questionnaire holistique (155 questions)",
+      "shizenAI": "Shizen IA - Compagnon personnel",
+      "planner": "Planner intelligent adaptatif",
+      "community": "Acces communaute (Telegram + Discord)",
+      "updates": "Mises a jour et nouvelles fonctionnalites",
+      "support": "Support prioritaire"
+    },
+    "cta": "Commencer maintenant",
+    "guarantee": "Garantie satisfait ou rembourse 30 jours",
+    "pioneers": {
+      "title": "Offre Pionniers Alpha 2026",
+      "subtitle": "Sois parmi les 100 premiers et beneficie d'avantages a VIE",
+      "spotsRemaining": "PLACES RESTANTES",
+      "releaseDate": "Places liberees le 20 janvier 2026",
+      "availability": "Offre disponible du 20 janvier au 3 fevrier 2026",
+      "benefits": {
+        "discount": {
+          "title": "-25% a Vie (Prix Fige)",
+          "description": "14,99EUR/mois au lieu de 19,99EUR pour toujours"
+        },
+        "badge": {
+          "title": "Badge Pionnier Numerote",
+          "description": "Badge unique #001 a #100 sur ton profil"
+        },
+        "calls": {
+          "title": "Visioconferences Exclusives",
+          "description": "Rencontres mensuelles avec Jay (jan-juin 2026)"
+        },
+        "influence": {
+          "title": "Influence sur le Developpement",
+          "description": "Votes prioritaires, acces betas, feedback direct"
+        }
+      }
+    },
+    "subscriptions": {
+      "title": "Nos Offres d'Abonnement",
+      "subtitle": "Choisis le plan qui correspond a tes besoins"
+    },
+    "plans": {
+      "musha": {
+        "name": "Musha",
+        "tagline": "Decouvre l'ecosysteme gratuitement",
+        "price": "Gratuit",
+        "cta": "Commencer gratuitement",
+        "features": {
+          "questionnaires": "1 questionnaire / mois",
+          "shizenMessages": "50 messages Shizen IA / mois",
+          "planner": "Planner basique (2 projets)",
+          "journal": "Journal de bord",
+          "noFamily": "Pas d'acces Family Hub"
+        }
+      },
+      "samurai": {
+        "badge": "POPULAIRE",
+        "name": "Samurai",
+        "tagline": "L'experience complete Shinkofa",
+        "originalPrice": "19,99EUR/mois",
+        "price": "14,99EUR/mois",
+        "pioneerPrice": "Prix Pionnier Alpha (-25%)",
+        "annualPrice": "ou 143,90EUR/an (2 mois offerts)",
+        "cta": "Devenir Samurai",
+        "features": {
+          "questionnaires": "Questionnaires illimites",
+          "shizenMessages": "200 messages Shizen IA / mois",
+          "planner": "Planner complet (10 projets)",
+          "journal": "Journal de bord avance",
+          "export": "Export PDF de ton profil",
+          "support": "Support prioritaire",
+          "manual": "Manuel Holistique a -30% (20,30EUR)"
+        }
+      },
+      "sensei": {
+        "badge": "VIP",
+        "name": "Sensei",
+        "tagline": "L'accompagnement premium",
+        "originalPrice": "39,99EUR/mois",
+        "price": "29,99EUR/mois",
+        "pioneerPrice": "Prix Pionnier Alpha (-25%)",
+        "annualPrice": "ou 287,90EUR/an (2 mois offerts)",
+        "cta": "Devenir Sensei",
+        "features": {
+          "includesSamurai": "Tout Samurai inclus",
+          "shizenUnlimited": "Shizen IA ILLIMITE",
+          "planner": "Planner illimite (projets et taches)",
+          "dictation": "Dictee vocale IA incluse",
+          "videoGeneration": "Generation video IA (beta)",
+          "liveSessions": "Sessions live mensuelles avec Jay",
+          "support": "Support VIP 1-to-1",
+          "manual": "Manuel Holistique a -50% (14,50EUR)"
+        }
+      },
+      "samuraiFamily": {
+        "name": "Samurai Famille",
+        "tagline": "Pour toute la famille neuroatypique",
+        "price": "59,99EUR/mois",
+        "annualPrice": "ou 575,90EUR/an (2 mois offerts)",
+        "cta": "Choisir Samurai Famille",
+        "features": {
+          "includesSamurai": "Tout Samurai pour 5 profils",
+          "shizenMessages": "200 messages Shizen IA / profil / mois",
+          "familyHub": "Family Hub inclus",
+          "petitsLiens": "Les Petits Liens (co-parentalite)",
+          "compatibility": "Analyse compatibilite familiale",
+          "coaching": "Coaching familial personnalise"
+        }
+      },
+      "senseiFamily": {
+        "name": "Sensei Famille",
+        "tagline": "L'experience VIP pour toute la famille",
+        "price": "119,99EUR/mois",
+        "annualPrice": "ou 1151,90EUR/an (2 mois offerts)",
+        "cta": "Choisir Sensei Famille",
+        "features": {
+          "includesSensei": "Tout Sensei pour 5 profils VIP",
+          "shizenUnlimited": "Shizen IA ILLIMITE pour tous",
+          "familyHubPro": "Family Hub Pro",
+          "petitsLiensPro": "Les Petits Liens Pro",
+          "coaching": "Coaching familial VIP",
+          "training": "Formation Design Humain familial"
+        }
+      },
+      "manual": {
+        "name": "Manuel Holistique",
+        "tagline": "Ton guide personnalise complet",
+        "price": "29EUR",
+        "discountedPrices": "Samurai: 20,30EUR (-30%) | Sensei: 14,50EUR (-50%)",
+        "cta": "Commander mon Manuel",
+        "features": {
+          "humanDesign": "Analyse Design Humain complete",
+          "astrology": "Carte astrologique personnalisee",
+          "numerology": "Profil numerologique",
+          "neuroscience": "Insights neurosciences",
+          "rituals": "Rituels personnalises",
+          "updates": "Mises a jour a vie"
+        }
+      }
+    },
+    "comparison": {
+      "title": "Comparatif Detaille",
+      "feature": "Fonctionnalite",
+      "musha": "Musha",
+      "samurai": "Samurai",
+      "samuraiFamily": "Samurai Famille",
+      "sensei": "Sensei",
+      "senseiFamily": "Sensei Famille",
+      "rows": {
+        "priceMonth": "Prix / mois",
+        "profiles": "Profils",
+        "questionnaires": "Questionnaires",
+        "shizenIA": "Shizen IA",
+        "plannerProjects": "Projets Planner",
+        "tasksPerProject": "Taches / projet",
+        "familyHub": "Family Hub",
+        "petitsLiens": "Les Petits Liens",
+        "voiceDictation": "Dictee vocale",
+        "videoGeneration": "Generation video",
+        "support": "Support",
+        "manual": "Prix Manuel"
+      },
+      "values": {
+        "onePerMonth": "1/mois",
+        "fiftyPerMonth": "50/mois",
+        "twoHundredPerMonth": "200/mois",
+        "twoHundredTimesFive": "200/mois x5",
+        "unlimitedTimesFive": "Illimite x5",
+        "email48h": "Email 48h",
+        "email24hChat": "Email 24h + Chat",
+        "vipOneToOne": "VIP 1-to-1",
+        "vipFamilyCall": "VIP + Call famille"
+      },
+      "legend": {
+        "label": "Legende:",
+        "text": "Prix Pionniers Alpha affiches (-25%). Prix standards entre parentheses."
+      }
+    },
+    "faq": {
+      "title": "Questions sur les Tarifs",
+      "pioneer": {
+        "question": "Comment fonctionne l'offre Pionnier Alpha ?",
+        "answer": "Les 100 premiers inscrits beneficient de -25% a VIE sur leur abonnement. Ce prix reste fige meme si les tarifs augmentent. L'offre est valable du 20 janvier au 3 fevrier 2026."
+      },
+      "annual": {
+        "question": "Y a-t-il une reduction pour l'abonnement annuel ?",
+        "answer": "Oui ! L'abonnement annuel offre 2 mois gratuits. Combine avec l'offre Pionnier Alpha, tu economises jusqu'a 40% par rapport au tarif mensuel standard."
+      },
+      "family": {
+        "question": "Comment fonctionne le plan Famille ?",
+        "answer": "Les plans Famille permettent de creer jusqu'a 5 profils independants avec leurs propres questionnaires et donnees. Ideal pour les couples, familles ou colocations neuroatypiques."
+      },
+      "senseiVsSamurai": {
+        "question": "Quelle est la difference entre Samurai et Sensei ?",
+        "answer": "Sensei offre Shizen IA illimite (vs 200 messages), des outils creatifs (dictee, video), des sessions live avec Jay, et un support VIP 1-to-1. C'est l'experience premium pour ceux qui veulent maximiser leur transformation."
+      },
+      "changePlan": {
+        "question": "Puis-je changer de plan ?",
+        "answer": "Oui ! Tu peux upgrader ou downgrader a tout moment. L'ajustement se fait au prorata de ta periode de facturation en cours."
+      },
+      "manual": {
+        "question": "Le Manuel Holistique est-il inclus dans les abonnements ?",
+        "answer": "Non, c'est un achat separe. Mais les abonnes beneficient d'une reduction : -30% pour Samurai et Samurai Famille, -50% pour Sensei et Sensei Famille."
+      }
+    },
+    "cta": {
+      "title": "Pret-e a Commencer ?",
+      "subtitle": "Rejoins les 100 Pionniers Alpha et beneficie de -25% a VIE",
+      "samuraiButton": "Devenir Samurai",
+      "samuraiSubtext": "14,99EUR/mois (Prix Pionnier)",
+      "senseiButton": "Devenir Sensei",
+      "senseiSubtext": "29,99EUR/mois (Prix Pionnier)"
+    }
+  },
+  "footer": {
+    "copyright": "Fonde, cree et developpe par Jay \"The Ermite\"",
+    "rights": "La Voie Shinkofa - Tous droits reserves",
+    "testimonials": "Temoignages",
+    "legal": "Mentions legales",
+    "privacy": "Politique de confidentialite",
+    "terms": "CGV",
+    "contact": "Contact",
+    "disclaimer": "Disclaimer : Shinkofa n'est pas un service medical. Les outils proposes sont concus pour l'accompagnement personnel et le bien-etre, mais ne remplacent en aucun cas un diagnostic ou un traitement medical professionnel. Consultez toujours un professionnel de sante pour des questions medicales.",
+    "tagline": "Le Veritable Pas"
+  },
+  "common": {
+    "learnMore": "En savoir plus",
+    "getStarted": "Commencer",
+    "free": "Gratuit",
+    "month": "mois",
+    "year": "an",
+    "unlimited": "Illimite",
+    "included": "Inclus",
+    "notIncluded": "Non inclus",
+    "required": "*"
+  },
+  "legal": {
+    "title": "Mentions Legales",
+    "lastUpdate": "Derniere mise a jour :",
+    "january2026": "Janvier 2026",
+    "editor": {
+      "title": "1. Editeur du site",
+      "commercialName": "Nom commercial :",
+      "founder": "Fondateur et developpeur :",
+      "headquarters": "Siege social :",
+      "email": "Email :",
+      "website": "Site web :"
+    },
+    "hosting": {
+      "title": "2. Hebergement",
+      "provider": "Hebergeur :",
+      "company": "Raison sociale :",
+      "address": "Siege social :",
+      "phone": "Telephone :",
+      "website": "Site web :"
+    },
+    "ip": {
+      "title": "3. Propriete intellectuelle",
+      "content": "L'ensemble du contenu de ce site (textes, images, videos, logos, graphismes, etc.) est la propriete exclusive de La Voie Shinkofa, sauf mention contraire.",
+      "reproduction": "Toute reproduction, distribution, modification, adaptation, retransmission ou publication de ces differents elements est strictement interdite sans l'accord expres par ecrit de La Voie Shinkofa.",
+      "copyright": "Copyright :"
+    },
+    "liability": {
+      "title": "4. Limitation de responsabilite",
+      "content": "Les informations contenues sur ce site sont aussi precises que possible et le site est periodiquement remis a jour, mais peut toutefois contenir des inexactitudes ou des omissions.",
+      "report": "Si vous constatez une lacune, erreur ou ce qui parait etre un dysfonctionnement, merci de bien vouloir le signaler par email a",
+      "disclaimer": "Disclaimer important : Shinkofa n'est pas un service medical. Les outils proposes sont concus pour l'accompagnement personnel et le bien-etre, mais ne remplacent en aucun cas un diagnostic ou un traitement medical professionnel. Consultez toujours un professionnel de sante pour des questions medicales."
+    },
+    "links": {
+      "title": "5. Liens hypertextes",
+      "content": "Les liens hypertextes mis en place dans le cadre du present site internet en direction d'autres ressources presentes sur le reseau Internet ne sauraient engager la responsabilite de La Voie Shinkofa."
+    },
+    "law": {
+      "title": "6. Droit applicable",
+      "content": "Le present site internet et les conditions d'utilisation sont regis par le droit espagnol et europeen. En cas de litige, les tribunaux espagnols sont competents."
+    }
+  },
+  "privacy": {
+    "title": "Politique de Confidentialite",
+    "intro": "La Voie Shinkofa s'engage a proteger la confidentialite et la securite de vos donnees personnelles. Cette politique de confidentialite decrit comment nous collectons, utilisons, stockons et protegerons vos informations conformement au Reglement General sur la Protection des Donnees (RGPD).",
+    "commitment": "Engagement fondamental : Vos donnees ne seront JAMAIS revendues ou utilisees a des fins commerciales. SI cette regle change, tous les utilisateurs seront prevenus et cela ne sera fait qu'avec votre consentement explicite.",
+    "sections": {
+      "controller": {
+        "title": "1. Responsable du traitement des donnees"
+      },
+      "data": {
+        "title": "2. Donnees personnelles collectees",
+        "intro": "Nous collectons les types de donnees suivants :",
+        "identification": "Informations d'identification :",
+        "identificationDesc": "Nom, prenom, adresse email",
+        "profile": "Donnees de profil :",
+        "profileDesc": "Reponses au questionnaire holistique (155 questions sur votre energie, cognition, neurodivergence, valeurs)",
+        "usage": "Donnees d'utilisation :",
+        "usageDesc": "Historique d'utilisation des outils (Planner, IA Shizen, etc.)",
+        "technical": "Donnees techniques :",
+        "technicalDesc": "Adresse IP, type de navigateur, pages visitees, duree des sessions",
+        "payment": "Donnees de paiement :",
+        "paymentDesc": "Traitees par notre prestataire de paiement securise (Stripe), nous ne stockons pas vos coordonnees bancaires"
+      },
+      "purposes": {
+        "title": "3. Finalites du traitement",
+        "intro": "Vos donnees sont utilisees uniquement pour :",
+        "purpose1": "Creer et gerer votre compte utilisateur",
+        "purpose2": "Generer votre profil holistique personnalise base sur vos reponses au questionnaire",
+        "purpose3": "Adapter l'IA Shizen et le Planner intelligent a votre profil unique (neurodivergence, energie, cycles)",
+        "purpose4": "Vous fournir l'acces aux outils de l'ecosysteme Shinkofa",
+        "purpose5": "Traiter vos paiements et gerer votre abonnement",
+        "purpose6": "Vous envoyer des communications essentielles liees au service",
+        "purpose7": "Ameliorer nos services (analyses statistiques anonymisees uniquement)"
+      },
+      "legalBasis": {
+        "title": "4. Base legale du traitement",
+        "intro": "Nous traitons vos donnees sur la base de :",
+        "consent": "Votre consentement explicite :",
+        "consentDesc": "Lors de la creation de votre compte et de la reponse au questionnaire",
+        "contract": "L'execution du contrat :",
+        "contractDesc": "Fourniture des services auxquels vous avez souscrit",
+        "legal": "Nos obligations legales :",
+        "legalDesc": "Conservation de certaines donnees pour repondre aux obligations comptables et fiscales"
+      },
+      "retention": {
+        "title": "5. Duree de conservation des donnees",
+        "profile": "Donnees de profil et questionnaire :",
+        "profileDesc": "Conservees tant que votre compte est actif",
+        "payment": "Donnees de paiement :",
+        "paymentDesc": "Conservees conformement aux obligations legales (10 ans)",
+        "technical": "Donnees techniques :",
+        "technicalDesc": "Conservees 13 mois maximum",
+        "deletion": "Apres suppression de compte :",
+        "deletionDesc": "Toutes vos donnees personnelles sont supprimees sous 30 jours (sauf obligations legales)"
+      },
+      "security": {
+        "title": "6. Securite de vos donnees",
+        "intro": "Nous mettons en oeuvre les mesures de securite suivantes :",
+        "hosting": "Hebergement europeen :",
+        "hostingDesc": "Serveurs OVH situes en France, conformes RGPD",
+        "encryption": "Chiffrement :",
+        "encryptionDesc": "Connexions HTTPS/SSL, chiffrement des donnees sensibles en base de donnees",
+        "auth": "Authentification securisee :",
+        "authDesc": "Mots de passe hashes avec bcrypt",
+        "access": "Acces restreint :",
+        "accessDesc": "Seuls les administrateurs autorises peuvent acceder aux donnees (minimum necessaire)",
+        "backup": "Sauvegardes regulieres :",
+        "backupDesc": "Backups quotidiens chiffres"
+      },
+      "sharing": {
+        "title": "7. Partage de vos donnees",
+        "noSale": "Nous ne vendons JAMAIS vos donnees a des tiers.",
+        "intro": "Vos donnees peuvent etre partagees uniquement avec :",
+        "hosting": "Notre hebergeur (OVH) :",
+        "hostingDesc": "Pour le stockage securise des donnees",
+        "payment": "Notre prestataire de paiement (Stripe) :",
+        "paymentDesc": "Pour traiter les transactions (ils ne recoivent que les donnees necessaires au paiement)",
+        "legal": "En cas d'obligation legale :",
+        "legalDesc": "Si requis par la loi ou une autorite judiciaire",
+        "noMarketing": "Aucun partenaire marketing, publicitaire ou commercial n'a acces a vos donnees."
+      },
+      "rights": {
+        "title": "8. Vos droits (RGPD)",
+        "intro": "Conformement au RGPD, vous disposez des droits suivants :",
+        "access": "Droit d'acces :",
+        "accessDesc": "Obtenir une copie de toutes vos donnees personnelles",
+        "rectification": "Droit de rectification :",
+        "rectificationDesc": "Corriger vos donnees inexactes ou incompletes",
+        "erasure": "Droit a l'effacement (\"droit a l'oubli\") :",
+        "erasureDesc": "Supprimer votre compte et toutes vos donnees",
+        "portability": "Droit a la portabilite :",
+        "portabilityDesc": "Recevoir vos donnees dans un format structure (JSON, CSV)",
+        "opposition": "Droit d'opposition :",
+        "oppositionDesc": "Vous opposer au traitement de certaines donnees",
+        "limitation": "Droit a la limitation :",
+        "limitationDesc": "Demander la limitation du traitement de vos donnees",
+        "withdraw": "Droit de retirer votre consentement :",
+        "withdrawDesc": "A tout moment, sans justification",
+        "contact": "Pour exercer ces droits, contactez-nous a",
+        "responseTime": "(reponse sous 30 jours maximum).",
+        "cnil": "Vous disposez egalement du droit d'introduire une reclamation aupres de la CNIL (Commission Nationale de l'Informatique et des Libertes) :"
+      },
+      "cookies": {
+        "title": "9. Cookies et technologies similaires",
+        "intro": "Nous utilisons les cookies suivants :",
+        "essential": "Cookies essentiels :",
+        "essentialDesc": "Authentification, securite, preferences de theme (dark/light)",
+        "functional": "Cookies de fonctionnement :",
+        "functionalDesc": "Sauvegarde de votre progression dans le questionnaire",
+        "noAds": "Nous n'utilisons PAS de cookies publicitaires, de tracking tiers ou de cookies marketing.",
+        "browser": "Vous pouvez configurer votre navigateur pour refuser les cookies, mais cela peut affecter certaines fonctionnalites du site."
+      },
+      "changes": {
+        "title": "10. Modifications de cette politique",
+        "content": "Nous nous reservons le droit de modifier cette politique de confidentialite a tout moment. En cas de modification substantielle, vous serez informe par email et/ou notification sur le site.",
+        "acceptance": "L'utilisation continue du service apres notification vaut acceptation de la nouvelle politique."
+      },
+      "contact": {
+        "title": "11. Contact",
+        "intro": "Pour toute question concernant cette politique de confidentialite :"
+      }
+    }
+  },
+  "cgv": {
+    "title": "Conditions Generales de Vente",
+    "intro": "Les presentes Conditions Generales de Vente (CGV) regissent les relations contractuelles entre La Voie Shinkofa et ses utilisateurs dans le cadre de l'utilisation des services et de la souscription a des abonnements sur la plateforme Shinkofa.",
+    "acceptance": "En souscrivant a un abonnement ou en utilisant nos services, vous acceptez sans reserve les presentes CGV.",
+    "lastUpdate": "Derniere mise a jour :",
+    "january2026": "Janvier 2026"
+  },
+  "lang": {
+    "fr": "FR",
+    "en": "ENG"
+  }
+}

@@ -1,0 +1,2596 @@
+{
+  "version": "1.0.0",
+  "locale": "en",
+  "total_questions": 144,
+  "generated_at": "2026-01-27",
+  "status": "Complete professional translation",
+  "questions": [
+    {
+      "number": 1,
+      "text_en": "Your full name (last name + first name(s))",
+      "bloc_en": "🏠 BLOCK A: LIFE CONTEXT",
+      "module_en": "Module A0: Identity & Name Analysis",
+      "type_en": "Free text",
+      "options_en": null,
+      "annotation_en": "Your name carries a history and energy. This information will be used for complete numerological and anthroponymic analysis of your identity",
+      "comment_label_en": null
+    },
+    {
+      "number": 2,
+      "text_en": "Do you know the origin or meaning of your first name?",
+      "bloc_en": "🏠 BLOCK A: LIFE CONTEXT",
+      "module_en": "Module A0: Identity & Name Analysis",
+      "type_en": "Single choice",
+      "options_en": [
+        "Yes and I know it well",
+        "I have a general idea",
+        "No I don't know it",
+        "This doesn't particularly interest me"
+      ],
+      "annotation_en": "Knowledge of your first name's origin can influence your relationship with your identity",
+      "comment_label_en": "Optional - artagez l'origine de votre prénom si vous la connaissez"
+    },
+    {
+      "number": 3,
+      "text_en": "Do you feel in resonance with your first name?",
+      "bloc_en": "🏠 BLOCK A: LIFE CONTEXT",
+      "module_en": "Module A0: Identity & Name Analysis",
+      "type_en": "Likert 5 points (1 = Not at all → 5 = Completely)",
+      "options_en": null,
+      "annotation_en": "Your emotional connection with your first name and your identity",
+      "comment_label_en": "Optional - xpliquez pourquoi vous vous sentez ainsi avec votre prénom"
+    },
+    {
+      "number": 4,
+      "text_en": "Do you have one or more nicknames that you particularly appreciate?",
+      "bloc_en": "🏠 BLOCK A: LIFE CONTEXT",
+      "module_en": "Module A1: Personal Information",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "I have nicknames I really like",
+        "I have nicknames I don't like",
+        "I prefer to be called by my full first name",
+        "Nicknames don't particularly affect me",
+        "I don't have a nickname"
+      ],
+      "annotation_en": "How you are perceived by others through your nicknames",
+      "comment_label_en": "Optional - récisez vos surnoms si vous le souhaitez et ce qu'ils signifient pour vous"
+    },
+    {
+      "number": 5,
+      "text_en": "What is your age?",
+      "bloc_en": "🏠 BLOCK A: LIFE CONTEXT",
+      "module_en": "Module A1: Personal Information",
+      "type_en": "Numeric field (16-100)",
+      "options_en": null,
+      "annotation_en": "This information helps contextualize your answers according to your life stage",
+      "comment_label_en": null
+    },
+    {
+      "number": 6,
+      "text_en": "Your current living situation",
+      "bloc_en": "🏠 BLOCK A: LIFE CONTEXT",
+      "module_en": "Module A1: Personal Information",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Living alone",
+        "In a relationship or married",
+        "With my parents",
+        "Shared housing",
+        "Parent with children at home",
+        "Family caregiver",
+        "Other configuration"
+      ],
+      "annotation_en": "Your living environment influences your daily life and needs",
+      "comment_label_en": "Optional"
+    },
+    {
+      "number": 7,
+      "text_en": "Your professional/studies situation",
+      "bloc_en": "🏠 BLOCK A: LIFE CONTEXT",
+      "module_en": "Module A1: Personal Information",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Employee",
+        "Independent or Freelance",
+        "Entrepreneur",
+        "Student",
+        "Job seeking",
+        "In transition",
+        "Retired",
+        "On break or leave",
+        "Other"
+      ],
+      "annotation_en": "Multiple situations can coexist (e.g., employee + personal project)",
+      "comment_label_en": "Optional"
+    },
+    {
+      "number": 8,
+      "text_en": "Your geographical environment",
+      "bloc_en": "🏠 BLOCK A: LIFE CONTEXT",
+      "module_en": "Module A1: Personal Information",
+      "type_en": "Single choice",
+      "options_en": [
+        "Large city - over 200k inhabitants",
+        "Medium city - 20 to 200k inhabitants",
+        "Small town - under 20k inhabitants",
+        "Rural area or countryside"
+      ],
+      "annotation_en": "Your environment influences your social habits and lifestyle",
+      "comment_label_en": null
+    },
+    {
+      "number": 9,
+      "text_en": "Your financial situation allows you to",
+      "bloc_en": "🏠 BLOCK A: LIFE CONTEXT",
+      "module_en": "Module A1: Personal Information",
+      "type_en": "Single choice",
+      "options_en": [
+        "To live comfortably without stress",
+        "To meet your needs with a few extras",
+        "To meet just your essential needs",
+        "Of sometimes having difficulties meeting my needs",
+        "Of being in a very difficult financial situation",
+        "Prefer not to answer"
+      ],
+      "annotation_en": "This information helps contextualize certain choices and potential stress",
+      "comment_label_en": "Optional"
+    },
+    {
+      "number": 10,
+      "text_en": "Your family of origin",
+      "bloc_en": "🏠 BLOCK A: LIFE CONTEXT",
+      "module_en": "Module A2: Family Context & Origins",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Parents together",
+        "Separated/divorced parents",
+        "Parent unique",
+        "Blended family",
+        "Raised by grandparents/extended family",
+        "Adoption/placement",
+        "Other configuration"
+      ],
+      "annotation_en": "Your family background often influences your relational patterns",
+      "comment_label_en": null
+    },
+    {
+      "number": 11,
+      "text_en": "How would you describe your relationship with your family of origin?",
+      "bloc_en": "🏠 BLOCK A: LIFE CONTEXT",
+      "module_en": "Module A2: Family Context & Origins",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Enfant unique",
+        "The eldest",
+        "Le/la cadet - te",
+        "Le/la benjamin·e",
+        "Jumeaux/jumelles"
+      ],
+      "annotation_en": "The quality of family relationships shapes many aspects of your life",
+      "comment_label_en": null
+    },
+    {
+      "number": 12,
+      "text_en": "Do you know your cultural or ethnic origins?",
+      "bloc_en": "🏠 BLOCK A: LIFE CONTEXT",
+      "module_en": "Module A2: Family Context & Origins",
+      "type_en": "Likert 5 points for each item",
+      "options_en": null,
+      "annotation_en": "Cultural roots can play an important role in identity",
+      "comment_label_en": "Optional"
+    },
+    {
+      "number": 13,
+      "text_en": "Do you feel connected to your cultural origins?",
+      "bloc_en": "🏠 BLOCK A: LIFE CONTEXT",
+      "module_en": "Module A2: Family Context & Origins",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Understood and accepted",
+        "Different from others",
+        "Very autonomous",
+        "Overprotected",
+        "Responsable des autres",
+        "Free to be yourself",
+        "Under pressure to succeed",
+        "Safe",
+        "Mes parents m'encourageaient dans mes projets",
+        "My parents were very protective",
+        "My parents had high expectations",
+        "Mes parents me laissaient beaucoup d'autonomie",
+        "My parents were critical/perfectionist",
+        "My parents valued academic success",
+        "Mes parents respectaient mon rythme",
+        "Mes parents me comparaient avec d'autres"
+      ],
+      "annotation_en": "Connection to origins varies from person to person",
+      "comment_label_en": "Optional - récisez comment ces dynamiques ont évolué entre enfance et adolescence"
+    },
+    {
+      "number": 14,
+      "text_en": "What are your main aspirations for the next 2-3 years?",
+      "bloc_en": "🏠 BLOCK A: LIFE CONTEXT",
+      "module_en": "Module A2: Family Context & Origins",
+      "type_en": "Likert 5 points (Very difficult → Very harmonious)",
+      "options_en": null,
+      "annotation_en": "Your aspirations guide the path of your life",
+      "comment_label_en": "Optionnel pour préciser votre situation"
+    },
+    {
+      "number": 15,
+      "text_en": "What areas of your life would you like to improve or transform?",
+      "bloc_en": "🏠 BLOCK A: LIFE CONTEXT",
+      "module_en": "Module A3: Current Situation & Aspirations",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Trouver ma voie professionnelle",
+        "Balance professional and personal life",
+        "Manage my energy level and fatigue",
+        "Improve my couple relationship",
+        "famille",
+        "amis",
+        "Get out of a difficult financial situation",
+        "Overcome limiting repetitive patterns",
+        "Make important decisions",
+        "Manage stress and anxiety",
+        "Retrouver sens et motivation",
+        "M'accepter tel·le que je suis",
+        "Build my self-confidence",
+        "No particular challenges right now"
+      ],
+      "annotation_en": "Identifying areas to improve helps set priorities",
+      "comment_label_en": "Optional - récisez le contexte de vos défis, leur intensité, ou toute information qui vous semble importante"
+    },
+    {
+      "number": 16,
+      "text_en": "What obstacles or challenges do you currently face?",
+      "bloc_en": "🏠 BLOCK A: LIFE CONTEXT",
+      "module_en": "Module A3: Current Situation & Aspirations",
+      "type_en": "Single choice + \"Other\" option",
+      "options_en": [
+        "Femme",
+        "Homme",
+        "Non-binaire",
+        "Genre fluide",
+        "Other - please specify",
+        "Prefer not to answer"
+      ],
+      "annotation_en": "Understanding your obstacles is the first step to overcoming them",
+      "comment_label_en": "Optional"
+    },
+    {
+      "number": 17,
+      "text_en": "How would you describe your general energy level?",
+      "bloc_en": "🏠 BLOCK A: LIFE CONTEXT",
+      "module_en": "Module A3: Current Situation & Aspirations",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Clarifier ma mission de vie",
+        "Change career or evolve professionally",
+        "Improve my physical and energetic health",
+        "Develop my emotional relationships",
+        "Acquiring new skills",
+        "Increase my income and financial stability",
+        "Reconnect to my deep essence",
+        "Sortir de ma zone de confort",
+        "Create a project that means something to me",
+        "Find more balance and serenity"
+      ],
+      "annotation_en": "Your base energy influences all aspects of your life",
+      "comment_label_en": "Optional - récisez vos objectifs spécifiques et ce qui est vraiment important pour vous"
+    },
+    {
+      "number": 18,
+      "text_en": "You feel more energized by",
+      "bloc_en": "🏠 BLOCK A: LIFE CONTEXT",
+      "module_en": "Module A3: Current Situation & Aspirations",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Lack of clarity about what I really want",
+        "Fear of failure or others' judgment",
+        "Financial constraints",
+        "Lack of time or energy",
+        "Limiting beliefs about myself",
+        "Environnement non supportant",
+        "Procrastination and difficulty taking action",
+        "Lack of skills or knowledge",
+        "Situation personnelle complexe",
+        "Je ne sais pas vraiment ce qui me bloque"
+      ],
+      "annotation_en": "Introversion/extraversion affects your needs and behaviors",
+      "comment_label_en": "Optional - xpliquez vos obstacles plus en détail, comment ils se manifestent concrètement"
+    },
+    {
+      "number": 19,
+      "text_en": "In a social situation, you tend to",
+      "bloc_en": "⚡ BLOC B : ÉNERGIE & RYTHMES BIOLOGIQUES",
+      "module_en": "Module B1 : Cycles énergétiques naturels",
+      "type_en": "Single choice",
+      "options_en": [
+        "Very energetic in morning",
+        "Progressive power buildup",
+        "Stable all day",
+        "More efficient in afternoon",
+        "Energy peak in evening/night",
+        "Very variable depending on days"
+      ],
+      "annotation_en": "Your social comfort zone says a lot about your personality",
+      "comment_label_en": "Optional - écrivez votre rythme énergétique idéal et comment il diffère de votre réalité actuelle"
+    },
+    {
+      "number": 20,
+      "text_en": "You make decisions primarily based on",
+      "bloc_en": "⚡ BLOC B : ÉNERGIE & RYTHMES BIOLOGIQUES",
+      "module_en": "Module B1 : Cycles énergétiques naturels",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Physical fatigue",
+        "Mental fatigue",
+        "Emotional weariness",
+        "Need for solitude",
+        "Need for stimulation",
+        "Sensory overload",
+        "Accumulated stress",
+        "Without identifiable reason"
+      ],
+      "annotation_en": "Thinking vs Feeling preference (MBTI)",
+      "comment_label_en": "Optional - xpliquez dans quelles circonstances vous ressentez le plus cette fatigue"
+    },
+    {
+      "number": 21,
+      "text_en": "You prefer to approach tasks by",
+      "bloc_en": "⚡ BLOC B : ÉNERGIE & RYTHMES BIOLOGIQUES",
+      "module_en": "Module B1 : Cycles énergétiques naturels",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Solitude et calme",
+        "Contact avec des proches",
+        "Physical activity",
+        "Creative activity",
+        "Temps dans la nature",
+        "Stimulation intellectuelle",
+        "Comforting routine",
+        "Novelty and adventure"
+      ],
+      "annotation_en": "Judging vs Perceiving preference (MBTI)",
+      "comment_label_en": "Optional - écrivez vos rituels de ressourcement qui fonctionnent vraiment"
+    },
+    {
+      "number": 22,
+      "text_en": "Faced with the unexpected, you",
+      "bloc_en": "⚡ BLOC B : ÉNERGIE & RYTHMES BIOLOGIQUES",
+      "module_en": "Module B1 : Cycles énergétiques naturels",
+      "type_en": "Single choice",
+      "options_en": [
+        "Tenfold - motivating stress",
+        "Reste stable",
+        "Diminue progressivement",
+        "S'effondre rapidement",
+        "Devient chaotique",
+        "Depends entirely on the type of stress"
+      ],
+      "annotation_en": "Your flexibility and stress management",
+      "comment_label_en": "Optional - onnez un exemple de période stressante récente et comment vous avez géré"
+    },
+    {
+      "number": 23,
+      "text_en": "Which statement resonates most with you?",
+      "bloc_en": "⚡ BLOC B : ÉNERGIE & RYTHMES BIOLOGIQUES",
+      "module_en": "Module B1 : Cycles énergétiques naturels",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "J'ai besoin de beaucoup dormir",
+        "Je fonctionne bien avec peu de sommeil",
+        "My sleep is very fragile",
+        "I have trouble falling asleep",
+        "I often wake up at night",
+        "I dream a lot",
+        "My sleep depends on my stress",
+        "I naturally have irregular schedules"
+      ],
+      "annotation_en": "Your general relationship with life",
+      "comment_label_en": "Optional - artagez vos défis avec le sommeil et ce qui vous aide à mieux dormir"
+    },
+    {
+      "number": 24,
+      "text_en": "In a conflict situation, you tend to",
+      "bloc_en": "⚡ BLOC B : ÉNERGIE & RYTHMES BIOLOGIQUES",
+      "module_en": "Module B2 : Attention & concentration",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Stays easily on tasks",
+        "Varies enormously depending on interest",
+        "Includes hyperfocus periods",
+        "Se disperse facilement",
+        "Diminue rapidement sans pause",
+        "Works better multitasking",
+        "Requires a very quiet environment",
+        "Is influenced by mood"
+      ],
+      "annotation_en": "Your conflict resolution style",
+      "comment_label_en": "Optional - écrivez dans quelles conditions vous êtes le plus concentré·e"
+    },
+    {
+      "number": 25,
+      "text_en": "Which of these words best describes you?",
+      "bloc_en": "⚡ BLOC B : ÉNERGIE & RYTHMES BIOLOGIQUES",
+      "module_en": "Module B2 : Attention & concentration",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Change activity completely then return",
+        "Faire une pause courte et me recentrer",
+        "Modifier mon environnement - musique",
+        "lieu...",
+        "Set myself a specific challenge or goal",
+        "Talk to someone about what will distract me",
+        "Accept distraction and let it pass",
+        "Use a specific technique - breathing",
+        "etc."
+      ],
+      "annotation_en": "Identifying with a quality helps understand your identity",
+      "comment_label_en": "Optional - artagez vos techniques personnelles pour retrouver la concentration"
+    },
+    {
+      "number": 26,
+      "text_en": "What motivates you most in life?",
+      "bloc_en": "🎯 BLOC C : DIMENSION SOMATIQUE & CORPORELLE",
+      "module_en": "Module C1 : Relation au corps",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "I'm very attentive to my sensations",
+        "I tend to ignore body signals",
+        "My body guides me in my decisions",
+        "I feel emotions intensely physically",
+        "J'ai souvent des tensions musculaires",
+        "I feel disconnected from my body",
+        "My body reacts quickly to stress",
+        "Je prends naturellement soin de mon corps"
+      ],
+      "annotation_en": "Core motivations reveal what drives you",
+      "comment_label_en": "Optional - omment décririez-vous votre relation avec votre corps ? Depuis quand est-elle ainsi ?"
+    },
+    {
+      "number": 27,
+      "text_en": "Which Jungian archetype resonates most with you?",
+      "bloc_en": "🎯 BLOC C : DIMENSION SOMATIQUE & CORPORELLE",
+      "module_en": "Module C1 : Relation au corps",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Tension in neck/shoulders",
+        "Knot in stomach/belly",
+        "Oppression dans la poitrine",
+        "Clenched jaw",
+        "Clenched hands",
+        "Restless legs/tremors",
+        "Headaches",
+        "Tout le corps se tend",
+        "Je ne ressens pas physiquement"
+      ],
+      "annotation_en": "Jungian archetypes reveal deep psychological patterns",
+      "comment_label_en": "Optional - écrivez comment ces tensions se manifestent concrètement chez vous"
+    },
+    {
+      "number": 28,
+      "text_en": "In your personal or professional life, you tend to embody the role of",
+      "bloc_en": "🎯 BLOC C : DIMENSION SOMATIQUE & CORPORELLE",
+      "module_en": "Module C1 : Relation au corps",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Stretching or yoga",
+        "Massage ou auto-massage",
+        "Bain chaud ou douche",
+        "Exercice physique intense",
+        "Marche dans la nature",
+        "Techniques de respiration",
+        "Musique relaxante",
+        "Contact avec des animaux",
+        "Nothing specific really works"
+      ],
+      "annotation_en": "The roles you naturally take in groups",
+      "comment_label_en": "Optional - artagez vos rituels de détente corporelle qui vous font vraiment du bien"
+    },
+    {
+      "number": 29,
+      "text_en": "Faced with a challenge, your first instinct is to",
+      "bloc_en": "🎯 BLOC C : DIMENSION SOMATIQUE & CORPORELLE",
+      "module_en": "Module C1 : Relation au corps",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "J'adore bouger",
+        "c'est vital pour moi",
+        "I like moderate and regular activity",
+        "I prefer gentle activities - yoga",
+        "marche",
+        "Je fais du sport par obligation",
+        "I avoid physical effort",
+        "Mon rapport varie selon mon humeur",
+        "I have health constraints that limit",
+        "Movement helps me think"
+      ],
+      "annotation_en": "Your primary response to difficulty",
+      "comment_label_en": "Optional - xpliquez votre histoire avec le mouvement et l'activité physique"
+    },
+    {
+      "number": 30,
+      "text_en": "What nourishes you most in life?",
+      "bloc_en": "🎯 BLOC C : DIMENSION SOMATIQUE & CORPORELLE",
+      "module_en": "Module C1 : Relation au corps",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Meditation or mindfulness",
+        "Techniques de respiration",
+        "Regular stretching/yoga",
+        "Therapeutic massage",
+        "Regular physical activity",
+        "Alimentation consciente",
+        "Energy practices - reiki",
+        "acupuncture...",
+        "No particular practice",
+        "I'd like to develop it but don't know how",
+        "Je manque de temps pour ces pratiques"
+      ],
+      "annotation_en": "What regenerates and nourishes you deeply",
+      "comment_label_en": "Optional - écrivez vos pratiques régulières et ce que vous aimeriez développer"
+    },
+    {
+      "number": 31,
+      "text_en": "Your relationship with rules and structures",
+      "bloc_en": "🎯 BLOC C : DIMENSION SOMATIQUE & CORPORELLE",
+      "module_en": "Module C1 : Relation au corps",
+      "type_en": "Single choice",
+      "options_en": [
+        "Me donne des signaux clairs - intuition corporelle",
+        "Se tend ou se contracte selon les options",
+        "Guide me by feelings of wellness/discomfort",
+        "Reacts after I've decided",
+        "Ne m'influence pas dans mes choix",
+        "M'embrouille avec des signaux contradictoires",
+        "I don't pay attention to its signals"
+      ],
+      "annotation_en": "Your flexibility and relationship with imposed structures",
+      "comment_label_en": "Optional"
+    },
+    {
+      "number": 32,
+      "text_en": "Faced with routine, you",
+      "bloc_en": "🧠 BLOC D : TRAITEMENT DE L'INFORMATION & COGNITION",
+      "module_en": "Module D1 : Canaux d'apprentissage",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "By listening to explanations",
+        "By seeing patterns/images",
+        "En pratiquant directement",
+        "By reading detailed instructions",
+        "With concrete examples",
+        "En posant beaucoup de questions",
+        "En faisant des liens avec vos connaissances",
+        "By taking time to think"
+      ],
+      "annotation_en": "Your need for variety vs stability",
+      "comment_label_en": "Optional - onnez un exemple récent de quelque chose que vous avez appris facilement ou difficilement"
+    },
+    {
+      "number": 33,
+      "text_en": "In learning, you prefer",
+      "bloc_en": "🧠 BLOC D : TRAITEMENT DE L'INFORMATION & COGNITION",
+      "module_en": "Module D1 : Canaux d'apprentissage",
+      "type_en": "Single choice",
+      "options_en": [
+        "I methodically break down each element",
+        "I first try to see the big picture",
+        "I trust my intuition",
+        "I seek additional sources",
+        "Je pose des questions pour clarifier",
+        "I tend to avoid or postpone",
+        "I quickly feel overwhelmed"
+      ],
+      "annotation_en": "Your preferred learning style",
+      "comment_label_en": "Optional - acontez comment vous gérez les informations contradictoires dans votre domaine"
+    },
+    {
+      "number": 34,
+      "text_en": "Your relationship with time",
+      "bloc_en": "🧠 BLOC D : TRAITEMENT DE L'INFORMATION & COGNITION",
+      "module_en": "Module D1 : Canaux d'apprentissage",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Excellent for precise details",
+        "Good for general ideas",
+        "Mieux avec des images/visuels",
+        "Mieux avec des sons/musiques",
+        "By associations of ideas",
+        "Sequentially - step by step",
+        "According to associated emotion",
+        "Very selectively based on interest"
+      ],
+      "annotation_en": "Your temporal perception and management",
+      "comment_label_en": "Optional - artagez comment vous retenez naturellement les informations importantes"
+    },
+    {
+      "number": 35,
+      "text_en": "In organizing your space, you are rather",
+      "bloc_en": "🧠 BLOC D : TRAITEMENT DE L'INFORMATION & COGNITION",
+      "module_en": "Module D1 : Canaux d'apprentissage",
+      "type_en": "Single choice",
+      "options_en": [
+        "I systematically analyze all options",
+        "I first trust my intuition",
+        "I directly experiment with different solutions",
+        "I seek advice from others",
+        "I proceed by elimination",
+        "Je prends du recul pour y voir plus clair",
+        "Je fonce et j'ajuste en cours de route"
+      ],
+      "annotation_en": "Your relationship with order and organization",
+      "comment_label_en": "Optional - onnez un exemple de problème récent et comment vous l'avez résolu"
+    },
+    {
+      "number": 36,
+      "text_en": "How do you react to change?",
+      "bloc_en": "🧠 BLOC D : TRAITEMENT DE L'INFORMATION & COGNITION",
+      "module_en": "Module D1 : Canaux d'apprentissage",
+      "type_en": "Likert 5 points pour chaque paire",
+      "options_en": null,
+      "annotation_en": "Your adaptability and tolerance to change",
+      "comment_label_en": "Optional - xpliquez comment votre style de réflexion se manifeste au quotidien"
+    },
+    {
+      "number": 37,
+      "text_en": "Your relationship with planning",
+      "bloc_en": "🧠 BLOC D : TRAITEMENT DE L'INFORMATION & COGNITION",
+      "module_en": "Module D1 : Canaux d'apprentissage",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Je retiens facilement les faits et chiffres",
+        "Je me souviens surtout des histoires/exemples",
+        "I spontaneously make connections with other topics",
+        "I mentally visualize what is described",
+        "J'ai besoin de prendre des notes",
+        "Je pose mentalement des questions",
+        "I feel emotions related to the content",
+        "I struggle to stay focused for long"
+      ],
+      "annotation_en": "Your need for anticipation vs spontaneity",
+      "comment_label_en": "Optional - écrivez votre expérience typique de lecture ou d'écoute d'un contenu complexe"
+    },
+    {
+      "number": 38,
+      "text_en": "In daily life, you are rather",
+      "bloc_en": "🧠 BLOC D : TRAITEMENT DE L'INFORMATION & COGNITION",
+      "module_en": "Module D1 : Canaux d'apprentissage",
+      "type_en": "Single choice",
+      "options_en": [
+        "Je les suis scrupuleusement",
+        "Je les adapte selon le contexte",
+        "Je comprends d'abord le pourquoi avant de les appliquer",
+        "I tend to question them",
+        "I prefer to create my own methods",
+        "I need them to be very clear",
+        "Je les oublie facilement si elles sont trop nombreuses"
+      ],
+      "annotation_en": "Your level of methodical approach vs improvisation",
+      "comment_label_en": "Optional - xpliquez comment vous interagissez avec les règles et procédures au travail ou dans votre vie"
+    },
+    {
+      "number": 39,
+      "text_en": "When you start a project, you",
+      "bloc_en": "🧠 BLOC D : TRAITEMENT DE L'INFORMATION & COGNITION",
+      "module_en": "Module D1 : Canaux d'apprentissage",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Je me sens perdu·e et j'ai besoin qu'on me guide",
+        "I quickly create my own structure",
+        "I flourish in this freedom",
+        "I look for external benchmarks or models",
+        "I proceed by trial and error",
+        "Je demande des clarifications avant d'agir",
+        "It depends completely on the field"
+      ],
+      "annotation_en": "Your approach to starting projects",
+      "comment_label_en": "Optional - acontez une situation sans cadre récente et comment vous l'avez vécue"
+    },
+    {
+      "number": 40,
+      "text_en": "Regarding your commitments, you",
+      "bloc_en": "🔍 BLOC E : PROFILS COMPORTEMENTAUX",
+      "module_en": "Module E1 : Types & dynamiques comportementales",
+      "type_en": "Single choice",
+      "options_en": [
+        "\"J'aurais dû mieux faire",
+        "je dois corriger mes erreurs\"",
+        "\"Il·elle a besoin d'aide",
+        "je vais lui montrer que je le·la soutiens\"",
+        "\"Je vais prouver ma valeur et montrer mes compétences\"",
+        "\"Personne ne comprend vraiment ce que je ressens\"",
+        "\"Je vais analyser pourquoi cette critique et me retirer pour réfléchir\"",
+        "\"Et si c'était vrai ? Je dois vérifier et me préparer\"",
+        "\"Pas grave",
+        "je vais passer à autre chose rapidement\"",
+        "\"Je ne vais pas me laisser faire",
+        "je dois me défendre\"",
+        "\"Évitons le conflit",
+        "trouvons un terrain d'entente\""
+      ],
+      "annotation_en": "Your reliability and perseverance",
+      "comment_label_en": "Optional - récisez si votre réaction dépend du contexte - qui critique, sujet, etc. - ou ajoutez toute nuance importante"
+    },
+    {
+      "number": 41,
+      "text_en": "Have you been diagnosed with one or more neurodivergences?",
+      "bloc_en": "🔍 BLOC E : PROFILS COMPORTEMENTAUX",
+      "module_en": "Module E1 : Types & dynamiques comportementales",
+      "type_en": "Likert 10 points (1 = Très loin de mes objectifs → 10 = Exactement où je veux être)",
+      "options_en": null,
+      "annotation_en": "Official diagnosis helps understand your specific needs",
+      "comment_label_en": "Optional - xpliquez votre score, ce qui vous manque pour être là où vous voulez être"
+    },
+    {
+      "number": 42,
+      "text_en": "Do you identify yourself (even without diagnosis) as neurodivergent?",
+      "bloc_en": "🔍 BLOC E : PROFILS COMPORTEMENTAUX",
+      "module_en": "Module E1 : Types & dynamiques comportementales",
+      "type_en": "Single choice",
+      "options_en": [
+        "I clearly explain why it's incorrect or inappropriate",
+        "I struggle to refuse and say yes even if it bothers me",
+        "I assess if it will harm my image before deciding",
+        "I authentically express my emotional discomfort",
+        "J'analyse la situation et trouve une justification rationnelle pour refuser",
+        "I hesitate a lot because I fear the consequences of refusal",
+        "I find a fun compromise or redirect the request",
+        "I firmly refuse without worrying about the other's reaction",
+        "I accept to avoid all tension even if it's difficult for me"
+      ],
+      "annotation_en": "Self-identification is valid even without formal diagnosis",
+      "comment_label_en": "Optional - récisez si cela dépend de qui fait la demande"
+    },
+    {
+      "number": 43,
+      "text_en": "If yes, which neurodivergence(s) do you identify with or have been diagnosed?",
+      "bloc_en": "🔍 BLOC E : PROFILS COMPORTEMENTAUX",
+      "module_en": "Module E1 : Types & dynamiques comportementales",
+      "type_en": "Single choice",
+      "options_en": [
+        "Check that everything is done correctly according to standards",
+        "M'assurer que tout le monde se sent bien et soutenu",
+        "Take control to guarantee project success",
+        "Bring unique and creative vision to the project",
+        "Withdraw to reflect then provide precise insights",
+        "Anticipate all possible problems and prepare plan Bs",
+        "Maintain a light atmosphere and seek innovative solutions",
+        "Diriger fermement pour que les choses avancent efficacement",
+        "Faciliter le consensus et m'assurer que personne n'est en conflit"
+      ],
+      "annotation_en": "Types of neurodivergence shape your experience",
+      "comment_label_en": "Optional - xpliquez si votre rôle change selon le type de projet"
+    },
+    {
+      "number": 44,
+      "text_en": "How does your neurodivergence affect your daily life?",
+      "bloc_en": "🔍 BLOC E : PROFILS COMPORTEMENTAUX",
+      "module_en": "Module E1 : Types & dynamiques comportementales",
+      "type_en": "Single choice",
+      "options_en": [
+        "I immediately focus on how to correct and never make that error again",
+        "I worry about how others perceive me and seek to redeem myself with them",
+        "I quickly seek a solution to show I remain competent",
+        "I feel failure intensely and need time to process my emotions",
+        "I analyze coldly what happened to understand the cause",
+        "I imagine the worst possible scenarios and seek reassurance",
+        "I minimize the importance of the error and quickly move on",
+        "I claim it wasn't really my fault or circumstances were difficult",
+        "J'essaie d'apaiser la situation et de faire en sorte que tout le monde soit d'accord"
+      ],
+      "annotation_en": "The daily impact of neurodivergence is important to understand",
+      "comment_label_en": "Optional - xpliquez comment votre réaction varie selon la gravité de l'erreur"
+    },
+    {
+      "number": 45,
+      "text_en": "What adaptations have you put in place?",
+      "bloc_en": "🔍 BLOC E : PROFILS COMPORTEMENTAUX",
+      "module_en": "Module E1 : Types & dynamiques comportementales",
+      "type_en": "Single choice",
+      "options_en": [
+        "Je deviens plus rigide",
+        "critique et perfectionniste envers moi et les autres",
+        "I completely forget myself and over-adapt to others' needs",
+        "I exhaust myself trying to prove my worth and become impatient",
+        "I isolate in my emotions and feel everything amplified",
+        "I cut myself off emotionally and take refuge in my head",
+        "Je deviens anxieux·se",
+        "Scattered and seeking support everywhere",
+        "I flee responsibilities and seek pleasant distractions",
+        "Je deviens plus dominant·e",
+        "Controlling and confrontational",
+        "I avoid decisions and procrastinate to maintain calm"
+      ],
+      "annotation_en": "Adaptations show your strategies and needs",
+      "comment_label_en": "Optional - écrivez des exemples concrets de ces moments de stress"
+    },
+    {
+      "number": 46,
+      "text_en": "You feel misunderstood or different from others",
+      "bloc_en": "🔍 BLOC E : PROFILS COMPORTEMENTAUX",
+      "module_en": "Module E2 : PNL - Méta-programmes & filtres",
+      "type_en": "Single choice",
+      "options_en": [
+        "\"Ah",
+        "It looks like what we used to do",
+        "je vois les points communs\"",
+        "\"Tiens",
+        "It's different from our usual way",
+        "qu'est-ce qui change ?\"",
+        "\"Je compare les deux : ce qui reste pareil et ce qui est nouveau\"",
+        "\"Je ne sais pas",
+        "ça dépend vraiment de la situation\""
+      ],
+      "annotation_en": "Frequency of feeling different or misunderstood",
+      "comment_label_en": "Optional - xpliquez comment vous traitez généralement les nouveautés"
+    },
+    {
+      "number": 47,
+      "text_en": "You have difficulty understanding implicit social codes",
+      "bloc_en": "🔍 BLOC E : PROFILS COMPORTEMENTAUX",
+      "module_en": "Module E2 : PNL - Méta-programmes & filtres",
+      "type_en": "Single choice",
+      "options_en": [
+        "\"Qu'est-ce que je veux accomplir ? Quel résultat je vise ?\"",
+        "\"Qu'est-ce que je veux éviter ? Quels problèmes contourner ?\"",
+        "\"Les deux : ce que je veux atteindre ET ce que je veux éviter\"",
+        "\"Ça dépend vraiment du type de projet\""
+      ],
+      "annotation_en": "Difficulty with social codes is common in autism spectrum",
+      "comment_label_en": "Optional - onnez un exemple de projet récent et votre approche"
+    },
+    {
+      "number": 48,
+      "text_en": "You have intense or specific interests",
+      "bloc_en": "🔍 BLOC E : PROFILS COMPORTEMENTAUX",
+      "module_en": "Module E2 : PNL - Méta-programmes & filtres",
+      "type_en": "Single choice",
+      "options_en": [
+        "Give the big picture first - \"Basically here's the general concept\" - then go into details",
+        "Start with concrete details and progressively build toward the big picture",
+        "Alternate between big picture and details as needed",
+        "It really depends on the person and subject"
+      ],
+      "annotation_en": "Intense interests are characteristic of many neurodivergences",
+      "comment_label_en": "Optional - artagez un exemple où vous avez dû expliquer quelque chose récemment"
+    },
+    {
+      "number": 49,
+      "text_en": "You are particularly sensitive to sensory stimuli (sounds, lights, textures)",
+      "bloc_en": "🔍 BLOC E : PROFILS COMPORTEMENTAUX",
+      "module_en": "Module E2 : PNL - Méta-programmes & filtres",
+      "type_en": "Single choice",
+      "options_en": [
+        "Look for a proven method or ask \"How do others usually do it?\"",
+        "Experiment on my own and create my own approach as I go",
+        "Combine both: start with an established base then adapt it",
+        "Vraiment variable selon le contexte et l'urgence"
+      ],
+      "annotation_en": "Sensory sensitivities affect daily comfort",
+      "comment_label_en": "Optional - écrivez comment vous abordez les nouvelles situations"
+    },
+    {
+      "number": 50,
+      "text_en": "You often feel mentally exhausted after social interactions",
+      "bloc_en": "🔍 BLOC E : PROFILS COMPORTEMENTAUX",
+      "module_en": "Module E2 : PNL - Méta-programmes & filtres",
+      "type_en": "Single choice",
+      "options_en": [
+        "Faire le bon choix selon mes principes et valeurs",
+        "That this decision doesn't negatively affect my relationships",
+        "Succeed and achieve my goals through this choice",
+        "Stay authentic with myself and my emotions",
+        "Have all necessary information before deciding",
+        "Ne pas me tromper et avoir un plan de secours",
+        "Keep my options open and not feel limited",
+        "Keep my autonomy and not be vulnerable",
+        "Maintain inner peace and harmony in my life"
+      ],
+      "annotation_en": "Social exhaustion is common in neurodivergent people",
+      "comment_label_en": "Optional - artagez un exemple de décision difficile récente si vous le souhaitez"
+    },
+    {
+      "number": 51,
+      "text_en": "You have difficulty concentrating on tasks that don't interest you",
+      "bloc_en": "🔍 BLOC E : PROFILS COMPORTEMENTAUX",
+      "module_en": "Module E2 : PNL - Méta-programmes & filtres",
+      "type_en": "Single choice",
+      "options_en": [
+        "Arrive at exactly 2pm (or a bit before) - schedules are important to you",
+        "Arrive when you're ready - you adapt to the natural flow of events",
+        "It depends on the importance and context of the appointment",
+        "Vous ne savez pas",
+        "You didn't notice any particular pattern"
+      ],
+      "annotation_en": "Attention selectivity can indicate ADHD or autism",
+      "comment_label_en": "Optional - xpliquez votre relation au temps et aux horaires"
+    },
+    {
+      "number": 52,
+      "text_en": "You tend to hyperfocus on certain subjects or activities",
+      "bloc_en": "🔍 BLOC E : PROFILS COMPORTEMENTAUX",
+      "module_en": "Module E2 : PNL - Méta-programmes & filtres",
+      "type_en": "Single choice",
+      "options_en": [
+        "\"Oh non",
+        "j'aimais bien notre routine actuelle",
+        "pourquoi changer ?\"",
+        "\"Super ! Enfin du nouveau",
+        "j'avais besoin de changement\"",
+        "\"Okay",
+        "du moment qu'on garde certains repères et qu'on évolue progressivement\"",
+        "\"J'aime le nouveau mais j'ai besoin de garder quelques points stables\"",
+        "\"Ça dépend de la nature du changement proposé\""
+      ],
+      "annotation_en": "Hyperfocus is characteristic of ADHD and autism",
+      "comment_label_en": "Optional - écrivez comment vous vivez généralement les changements importants"
+    },
+    {
+      "number": 53,
+      "text_en": "You need strict routines to function well",
+      "bloc_en": "🔍 BLOC E : PROFILS COMPORTEMENTAUX",
+      "module_en": "Module E3 : Modes de communication",
+      "type_en": "Single choice",
+      "options_en": [
+        "\"Regardons les faits objectifs et les chiffres pour décider rationnellement\"",
+        "\"Voilà ce qui est juste selon moi",
+        "et c'est important de défendre nos principes\"",
+        "\"Je sens qu'on est tous frustrés",
+        "comment chacun se sent vraiment ?\"",
+        "\"Allez",
+        "détendons-nous ! On va trouver une solution créative ensemble\"",
+        "\"Écoutez... peut-être qu'on peut voir ce que chacun a besoin ?\"",
+        "\"Et si on prenait du recul... imaginons d'autres possibilités\""
+      ],
+      "annotation_en": "Need for routines is often linked to autism",
+      "comment_label_en": "Optional - xpliquez comment vous communiquez dans les situations tendues"
+    },
+    {
+      "number": 54,
+      "text_en": "You have difficulty managing multiple tasks simultaneously",
+      "bloc_en": "🔍 BLOC E : PROFILS COMPORTEMENTAUX",
+      "module_en": "Module E3 : Modes de communication",
+      "type_en": "Single choice",
+      "options_en": [
+        "Clear objectives with precise performance indicators and measurable progress",
+        "The ability to influence strategy and defend projects aligned with your values",
+        "A tight team with warm atmosphere and kind manager",
+        "Varied missions",
+        "rythme dynamique",
+        "interactions nombreuses et surprises",
+        "A supportive role for others with little pressure and calm time",
+        "Great creative freedom to innovate and think at your pace"
+      ],
+      "annotation_en": "Difficulty multitasking can indicate executive function issues",
+      "comment_label_en": "Optional - écrivez votre environnement de travail idéal en détail"
+    },
+    {
+      "number": 55,
+      "text_en": "You are very sensitive to injustice or inconsistencies",
+      "bloc_en": "🔍 BLOC E : PROFILS COMPORTEMENTAUX",
+      "module_en": "Module E3 : Modes de communication",
+      "type_en": "Single choice",
+      "options_en": [
+        "My own satisfaction - knowing internally it's done well according to my criteria",
+        "Others' feedback - knowing my work is recognized and validated",
+        "A balance: be happy with myself AND receive positive feedback",
+        "It depends on the context and nature of the work"
+      ],
+      "annotation_en": "High sensitivity to injustice is common in gifted/HPI",
+      "comment_label_en": "Optional - acontez une situation où vous avez ressenti cette différence"
+    },
+    {
+      "number": 56,
+      "text_en": "You often feel overwhelmed by your emotions",
+      "bloc_en": "🔍 BLOC E : PROFILS COMPORTEMENTAUX",
+      "module_en": "Module E3 : Modes de communication",
+      "type_en": "Single choice",
+      "options_en": [
+        "Over-control details",
+        "Criticize small mistakes of others or yourself",
+        "Devenir inflexible",
+        "imposer vos opinions",
+        "Blame those who don't share your values",
+        "Multiply small errors and apologize excessively to everyone",
+        "Create drama",
+        "manipuler pour obtenir de l'attention et des stimulations",
+        "Faire des erreurs d'inattention stupides par manque de concentration",
+        "Vous retirer",
+        "Isolate yourself and negatively criticize everything that happens"
+      ],
+      "annotation_en": "",
+      "comment_label_en": "Optional - écrivez comment vous réagissez concrètement sous forte pression"
+    },
+    {
+      "number": 57,
+      "text_en": "Which of these values is most important to you?",
+      "bloc_en": "🔍 BLOC E : PROFILS COMPORTEMENTAUX",
+      "module_en": "Module E3 : Modes de communication",
+      "type_en": "Single choice",
+      "options_en": [
+        "Recognize the quality of my work and technical skills",
+        "That my convictions and commitment are respected and recognized",
+        "Qu'on me dise \"Tu es génial·e",
+        "on t'apprécie énormément tel·le que tu es\"",
+        "Avoir de nouvelles stimulations et challenges excitants qui m'attendent",
+        "Recognize my listening ability and valuable help to others",
+        "That my imagination and creativity are recognized and valued"
+      ],
+      "annotation_en": "Your core values guide all your choices",
+      "comment_label_en": "Optional - acontez un moment où vous vous êtes senti·e vraiment valorisé·e"
+    },
+    {
+      "number": 58,
+      "text_en": "What life principle guides your decisions the most?",
+      "bloc_en": "🔍 BLOC E : PROFILS COMPORTEMENTAUX",
+      "module_en": "Module E4 : Canaux sensoriels",
+      "type_en": "Single choice",
+      "options_en": [
+        "\"Il faut que ce soit impeccable",
+        "parfait",
+        "sans aucune erreur\"",
+        "\"Je dois rester fort·e",
+        "ne pas montrer mes doutes ou ma vulnérabilité\"",
+        "\"Il faut que je fasse plaisir",
+        "que tout le monde soit content de moi\"",
+        "\"Allez",
+        "encore un effort",
+        "je vais réessayer jusqu'à ce que ça marche\"",
+        "\"Vite vite vite",
+        "I need to be faster",
+        "plus efficace\"",
+        "\"Ça dépend vraiment",
+        "aucun pattern fixe dans mes pensées\""
+      ],
+      "annotation_en": "Life principles shape your decisions and behaviors",
+      "comment_label_en": "Optional - artagez d'autres pensées automatiques que vous remarquez"
+    },
+    {
+      "number": 59,
+      "text_en": "For you, a successful life is one that",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F1 : Pensées et comportements répétitifs",
+      "type_en": "Single choice",
+      "options_en": [
+        "Never or very rarely",
+        "Sometimes but I control them easily",
+        "Regularly and it's hard to stop",
+        "Very often and it exhausts me",
+        "Constamment et c'est envahissant"
+      ],
+      "annotation_en": "Your definition of success reveals your priorities",
+      "comment_label_en": null
+    },
+    {
+      "number": 60,
+      "text_en": "Regarding work, you think",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F1 : Pensées et comportements répétitifs",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Cleanliness/contamination",
+        "Security - doors",
+        "gaz",
+        "etc.",
+        "Order and symmetry",
+        "Doubts about your actions",
+        "Fear of harming",
+        "Forbidden images or words",
+        "Perfection in your actions",
+        "Superstitions/numbers",
+        "I don't have these types of thoughts"
+      ],
+      "annotation_en": "Your relationship with work and its place in life",
+      "comment_label_en": "Optional - écrivez concrètement les pensées répétitives qui vous préoccupent le plus"
+    },
+    {
+      "number": 61,
+      "text_en": "Regarding money, you believe",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F1 : Pensées et comportements répétitifs",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Check the same thing several times",
+        "Excessive cleaning/washing",
+        "Organize/reorganize until it's \"perfect\"",
+        "Count or repeat words/phrases",
+        "Avoid certain places or situations",
+        "Ask others for reassurance",
+        "Follow specific mental rituals",
+        "Rien de particulier"
+      ],
+      "annotation_en": "Your relationship with money and material security",
+      "comment_label_en": null
+    },
+    {
+      "number": 62,
+      "text_en": "Your relationship with nature and environment",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F1 : Pensées et comportements répétitifs",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "N'existent pas chez moi",
+        "Prennent moins de 30 min par jour",
+        "Take 30 min to 1 hour per day",
+        "Take 1 to 3 hours per day",
+        "Prennent plus de 3h par jour"
+      ],
+      "annotation_en": "Your connection to environment and ecology",
+      "comment_label_en": null
+    },
+    {
+      "number": 63,
+      "text_en": "You think that human beings are fundamentally",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F1 : Pensées et comportements répétitifs",
+      "type_en": "Single choice",
+      "options_en": [
+        "Never or very rarely",
+        "Sometimes but I control them easily",
+        "Regularly and it's hard to stop",
+        "Very often and it exhausts me",
+        "Constamment et c'est envahissant"
+      ],
+      "annotation_en": "Your vision of human nature",
+      "comment_label_en": null
+    },
+    {
+      "number": 64,
+      "text_en": "Your vision of society",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F2 : Apprentissage et coordination",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Reading - slowness",
+        "erreurs",
+        "Understanding",
+        "Writing - spelling",
+        "formation des lettres",
+        "Mathematics - calculations",
+        "Geometry",
+        "Motor coordination - sport",
+        "Writing",
+        "L'organisation dans l'espace/temps",
+        "Memorizing sequences",
+        "L'attention soutenue",
+        "No particular difficulty"
+      ],
+      "annotation_en": "Your ideal of society and collective organization",
+      "comment_label_en": "Optional - acontez comment ces difficultés se manifestaient à l'école et leur impact sur votre scolarité"
+    },
+    {
+      "number": 65,
+      "text_en": "Regarding traditions and conventions",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F2 : Apprentissage et coordination",
+      "type_en": "Single choice",
+      "options_en": [
+        "Je lis facilement et rapidement",
+        "Je lis normalement mais me fatigue",
+        "Je dois relire souvent pour comprendre",
+        "I struggle to concentrate for long",
+        "Je confonds encore parfois des lettres/mots",
+        "I avoid reading as much as possible"
+      ],
+      "annotation_en": "Your relationship with traditions and established norms",
+      "comment_label_en": null
+    },
+    {
+      "number": 66,
+      "text_en": "Your relationship with authority",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F2 : Apprentissage et coordination",
+      "type_en": "Single choice",
+      "options_en": [
+        "C'est automatique et rapide",
+        "Je calcule normalement",
+        "I need to think more",
+        "I prefer to use a calculator",
+        "J'ai vraiment du mal avec les chiffres",
+        "Je compte encore sur mes doigts parfois"
+      ],
+      "annotation_en": "Your attitude toward authority and hierarchy",
+      "comment_label_en": null
+    },
+    {
+      "number": 67,
+      "text_en": "For you, personal freedom means primarily",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F2 : Apprentissage et coordination",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "J'ai une excellente coordination",
+        "I'm sometimes clumsy but it's fine",
+        "I struggle to do multiple things at once",
+        "Je me cogne souvent/renverse des choses",
+        "I have difficulties with fine motor skills",
+        "Mon organisation spatiale est chaotique",
+        "Ma gestion du temps est difficile",
+        "I have no coordination problems"
+      ],
+      "annotation_en": "Your definition of personal freedom",
+      "comment_label_en": "Optional - artagez des exemples concrets de situations où votre coordination ou organisation vous pose problème"
+    },
+    {
+      "number": 68,
+      "text_en": "Regarding collective good vs individual good",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F2 : Apprentissage et coordination",
+      "type_en": "Single choice",
+      "options_en": [
+        "I write easily and clearly",
+        "My writing is correct but tires me",
+        "My writing is hard to read",
+        "I avoid handwriting",
+        "I prefer to always type",
+        "I've always had illegible handwriting"
+      ],
+      "annotation_en": "Your balance between individual and collective",
+      "comment_label_en": null
+    },
+    {
+      "number": 69,
+      "text_en": "What is your position on major contemporary issues?",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F3 : Gestion des inquiétudes",
+      "type_en": "Single choice",
+      "options_en": [
+        "I rarely worry",
+        "I normally worry about real concerns",
+        "I often worry about likely things",
+        "I constantly worry even about details",
+        "I worry about everything",
+        "Even the unlikely"
+      ],
+      "annotation_en": "Your positions on contemporary social issues",
+      "comment_label_en": null
+    },
+    {
+      "number": 70,
+      "text_en": "Your relationship with activism and social engagement",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F3 : Gestion des inquiétudes",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Your health and that of your loved ones",
+        "Your performance at work/school",
+        "Your finances and material security",
+        "Vos relations et ce que pensent les autres",
+        "L'avenir et les catastrophes possibles",
+        "Daily details",
+        "Control of your emotions",
+        "I don't worry particularly"
+      ],
+      "annotation_en": "Your level of social and political engagement",
+      "comment_label_en": "Optional - écrivez vos inquiétudes principales et depuis quand elles sont présentes"
+    },
+    {
+      "number": 71,
+      "text_en": "Regarding cultural and ideological diversity",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F3 : Gestion des inquiétudes",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Muscle tension/headaches",
+        "Digestive problems/nausea",
+        "Palpitations/oppression poitrine",
+        "Transpiration excessive",
+        "Tremblements/agitation",
+        "Sleep difficulties",
+        "Fatigue chronique",
+        "No physical symptom"
+      ],
+      "annotation_en": "Your openness to cultural and ideological diversity",
+      "comment_label_en": null
+    },
+    {
+      "number": 72,
+      "text_en": "Your vision of humanity's future",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F3 : Gestion des inquiétudes",
+      "type_en": "Single choice",
+      "options_en": [
+        "I handle it calmly",
+        "Je ressens du stress normal puis m'adapte",
+        "I panic momentarily then recover",
+        "I'm paralyzed by anxiety",
+        "I flee or completely avoid the situation"
+      ],
+      "annotation_en": "Your vision of humanity's future and evolution",
+      "comment_label_en": null
+    },
+    {
+      "number": 73,
+      "text_en": "Your ideal social circle includes",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F3 : Gestion des inquiétudes",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Respiration/relaxation",
+        "Physical activity",
+        "Avoidance of stressful situations",
+        "Seeking reassurance from others",
+        "Excessive environmental control",
+        "Rumination mentale",
+        "Meditation/mindfulness techniques",
+        "I have no particular strategies"
+      ],
+      "annotation_en": "Your ideal social circle size and composition",
+      "comment_label_en": "Optional - xpliquez quelles stratégies fonctionnent le mieux pour vous et dans quels contextes"
+    },
+    {
+      "number": 74,
+      "text_en": "In friendships, you value most",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F4 : Variations d'humeur et énergie",
+      "type_en": "Single choice",
+      "options_en": [
+        "Sont stables la plupart du temps",
+        "Vary according to events normally",
+        "Changent rapidement sans raison apparente",
+        "Alternate between very high and very low periods",
+        "Are extreme and impact my life"
+      ],
+      "annotation_en": "What you value most in friendship",
+      "comment_label_en": null
+    },
+    {
+      "number": 75,
+      "text_en": "You feel most comfortable in",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F4 : Variations d'humeur et énergie",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Vous vous sentiez euphorique/invincible",
+        "You had overflowing energy",
+        "You slept very little without fatigue",
+        "You talked a lot and very quickly",
+        "You had grandiose ideas",
+        "You made impulsive decisions",
+        "You were irritable/aggressive for no reason",
+        "I've never experienced this type of periods"
+      ],
+      "annotation_en": "Your preferred social contexts",
+      "comment_label_en": "Optional - acontez une période spécifique où vous avez ressenti ces états et comment cela s'est manifesté"
+    },
+    {
+      "number": 76,
+      "text_en": "In a conversation, you prefer",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F4 : Variations d'humeur et énergie",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Tristesse profonde sans raison claire",
+        "Total loss of interest and pleasure",
+        "Extreme fatigue and slowing down",
+        "Feelings of worthlessness or guilt",
+        "Major concentration difficulties",
+        "Dark thoughts about life/death",
+        "Major appetite/sleep changes",
+        "I haven't experienced this type of periods"
+      ],
+      "annotation_en": "Your communication style and preferences",
+      "comment_label_en": null
+    },
+    {
+      "number": 77,
+      "text_en": "After a social interaction, you",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F4 : Variations d'humeur et énergie",
+      "type_en": "Single choice",
+      "options_en": [
+        "N'existent pas chez moi",
+        "Are light and manageable",
+        "Perturbent parfois mes relations",
+        "Impactent significativement ma vie",
+        "Require medical monitoring"
+      ],
+      "annotation_en": "Your need for recovery after social interaction",
+      "comment_label_en": null
+    },
+    {
+      "number": 78,
+      "text_en": "In romantic relationships, you need primarily",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F4 : Variations d'humeur et énergie",
+      "type_en": "Single choice",
+      "options_en": [
+        "Doesn't apply to me",
+        "A few hours to a few days",
+        "One to two weeks",
+        "Several weeks to a few months",
+        "Several consecutive months"
+      ],
+      "annotation_en": "Your main needs in romantic relationships",
+      "comment_label_en": null
+    },
+    {
+      "number": 79,
+      "text_en": "Your relationship with solitude",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F5 : Événements difficiles et leur impact",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Accidents graves/catastrophes naturelles",
+        "Violence physique/agression",
+        "Sexual abuse/harassment",
+        "Perte soudaine d'un proche",
+        "Violence domestique/familiale",
+        "Guerre/attentat/violence collective",
+        "Neglect/abandonment in childhood",
+        "Severe school/workplace harassment",
+        "No event of this type"
+      ],
+      "annotation_en": "Your relationship with solitude and need for alone time",
+      "comment_label_en": "Optional - i vous êtes à l'aise, partagez le contexte de ces événements (sans détails traumatiques)"
+    },
+    {
+      "number": 80,
+      "text_en": "You communicate best through",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F5 : Événements difficiles et leur impact",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Flashbacks",
+        "Recurring nightmares",
+        "Avoidance of places/people/situations reminding of the event",
+        "Constant hypervigilance",
+        "Exaggerated startle response",
+        "Emotional numbness",
+        "Memory/concentration difficulties",
+        "Negative thoughts about you/the world",
+        "None of these symptoms"
+      ],
+      "annotation_en": "Your preferred communication channels",
+      "comment_label_en": "Optional - écrivez comment ces symptômes impactent votre vie quotidienne actuellement"
+    },
+    {
+      "number": 81,
+      "text_en": "Faced with emotional conflict, you",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F5 : Événements difficiles et leur impact",
+      "type_en": "Single choice",
+      "options_en": [
+        "N'existent pas",
+        "Sont apparus puis ont disparu naturellement",
+        "Persistent depuis plus d'un mois",
+        "Persistent depuis plus de 6 mois",
+        "S'aggravent avec le temps"
+      ],
+      "annotation_en": "Your conflict management style",
+      "comment_label_en": null
+    },
+    {
+      "number": 82,
+      "text_en": "You feel understood by others",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F5 : Événements difficiles et leur impact",
+      "type_en": "Single choice",
+      "options_en": [
+        "Aucun impact",
+        "Light and temporary impact",
+        "Moderate impact on some areas",
+        "Impact important sur ma vie sociale/professionnelle",
+        "Impact majeur - je ne peux plus fonctionner normalement"
+      ],
+      "annotation_en": "Your feeling of being understood by others",
+      "comment_label_en": null
+    },
+    {
+      "number": 83,
+      "text_en": "It's easy for you to create new social connections",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F6 : Relation à l'alimentation",
+      "type_en": "Single choice",
+      "options_en": [
+        "Serene and balanced",
+        "Sometimes concerning but manageable",
+        "Souvent source de stress",
+        "Very conflictual and obsessive",
+        "Totalement dysfonctionnel"
+      ],
+      "annotation_en": "Your ease in creating new connections",
+      "comment_label_en": null
+    },
+    {
+      "number": 84,
+      "text_en": "You prefer deep conversations over superficial exchanges",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F6 : Relation à l'alimentation",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Je mange selon ma faim naturellement",
+        "I strictly control my portions/calories",
+        "I avoid certain \"forbidden\" foods",
+        "I have uncontrollable binge eating episodes",
+        "Je compense par vomissements/laxatifs/sport excessif",
+        "Je saute souvent des repas",
+        "I eat emotionally - stress/boredom",
+        "Mon alimentation est chaotique"
+      ],
+      "annotation_en": "Your preference for conversation depth",
+      "comment_label_en": "Optional - écrivez votre relation avec la nourriture et comment elle a évolué au fil du temps"
+    },
+    {
+      "number": 85,
+      "text_en": "You easily sense others' emotions and moods",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F6 : Relation à l'alimentation",
+      "type_en": "Single choice",
+      "options_en": [
+        "J'accepte mon corps tel qu'il est",
+        "I'd like to change a few details",
+        "Je suis insatisfait·e de mon apparence",
+        "Je me vois plus gros - se que je ne suis",
+        "I hate my body and avoid it - mirrors"
+      ],
+      "annotation_en": "Your level of empathy and emotional sensitivity",
+      "comment_label_en": null
+    },
+    {
+      "number": 86,
+      "text_en": "You tend to take on others' emotions",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F6 : Relation à l'alimentation",
+      "type_en": "Single choice",
+      "options_en": [
+        "A normal place",
+        "A bit more than average",
+        "An important place daily",
+        "An obsessive place - several hours/day",
+        "Almost my entire day"
+      ],
+      "annotation_en": "Your emotional boundaries and absorption tendency",
+      "comment_label_en": "Optional - xpliquez quand et comment la nourriture occupe vos pensées et ce que vous ressentez"
+    },
+    {
+      "number": 87,
+      "text_en": "You need a lot of personal space in relationships",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F7 : Qualité du sommeil",
+      "type_en": "Single choice",
+      "options_en": [
+        "Excellente - je dors bien",
+        "Good - some occasional difficulties",
+        "Average - regular problems",
+        "Poor - frequent difficulties",
+        "Very poor - constant problems"
+      ],
+      "annotation_en": "Your need for personal space in relationships",
+      "comment_label_en": null
+    },
+    {
+      "number": 88,
+      "text_en": "You find it easy to express your emotions verbally",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F7 : Qualité du sommeil",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "L'endormissement - plus de 30 min",
+        "Frequent night awakenings",
+        "Unwanted very early waking",
+        "Non-restorative sleep",
+        "Recurring nightmares",
+        "Involuntary movements - restless legs",
+        "Snoring/apnea",
+        "L'hypersomnie - besoin excessif de dormir",
+        "No particular difficulty"
+      ],
+      "annotation_en": "Your ease with verbal emotional expression",
+      "comment_label_en": "Optional - écrivez une nuit typique et vos difficultés de sommeil concrètes"
+    },
+    {
+      "number": 89,
+      "text_en": "You are comfortable with physical displays of affection",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F7 : Qualité du sommeil",
+      "type_en": "Single choice",
+      "options_en": [
+        "N'existent pas",
+        "Are recent - less than 3 months",
+        "Lasting from 3 months to 1 year",
+        "Persistent depuis plus d'un an",
+        "Existent depuis toujours"
+      ],
+      "annotation_en": "Your comfort with physical affection",
+      "comment_label_en": null
+    },
+    {
+      "number": 90,
+      "text_en": "You easily trust others",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F7 : Qualité du sommeil",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Fatigue chronique le jour",
+        "Concentration/memory difficulties",
+        "Irritability/mood changes",
+        "Somnolence diurne",
+        "Reduced performance at work/school",
+        "Safety risks - driving",
+        "Relationship problems",
+        "Aucun impact particulier"
+      ],
+      "annotation_en": "Your level of trust in others",
+      "comment_label_en": "Optional - xpliquez concrètement comment le manque de sommeil impacte vos journées"
+    },
+    {
+      "number": 91,
+      "text_en": "You tend to prioritize others' needs over your own",
+      "bloc_en": "🧩 BLOC F : FONCTIONNEMENT COGNITIF ET ÉMOTIONNEL",
+      "module_en": "Module F7 : Qualité du sommeil",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Regular bedtime/wake time",
+        "Avoid screens before sleep",
+        "Relaxation/meditation",
+        "Prescription medication",
+        "Self-medication",
+        "Alcool pour m'endormir",
+        "Siestes compensatrices",
+        "No particular strategy"
+      ],
+      "annotation_en": "Your balance between self and others",
+      "comment_label_en": null
+    },
+    {
+      "number": 92,
+      "text_en": "You feel comfortable in leadership positions",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G1 : Roue de vie holistique (7 sphères)",
+      "type_en": "Likert 10 points (1 = Très insatisfait → 10 = Totalement épanoui)",
+      "options_en": null,
+      "annotation_en": "Your comfort in leadership or responsibility positions",
+      "comment_label_en": "Optional - u'est-ce qui nourrit ou manque dans votre vie spirituelle ? Partagez vos pratiques, questionnements, aspirations"
+    },
+    {
+      "number": 93,
+      "text_en": "In your professional life, you seek primarily",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G1 : Roue de vie holistique (7 sphères)",
+      "type_en": "Likert 10 points (1 = Très insatisfait → 10 = Totalement épanoui)",
+      "options_en": null,
+      "annotation_en": "Your main professional motivations",
+      "comment_label_en": "Optional - omment vous stimulez-vous intellectuellement ? Quels apprentissages ou projets créatifs vous animent ?"
+    },
+    {
+      "number": 94,
+      "text_en": "Your ideal work environment is",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G1 : Roue de vie holistique (7 sphères)",
+      "type_en": "Likert 10 points (1 = Très insatisfait → 10 = Totalement épanoui)",
+      "options_en": null,
+      "annotation_en": "Your ideal work environment characteristics",
+      "comment_label_en": "Optional - omment vous sentez-vous émotionnellement ? Quels défis ou progrès récents dans ce domaine ?"
+    },
+    {
+      "number": 95,
+      "text_en": "Regarding remote work vs office",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G1 : Roue de vie holistique (7 sphères)",
+      "type_en": "Likert 10 points (1 = Très insatisfait → 10 = Totalement épanoui)",
+      "options_en": null,
+      "annotation_en": "Your preference between remote and office work",
+      "comment_label_en": "Optional - omment va votre corps ? Votre niveau d'énergie ? Quelles habitudes souhaitez-vous changer ?"
+    },
+    {
+      "number": 96,
+      "text_en": "You are motivated by",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G1 : Roue de vie holistique (7 sphères)",
+      "type_en": "Likert 10 points (1 = Très insatisfait → 10 = Totalement épanoui)",
+      "options_en": null,
+      "annotation_en": "What drives you professionally",
+      "comment_label_en": "Optional - omment se portent vos relations importantes ? Qu'aimeriez-vous améliorer ou développer ?"
+    },
+    {
+      "number": 97,
+      "text_en": "Your relationship with professional hierarchy",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G1 : Roue de vie holistique (7 sphères)",
+      "type_en": "Likert 10 points (1 = Très insatisfait → 10 = Totalement épanoui)",
+      "options_en": null,
+      "annotation_en": "Your relationship with professional hierarchy",
+      "comment_label_en": "Optional - otre travail actuel vous nourrit-il ? Quelle est votre vision professionnelle ?"
+    },
+    {
+      "number": 98,
+      "text_en": "In managing your time at work, you",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G1 : Roue de vie holistique (7 sphères)",
+      "type_en": "Likert 10 points (1 = Très insatisfait → 10 = Totalement épanoui)",
+      "options_en": null,
+      "annotation_en": "Your style of time and project management",
+      "comment_label_en": "Optional - otre environnement vous ressource-t-il ? Quels changements envisagez-vous ?"
+    },
+    {
+      "number": 99,
+      "text_en": "You prefer work that is",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G1 : Roue de vie holistique (7 sphères)",
+      "type_en": "Single choice",
+      "options_en": [
+        "Pas du tout",
+        "Slightly sometimes",
+        "Moderately - it bothers me",
+        "A lot - it limits my activities",
+        "Extremely - it controls my life"
+      ],
+      "annotation_en": "Your preference for varied or specialized work",
+      "comment_label_en": "Optional - onnez des exemples concrets de situations où ces patterns affectent votre quotidien"
+    },
+    {
+      "number": 100,
+      "text_en": "Regarding professional collaboration",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G1 : Roue de vie holistique (7 sphères)",
+      "type_en": "Checkbox (choix multiples - max 2-3)",
+      "options_en": [
+        "Spirituelle",
+        "Mentale",
+        "Emotional",
+        "Physique",
+        "Relationnelle",
+        "Professionnelle",
+        "Environnementale",
+        "All are balanced"
+      ],
+      "annotation_en": "Your preference for individual or team work",
+      "comment_label_en": "Optional - xpliquez pourquoi ces sphères sont déséquilibrées et depuis quand"
+    },
+    {
+      "number": 101,
+      "text_en": "You feel accomplished when",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G2 : Archétypes personnels Shinkofa",
+      "type_en": "Checkbox (choix multiples - max 2-3)",
+      "options_en": [
+        "Spirituelle",
+        "Mentale",
+        "Emotional",
+        "Physique",
+        "Relationnelle",
+        "Professionnelle",
+        "Environnementale",
+        "I don't know"
+      ],
+      "annotation_en": "What gives you sense of professional accomplishment",
+      "comment_label_en": "Optional - u'est-ce qui vous attire vers ces sphères ? Quels objectifs concrets envisagez-vous ?"
+    },
+    {
+      "number": 102,
+      "text_en": "Your relationship with professional ambition",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G2 : Archétypes personnels Shinkofa",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Invent or create innovative solutions that change the game",
+        "Protect people",
+        "des causes ou l'environnement de menaces",
+        "Transmit essential knowledge and train future generations",
+        "Discover new possibilities and open unexplored paths",
+        "Care for and accompany people in their healing or transformation",
+        "Provide wisdom and perspective to illuminate collective choices",
+        "Combattre les injustices et faire triompher des causes justes",
+        "Create bridges between people and build communities",
+        "Build solid structures and organize systems that last"
+      ],
+      "annotation_en": "Your relationship with professional ambition and success",
+      "comment_label_en": "Optional - acontez une situation où vous avez déjà eu cet impact, même à petite échelle"
+    },
+    {
+      "number": 103,
+      "text_en": "Faced with constructive criticism at work, you",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G2 : Archétypes personnels Shinkofa",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "New ideas",
+        "Creative solutions",
+        "approches innovantes",
+        "Protection",
+        "Security",
+        "quelqu'un de fiable sur qui compter",
+        "Conseils",
+        "enseignement",
+        "guidance pour progresser",
+        "Inspiration pour sortir de leur zone de confort et explorer",
+        "Empathetic listening",
+        "Comfort",
+        "Emotional support",
+        "Perspective sage",
+        "recul",
+        "Deep understanding of situations",
+        "Support to face a difficulty or defend their rights",
+        "Someone who creates connection and brings people together",
+        "Aide pour organiser",
+        "structurer",
+        "planifier efficacement"
+      ],
+      "annotation_en": "Your reaction to professional criticism",
+      "comment_label_en": "Optional - onnez des exemples concrets de sollicitations récurrentes"
+    },
+    {
+      "number": 104,
+      "text_en": "Your relationship with work-life balance",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G2 : Archétypes personnels Shinkofa",
+      "type_en": "Single choice",
+      "options_en": [
+        "Create something new - artistic project",
+        "prototype",
+        "invention",
+        "Prendre soin de votre espace ou aider quelqu'un qui en a besoin",
+        "Share your knowledge - write",
+        "enseigner",
+        "conseiller quelqu'un",
+        "Partir explorer un endroit inconnu ou apprendre quelque chose de totalement nouveau",
+        "Accompanying someone through their difficulties or practicing wellness activities",
+        "Immerse yourself in deep reflection - philosophical readings",
+        "Meditation",
+        "Defend a cause you care about or correct an injustice",
+        "Organiser un moment convivial et rassembler des gens",
+        "Structure and optimize a system - organize",
+        "planifier",
+        "Improve organization"
+      ],
+      "annotation_en": "Your balance between professional and personal life",
+      "comment_label_en": "Optional - écrivez ce qui vous attire vraiment dans ces moments de liberté"
+    },
+    {
+      "number": 105,
+      "text_en": "Do you have professional or entrepreneurial projects?",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G2 : Archétypes personnels Shinkofa",
+      "type_en": "Single choice",
+      "options_en": [
+        "I look for alternative creative solutions and innovate",
+        "I focus on securing and protecting what can be",
+        "Je transmets ce que je sais et guide vers des ressources",
+        "I go explore completely different leads",
+        "I provide emotional support and care for affected people",
+        "Je prends du recul et j'analyse la situation avec sagesse",
+        "I fight differently but continue defending the cause",
+        "Je rassemble les gens pour trouver une solution collective",
+        "I reorganize and restructure to work around the obstacle",
+        "No clear secondary approach - I remain stuck"
+      ],
+      "annotation_en": "Your current professional projects and ambitions",
+      "comment_label_en": "Optional - acontez une situation où vous avez dû changer d'approche"
+    },
+    {
+      "number": 106,
+      "text_en": "What skills would you like to develop?",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G3 : Cartographie des paradigmes & croyances",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "\"Je ne suis pas assez...\"",
+        "\"Je n'y arriverai jamais\"",
+        "\"Les autres sont meilleurs que moi\"",
+        "\"Je ne mérite pas le succès\"",
+        "\"Je dois être parfait·e pour être accepté·e\"",
+        "\"Si j'échoue",
+        "je suis un·e raté·e\"",
+        "\"Je ne peux pas changer\"",
+        "\"C'est trop difficile pour moi\"",
+        "\"Je n'ai aucune croyance limitante sur moi\""
+      ],
+      "annotation_en": "Skills you want to develop",
+      "comment_label_en": "Optional - acontez des situations où ces pensées vous ont bloqué·e ou ralenti·e"
+    },
+    {
+      "number": 107,
+      "text_en": "What type of professional environment allows you to thrive?",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G3 : Cartographie des paradigmes & croyances",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "\"Si je dis non",
+        "on ne m'aimera plus\"",
+        "\"Les autres vont me juger\"",
+        "\"Je vais être abandonné·e\"",
+        "\"On va découvrir que je suis un imposteur\"",
+        "\"Je ne peux faire confiance à personne\"",
+        "\"Les conflits sont dangereux\"",
+        "\"Je dois plaire à tout le monde\"",
+        "\"L'amour n'est pas fait pour moi\"",
+        "\"Je n'ai pas de peurs particulières en relation\""
+      ],
+      "annotation_en": "Professional environment that allows you to thrive",
+      "comment_label_en": "Optional - artagez des exemples concrets où ces peurs se manifestent"
+    },
+    {
+      "number": 108,
+      "text_en": "What frustrates or blocks you most in your professional life?",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G3 : Cartographie des paradigmes & croyances",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "\"Le travail avant tout\"",
+        "\"Il faut souffrir pour réussir\"",
+        "\"L'argent ne fait pas le bonheur\"",
+        "\"Les émotions sont un signe de faiblesse\"",
+        "\"Il faut toujours faire plaisir aux autres\"",
+        "\"La réussite c'est avoir un travail stable\"",
+        "\"On ne peut compter que sur soi\"",
+        "\"Il ne faut pas se faire remarquer\"",
+        "\"Je ne me reconnais dans aucun conditionnement familial\""
+      ],
+      "annotation_en": "Main professional frustrations or blocks",
+      "comment_label_en": "Optional - 'où viennent ces messages ? Comment impactent-ils votre vie aujourd'hui ?"
+    },
+    {
+      "number": 109,
+      "text_en": "How would you rate your current physical health?",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G3 : Cartographie des paradigmes & croyances",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "\"À mon âge",
+        "je devrais...\"",
+        "\"Une personne de mon sexe doit...\"",
+        "\"Il faut réussir selon les normes sociales\"",
+        "\"Paraître heureux - se en permanence\"",
+        "\"Avoir une vie parfaite sur les réseaux\"",
+        "\"Consommer pour être heureux - se\"",
+        "\"Être productif - ve en permanence\"",
+        "\"Correspondre aux standards de beauté\"",
+        "\"Je ne subis pas d'injonctions sociales particulières\""
+      ],
+      "annotation_en": "Your subjective assessment of your physical health",
+      "comment_label_en": "Optional - omment ces injonctions se manifestent-elles concrètement dans votre quotidien ?"
+    },
+    {
+      "number": 110,
+      "text_en": "How would you rate your current mental wellbeing?",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G3 : Cartographie des paradigmes & croyances",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "En solitude et autonomie",
+        "In a collaborative team",
+        "En position de leadership",
+        "Dans l'accompagnement individuel",
+        "In artistic creation",
+        "In problem-solving",
+        "Dans l'enseignement et transmission",
+        "Dans l'organisation et la structure",
+        "Dans l'exploration et l'aventure"
+      ],
+      "annotation_en": "Your subjective assessment of your mental wellbeing",
+      "comment_label_en": "Optional - récisez les contextes où vous vous sentez le plus aligné·e et puissant·e"
+    },
+    {
+      "number": 111,
+      "text_en": "You suffer from chronic conditions or recurring health issues",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G4 : Dialogue intérieur structuré (4 voix)",
+      "type_en": "Single choice",
+      "options_en": [
+        "\"Les choses m'arrivent",
+        "je subis les événements sans vraiment avoir le contrôle\"",
+        "\"Je me bats constamment",
+        "je surmonte les obstacles et je relève chaque défi\"",
+        "\"Personne ne me comprend vraiment",
+        "je suis différent·e et à part\"",
+        "\"Je me sens responsable du bien-être des autres",
+        "je dois les aider et les soutenir\"",
+        "\"Je suis en évolution permanente",
+        "chaque expérience m'apprend quelque chose\"",
+        "\"J'ai l'impression de bluffer",
+        "Of not being in the right place",
+        "d'être un imposteur\"",
+        "\"Je sens que j'ai une grande mission à accomplir",
+        "quelque chose d'important à réaliser\"",
+        "\"Aucun thème particulier ne ressort de mes récits\""
+      ],
+      "annotation_en": "Presence of chronic health issues",
+      "comment_label_en": "Optional - acontez brièvement votre parcours et ce qui en ressort pour vous"
+    },
+    {
+      "number": 112,
+      "text_en": "If yes, what are your main health concerns?",
+      "bloc_en": "🌟 BLOC G : DIMENSIONS SHINKOFA",
+      "module_en": "Module G4 : Dialogue intérieur structuré (4 voix)",
+      "type_en": "Single choice",
+      "options_en": [
+        "I followed my immediate feeling and current emotions",
+        "I focused on concrete action and determination to move forward",
+        "I sought to understand all viewpoints with kindness",
+        "I stepped back to view the situation with wisdom and detachment",
+        "My approach really varies depending on decisions",
+        "Je ne me reconnais dans aucune de ces approches"
+      ],
+      "annotation_en": "Details of your main health concerns",
+      "comment_label_en": "Optional - acontez cette décision et comment vous l'avez prise"
+    },
+    {
+      "number": 113,
+      "text_en": "Your sleep quality is generally",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H1 : Compétences informatique & IA",
+      "type_en": "Single choice",
+      "options_en": [
+        "Aucune connaissance",
+        "Quelques notions de base",
+        "Capable de lire du code simple",
+        "Je code occasionnellement",
+        "I regularly develop",
+        "I'm a professional developer"
+      ],
+      "annotation_en": "Your sleep quality assessment",
+      "comment_label_en": null
+    },
+    {
+      "number": 114,
+      "text_en": "Your energy level during the day is",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H1 : Compétences informatique & IA",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "HTML/CSS",
+        "JavaScript",
+        "Python",
+        "PHP",
+        "SQL/Databases",
+        "Java/C#/.NET",
+        "Mobile - iOS/Android",
+        "CMS - WordPress",
+        "etc.",
+        "Je ne code pas",
+        "Autres langages"
+      ],
+      "annotation_en": "Your daytime energy assessment",
+      "comment_label_en": "Optionnel pour préciser d'autres langages"
+    },
+    {
+      "number": 115,
+      "text_en": "You practice regular physical activity",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H1 : Compétences informatique & IA",
+      "type_en": "Single choice",
+      "options_en": [
+        "No particular knowledge",
+        "J'ai entendu parler mais ne l'utilise pas",
+        "J'utilise occasionnellement ChatGPT/IA grand public",
+        "I regularly use multiple AI tools",
+        "I master advanced prompting",
+        "I develop with AI APIs"
+      ],
+      "annotation_en": "Your level of regular physical activity",
+      "comment_label_en": null
+    },
+    {
+      "number": 116,
+      "text_en": "Your relationship with food is",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H1 : Compétences informatique & IA",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "ChatGPT/GPT-4",
+        "Claude - Anthropic",
+        "Copilot - Microsoft",
+        "Perplexity",
+        "Midjourney/DALL-E - images",
+        "Outils de transcription automatique",
+        "IA de coding - GitHub Copilot",
+        "Advanced machine translation",
+        "Je n'utilise pas d'outils IA",
+        "Autres outils IA"
+      ],
+      "annotation_en": "Your relationship with food and eating",
+      "comment_label_en": "Optionnel pour préciser d'autres outils"
+    },
+    {
+      "number": 117,
+      "text_en": "You use substances to manage stress (alcohol, tobacco, etc.)",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H1 : Compétences informatique & IA",
+      "type_en": "Single choice",
+      "options_en": [
+        "I write simple and direct questions",
+        "I adjust my requests based on results",
+        "I use specific prompting techniques",
+        "Je structure mes prompts avec contexte et exemples",
+        "I master advanced prompt engineering",
+        "Je ne m'y connais pas en prompting"
+      ],
+      "annotation_en": "Use of substances to manage stress",
+      "comment_label_en": null
+    },
+    {
+      "number": 118,
+      "text_en": "You have healthy lifestyle habits (sleep, diet, exercise)",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H1 : Compétences informatique & IA",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Suite Adobe - Photoshop",
+        "Illustrator",
+        "etc.",
+        "Video editing tools",
+        "Logiciels de design - Figma",
+        "Canva",
+        "Outils de gestion de projet",
+        "Analytics et tableaux de bord",
+        "Automation/No-code - Zapier",
+        "n8n",
+        "CRM and databases",
+        "No particular creative tool"
+      ],
+      "annotation_en": "Your healthy lifestyle habits",
+      "comment_label_en": null
+    },
+    {
+      "number": 119,
+      "text_en": "You take care of your mental health (therapy, meditation, etc.)",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H1 : Compétences informatique & IA",
+      "type_en": "Single choice",
+      "options_en": [
+        "I avoid tech novelties as much as possible",
+        "I only learn when necessary",
+        "I'm moderately curious about innovations",
+        "I stay informed about tech trends",
+        "I'm passionate about new technologies",
+        "I quickly adopt emerging tools"
+      ],
+      "annotation_en": "Your attention to mental health",
+      "comment_label_en": null
+    },
+    {
+      "number": 120,
+      "text_en": "What aspects of your health or wellbeing would you like to improve?",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H1 : Compétences informatique & IA",
+      "type_en": "Single choice",
+      "options_en": [
+        "Ask for help immediately",
+        "Essayez quelques solutions basiques",
+        "Cherchez des tutoriels en ligne",
+        "Explore options methodically",
+        "Analyze the problem technically",
+        "Often find creative solutions"
+      ],
+      "annotation_en": "Health or wellbeing aspects to improve",
+      "comment_label_en": null
+    },
+    {
+      "number": 121,
+      "text_en": "How would you describe your relationship with your emotions?",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H1 : Compétences informatique & IA",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Tech helps me be more efficient",
+        "Elle me connecte avec d'autres personnes",
+        "Elle me surcharge parfois d'informations",
+        "I feel screen addiction",
+        "It improves my creativity",
+        "It generates stress and anxiety",
+        "It saves me precious time",
+        "I don't think about it particularly"
+      ],
+      "annotation_en": "Your general relationship with your emotions",
+      "comment_label_en": null
+    },
+    {
+      "number": 122,
+      "text_en": "You experience intense emotions",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H1 : Compétences informatique & IA",
+      "type_en": "Single choice",
+      "options_en": [
+        "This doesn't interest/worry me",
+        "Elle restera un outil parmi d'autres",
+        "It will moderately transform my daily life",
+        "It will revolutionize how I work",
+        "It will be everywhere in my life",
+        "Je veux devenir expert·e de ces technologies"
+      ],
+      "annotation_en": "Frequency and intensity of your emotions",
+      "comment_label_en": null
+    },
+    {
+      "number": 123,
+      "text_en": "It's easy for you to identify what you feel",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H1 : Compétences informatique & IA",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Reduce your screen time",
+        "Apprendre de nouveaux outils utiles",
+        "Maîtriser le prompting IA",
+        "Automate repetitive tasks",
+        "Develop your basic skills",
+        "Create a healthier digital environment",
+        "Stay at the forefront of innovation",
+        "Je suis satisfait·e de ma relation actuelle"
+      ],
+      "annotation_en": "Your emotional awareness and identification",
+      "comment_label_en": "Optionnel pour préciser vos besoins"
+    },
+    {
+      "number": 124,
+      "text_en": "You express your emotions spontaneously",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H1 : Compétences informatique & IA",
+      "type_en": "Texte libre court",
+      "options_en": null,
+      "annotation_en": "Your spontaneity in emotional expression",
+      "comment_label_en": "Optionnel pour expliquer pourquoi"
+    },
+    {
+      "number": 125,
+      "text_en": "You tend to repress or hide your emotions",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H2 : Connaissances spirituelles & ésotériques",
+      "type_en": "Single choice",
+      "options_en": [
+        "The Child - more spontaneity",
+        "The Warrior - more strength",
+        "The Guide - more compassion",
+        "The Sage - more wisdom",
+        "All are balanced",
+        "I don't know"
+      ],
+      "annotation_en": "Your tendency to repress or hide emotions",
+      "comment_label_en": "Optional - ourquoi cette dimension vous attire-t-elle ? Qu'espérez-vous en développant cela ?"
+    },
+    {
+      "number": 126,
+      "text_en": "You are overwhelmed by your emotions regularly",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H2 : Connaissances spirituelles & ésotériques",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Regular meditation",
+        "Travail sur les chakras",
+        "Techniques de respiration - pranayama",
+        "Reiki or energy healing",
+        "Qi Gong ou Tai Chi",
+        "Yoga - Hatha",
+        "Vinyasa",
+        "Kundalini...",
+        "Crystal therapy - crystals",
+        "pierres",
+        "EFT - emotional freedom techniques",
+        "No energy practice",
+        "Je manque de temps pour ces pratiques",
+        "Autres pratiques"
+      ],
+      "annotation_en": "Frequency of being overwhelmed by emotions",
+      "comment_label_en": "Optionnel pour préciser d'autres pratiques"
+    },
+    {
+      "number": 127,
+      "text_en": "Faced with strong stress, you",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H2 : Connaissances spirituelles & ésotériques",
+      "type_en": "Single choice",
+      "options_en": [
+        "Totally skeptical/materialistic",
+        "Curieux - se mais prudent·e",
+        "Open to experimentation",
+        "Je crois en certains concepts",
+        "Very interested and practicing",
+        "C'est central dans ma vision du monde"
+      ],
+      "annotation_en": "Your stress and crisis management strategies",
+      "comment_label_en": null
+    },
+    {
+      "number": 128,
+      "text_en": "You have experienced traumatic events that still affect you today",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H2 : Connaissances spirituelles & ésotériques",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Intuition development",
+        "Understanding of synchronicities",
+        "Connexion avec les guides/anges",
+        "Past life exploration",
+        "Kundalini awakening/subtle energies",
+        "Chamanisme et traditions ancestrales",
+        "Geobiology and place energies",
+        "None of these areas interest me",
+        "Autres approches spirituelles"
+      ],
+      "annotation_en": "Impact of past traumatic experiences",
+      "comment_label_en": "Optionnel pour préciser d'autres intérêts"
+    },
+    {
+      "number": 129,
+      "text_en": "You tend toward anxiety or chronic worry",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H2 : Connaissances spirituelles & ésotériques",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Consultation en astrologie",
+        "Reading de Design Humain",
+        "Tirage de cartes - Tarot",
+        "Oracle",
+        "Numerology reading",
+        "Energy healing - Reiki",
+        "Magnetism",
+        "Medium/channeling session",
+        "Consultation en chamanisme",
+        "I've never consulted in these areas",
+        "Autres types de consultations"
+      ],
+      "annotation_en": "Tendency toward anxiety or chronic worry",
+      "comment_label_en": null
+    },
+    {
+      "number": 130,
+      "text_en": "You have already experienced episodes of depression or deep sadness",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H2 : Connaissances spirituelles & ésotériques",
+      "type_en": "Single choice",
+      "options_en": [
+        "Completely avoid this vocabulary",
+        "Use the minimum necessary",
+        "Adaptez selon mon niveau de connaissance",
+        "Utilisez librement les termes techniques",
+        "I master and appreciate this language",
+        "Teach me this vocabulary as we go"
+      ],
+      "annotation_en": "History of depression or prolonged sadness",
+      "comment_label_en": null
+    },
+    {
+      "number": 131,
+      "text_en": "What are your main emotional resources (what helps you feel better)?",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H2 : Connaissances spirituelles & ésotériques",
+      "type_en": "Checkbox (choix multiples - max 2-3)",
+      "options_en": [
+        "Simple intellectual curiosity",
+        "Mieux me comprendre personnellement",
+        "Improve my relationships with others",
+        "Develop my intuition and creativity",
+        "Trouver ma mission de vie",
+        "Accompagner d'autres personnes",
+        "Je n'ai pas d'objectif particulier"
+      ],
+      "annotation_en": "Your main emotional resources and coping strategies",
+      "comment_label_en": "Optionnel pour préciser vos intentions"
+    },
+    {
+      "number": 132,
+      "text_en": "What psychological or emotional aspects would you like to strengthen?",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H3 : Capacités énergétiques & spirituelles personnelles",
+      "type_en": "Likert 5 points multi-items (Jamais → Très fréquemment)",
+      "options_en": null,
+      "annotation_en": "Psychological or emotional aspects to strengthen",
+      "comment_label_en": "Optional - artagez des exemples précis, contextes, intensité ou toute information qui vous semble importante sur vos expériences"
+    },
+    {
+      "number": 133,
+      "text_en": "Do you consider yourself a spiritual person?",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H3 : Capacités énergétiques & spirituelles personnelles",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "I regularly practice - meditation",
+        "reiki",
+        "etc.",
+        "I've already experimented with interesting results",
+        "I'm curious but have never seriously tried",
+        "I naturally sense energies without formal practice",
+        "I can consciously influence my energetic state",
+        "I perceive chakras or energy centers",
+        "This doesn't particularly interest me",
+        "I'm skeptical of these practices"
+      ],
+      "annotation_en": "Your identification as a spiritual person",
+      "comment_label_en": "Optional - récisez quelles pratiques vous utilisez, vos résultats ou vos questionnements"
+    },
+    {
+      "number": 134,
+      "text_en": "Do you practice a religion or spiritual tradition?",
+      "bloc_en": "💻 BLOC H : NIVEAUX TECHNIQUES",
+      "module_en": "Module H3 : Capacités énergétiques & spirituelles personnelles",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Clairvoyance - see beyond the visible",
+        "Clairaudience - entendre des messages subtils",
+        "Clairsentience - feel energies and emotions",
+        "Claircognizance - savoir sans savoir comment",
+        "Energy healing capabilities",
+        "Connexion avec les guides spirituels",
+        "Communication intuitive avec les animaux",
+        "Reading auras or energetic fields",
+        "None of these abilities speak to me"
+      ],
+      "annotation_en": "Practice of religion or spiritual tradition",
+      "comment_label_en": "Optional - artagez pourquoi certaines capacités vous attirent ou si vous les avez déjà expérimentées"
+    },
+    {
+      "number": 135,
+      "text_en": "If yes, which one(s)?",
+      "bloc_en": "🔍 BLOC I : VALIDATION CROISÉE & ANTI-BIAIS",
+      "module_en": "Module I1 : Questions de contrôle qualité",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Je connais le concept de Type - Manifesteur",
+        "Generator",
+        "MG",
+        "Projecteur",
+        "Reflector",
+        "I know the Authority concept - emotional",
+        "Splenic",
+        "sacrale",
+        "ego",
+        "self-projected",
+        "etc.",
+        "Je connais le concept de Profil - 1/3",
+        "2/4",
+        "3/5",
+        "4/6",
+        "5/1",
+        "6/2",
+        "I can identify defined/open Centers in a chart",
+        "I understand activated Gates and their meaning",
+        "I know the Definition concept - simple",
+        "double",
+        "triple",
+        "quadruple",
+        "I know the Strategy associated with each Type",
+        "Je ne connais pas ces concepts du Design Humain"
+      ],
+      "annotation_en": "Specific religions or traditions practiced",
+      "comment_label_en": "Optionnel pour partager votre profil personnel si vous le connaissez (ex: \"Projecteur 6/2, autorité émotionnelle\")"
+    },
+    {
+      "number": 136,
+      "text_en": "You believe in",
+      "bloc_en": "🔍 BLOC I : VALIDATION CROISÉE & ANTI-BIAIS",
+      "module_en": "Module I1 : Questions de contrôle qualité",
+      "type_en": "Likert 5 points multi-items (Jamais → Très souvent)",
+      "options_en": null,
+      "annotation_en": "Your beliefs about the divine, energy, or spiritual reality",
+      "comment_label_en": "Optional - récisez les nuances, corrections ou contextes importants"
+    },
+    {
+      "number": 137,
+      "text_en": "You practice meditation, prayer, or contemplation",
+      "bloc_en": "🔍 BLOC I : VALIDATION CROISÉE & ANTI-BIAIS",
+      "module_en": "Module I1 : Questions de contrôle qualité",
+      "type_en": "Single choice",
+      "options_en": [
+        "Never - I was totally authentic",
+        "Rarement - juste sur 1-2 questions sensibles",
+        "Sometimes - when I felt judged",
+        "Often - I struggle to be authentic",
+        "Very often - I answered what was expected"
+      ],
+      "annotation_en": "Your practice of meditation, prayer, or contemplation",
+      "comment_label_en": "Optional"
+    },
+    {
+      "number": 138,
+      "text_en": "You have already had spiritual or transcendent experiences",
+      "bloc_en": "🔍 BLOC I : VALIDATION CROISÉE & ANTI-BIAIS",
+      "module_en": "Module I1 : Questions de contrôle qualité",
+      "type_en": "Single choice",
+      "options_en": [
+        "Identiques - je suis stable dans mes traits",
+        "Very similar with some nuances",
+        "Partially different - I'm evolving",
+        "Quite different - I'm in transition",
+        "Totally different - I change a lot",
+        "Je ne sais pas du tout"
+      ],
+      "annotation_en": "Past spiritual or transcendent experiences",
+      "comment_label_en": null
+    },
+    {
+      "number": 139,
+      "text_en": "For you, life's meaning comes primarily from",
+      "bloc_en": "🔍 BLOC I : VALIDATION CROISÉE & ANTI-BIAIS",
+      "module_en": "Module I1 : Questions de contrôle qualité",
+      "type_en": "Multiple choice",
+      "options_en": [
+        "Calm and focused",
+        "Tired or rushed",
+        "Curious and motivated",
+        "Stressed or anxious",
+        "Optimiste sur mon avenir",
+        "Self-critical",
+        "Preoccupied by something else",
+        "Enthusiastic about the result"
+      ],
+      "annotation_en": "Your primary source of life's meaning",
+      "comment_label_en": "Optional"
+    },
+    {
+      "number": 140,
+      "text_en": "You think there is something after death",
+      "bloc_en": "🔍 BLOC I : VALIDATION CROISÉE & ANTI-BIAIS",
+      "module_en": "Module I1 : Questions de contrôle qualité",
+      "type_en": "Single choice",
+      "options_en": [
+        "\"Je me connais bien et assume mes particularités\"",
+        "\"Je découvre encore des aspects de ma personnalité\"",
+        "\"Je remets en question beaucoup de choses sur moi\"",
+        "\"Je traverse une période de transformation\"",
+        "\"Je cherche à devenir une meilleure version de moi\"",
+        "\"Je suis en phase d'acceptation de qui je suis\""
+      ],
+      "annotation_en": "Your belief about what happens after death",
+      "comment_label_en": "Optional"
+    },
+    {
+      "number": 141,
+      "text_en": "Your relationship with the sacred or mystery",
+      "bloc_en": "🔍 BLOC I : VALIDATION CROISÉE & ANTI-BIAIS",
+      "module_en": "Module I1 : Questions de contrôle qualité",
+      "type_en": "Single choice",
+      "options_en": [
+        "Not at all - I already knew all that",
+        "A little - a few confirmations",
+        "Moderately - interesting nuances",
+        "A lot - several revelations",
+        "Enormously - I'm discovering myself",
+        "It's too early to say"
+      ],
+      "annotation_en": "Your relationship with the sacred or mystery of existence",
+      "comment_label_en": "Optional"
+    },
+    {
+      "number": 142,
+      "text_en": "You feel connected to something larger than yourself",
+      "bloc_en": "🔍 BLOC I : VALIDATION CROISÉE & ANTI-BIAIS",
+      "module_en": "Module I1 : Questions de contrôle qualité",
+      "type_en": "Single choice",
+      "options_en": [
+        "Would give answers very similar to mine",
+        "Would agree on the essentials with some differences",
+        "Would have a partially different vision from me",
+        "Would have a quite different vision from mine",
+        "Would give very different answers",
+        "I have no idea"
+      ],
+      "annotation_en": "Your sense of connection to something larger than yourself",
+      "comment_label_en": null
+    },
+    {
+      "number": 143,
+      "text_en": "Spirituality or the search for meaning plays an important role in your life",
+      "bloc_en": "🔍 BLOC I : VALIDATION CROISÉE & ANTI-BIAIS",
+      "module_en": "Module I1 : Questions de contrôle qualité",
+      "type_en": "Checkbox (choix multiples) + Commentaire libre",
+      "options_en": [
+        "Your artistic creativity",
+        "Your relationship with money/security",
+        "Your sexuality/intimacy",
+        "Vos peurs profondes",
+        "Votre rapport au pouvoir/leadership",
+        "Votre sens de l'humour",
+        "Your hidden talents",
+        "No",
+        "Everything has been covered",
+        "Other unexplored aspects"
+      ],
+      "annotation_en": "Importance of spirituality or search for meaning in your life",
+      "comment_label_en": "Précisez les aspects importants non couverts"
+    },
+    {
+      "number": 144,
+      "text_en": "What existential or spiritual questions are important to you?",
+      "bloc_en": "🔍 BLOC I : VALIDATION CROISÉE & ANTI-BIAIS",
+      "module_en": "Module I1 : Questions de contrôle qualité",
+      "type_en": "Likert 10 points (1 = Pas confiant du tout → 10 = Totalement confiant)",
+      "options_en": null,
+      "annotation_en": "Main existential or spiritual questions that matter to you",
+      "comment_label_en": "Optionnel pour expliquer votre niveau de confiance"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sequence Memory - Ermite Toolbox</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    ermite-sequence-memory {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <ermite-sequence-memory
+    user-id="demo-user"
+    difficulty="medium"
+  ></ermite-sequence-memory>
+
+  <script type="module" src="/src/index.tsx"></script>
+
+  <script>
+    // Listen for widget events
+    document.querySelector('ermite-sequence-memory').addEventListener('complete', (e) => {
+      console.log('Game Complete!', e.detail);
+    });
+
+    document.querySelector('ermite-sequence-memory').addEventListener('progress', (e) => {
+      console.log('Progress:', e.detail);
+    });
+  </script>
+</body>
+</html>

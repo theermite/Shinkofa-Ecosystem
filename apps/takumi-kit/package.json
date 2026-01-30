@@ -1,0 +1,36 @@
+{
+  "name": "@shinkofa/takumi-kit",
+  "version": "1.0.0",
+  "description": "Takumi Kit (Ermite Toolbox) - Collection of widgets and mini-apps for The Ermite platforms",
+  "author": "Jay 'The Ermite' Goncalves",
+  "license": "UNLICENSED",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "widgets/*",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=widgets/reaction-time",
+    "build": "node scripts/build-all.js",
+    "build:widgets": "node scripts/build-all.js",
+    "build:reaction-time": "npm run build --workspace=widgets/reaction-time",
+    "preview": "npm run preview --workspace=widgets/reaction-time",
+    "type-check": "tsc --noEmit",
+    "clean": "rimraf widgets/*/dist shared/dist",
+    "deploy": "node scripts/deploy.js",
+    "deploy:win": "powershell -ExecutionPolicy Bypass -File scripts/deploy.ps1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theermite/brain-training.git"
+  }
+}

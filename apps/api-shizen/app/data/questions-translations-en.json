@@ -1,0 +1,37 @@
+{
+  "version": "1.0.0",
+  "locale": "en",
+  "total_questions": 144,
+  "generated_at": "2026-01-27",
+  "blocs": {
+    "🏠 BLOC A : CONTEXTE DE VIE": "🏠 BLOCK A: LIFE CONTEXT",
+    "🧠 BLOC B : PERSONNALITÉ & FONCTIONNEMENT": "🧠 BLOCK B: PERSONALITY & FUNCTIONING",
+    "🌈 BLOC C : NEURODIVERGENCES & COGNITIF": "🌈 BLOCK C: NEURODIVERGENCE & COGNITIVE",
+    "💎 BLOC D : VALEURS & PHILOSOPHIE": "💎 BLOCK D: VALUES & PHILOSOPHY",
+    "❤️ BLOC E : RELATIONS & SOCIAL": "❤️ BLOCK E: RELATIONSHIPS & SOCIAL",
+    "💼 BLOC F : TRAVAIL & PROFESSIONNEL": "💼 BLOCK F: WORK & PROFESSIONAL",
+    "🌿 BLOC G : SANTÉ & BIEN-ÊTRE": "🌿 BLOCK G: HEALTH & WELLBEING",
+    "🎭 BLOC H : EMOTIONS & PSYCHOLOGIE": "🎭 BLOCK H: EMOTIONS & PSYCHOLOGY",
+    "✨ BLOC I : SPIRITUALITÉ & SENS": "✨ BLOCK I: SPIRITUALITY & MEANING"
+  },
+  "modules": {
+    "Module A0 : Identité & Analyse des noms/prénoms": "Module A0: Identity & Name Analysis",
+    "Module A1 : Informations personnelles": "Module A1: Personal Information"
+  },
+  "questions": [
+    {
+      "number": 1,
+      "text": "Your full name (last name + first name(s))",
+      "annotation": "Your name carries a history and energy. This information will be used for complete numerological and anthroponymic analysis of your identity",
+      "comment_label": null
+    },
+    {
+      "number": 2,
+      "text": "Do you know the origin or meaning of your first name?",
+      "options": ["Yes and I know it well", "I have a general idea", "No I don't know it", "It doesn't particularly interest me"],
+      "annotation": "Knowledge of your first name's origin can influence your relationship with your identity",
+      "comment_label": "Optional - Share the origin of your first name if you know it"
+    }
+  ],
+  "note": "THIS IS A SAMPLE - Complete translations will be generated using AI with quality review"
+}

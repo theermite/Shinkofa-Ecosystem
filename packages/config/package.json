@@ -1,0 +1,16 @@
+{
+  "name": "@shinkofa/config",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shared configurations (ESLint, Prettier, Tailwind) for Shinkofa ecosystem",
+  "exports": {
+    "./eslint": "./eslint.js",
+    "./prettier": "./prettier.js",
+    "./tailwind": "./tailwind.js"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.4",
+    "tailwindcss": "^3.4.0"
+  }
+}

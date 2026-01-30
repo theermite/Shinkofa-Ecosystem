@@ -1,0 +1,802 @@
+{
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "retry": "Reessayer",
+    "back": "Retour",
+    "next": "Suivant",
+    "submit": "Soumettre",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "close": "Fermer",
+    "yes": "Oui",
+    "no": "Non",
+    "or": "ou",
+    "and": "et",
+    "help": "Aide",
+    "contact": "Contact",
+    "contactUs": "Contactez-nous",
+    "support": "Support",
+    "copyright": "La Voie Shinkofa"
+  },
+  "nav": {
+    "plans": "Plans",
+    "questionnaire": "Questionnaire",
+    "shizenAi": "Shizen AI",
+    "planner": "Planner",
+    "login": "Connexion",
+    "logout": "Deconnexion",
+    "register": "Inscription",
+    "profile": "Profil",
+    "chat": "Chat",
+    "dashboard": "Tableau de bord",
+    "reportBug": "Signaler un bug",
+    "bugReportSuccess": "Bug signale avec succes ! Merci pour votre contribution.",
+    "bugReportError": "Erreur lors de l'envoi du bug",
+    "guide": "Guide",
+    "suggest": "Idee"
+  },
+  "home": {
+    "title": "Shinkofa Platform",
+    "subtitle": "Shin-Ko-Fa",
+    "tagline": "Le Veritable Pas - Votre Compagnon Holistique",
+    "login": "Se connecter",
+    "register": "S'inscrire",
+    "redirecting": "Redirection..."
+  },
+  "pricing": {
+    "title": "Choisissez votre Voie",
+    "subtitle": "Tous les plans incluent le questionnaire holistique complet",
+    "monthly": "Mensuel",
+    "yearly": "Annuel",
+    "discount": "-17%",
+    "popular": "Populaire",
+    "family": "Famille",
+    "free": "Gratuit",
+    "perMonth": "/mois",
+    "perYear": "/an",
+    "save": "Economisez {percent}%",
+    "choosePlan": "Choisir ce plan",
+    "startFree": "Commencer gratuitement",
+    "loadingPlans": "Chargement des plans...",
+    "errorPayment": "Une erreur est survenue. Veuillez reessayer.",
+    "errorCreatingSession": "Erreur lors de la creation de la session de paiement",
+    "pioneerDiscount": "Pionniers Alpha 2026 : Beneficiez de -25% a vie sur votre abonnement !",
+    "questions": "Vous avez des questions ?",
+    "plans": {
+      "musha": {
+        "name": "Musha",
+        "description": "Decouvrir la Voie Shinkofa",
+        "features": [
+          "50 messages Shizen IA / mois",
+          "2 projets maximum",
+          "10 taches actives maximum",
+          "Questionnaire holistique complet",
+          "Profil Design Humain basique",
+          "Planner IA limite"
+        ]
+      },
+      "samurai": {
+        "name": "Samurai",
+        "description": "Pour les guerriers solitaires",
+        "features": [
+          "200 messages Shizen IA / mois",
+          "Projets illimites",
+          "Taches illimitees",
+          "Questionnaire holistique complet",
+          "Profil Design Humain avance",
+          "Planner IA complet",
+          "Exports PDF & Obsidian",
+          "Support prioritaire"
+        ]
+      },
+      "samurai_famille": {
+        "name": "Samurai Famille",
+        "description": "Pour toute la famille (jusqu'a 6 membres)",
+        "features": [
+          "Tout Samurai +",
+          "Jusqu'a 6 membres famille",
+          "Family Hub & Petits Liens",
+          "Gestion familiale complete",
+          "Calendrier partage",
+          "Liste de courses collaborative",
+          "Suivi bebe & enfants",
+          "Support prioritaire famille"
+        ]
+      },
+      "sensei": {
+        "name": "Sensei",
+        "description": "Maitrise totale de votre developpement",
+        "features": [
+          "Messages Shizen IA ILLIMITES",
+          "Projets illimites",
+          "Taches illimitees",
+          "Tout Samurai +",
+          "Accompagnement IA avance",
+          "Analyses holistiques approfondies",
+          "Acces anticipe nouvelles features",
+          "Support prioritaire VIP"
+        ]
+      },
+      "sensei_famille": {
+        "name": "Sensei Famille",
+        "description": "Excellence pour toute la famille",
+        "features": [
+          "Tout Sensei +",
+          "Jusqu'a 6 membres famille",
+          "Messages IA illimites pour tous",
+          "Family Hub & Petits Liens Premium",
+          "Coaching familial IA",
+          "Analyses holistiques famille",
+          "Acces anticipe nouvelles features",
+          "Support prioritaire VIP famille"
+        ]
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Connexion",
+      "subtitle": "Accedez a votre espace personnel Shinkofa",
+      "identifier": "Email ou nom d'utilisateur",
+      "identifierPlaceholder": "votre@email.com ou username",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "********",
+      "showPassword": "Afficher le mot de passe",
+      "hidePassword": "Masquer le mot de passe",
+      "forgotPassword": "Mot de passe oublie ?",
+      "submit": "Se connecter",
+      "submitting": "Connexion en cours...",
+      "noAccount": "Pas encore de compte ?",
+      "createAccount": "Creer un compte",
+      "error": "Echec de la connexion. Verifiez vos identifiants.",
+      "rememberMe": "Se souvenir de moi",
+      "needHelp": "Besoin d'aide ? Contactez-nous a"
+    },
+    "register": {
+      "title": "Creer un compte",
+      "subtitle": "Rejoignez la communaute Shinkofa",
+      "email": "Email",
+      "emailPlaceholder": "votre@email.com",
+      "username": "Nom d'utilisateur",
+      "usernamePlaceholder": "nomutilisateur",
+      "fullName": "Nom complet (optionnel)",
+      "fullNamePlaceholder": "Votre nom",
+      "password": "Mot de passe",
+      "passwordHint": "min. 8 caracteres",
+      "passwordPlaceholder": "........",
+      "confirmPassword": "Confirmer le mot de passe",
+      "submit": "Creer mon compte",
+      "submitting": "Creation du compte...",
+      "hasAccount": "Vous avez deja un compte ?",
+      "loginLink": "Se connecter",
+      "termsPrefix": "En creant un compte, vous acceptez nos",
+      "termsLink": "conditions d'utilisation",
+      "errors": {
+        "passwordMismatch": "Les mots de passe ne correspondent pas",
+        "passwordTooShort": "Le mot de passe doit contenir au moins 8 caracteres",
+        "usernameTooShort": "Le nom d'utilisateur doit contenir au moins 3 caracteres",
+        "generic": "Echec de l'inscription. Veuillez reessayer."
+      }
+    },
+    "forgotPassword": {
+      "title": "Mot de passe oublie ?",
+      "subtitle": "Entrez votre adresse email pour recevoir un lien de reinitialisation.",
+      "email": "Adresse email",
+      "emailPlaceholder": "votre@email.com",
+      "submit": "Envoyer le lien de reinitialisation",
+      "submitting": "Envoi en cours...",
+      "backToLogin": "Retour a la connexion",
+      "success": {
+        "title": "Email envoye !",
+        "message": "Si un compte existe avec l'adresse {email}, vous recevrez un email avec les instructions pour reinitialiser votre mot de passe.",
+        "validityNote": "Le lien est valide pendant 1 heure.",
+        "backToLogin": "Retour a la connexion"
+      }
+    },
+    "resetPassword": {
+      "title": "Nouveau mot de passe",
+      "subtitle": "Choisissez un nouveau mot de passe securise.",
+      "password": "Nouveau mot de passe",
+      "passwordPlaceholder": "Minimum 8 caracteres",
+      "confirmPassword": "Confirmer le mot de passe",
+      "confirmPlaceholder": "Retapez le mot de passe",
+      "submit": "Reinitialiser le mot de passe",
+      "submitting": "Reinitialisation...",
+      "backToLogin": "Retour a la connexion",
+      "errors": {
+        "invalidLink": "Lien invalide. Veuillez demander un nouveau lien de reinitialisation.",
+        "passwordTooShort": "Le mot de passe doit contenir au moins 8 caracteres.",
+        "passwordMismatch": "Les mots de passe ne correspondent pas.",
+        "tokenMissing": "Token manquant.",
+        "minChars": "Minimum 8 caracteres requis"
+      },
+      "success": {
+        "title": "Mot de passe modifie !",
+        "message": "Votre mot de passe a ete reinitialise avec succes. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.",
+        "loginButton": "Se connecter"
+      }
+    },
+    "verifyEmail": {
+      "verifying": "Verification en cours...",
+      "success": "Email verifie !",
+      "alreadyVerified": "Email deja verifie",
+      "error": "Erreur de verification",
+      "defaultMessage": "Veuillez patienter pendant que nous verifions votre email...",
+      "redirecting": "Redirection vers la page de connexion dans {seconds} seconde{plural}...",
+      "loginNow": "Se connecter maintenant",
+      "createAccount": "Creer un nouveau compte",
+      "backToLogin": "Retour a la connexion",
+      "backToHome": "Retour a l'accueil",
+      "needHelp": "Besoin d'aide ?",
+      "contactSupport": "Contactez le support",
+      "errors": {
+        "invalidToken": "Lien de verification invalide. Token manquant.",
+        "verificationFailed": "Echec de la verification de l'email.",
+        "unknownStatus": "Statut de verification inconnu.",
+        "connectionError": "Erreur de connexion au serveur."
+      }
+    }
+  },
+  "checkout": {
+    "success": {
+      "title": "Paiement reussi !",
+      "subtitle": "Bienvenue dans la communaute Shinkofa",
+      "verifying": "Verification du paiement...",
+      "emailNotice": {
+        "title": "Verifiez votre email",
+        "message": "Nous vous avons envoye un email de confirmation avec vos identifiants de connexion.",
+        "spamNote": "Si vous ne le voyez pas, verifiez vos spams."
+      },
+      "nextSteps": {
+        "title": "Prochaines etapes :",
+        "step1": "Connectez-vous avec vos identifiants recus par email",
+        "step2": "Completez le questionnaire holistique (45-60 min)",
+        "step3": "Decouvrez votre profil holistique et commencez votre voyage"
+      },
+      "login": "Se connecter",
+      "backToHome": "Retour a l'accueil",
+      "needHelp": "Besoin d'aide ?",
+      "contactSupport": "Contactez notre support"
+    },
+    "cancel": {
+      "title": "Paiement annule",
+      "subtitle": "Aucun montant n'a ete debite",
+      "reassurance": "Pas de souci ! Vous pouvez reprendre votre inscription quand vous le souhaitez.",
+      "dataNote": "Vos informations n'ont pas ete enregistrees.",
+      "whyJoin": {
+        "title": "Pourquoi rejoindre Shinkofa ?",
+        "feature1": "Questionnaire holistique complet - 144 questions pour vous decouvrir",
+        "feature2": "Shizen IA Coach - Accompagnement personnalise 24/7",
+        "feature3": "Planner IA intelligent - Taches adaptees a votre energie",
+        "feature4": "Design Humain complet - Profil astrologique et numerologique"
+      },
+      "viewPlans": "Voir les plans",
+      "backToHome": "Retour a l'accueil",
+      "questions": "Des questions ?"
+    }
+  },
+  "profile": {
+    "page": {
+      "emailVerified": "Email verifie",
+      "emailNotVerified": "Email non verifie",
+      "memberSince": "Membre depuis",
+      "preferences": "Preferences",
+      "theme": "Theme",
+      "themeDark": "Sombre",
+      "themeLight": "Clair",
+      "language": "Langue",
+      "focusPomodoro": "Focus Pomodoro",
+      "shortBreak": "Pause courte",
+      "holisticTitle": "Profil Holistique Shinkofa",
+      "holisticDescription": "Decouvre ton Design Humain, ton profil astrologique et ta synthese personnalisee IA",
+      "viewHolisticProfile": "Voir mon profil holistique",
+      "retakeQuestionnaire": "Refaire le questionnaire",
+      "refresh": "Actualiser",
+      "myPlanner": "Mon Planner"
+    },
+    "editForm": {
+      "title": "Mon Profil & Preferences",
+      "editButton": "Modifier",
+      "editTitle": "Modifier mon profil",
+      "tabProfile": "Profil",
+      "tabPreferences": "Preferences",
+      "avatarChangeText": "Clique sur l'icone pour changer ta photo",
+      "avatarFormatText": "Format : JPG, PNG, GIF (max 2 Mo)",
+      "usernameLabel": "Nom d'utilisateur",
+      "usernamePlaceholder": "Ton nom d'utilisateur",
+      "usernameHelp": "Ce nom sera affiche dans l'application (3-50 caracteres)",
+      "firstNameLabel": "Prenom",
+      "firstNamePlaceholder": "Ton prenom",
+      "lastNameLabel": "Nom",
+      "lastNamePlaceholder": "Ton nom",
+      "birthDateLabel": "Date de naissance",
+      "themeLabel": "Theme de l'application",
+      "themeLightOption": "Clair",
+      "themeLightDesc": "Fond clair",
+      "themeDarkOption": "Sombre",
+      "themeDarkDesc": "Fond sombre",
+      "pomodoroTitle": "Parametres Pomodoro",
+      "pomodoroFocusLabel": "Duree de focus (minutes)",
+      "pomodoroFocusHelp": "5-120 min (recommande : 25-45)",
+      "pomodoroShortLabel": "Pause courte (minutes)",
+      "pomodoroShortHelp": "1-30 min (recommande : 5-10)",
+      "pomodoroLongLabel": "Pause longue (minutes)",
+      "pomodoroLongHelp": "5-60 min (recommande : 15-30)",
+      "pomodoroCyclesLabel": "Cycles avant pause longue",
+      "pomodoroCyclesHelp": "1-10 cycles (recommande : 2-4)",
+      "saveButton": "Enregistrer",
+      "savingButton": "Enregistrement...",
+      "cancelButton": "Annuler",
+      "successMessage": "Profil mis a jour avec succes",
+      "errorImageSize": "L'image ne doit pas depasser 2 Mo",
+      "errorImageType": "Veuillez selectionner une image",
+      "errorNotAuth": "Non authentifie",
+      "errorUpdate": "Erreur lors de la mise a jour"
+    },
+    "changePassword": {
+      "securityTitle": "Securite",
+      "securityDesc": "Gerez votre mot de passe",
+      "changeButton": "Changer le mot de passe",
+      "changeTitle": "Changer mon mot de passe",
+      "currentPasswordLabel": "Mot de passe actuel",
+      "newPasswordLabel": "Nouveau mot de passe (min. 8 caracteres)",
+      "confirmPasswordLabel": "Confirmer le nouveau mot de passe",
+      "showPasswordsLabel": "Afficher les mots de passe",
+      "submitButton": "Changer le mot de passe",
+      "submittingButton": "Modification...",
+      "successMessage": "Mot de passe modifie avec succes",
+      "errorMismatch": "Les mots de passe ne correspondent pas",
+      "errorTooShort": "Le nouveau mot de passe doit contenir au moins 8 caracteres",
+      "errorNotAuth": "Non authentifie",
+      "errorGeneric": "Erreur lors du changement de mot de passe"
+    },
+    "subscription": {
+      "planLabel": "Plan",
+      "statusActive": "Actif",
+      "statusTrialing": "Essai gratuit",
+      "statusInactive": "Inactif",
+      "renewalDate": "Renouvellement le",
+      "upgradeButton": "Upgrader",
+      "shizenMessagesLabel": "Messages Shizen IA",
+      "projectsLabel": "Projets",
+      "tasksLabel": "Taches actives",
+      "unlimited": "Illimite",
+      "customBadgeTitle": "Titre Special",
+      "badgesTitle": "Badges",
+      "pioneerBadge": "Pionnier Alpha",
+      "emailVerifiedBadge": "Email verifie",
+      "founderBadge": "Fondateur",
+      "noBadges": "Aucun badge pour le moment",
+      "plans": {
+        "none": "Aucun plan",
+        "musha": "Musha",
+        "samurai": "Samurai",
+        "samurai_famille": "Samurai Famille",
+        "sensei": "Sensei",
+        "sensei_famille": "Sensei Famille",
+        "founder": "Fondateur"
+      }
+    }
+  },
+  "dashboard": {
+    "welcome": "Bienvenue, {username} !",
+    "welcomeBack": "Ravi de te revoir sur la plateforme Shinkofa",
+    "holisticProfile": {
+      "title": "Ton Profil Holistique Shinkofa",
+      "subtitle": "LA particularite unique de la Voie Shinkofa - Profil le plus complet au monde",
+      "humanDesign": "Design Humain",
+      "sunSign": "Signe Solaire",
+      "archetype": "Archetype Shinkofa",
+      "lifePath": "Chemin de Vie",
+      "numerology": "Numerologie",
+      "neurodivergent": "Profil Neurodivergent",
+      "exploreButton": "Explorer mon profil holistique complet",
+      "generatedOn": "Profil genere le",
+      "primary": "Primaire"
+    },
+    "noProfile": {
+      "title": "Decouvre Ton Profil Holistique Unique",
+      "subtitle": "La revolution Shinkofa : le seul systeme au monde qui combine Design Humain, Astrologie, Numerologie, Psychologie, Neurodivergences et Philosophie Shinkofa en un profil complet personnalise par IA.",
+      "unique": "A notre connaissance, aucun autre systeme n'offre un profil aussi detaille et integre.",
+      "psychology": "Psychologie & Neurodivergences",
+      "psychologyDesc": "MBTI, Big Five, Enneagramme, TDA(H), HPI, Hypersensibilite",
+      "humanDesignAstro": "Design Humain & Astrologie",
+      "humanDesignAstroDesc": "Type, Autorite, Theme natal complet, Astrologie chinoise",
+      "shinkofa": "Philosophie Shinkofa",
+      "shinkofaDesc": "Archetypes, Roue de Vie, Mission, Paradigmes limitants",
+      "startButton": "Commencer mon profil holistique (gratuit)",
+      "duration": "Environ 15-20 minutes • 100% confidentiel"
+    },
+    "stats": {
+      "email": "Email",
+      "emailNotProvided": "Non renseigne",
+      "emailNotVerified": "Email non verifie - Verifiez votre boite mail",
+      "accountCreated": "Compte cree le",
+      "status": "Statut",
+      "statusActive": "Actif",
+      "statusInactive": "Inactif"
+    },
+    "quickAccess": {
+      "title": "Acces Rapide",
+      "questionnaire": "Questionnaire Holistique",
+      "questionnaireDesc": "Analysez votre profil holistique complet",
+      "shizen": "Shizen AI Coach",
+      "shizenDesc": "Votre coach IA personnalise Shinkofa",
+      "planner": "Planner Intelligent",
+      "plannerDesc": "Gerez vos taches, projets, journaux et rituels"
+    },
+    "userProfile": {
+      "title": "Profil Utilisateur",
+      "username": "Nom d'utilisateur",
+      "userId": "ID Utilisateur",
+      "preferences": "Preferences",
+      "theme": "Theme",
+      "language": "Langue",
+      "notifications": "Notifications",
+      "adaptiveReco": "Recommandations adaptatives",
+      "enabled": "Activees",
+      "disabled": "Desactivees",
+      "editProfile": "Modifier mon profil"
+    }
+  },
+  "questionnaire": {
+    "title": "Questionnaire Holistique Shinkofa",
+    "subtitle": "Decouvre ton profil complet en 144 questions",
+    "progress": "Progression",
+    "question": "Question",
+    "of": "sur",
+    "category": "Categorie",
+    "required": "Question obligatoire",
+    "optional": "Question optionnelle",
+    "next": "Suivant",
+    "previous": "Precedent",
+    "submit": "Terminer le questionnaire",
+    "submitting": "Envoi en cours...",
+    "save": "Sauvegarder",
+    "saveAndContinue": "Sauvegarder et continuer plus tard",
+    "savedSuccess": "Progression sauvegardee !",
+    "completeAll": "Veuillez repondre a toutes les questions obligatoires",
+    "errorSubmit": "Erreur lors de l'envoi. Reessayez.",
+    "main": {
+      "loading": "Chargement du questionnaire...",
+      "preparing144Questions": "Preparation des 144 questions",
+      "errorTitle": "Erreur",
+      "retry": "Reessayer",
+      "startButton": "✨ Commencer le questionnaire",
+      "estimatedDuration": "Duree estimee : {minutes} minutes",
+      "copyright": "© 2026 La Voie Shinkofa - Questionnaire Holistique V{version}",
+      "noQuestions": "Aucune question disponible",
+      "superAdminActive": "Mode Super Admin Actif",
+      "superAdminOptional": "Navigation libre activee - Toutes les questions sont optionnelles",
+      "title": "Questionnaire Holistique",
+      "bloc": "Bloc {id}",
+      "previous": "← Precedent",
+      "requiredQuestion": "⚠️ Cette question est obligatoire",
+      "finish": "✅ Terminer",
+      "finalizing": "⏳ Finalisation...",
+      "next": "Suivant →",
+      "answerSaved": "Reponse sauvegardee",
+      "autoSaveTip": "Astuce : Vos reponses sont automatiquement sauvegardees a chaque \"Suivant\". Vous pouvez quitter et reprendre plus tard.",
+      "resumeModal": {
+        "title": "📋 Progression sauvegardee trouvee",
+        "description": "Nous avons trouve une progression sauvegardee avec {count} reponses.\nQue souhaitez-vous faire ?",
+        "resume": "✅ Reprendre ma progression",
+        "startNew": "🔄 Recommencer a zero"
+      },
+      "introduction": {
+        "title": "🌟 Bienvenue au Questionnaire Holistique Shinkofa",
+        "subtitle": "Un voyage de decouverte de soi en 144 questions",
+        "purpose": "Ce questionnaire est conçu pour etablir votre profil holistique complet, integrant psychologie, neurodivergences, Design Humain, astrologie, numerologie et la philosophie Shinkofa.",
+        "whatYouWillDiscover": "## Ce que vous allez decouvrir :\n\n- 🧠 **Psychologie** : MBTI, Big Five, Enneagramme, PNL, Process Communication Model\n- 🌈 **Neurodivergences** : TDA(H), TSA, HPI, Hypersensibilite\n- 🎯 **Shinkofa** : Roue de vie, Archetypes, Valeurs, Vision\n- ⚡ **Design Humain** : Type, Autorite, Strategie, Profil\n- ✨ **Astrologie** : Theme astral occidental + astrologie chinoise\n- 🔢 **Numerologie** : Chemin de vie, Nombre d'expression, Mission d'ame",
+        "howItWorks": "## Comment ça fonctionne :\n\n1. **144 questions** reparties en 9 blocs thematiques\n2. **Sauvegarde automatique** : vos reponses sont enregistrees en temps reel\n3. **Reprise possible** : vous pouvez quitter et reprendre a tout moment\n4. **Duree** : 45-60 minutes (prenez votre temps)\n5. **Analyse IA** : SHIZEN analysera vos reponses pour generer votre profil unique",
+        "importantNotes": "## Notes importantes :\n\n⚠️ **Repondez authentiquement** : ce questionnaire est pour VOUS. Soyez honnete avec vous-meme.\n\n🔒 **Confidentialite** : vos donnees sont securisees et ne seront jamais partagees sans votre consentement.\n\n💡 **Pas de \"bonnes\" reponses** : ce questionnaire explore votre unicite, pas vos performances.\n\n⏰ **Prenez votre temps** : installez-vous confortablement dans un endroit calme ou vous ne serez pas derange.",
+        "ready": "Pret·e a commencer votre voyage de decouverte ?"
+      }
+    },
+    "categories": {
+      "identity": "Identite & Informations de base",
+      "personality": "Personnalite & Comportements",
+      "neurodivergence": "Neurodivergences & Fonctionnement cognitif",
+      "values": "Valeurs & Philosophie de vie",
+      "relationships": "Relations & Dynamiques sociales",
+      "work": "Travail & Activites professionnelles",
+      "health": "Sante & Bien-etre physique",
+      "emotions": "Emotions & Gestion emotionnelle",
+      "spirituality": "Spiritualite & Quete de sens",
+      "goals": "Objectifs & Vision de l'avenir"
+    },
+    "birthInfo": {
+      "title": "Informations de Naissance",
+      "subtitle": "Necessaires pour calculer votre Design Humain, Astrologie et Numerologie",
+      "loading": "Chargement...",
+      "errorTitle": "Erreur",
+      "errorMissingSession": "Session ID manquant",
+      "errorMissingLocation": "Veuillez saisir la ville et le pays avant de geolocaliser",
+      "errorLocationNotFound": "Lieu non trouve. Veuillez verifier l'orthographe ou saisir les coordonnees manuellement.",
+      "errorGeocoding": "Erreur lors de la geolocalisation. Veuillez saisir les coordonnees manuellement.",
+      "errorMissingName": "Nom et prenom de naissance sont obligatoires",
+      "errorMissingDateTime": "Date et heure de naissance sont obligatoires",
+      "errorMissingCityCountry": "Ville et pays de naissance sont obligatoires",
+      "errorMissingCoordinates": "Veuillez geolocaliser votre lieu de naissance ou saisir les coordonnees manuellement",
+      "errorSaving": "Erreur lors de la sauvegarde des donnees",
+      "identityTitle": "Identite (Naissance)",
+      "lastNameLabel": "Nom de naissance *",
+      "lastNamePlaceholder": "Dupont",
+      "firstNameLabel": "Prenom(s) de naissance *",
+      "firstNamePlaceholder": "Marie Claire",
+      "firstNameHelp": "Tous vos prenoms de naissance (important pour numerologie)",
+      "dateTimeTitle": "Date et Heure de Naissance",
+      "birthDateLabel": "Date de naissance *",
+      "birthTimeLabel": "Heure de naissance *",
+      "birthTimeHelp": "⚠️ Heure exacte cruciale pour Design Humain precis",
+      "locationTitle": "Lieu de Naissance",
+      "birthCityLabel": "Ville de naissance *",
+      "birthCityPlaceholder": "Paris",
+      "birthCountryLabel": "Pays de naissance *",
+      "birthCountryPlaceholder": "France",
+      "geocodeButton": "🗺️ Geolocaliser automatiquement",
+      "geocodeInProgress": "🔄 Geolocalisation en cours...",
+      "latitudeLabel": "Latitude *",
+      "longitudeLabel": "Longitude *",
+      "timezoneLabel": "Timezone",
+      "geocodeHelp": "💡 Cliquez sur \"Geolocaliser automatiquement\" pour remplir latitude/longitude automatiquement",
+      "skipButton": "⏩ Passer (uploader charts a la place)",
+      "submitButton": "✅ Valider et Continuer",
+      "submitInProgress": "💾 Sauvegarde...",
+      "whyTitle": "Pourquoi ces informations ?",
+      "whyNames": "Noms/Prenoms : Numerologie + analyse vibratoire",
+      "whyDate": "Date : Astrologie chinoise + cycles numerologie",
+      "whyTime": "Heure exacte : Design Humain (precision ±4 min) + ascendant astrologie",
+      "whyLocation": "Lieu (GPS) : Calcul planetes precis selon position geographique",
+      "privacyNote": "🔒 Ces donnees sont stockees de maniere securisee et utilisees uniquement pour vos analyses personnelles."
+    },
+    "complete": {
+      "title": "Felicitations !",
+      "subtitle": "Vous avez complete le questionnaire holistique Shinkofa.",
+      "loading": "Chargement...",
+      "errorTitle": "Erreur",
+      "errorMissingSession": "Session ID manquant",
+      "sessionId": "Session ID",
+      "nextSteps": "Prochaines etapes",
+      "step1Title": "Uploadez vos charts (optionnel)",
+      "step1Desc": "Design Humain et Carte du Ciel pour une analyse encore plus precise",
+      "step2Title": "Generez votre synthese holistique",
+      "step2Desc": "Shizen IA analysera vos reponses et charts pour creer votre profil unique",
+      "step3Title": "Decouvrez votre profil complet",
+      "step3Desc": "Psychologie, Neurodivergence, Shinkofa, Design Humain, Astrologie, Numerologie",
+      "uploadTitle": "Upload de vos Charts (Optionnel)",
+      "analyzeTitle": "Generation de la Synthese Holistique",
+      "analyzePrompt": "Pret(e) a decouvrir votre profil holistique complet ? L'analyse prendra 1-2 minutes.",
+      "infoTitle": "A propos de la synthese holistique",
+      "infoDescription": "Shizen IA analysera vos reponses pour generer un profil complet incluant : Analyse psychologique (MBTI, Big Five, Enneagramme, PNL, PCM, VAKOG, Love Languages), Neurodivergences (TDA(H), Autisme, HPI), Dimensions Shinkofa (Roue de vie, Archetypes), Design Humain (Type, Autorite, Strategie), Astrologie (Occidentale + Chinoise), Numerologie, et une synthese personnalisee avec recommandations.",
+      "copyright": "© 2026 La Voie Shinkofa - Questionnaire Holistique",
+      "viewProfile": "Voir mon profil holistique",
+      "backDashboard": "Retour au tableau de bord"
+    },
+    "nameSplit": {
+      "lastName": {
+        "label": "Nom de famille (de naissance)",
+        "placeholder": "Dupont",
+        "help": "Votre nom de famille tel qu'il apparaît sur votre acte de naissance"
+      },
+      "firstName": {
+        "label": "Prénom(s) (de naissance)",
+        "placeholder": "Marie, Claire",
+        "help": "Tous vos prénoms de naissance séparés par des virgules (important pour l'analyse numérologique). Ex: Jean, Pierre ou Marie, Louise"
+      },
+      "preview": {
+        "label": "Nom complet enregistré"
+      }
+    }
+  },
+  "chat": {
+    "conversationTitle": "Chat du",
+    "errorHttp": "Erreur HTTP",
+    "errorCreating": "Impossible de creer la conversation. Verifiez que le backend est demarre.",
+    "errorTitle": "Erreur",
+    "retry": "Reessayer",
+    "initializing": "Initialisation de SHIZEN..."
+  },
+  "planner": {
+    "title": "Planner Intelligent",
+    "subtitle": "Gerez vos taches, projets, journaux et rituels avec une IA qui respecte votre energie",
+    "accessButton": "Acceder",
+    "cloudSync": {
+      "title": "Synchronisation cloud active",
+      "description": "Vos donnees sont automatiquement sauvegardees et synchronisees entre tous vos appareils."
+    },
+    "sections": {
+      "tasks": {
+        "title": "Taches",
+        "description": "Gerez vos taches quotidiennes avec priorites et deadlines"
+      },
+      "journals": {
+        "title": "Journaux",
+        "description": "Suivez votre energie et reflexions quotidiennes"
+      },
+      "rituals": {
+        "title": "Rituels",
+        "description": "Creez et maintenez vos rituels quotidiens"
+      }
+    },
+    "features": {
+      "title": "Planner IA Adaptatif",
+      "humanDesign": {
+        "title": "Adapte a votre Design Humain",
+        "description": "Respecte votre strategie Projecteur et votre energie"
+      },
+      "energyTracking": {
+        "title": "Suivi d'energie",
+        "description": "Suivez votre energie quotidienne et optimisez votre planning"
+      },
+      "smartPriorities": {
+        "title": "Priorites intelligentes",
+        "description": "Systeme de priorites P0-P5 avec delais"
+      },
+      "holisticSync": {
+        "title": "Synchronisation holistique",
+        "description": "Integre avec votre profil holistique complet"
+      }
+    },
+    "tasks": {
+      "initializing": "Initialisation...",
+      "title": "Task Manager",
+      "subtitle": "Widget Ermite - Projets et priorites KAIDA"
+    },
+    "journals": {
+      "initializing": "Initialisation...",
+      "title": "Daily Journal",
+      "subtitle": "Widget Ermite - 3G/3R/1A + Check-ins"
+    },
+    "rituals": {
+      "initializing": "Initialisation...",
+      "title": "Mes Rituels",
+      "subtitle": "Cultivez vos habitudes quotidiennes",
+      "resetConfirm": "Etes-vous sur de vouloir reinitialiser tous les rituels ? Cela marquera tous les rituels comme non completes pour aujourd'hui.",
+      "checkRituals": "Cochez vos rituels au fur et a mesure de la journee",
+      "createButton": "Creer un rituel",
+      "resetButton": "Reinitialiser",
+      "resetting": "Reinitialisation...",
+      "loading": "Chargement des rituels...",
+      "errorTitle": "Erreur de chargement",
+      "errorMessage": "Une erreur est survenue",
+      "infoTitle": "A propos des rituels",
+      "infoDescription": "Les rituels sont automatiquement reinitialises chaque jour a minuit. Vous pouvez egalement les reinitialiser manuellement a tout moment en utilisant le bouton \"Reinitialiser\" ci-dessus."
+    }
+  },
+  "onboarding": {
+    "step1": {
+      "title": "🌟 Bienvenue sur Shinkofa !",
+      "description": "La Voie Shinkofa (真の歩) signifie \"Le Veritable Pas\". Nous t'accompagnons dans ton developpement personnel holistique avec des outils puissants et une approche bienveillante."
+    },
+    "step2": {
+      "title": "⚠️ Plateforme en Developpement Actif",
+      "description": "Shinkofa est en amelioration continue ! Nous ajoutons de nouvelles fonctionnalites et corrigeons les bugs **plusieurs fois par semaine**. Ta patience et tes retours sont precieux. 🙏"
+    },
+    "step3": {
+      "title": "🏠 Dashboard - Ton Point Central",
+      "description": "Le Dashboard affiche un apercu de tes taches, projets et rituels du jour. C'est ton point de depart quotidien pour suivre ta progression."
+    },
+    "step4": {
+      "title": "🤖 Shizen AI - Ton Coach IA",
+      "description": "SHIZEN est ton coach holistique personnel alimente par IA. Pose-lui des questions sur ton developpement, demande des conseils, ou discute de tes defis. Il te comprend et t'accompagne."
+    },
+    "step5": {
+      "title": "📋 Planner - Organise Ta Vie",
+      "description": "Le Planner comprend 4 sections :\n\n• **Taches** : Gere tes to-dos quotidiennes\n• **Projets** : Regroupe des taches liees\n• **Journaux** : Ecris tes reflexions\n• **Rituels** : Cree des routines recurrentes"
+    },
+    "step6": {
+      "title": "📋 Taches - Gestion Simple",
+      "description": "Cree des taches avec priorites (Haute, Moyenne, Basse), dates d'echeance, et tags. Marque-les comme completees pour suivre ta productivite. Tu peux aussi creer des taches directement depuis un projet !"
+    },
+    "step7": {
+      "title": "📁 Projets - Structure Tes Objectifs",
+      "description": "Un projet regroupe plusieurs taches liees. Par exemple : \"Apprendre le piano\" peut contenir les taches \"Acheter un clavier\", \"Prendre 1er cours\", etc. Clique sur un projet pour voir ses taches et en creer de nouvelles."
+    },
+    "step8": {
+      "title": "📓 Journaux - Reflexion Personnelle",
+      "description": "Ecris des entrees de journal pour suivre tes pensees, emotions et progres. Les tags t'aident a categoriser (ex: #gratitude, #apprentissage). C'est ton espace prive de reflexion."
+    },
+    "step9": {
+      "title": "🔄 Rituels - Routines Recurrentes",
+      "description": "Les rituels sont des habitudes que tu veux ancrer : meditation matinale, sport, lecture... Definis la frequence (quotidien, hebdomadaire) et suis ta regularite."
+    },
+    "step10": {
+      "title": "👤 Profil - Personnalise Ton Experience",
+      "description": "Complete ton profil avec tes informations personnelles. Tu peux modifier ton nom, prenom, date de naissance, et changer ton mot de passe a tout moment."
+    },
+    "step11": {
+      "title": "🌈 Profil Holistique - Connais-Toi",
+      "description": "Passe le questionnaire holistique pour decouvrir ton Design Humain, ton profil astrologique, et ta synthese personnalisee IA. C'est une cartographie unique de qui tu es. ✨"
+    },
+    "step12": {
+      "title": "🌓 Theme Sombre/Clair",
+      "description": "Shinkofa supporte le theme sombre et clair. Clique sur l'icone soleil/lune en haut a droite pour basculer. Ton choix est sauvegarde automatiquement."
+    },
+    "step13": {
+      "title": "⚡ Menu Actions Rapides",
+      "description": "Un bouton flottant en bas a droite te permet d'acceder rapidement aux actions courantes :\n\n• Creer une nouvelle tache\n• Creer un nouveau projet\n• Creer une entree de journal\n• Demarrer un rituel\n\nUn raccourci pratique pour gagner du temps ! 🚀"
+    },
+    "step14": {
+      "title": "💬 Besoin d'Aide ?",
+      "description": "Si tu rencontres un bug ou as des questions :\n\n• Contacte-nous via le support (page d'accueil)\n• Consulte la FAQ\n• Utilise Shizen AI pour des questions generales\n\nNous sommes la pour toi ! 🤝"
+    },
+    "step15": {
+      "title": "🚀 C'est Parti !",
+      "description": "Tu es maintenant pret·e a explorer Shinkofa. N'oublie pas : chaque petit pas compte. La Voie Shinkofa est un voyage, pas une destination.\n\nBon voyage ! 🌿"
+    },
+    "progress": "Etape {current} sur {total}",
+    "previous": "Precedent",
+    "next": "Suivant",
+    "skip": "Passer le guide",
+    "finish": "Terminer"
+  },
+  "shizenChat": {
+    "title": "SHIZEN - Coach Holistique IA",
+    "connected": "Connecte - Powered by Ollama",
+    "disconnected": "Deconnecte",
+    "connectionEstablished": "Connexion etablie avec SHIZEN. Bonjour ! Comment puis-je t'accompagner aujourd'hui ?",
+    "connectionClosed": "Connexion fermee",
+    "connectionError": "Erreur de connexion WebSocket",
+    "thinking": "SHIZEN reflechit...",
+    "placeholder": "Pose ta question a SHIZEN...",
+    "send": "Envoyer",
+    "enterToSend": "Appuie sur {key} pour envoyer",
+    "toolsUsed": "Tools utilises:",
+    "error": "Erreur: {message}"
+  },
+  "rituals": {
+    "deleteConfirm": "Etes-vous sur de vouloir supprimer le rituel \"{label}\" ?",
+    "markAsCompleted": "Marquer \"{label}\" comme complete",
+    "markAsIncomplete": "Marquer \"{label}\" comme non complete",
+    "edit": "Modifier \"{label}\"",
+    "delete": "Supprimer \"{label}\""
+  },
+  "holisticProfileWarning": {
+    "title": "🌟 Prends le temps d'explorer ton profil en profondeur",
+    "message": "Ton profil holistique est une cartographie intime de qui tu es. Prends le temps de l'explorer seul·e d'abord et de l'apprivoiser.\n\nLa neurodivergence et les particularites revelees ne sont pas toujours comprises par tous. Choisis avec soin les personnes avec qui tu partages ces informations.",
+    "understood": "J'ai compris",
+    "dontShowAgain": "Ne plus afficher ce message"
+  },
+  "metadata": {
+    "home": {
+      "title": "Shinkofa Platform",
+      "description": "Plateforme holistique - Questionnaire holistique, Shizen AI Coach, Planner intelligent"
+    },
+    "pricing": {
+      "title": "Tarifs - Shinkofa Platform",
+      "description": "Decouvrez nos plans : Musha (gratuit), Samurai, Sensei. Questionnaire holistique, Shizen AI Coach, Planner intelligent."
+    },
+    "login": {
+      "title": "Connexion - Shinkofa Platform",
+      "description": "Connectez-vous a votre espace personnel Shinkofa"
+    },
+    "register": {
+      "title": "Inscription - Shinkofa Platform",
+      "description": "Rejoignez la communaute Shinkofa et decouvrez votre profil holistique"
+    },
+    "forgotPassword": {
+      "title": "Mot de passe oublie - Shinkofa Platform",
+      "description": "Reinitialiser votre mot de passe Shinkofa"
+    },
+    "resetPassword": {
+      "title": "Nouveau mot de passe - Shinkofa Platform",
+      "description": "Definir un nouveau mot de passe pour votre compte Shinkofa"
+    },
+    "verifyEmail": {
+      "title": "Verification email - Shinkofa Platform",
+      "description": "Verification de votre adresse email Shinkofa"
+    },
+    "checkoutSuccess": {
+      "title": "Paiement reussi - Shinkofa Platform",
+      "description": "Votre paiement a ete confirme. Bienvenue dans la communaute Shinkofa !"
+    },
+    "checkoutCancel": {
+      "title": "Paiement annule - Shinkofa Platform",
+      "description": "Votre paiement a ete annule. Vous pouvez reessayer quand vous le souhaitez."
+    }
+  }
+}

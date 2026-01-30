@@ -1,0 +1,92 @@
+/* Import Atkinson Hyperlegible font - Self-hosted alternative */
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Couleurs principales Shinkofa */
+  --bleu-profond: #1c3049;
+  --accent-lumineux: #e08f34;
+  --dore-principal: #f5cd3e;
+  --blanc-pur: #FFFFFF;
+  --beige-sable: #f8f6f0;
+  --accent-doux: #f2b366;
+  --bleu-fonce: #0f1c2e;
+}
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+    font-size: 16px;
+  }
+
+  body {
+    @apply m-0 min-h-screen font-sans antialiased;
+    font-family: 'Atkinson Hyperlegible', system-ui, sans-serif;
+    line-height: 1.6;
+    background: linear-gradient(135deg, var(--blanc-pur) 0%, var(--beige-sable) 100%);
+    color: var(--bleu-profond);
+  }
+
+  body.dark {
+    background: linear-gradient(135deg, var(--bleu-fonce) 0%, var(--bleu-profond) 100%);
+    color: var(--blanc-pur);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+
+  button {
+    @apply transition-all duration-200;
+  }
+}
+
+@layer components {
+  /* Boutons Shinkofa */
+  .btn-primary {
+    @apply px-6 py-3 bg-accent-lumineux text-blanc-pur rounded-shinkofa-md font-semibold;
+    @apply hover:bg-accent-doux focus:outline-none focus:ring-2 focus:ring-accent-lumineux focus:ring-offset-2;
+    @apply transition-all duration-200;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-bleu-profond text-blanc-pur rounded-shinkofa-md font-semibold;
+    @apply hover:bg-bleu-fonce focus:outline-none focus:ring-2 focus:ring-bleu-profond focus:ring-offset-2;
+    @apply transition-all duration-200;
+  }
+
+  /* Cartes Shinkofa */
+  .card {
+    @apply bg-blanc-pur dark:bg-bleu-profond rounded-shinkofa-lg shadow-shinkofa-md p-6;
+    @apply transition-all duration-200 hover:shadow-shinkofa-lg;
+  }
+
+  /* Container principal */
+  .container-shinkofa {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Accessibilité : Focus visible amélioré */
+@layer utilities {
+  .focus-visible-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lumineux focus-visible:ring-offset-2;
+  }
+
+  /* Utilitaire pour cacher visuellement mais garder accessible */
+  .sr-only {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+    clip: rect(0, 0, 0, 0);
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "@shinkofa/i18n",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Multilingual system (FR/EN/ES) for Shinkofa ecosystem",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@shinkofa/types": "workspace:*",
+    "i18next": "^23.7.16",
+    "react-i18next": "^14.0.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@shinkofa/tsconfig": "workspace:*",
+    "@types/react": "^18.2.48",
+    "typescript": "^5.3.3"
+  }
+}

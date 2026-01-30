@@ -1,0 +1,14 @@
+@import '@shinkofa/ui/styles';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Shizen app styles */
+:root {
+  --animation-duration: 200ms;
+}
+
+* {
+  animation-duration: var(--animation-duration);
+  transition-duration: var(--animation-duration);
+}

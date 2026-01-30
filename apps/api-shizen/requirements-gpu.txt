@@ -1,0 +1,17 @@
+# SHINKOFA SHIZEN-PLANNER SERVICE - GPU Dependencies
+# Requires CUDA 12.2+ and cuDNN
+
+# PyTorch with CUDA support
+torch>=2.1.0
+torchvision>=0.16.0
+torchaudio>=2.1.0
+
+# TensorFlow with GPU support (optional)
+# tensorflow-gpu>=2.15.0
+
+# CUDA-accelerated libraries
+nvidia-cudnn-cu12>=8.9.0
+nvidia-cuda-runtime-cu12>=12.2.0
+
+# FAISS GPU support: faiss-cpu (in requirements.txt) automatically detects CUDA
+# No need for faiss-gpu package (deprecated)

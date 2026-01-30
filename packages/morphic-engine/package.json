@@ -1,0 +1,32 @@
+{
+  "name": "@shinkofa/morphic-engine",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Adaptive morphic engine for Shinkofa ecosystem - Personalizes UI/UX based on Design Humain and neurodivergence",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@shinkofa/types": "workspace:*",
+    "@shinkofa/utils": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@shinkofa/tsconfig": "workspace:*",
+    "@types/react": "^18.2.48",
+    "typescript": "^5.3.3"
+  }
+}

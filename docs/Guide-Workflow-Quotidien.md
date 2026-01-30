@@ -42,14 +42,36 @@ claude
 
 ## Commandes Slash Utiles
 
+### Audit & Qualité
+
+| Commande | Action |
+|----------|--------|
+| `/audit` | Audit complet (conventions, structure, qualité) |
+| `/audit conventions` | Vérifier nommage fichiers/dossiers uniquement |
+| `/audit structure` | Vérifier organisation projet uniquement |
+| `/audit orphans` | Chercher fichiers orphelins |
+| `/audit --full` | Rapport exhaustif avec tous détails |
+| `/audit --fix` | Proposer corrections automatiques |
+
+### Cahier des Charges
+
+| Commande | Action |
+|----------|--------|
+| `/cdc` | Démarrer un CDC interactif (questions guidées) |
+| `/cdc <nom-projet>` | CDC pour un projet spécifique |
+| `/cdc --app michi` | CDC pour une app du monorepo |
+| `/cdc --feature` | CDC pour une nouvelle feature |
+| `/cdc --template` | Voir templates disponibles |
+
 ### Développement
 
 | Commande | Action |
 |----------|--------|
-| `/audit` | Audit qualité complet (conventions, structure, code) |
 | `/pre-commit` | Review obligatoire avant commit |
 | `/deploy` | Cycle deploy complet avec vérifications |
 | `/debug` | Investigation bug avec preuves |
+| `/lint-fix` | Linter + auto-fix (Python/JS) |
+| `/test-coverage` | Tests + rapport coverage |
 
 ### Documentation
 
@@ -59,11 +81,32 @@ claude
 | `/doc-update` | Mise à jour incrémentielle |
 | `/doc-check` | Vérifier docs obsolètes |
 
-### Planification
+### Planification & Projet
 
 | Commande | Action |
 |----------|--------|
 | `/plan-project <desc>` | Générer plan d'implémentation |
+| `/project-status` | Rapport statut projet actuel |
+| `/estimate-cost` | Estimer coût crédits Claude |
+
+### Scaffolding (Nouveau code)
+
+| Commande | Action |
+|----------|--------|
+| `/new-react-component` | Créer composant React |
+| `/new-fastapi-endpoint` | Créer endpoint FastAPI CRUD |
+| `/new-pwa-app` | Scaffold PWA complète |
+| `/new-nextjs-app` | Scaffold Next.js |
+
+### Utilitaires
+
+| Commande | Action |
+|----------|--------|
+| `/resume-dev` | Reprendre après déconnexion |
+| `/sync-repo` | Synchroniser avec remote |
+| `/rollback-last` | Annuler dernier commit |
+| `/check-ssh` | Diagnostic connexion SSH |
+| `/security-scan` | Scan sécurité OWASP |
 
 ---
 
@@ -89,11 +132,15 @@ Shinkofa-Ecosystem/
 │   ├── api-auth/        # API authentification (FastAPI)
 │   ├── api-shizen/      # API Shizen IA (FastAPI)
 │   ├── slf-esport/      # Académie gaming (React + FastAPI)
+│   ├── hibiki-dictate/  # Dictée vocale (Qt6/Python)
 │   ├── takumi-kit/      # Toolbox (en dev)
-│   └── [autres stubs]/  # Projets futurs
+│   └── [autres stubs]/  # Projets futurs (placeholders)
 ├── docker/              # Docker configs production
 ├── docs/                # Documentation centralisée
-└── .claude/             # Instructions Claude
+└── .claude/
+    ├── CLAUDE.md        # Instructions principales
+    ├── commands/        # Commandes slash (/audit, /cdc, etc.)
+    └── agents/          # Agents spécialisés
 ```
 
 ---

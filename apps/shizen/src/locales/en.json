@@ -1,0 +1,21 @@
+{
+  "app": {
+    "title": "Shizen - AI Companion",
+    "welcome": "Welcome to Shizen"
+  },
+  "home": {
+    "title": "Welcome",
+    "subtitle": "Your personalized AI companion",
+    "description": "Shizen adapts to your holistic profile to support you every day"
+  },
+  "chat": {
+    "title": "Chat with Shizen",
+    "placeholder": "Chat interface coming soon"
+  },
+  "energy": {
+    "level": "Energy level",
+    "optimal": "Optimal",
+    "low": "Low",
+    "normal": "Normal"
+  }
+}

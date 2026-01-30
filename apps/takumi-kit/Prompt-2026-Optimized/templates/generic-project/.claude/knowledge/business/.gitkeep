@@ -1,0 +1,8 @@
+# Catégorie : Business
+
+Business plan, stratégie, master plan
+
+Structure recommandée:
+- voschinkoff/   → Vision, mission, offres, roadmap
+- master-plan/   → Écosystème global, dépendances projets
+- marketing/     → Positionnement, stratégie contenu

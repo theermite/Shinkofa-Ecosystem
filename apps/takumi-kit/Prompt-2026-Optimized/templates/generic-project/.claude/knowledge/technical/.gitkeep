@@ -1,0 +1,8 @@
+# Catégorie : Technical
+
+Architecture et décisions techniques (projet-specific)
+
+Structure recommandée:
+- architecture/ → System design, tech stack
+- patterns/     → Coding patterns, best practices
+- decisions/    → ADR (Architecture Decision Records)
