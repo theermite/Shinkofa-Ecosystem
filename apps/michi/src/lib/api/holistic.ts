@@ -22,7 +22,7 @@ const QUEST_BASE = '/questionnaire'
  * @returns Holistic profile data
  */
 export async function getHolisticProfileByUser(userId: string): Promise<HolisticProfile> {
-  const response = await apiClient.get<HolisticProfile>(`/profile/${userId}`)
+  const response = await apiClient.get<HolisticProfile>(`${QUEST_BASE}/profile/user/${userId}`)
   return response.data
 }
 
