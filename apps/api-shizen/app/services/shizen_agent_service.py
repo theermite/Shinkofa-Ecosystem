@@ -34,8 +34,8 @@ class ShizenAgentService:
         self.llm = get_unified_llm(temperature=0.7)
         self.model_name = "unified_llm_with_fallback"
 
-        # SHIZEN agent persona prompt
-        self.agent_prompt = PromptTemplate.from_template("""
+        # SHIZEN agent persona prompt (base template)
+        self.base_prompt_template = """
 Tu es SHIZEN, coach holistique IA de la plateforme Shinkofa.
 
 **TON IDENTITÉ** :
@@ -49,15 +49,15 @@ Tu es SHIZEN, coach holistique IA de la plateforme Shinkofa.
 2. Analyser son profil holistique (Design Humain, neurodiversité, psychologie)
 3. Recommander actions concrètes et personnalisées
 4. Accompagner avec empathie et stratégie
-
+{adaptive_context}
 **OUTILS DISPONIBLES** :
-{tools}
+{{tools}}
 
-**NOMS D'OUTILS** : {tool_names}
+**NOMS D'OUTILS** : {{tool_names}}
 
 **FORMAT DE RÉPONSE** :
 Thought: [Ton raisonnement interne sur ce que l'utilisateur demande]
-Action: [Nom de l'outil à utiliser parmi {tool_names}]
+Action: [Nom de l'outil à utiliser parmi {{tool_names}}]
 Action Input: [Paramètres de l'outil en JSON]
 Observation: [Résultat de l'outil]
 ... (répète Thought/Action/Action Input/Observation si nécessaire)
@@ -70,15 +70,20 @@ Final Answer: [Ta réponse finale à l'utilisateur en français naturel]
 - Adapte tes conseils selon neurodivergence (TDAH → tasks courtes, HPI → défis intellectuels)
 - Sois concis mais chaleureux (2-4 phrases maximum sauf si explication complexe)
 - Utilise emojis modérément pour illustrer (pas excessif)
-
+{conversation_context}
 **CONTEXTE CONVERSATION** :
-{chat_history}
+{{chat_history}}
 
 **QUESTION UTILISATEUR** :
-{input}
+{{input}}
 
-{agent_scratchpad}
-""")
+{{agent_scratchpad}}
+"""
+
+        # Default prompt without adaptive context
+        self.agent_prompt = PromptTemplate.from_template(
+            self.base_prompt_template.format(adaptive_context="", conversation_context="")
+        )
 
         # Create ReAct agent
         self.agent = create_react_agent(
@@ -105,6 +110,8 @@ Final Answer: [Ta réponse finale à l'utilisateur en français naturel]
         conversation_id: str,
         db: AsyncSession,
         chat_history: Optional[List[Dict]] = None,
+        adaptive_context: Optional[str] = None,
+        conversation_context: Optional[Dict] = None,
     ) -> Dict:
         """
         Process user message through SHIZEN agent
@@ -115,6 +122,8 @@ Final Answer: [Ta réponse finale à l'utilisateur en français naturel]
             conversation_id: Conversation session ID
             db: Database session
             chat_history: Previous messages for context
+            adaptive_context: DH/Neuro style adaptation string (from ShizenContextService)
+            conversation_context: Persistent context (summary, preferences, goals)
 
         Returns:
             Agent response with metadata
@@ -123,15 +132,49 @@ Final Answer: [Ta réponse finale à l'utilisateur en français naturel]
             # Format chat history for prompt
             history_str = self._format_chat_history(chat_history or [])
 
+            # Build conversation context section
+            conv_context_str = ""
+            if conversation_context:
+                context_parts = []
+                if conversation_context.get("summary"):
+                    context_parts.append(f"Résumé précédent: {conversation_context['summary']}")
+                if conversation_context.get("goals_identified"):
+                    goals = ", ".join(conversation_context["goals_identified"][:3])
+                    context_parts.append(f"Objectifs identifiés: {goals}")
+                if conversation_context.get("emotional_state"):
+                    context_parts.append(f"État émotionnel: {conversation_context['emotional_state']}")
+                if context_parts:
+                    conv_context_str = "\n**MÉMOIRE CONVERSATION** :\n" + "\n".join(f"- {p}" for p in context_parts) + "\n"
+
+            # Build dynamic prompt with adaptive context
+            dynamic_prompt = self.base_prompt_template.format(
+                adaptive_context=f"\n{adaptive_context}\n" if adaptive_context else "",
+                conversation_context=conv_context_str
+            )
+
+            # Create agent with dynamic prompt
+            dynamic_agent_prompt = PromptTemplate.from_template(dynamic_prompt)
+            dynamic_agent = create_react_agent(
+                llm=self.llm,
+                tools=SHIZEN_TOOLS,
+                prompt=dynamic_agent_prompt
+            )
+            dynamic_executor = AgentExecutor(
+                agent=dynamic_agent,
+                tools=SHIZEN_TOOLS,
+                verbose=True,
+                max_iterations=5,
+                handle_parsing_errors=True,
+            )
+
             # Inject database session into tools context
-            # (Tools will use this db session when called)
             tool_kwargs = {
                 "user_id": user_id,
                 "db": db,
             }
 
             # Run agent
-            response = await self.agent_executor.ainvoke(
+            response = await dynamic_executor.ainvoke(
                 {
                     "input": user_message,
                     "chat_history": history_str,

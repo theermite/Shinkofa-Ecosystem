@@ -736,7 +736,7 @@
   },
   "shizenChat": {
     "title": "SHIZEN - Coach Holistique IA",
-    "connected": "Connecte - Powered by Ollama",
+    "connected": "Connecte",
     "disconnected": "Deconnecte",
     "connectionEstablished": "Connexion etablie avec SHIZEN. Bonjour ! Comment puis-je t'accompagner aujourd'hui ?",
     "connectionClosed": "Connexion fermee",
@@ -746,7 +746,19 @@
     "send": "Envoyer",
     "enterToSend": "Appuie sur {key} pour envoyer",
     "toolsUsed": "Tools utilises:",
-    "error": "Erreur: {message}"
+    "error": "Erreur: {message}",
+    "newConversation": "Nouvelle conversation",
+    "confirmDelete": "Supprimer cette conversation ?",
+    "save": "OK",
+    "cancel": "Annuler",
+    "rename": "Renommer",
+    "delete": "Supprimer",
+    "yesterday": "Hier",
+    "noConversations": "Aucune conversation",
+    "conversationsCount": "conversations",
+    "loadError": "Erreur de chargement",
+    "selectOrCreate": "Selectionnez ou creez une conversation",
+    "loadingHistory": "Chargement historique..."
   },
   "rituals": {
     "deleteConfirm": "Etes-vous sur de vouloir supprimer le rituel \"{label}\" ?",

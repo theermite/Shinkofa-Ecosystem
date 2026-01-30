@@ -18,6 +18,7 @@ from app.services.holistic_profile_service import get_holistic_profile_service
 from app.services.shizen_agent_service import get_shizen_agent
 from app.services.conversation_service import get_conversation_service
 from app.services.llm_service import get_llm_service
+from app.services.shizen_context_service import get_shizen_context_service
 from app.utils.auth import get_current_user_id
 from app.utils.tier_service import (
     verify_shizen_message_limit,
@@ -1191,6 +1192,10 @@ async def websocket_chat(
     # Get services
     agent = get_shizen_agent()
     conv_service = get_conversation_service()
+    context_service = get_shizen_context_service()
+
+    # Track message count for periodic context updates
+    message_count_in_session = 0
 
     try:
         # Get async database session (using dependency injection pattern)
@@ -1204,6 +1209,19 @@ async def websocket_chat(
                 })
                 await websocket.close()
                 return
+
+            user_id = conversation.user_id
+
+            # === LOAD ADAPTIVE CONTEXT (DH + Neuro) ===
+            profile_context = await context_service.get_user_profile_context(user_id, db)
+            adaptive_prompt = context_service.build_adaptive_prompt_section(profile_context)
+            if adaptive_prompt:
+                logger.info(f"🎯 Loaded adaptive context for user {user_id}: DH={profile_context.get('dh_type')}, Neuro={profile_context.get('neuro_profile')}")
+
+            # === LOAD CONVERSATION CONTEXT (Memory) ===
+            conversation_context = await context_service.get_conversation_context(conversation_id, db)
+            if conversation_context:
+                logger.info(f"📝 Loaded conversation context for {conversation_id}")
 
             # Get recent chat history for context
             recent_messages = await conv_service.get_conversation_history(
@@ -1256,14 +1274,17 @@ async def websocket_chat(
 
                 # Update chat history
                 chat_history.append({"role": "user", "content": user_message})
+                message_count_in_session += 1
 
-                # Process through SHIZEN agent
+                # Process through SHIZEN agent with adaptive context
                 agent_response = await agent.process_message(
                     user_message=user_message,
                     user_id=user_id,
                     conversation_id=conversation_id,
                     db=db,
                     chat_history=chat_history,
+                    adaptive_context=adaptive_prompt,
+                    conversation_context=conversation_context,
                 )
 
                 assistant_message = agent_response.get("message", "")
@@ -1302,6 +1323,21 @@ async def websocket_chat(
                 })
 
                 logger.info(f"✅ SHIZEN responded to user {user_id}")
+
+                # === PERIODIC CONTEXT UPDATE (every 10 messages) ===
+                if message_count_in_session % 10 == 0 and message_count_in_session > 0:
+                    try:
+                        updated = await context_service.summarize_and_update_context(
+                            conversation_id=conversation_id,
+                            recent_messages=chat_history,
+                            db=db
+                        )
+                        if updated:
+                            # Reload updated context
+                            conversation_context = await context_service.get_conversation_context(conversation_id, db)
+                            logger.info(f"🔄 Context updated for conversation {conversation_id}")
+                    except Exception as ctx_err:
+                        logger.warning(f"Context update failed (non-blocking): {ctx_err}")
 
     except WebSocketDisconnect:
         logger.info(f"🔌 WebSocket disconnected for conversation {conversation_id}")

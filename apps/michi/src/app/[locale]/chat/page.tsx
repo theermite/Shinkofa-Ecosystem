@@ -1,91 +1,151 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { useTranslations, useLocale } from 'next-intl'
+import { useState, useEffect, useCallback } from 'react'
+import { useTranslations } from 'next-intl'
 import ShizenChat from '@/components/ShizenChat'
+import ConversationSidebar from '@/components/ConversationSidebar'
 import { useAuth } from '@/contexts/AuthContext'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
+import {
+  useConversations,
+  useCreateConversation,
+} from '@/hooks/api/useConversations'
+import type { Conversation } from '@/types/api'
 
 function ChatPageContent() {
   const { user } = useAuth()
-  const t = useTranslations('chat')
-  const locale = useLocale()
-  const [conversationId, setConversationId] = useState<string | null>(null)
-  const [isCreating, setIsCreating] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const t = useTranslations('shizenChat')
+  const [selectedConversation, setSelectedConversation] =
+    useState<Conversation | null>(null)
+  const [sidebarOpen, setSidebarOpen] = useState(true)
 
   const userId = user?.id || ''
 
-  // Create conversation on mount
+  // Fetch conversations
+  const { data: conversations, isLoading: isLoadingConversations } =
+    useConversations({ status_filter: 'active', limit: 50 })
+
+  // Create conversation mutation
+  const createMutation = useCreateConversation()
+
+  // Auto-select most recent conversation or create new one on first load
   useEffect(() => {
-    if (userId) {
-      createConversation()
-    }
-  }, [userId])
-
-  const createConversation = async () => {
-    setIsCreating(true)
-    setError(null)
-
-    try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_SHIZEN_URL || 'https://localhost:8001/api'
-      const dateLocale = locale === 'fr' ? 'fr-FR' : 'en-US'
-      const response = await fetch(`${apiUrl}/conversations`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-User-ID': userId
-        },
-        body: JSON.stringify({
-          title: `${t('conversationTitle')} ${new Date().toLocaleDateString(dateLocale)}`
-        })
-      })
-
-      if (!response.ok) {
-        throw new Error(`${t('errorHttp')}: ${response.status}`)
+    if (!isLoadingConversations && conversations && !selectedConversation) {
+      if (conversations.length > 0) {
+        // Select most recent conversation
+        setSelectedConversation(conversations[0])
       }
-
-      const data = await response.json()
-      setConversationId(data.id)
-    } catch (err) {
-      console.error('❌ Erreur création conversation:', err)
-      setError(t('errorCreating'))
-    } finally {
-      setIsCreating(false)
+      // If no conversations exist, user can create one via sidebar
     }
-  }
+  }, [conversations, isLoadingConversations, selectedConversation])
 
-  if (error) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
-        <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg max-w-md">
-          <h1 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">❌ {t('errorTitle')}</h1>
-          <p className="text-gray-700 dark:text-gray-300 mb-4">{error}</p>
-          <button
-            onClick={createConversation}
-            className="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"
-          >
-            {t('retry')}
-          </button>
-        </div>
-      </div>
-    )
-  }
+  // Handle selecting a conversation
+  const handleSelectConversation = useCallback((conv: Conversation) => {
+    setSelectedConversation(conv)
+    // Close sidebar on mobile after selection
+    if (window.innerWidth < 768) {
+      setSidebarOpen(false)
+    }
+  }, [])
 
-  if (isCreating || !conversationId) {
+  // Handle new conversation created
+  const handleNewConversation = useCallback((conv: Conversation) => {
+    setSelectedConversation(conv)
+    // Close sidebar on mobile
+    if (window.innerWidth < 768) {
+      setSidebarOpen(false)
+    }
+  }, [])
+
+  // Refetch conversations when a new message is sent/received
+  const handleNewMessage = useCallback(() => {
+    // The React Query cache will be invalidated via the hook
+  }, [])
+
+  // Toggle sidebar
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
+
+  // Loading state
+  if (isLoadingConversations) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-purple-600 dark:border-purple-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-400 text-lg">{t('initializing')}</p>
+          <p className="text-gray-600 dark:text-gray-400 text-lg">
+            {t('loadingHistory')}
+          </p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
-      <ShizenChat conversationId={conversationId} userId={userId} />
+    <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
+      {/* Mobile sidebar toggle button */}
+      <button
+        onClick={toggleSidebar}
+        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-purple-600 text-white rounded-lg shadow-lg"
+        aria-label="Toggle sidebar"
+      >
+        {sidebarOpen ? '✕' : '☰'}
+      </button>
+
+      {/* Sidebar */}
+      <div
+        className={`
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+          md:translate-x-0
+          fixed md:relative
+          z-40
+          w-80
+          h-full
+          transition-transform duration-300 ease-in-out
+        `}
+      >
+        <ConversationSidebar
+          selectedId={selectedConversation?.id || null}
+          onSelect={handleSelectConversation}
+          onNewConversation={handleNewConversation}
+        />
+      </div>
+
+      {/* Backdrop for mobile */}
+      {sidebarOpen && (
+        <div
+          className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-30"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Main chat area */}
+      <div className="flex-1 flex flex-col h-full overflow-hidden">
+        {/* Header */}
+        <header className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-4 shadow-lg flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={toggleSidebar}
+              className="md:hidden p-1 hover:bg-white/20 rounded"
+            >
+              ☰
+            </button>
+            <h1 className="text-xl font-bold">🌟 {t('title')}</h1>
+          </div>
+          {selectedConversation && (
+            <span className="text-sm opacity-80 truncate max-w-[200px]">
+              {selectedConversation.title}
+            </span>
+          )}
+        </header>
+
+        {/* Chat component */}
+        <div className="flex-1 overflow-hidden">
+          <ShizenChat
+            conversationId={selectedConversation?.id || null}
+            userId={userId}
+            onNewMessage={handleNewMessage}
+          />
+        </div>
+      </div>
     </div>
   )
 }

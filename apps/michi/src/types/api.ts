@@ -186,6 +186,79 @@ export interface RitualFilters {
 }
 
 // ==================
+// CONVERSATIONS (Shizen Chat)
+// ==================
+
+export type ConversationStatus = 'active' | 'archived' | 'deleted'
+export type MessageRole = 'user' | 'assistant' | 'system'
+
+export interface ConversationMeta {
+  tags?: string[]
+  sentiment?: string
+  topics_discussed?: string[]
+  goals_identified?: string[]
+  total_messages?: number
+}
+
+export interface ConversationContext {
+  user_profile_summary?: string
+  current_topic?: string
+  user_preferences?: Record<string, unknown>
+  recent_actions?: string[]
+}
+
+export interface Conversation {
+  id: string
+  user_id: string
+  title: string
+  status: ConversationStatus
+  context: ConversationContext | null
+  meta: ConversationMeta | null
+  created_at: string // ISO 8601
+  last_message_at: string // ISO 8601
+}
+
+export interface Message {
+  id: string
+  conversation_id: string
+  role: MessageRole
+  content: string
+  meta: {
+    sentiment?: string
+    intent?: string
+    topics?: string[]
+    tools_used?: string[]
+    model?: string
+    tokens?: {
+      prompt: number
+      completion: number
+      total: number
+    }
+  } | null
+  created_at: string // ISO 8601
+}
+
+export interface CreateConversationInput {
+  title?: string
+}
+
+export interface UpdateConversationInput {
+  title?: string
+  status?: ConversationStatus
+}
+
+export interface ConversationFilters {
+  status_filter?: ConversationStatus
+  limit?: number
+  offset?: number
+}
+
+export interface MessageFilters {
+  limit?: number
+  offset?: number
+}
+
+// ==================
 // API RESPONSES
 // ==================
 
