@@ -48,6 +48,8 @@ const getNumDisplay = (val?: NumerologyValue | null): string => {
 interface NameAnalysisData {
   active: NumerologyValue
   hereditary: NumerologyValue
+  first_name?: string
+  last_name?: string
   first_name_analysis?: string
   last_name_analysis?: string
   name_holistic_analysis?: NameHolisticAnalysis
@@ -183,8 +185,15 @@ export const NameAnalysisCard: React.FC<NameAnalysisCardProps> = ({ data }) => {
       icon="📛"
       gradient="from-rose-500 to-pink-600"
     >
-      {/* Introduction */}
+      {/* Introduction - With Explicit Names */}
       <div className="bg-gradient-to-r from-rose-100 to-pink-100 dark:from-rose-900/30 dark:to-pink-900/30 rounded-xl p-6 mb-6 border-2 border-rose-200 dark:border-rose-800">
+        {(data.first_name || data.last_name) && (
+          <div className="mb-4 p-4 bg-white/70 dark:bg-gray-800/70 rounded-lg border-l-4 border-rose-500">
+            <p className="text-lg text-gray-900 dark:text-white">
+              Analyse personnalisée pour : <strong className="text-rose-600 dark:text-rose-400 text-xl">{data.first_name} {data.last_name}</strong>
+            </p>
+          </div>
+        )}
         <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
           <span className="text-2xl">✨</span> L'énergie de votre identité
         </h3>
@@ -274,7 +283,7 @@ export const NameAnalysisCard: React.FC<NameAnalysisCardProps> = ({ data }) => {
             </div>
             <div>
               <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                Nombre Actif
+                Nombre Actif {data.first_name && <span className="text-amber-600 dark:text-amber-400">({data.first_name})</span>}
               </h3>
               <p className="text-amber-700 dark:text-amber-400 font-semibold">
                 Énergie du Prénom
@@ -327,7 +336,7 @@ export const NameAnalysisCard: React.FC<NameAnalysisCardProps> = ({ data }) => {
             </div>
             <div>
               <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                Nombre Héréditaire
+                Nombre Héréditaire {data.last_name && <span className="text-indigo-600 dark:text-indigo-400">({data.last_name})</span>}
               </h3>
               <p className="text-indigo-700 dark:text-indigo-400 font-semibold">
                 Héritage du Nom

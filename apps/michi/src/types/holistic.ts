@@ -268,6 +268,15 @@ export interface NumerologyInterpretation {
   traits: string[]
 }
 
+export interface NameHolisticAnalysis {
+  etymology: {
+    first_name: string
+    last_name: string
+  }
+  anthroponymy: string
+  energetic_weight: string
+}
+
 export interface Numerology {
   life_path: number
   expression: number
@@ -279,6 +288,12 @@ export interface Numerology {
   challenges: NumerologyChallenge[]
   cycles: NumerologyCycle[]
   personal_year: number
+  // Name fields for personalized display
+  first_name?: string
+  last_name?: string
+  first_name_analysis?: string
+  last_name_analysis?: string
+  name_holistic_analysis?: NameHolisticAnalysis
   interpretations: {
     life_path: NumerologyInterpretation
     expression: NumerologyInterpretation

@@ -466,8 +466,10 @@ class HolisticProfileService:
                     },
                 )
 
-                # Enrich numerology data with holistic name analysis
+                # Enrich numerology data with holistic name analysis AND explicit names
                 numerology["name_holistic_analysis"] = name_holistic_analysis
+                numerology["first_name"] = first_name
+                numerology["last_name"] = last_name
 
                 logger.info("✅ Holistic name analysis added to numerology chart")
 

@@ -341,6 +341,11 @@ export default function HolisticProfilePage() {
               <NameAnalysisCard data={{
                 active: profile.numerology.active,
                 hereditary: profile.numerology.hereditary,
+                first_name: profile.numerology.first_name,
+                last_name: profile.numerology.last_name,
+                first_name_analysis: profile.numerology.first_name_analysis,
+                last_name_analysis: profile.numerology.last_name_analysis,
+                name_holistic_analysis: profile.numerology.name_holistic_analysis,
                 interpretations: {
                   active: profile.numerology.interpretations?.active || { keyword: 'unknown', traits: [] },
                   hereditary: profile.numerology.interpretations?.hereditary || { keyword: 'unknown', traits: [] },

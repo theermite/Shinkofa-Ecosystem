@@ -7,65 +7,125 @@
 import React from 'react'
 import { ProfileSection, DetailCard } from './ProfileSection'
 
-interface NeurodivergenceProfile {
-  // Support both old (score) and new (score_global) API formats
+// Support BOTH old and new API formats from backend
+interface NeurodivergenceProfileRaw {
+  // Score formats
   score?: number
   score_global?: number
+  // Profile label formats
+  profile?: string
+  profil?: string
+  profil_label?: string
+  // Manifestations formats
+  manifestations?: string[]
+  manifestations_principales?: string[]
+  // Strategies formats
+  strategies?: string[]
+  strategies_adaptation?: string[]
+  // Additional fields
+  dimensions?: Record<string, number>
+  types?: string[]
+  types_detectes?: string[]
+}
+
+// Normalized profile for internal use
+interface NeurodivergenceProfile {
+  score: number
   profile: string
   manifestations: string[]
   strategies: string[]
-}
-
-interface MultipotentialityProfile {
-  // Support both old (score) and new (score_global) API formats
-  score?: number
-  score_global?: number
-  manifestations: string[]
-  profile?: string
-  strategies?: string[]
+  dimensions?: Record<string, number>
+  types?: string[]
 }
 
 // Helper to get score from either format - with null safety
-const getScore = (data?: { score?: number; score_global?: number } | null): number => {
+const getScore = (data?: NeurodivergenceProfileRaw | null): number => {
   if (!data) return 0
   return data.score_global ?? data.score ?? 0
+}
+
+// Helper to get profile label from any format
+const getProfileLabel = (data?: NeurodivergenceProfileRaw | null): string => {
+  if (!data) return 'Non analysé'
+  return data.profil_label || data.profil || data.profile || 'Non analysé'
+}
+
+// Helper to get manifestations from any format
+const getManifestations = (data?: NeurodivergenceProfileRaw | null): string[] => {
+  if (!data) return []
+  return data.manifestations_principales || data.manifestations || []
+}
+
+// Helper to get strategies from any format
+const getStrategies = (data?: NeurodivergenceProfileRaw | null): string[] => {
+  if (!data) return []
+  return data.strategies_adaptation || data.strategies || []
+}
+
+// Helper to get types (for hypersensitivity, dys, etc.)
+const getTypes = (data?: NeurodivergenceProfileRaw | null): string[] => {
+  if (!data) return []
+  return data.types || data.types_detectes || []
 }
 
 // Default empty neurodivergence profile
 const emptyProfile: NeurodivergenceProfile = {
   score: 0,
-  score_global: 0,
   profile: 'Non analysé',
   manifestations: [],
   strategies: [],
 }
 
-// Safe getter for neurodivergence profiles
-const getSafeProfile = (profile?: NeurodivergenceProfile | null): NeurodivergenceProfile => {
-  return profile || emptyProfile
-}
-
-interface NeurodivergenceAnalysis {
-  adhd: NeurodivergenceProfile
-  autism: NeurodivergenceProfile
-  hpi: NeurodivergenceProfile
-  multipotentiality: MultipotentialityProfile
-  hypersensitivity: NeurodivergenceProfile & {
-    types: string[]
+// Safe getter that normalizes all formats to internal format
+const getSafeProfile = (raw?: NeurodivergenceProfileRaw | null): NeurodivergenceProfile => {
+  if (!raw) return emptyProfile
+  return {
+    score: getScore(raw),
+    profile: getProfileLabel(raw),
+    manifestations: getManifestations(raw),
+    strategies: getStrategies(raw),
+    dimensions: raw.dimensions,
+    types: getTypes(raw),
   }
 }
 
+// Raw analysis from API (supports both old and new formats)
+interface NeurodivergenceAnalysisRaw {
+  adhd?: NeurodivergenceProfileRaw
+  autism?: NeurodivergenceProfileRaw
+  hpi?: NeurodivergenceProfileRaw
+  multipotentiality?: NeurodivergenceProfileRaw
+  hypersensitivity?: NeurodivergenceProfileRaw
+  // Additional types from new 12-type format
+  toc?: NeurodivergenceProfileRaw
+  dys?: NeurodivergenceProfileRaw
+  anxiety?: NeurodivergenceProfileRaw
+  bipolar?: NeurodivergenceProfileRaw
+  ptsd?: NeurodivergenceProfileRaw
+  eating_disorder?: NeurodivergenceProfileRaw
+  sleep_disorder?: NeurodivergenceProfileRaw
+}
+
 interface NeurodivergenceCardProps {
-  data: NeurodivergenceAnalysis
+  data: NeurodivergenceAnalysisRaw
 }
 
 export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }) => {
-  // Safe access to all profiles with fallbacks
+  // Normalize all profiles from raw API data
   const adhd = getSafeProfile(data?.adhd)
   const autism = getSafeProfile(data?.autism)
   const hpi = getSafeProfile(data?.hpi)
-  const multipotentiality = data?.multipotentiality || { score: 0, score_global: 0, manifestations: [], profile: 'Non analysé', strategies: [] }
-  const hypersensitivity = data?.hypersensitivity || { ...emptyProfile, types: [] }
+  const multipotentiality = getSafeProfile(data?.multipotentiality)
+  const hypersensitivity = getSafeProfile(data?.hypersensitivity)
+
+  // Additional neurodivergences from 12-type format
+  const toc = getSafeProfile(data?.toc)
+  const dys = getSafeProfile(data?.dys)
+  const anxiety = getSafeProfile(data?.anxiety)
+  const bipolar = getSafeProfile(data?.bipolar)
+  const ptsd = getSafeProfile(data?.ptsd)
+  const eatingDisorder = getSafeProfile(data?.eating_disorder)
+  const sleepDisorder = getSafeProfile(data?.sleep_disorder)
 
   return (
     <ProfileSection
@@ -77,10 +137,10 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
       <NeurodivergenceItem
         title="TDA(H) - Trouble du Déficit de l'Attention avec ou sans Hyperactivité"
         icon="⚡"
-        score={getScore(adhd)}
+        score={adhd.score}
         profile={adhd.profile}
-        manifestations={adhd.manifestations || []}
-        strategies={adhd.strategies || []}
+        manifestations={adhd.manifestations}
+        strategies={adhd.strategies}
         color="purple"
       />
 
@@ -88,10 +148,10 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
       <NeurodivergenceItem
         title="Traits Autistiques"
         icon="🧩"
-        score={getScore(autism)}
+        score={autism.score}
         profile={autism.profile}
-        manifestations={autism.manifestations || []}
-        strategies={autism.strategies || []}
+        manifestations={autism.manifestations}
+        strategies={autism.strategies}
         color="blue"
       />
 
@@ -99,10 +159,10 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
       <NeurodivergenceItem
         title="Haut Potentiel Intellectuel (HPI)"
         icon="🧠"
-        score={getScore(hpi)}
+        score={hpi.score}
         profile={hpi.profile}
-        manifestations={hpi.manifestations || []}
-        strategies={hpi.strategies || []}
+        manifestations={hpi.manifestations}
+        strategies={hpi.strategies}
         color="indigo"
       />
 
@@ -110,10 +170,10 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
       <NeurodivergenceItem
         title="Multipotentialité"
         icon="🎨"
-        score={getScore(multipotentiality)}
-        profile={multipotentiality.profile || 'Multipotentiel'}
-        manifestations={multipotentiality.manifestations || []}
-        strategies={multipotentiality.strategies || []}
+        score={multipotentiality.score}
+        profile={multipotentiality.profile}
+        manifestations={multipotentiality.manifestations}
+        strategies={multipotentiality.strategies}
         color="pink"
       />
 
@@ -131,41 +191,92 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
               </p>
             </div>
           </div>
-          <ScoreBadge score={getScore(hypersensitivity)} />
+          <ScoreBadge score={hypersensitivity.score} />
         </div>
 
         {/* Types d'hypersensibilité */}
-        <div className="mb-6 p-4 bg-white/70 dark:bg-gray-800/70 rounded-lg">
-          <h4 className="font-semibold text-gray-900 dark:text-white mb-3 text-lg">
-            Types d'hypersensibilité identifiés :
-          </h4>
-          <div className="flex flex-wrap gap-2">
-            {(hypersensitivity.types || []).map((type, idx) => (
-              <span
-                key={idx}
-                className="px-4 py-2 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-full font-medium shadow-md"
-              >
-                {type}
-              </span>
-            ))}
+        {hypersensitivity.types && hypersensitivity.types.length > 0 && (
+          <div className="mb-6 p-4 bg-white/70 dark:bg-gray-800/70 rounded-lg">
+            <h4 className="font-semibold text-gray-900 dark:text-white mb-3 text-lg">
+              Types d'hypersensibilité identifiés :
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {hypersensitivity.types.map((type, idx) => (
+                <span
+                  key={idx}
+                  className="px-4 py-2 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-full font-medium shadow-md"
+                >
+                  {type}
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <DetailCard
             title="🔍 Manifestations"
-            items={hypersensitivity.manifestations || []}
+            items={hypersensitivity.manifestations}
             icon="•"
             color="purple"
           />
           <DetailCard
             title="💡 Stratégies d'Adaptation"
-            items={hypersensitivity.strategies || []}
+            items={hypersensitivity.strategies}
             icon="✓"
             color="green"
           />
         </div>
       </div>
+
+      {/* Additional Neurodivergences - Only show if score > 25 (traits present) */}
+      {anxiety.score > 25 && (
+        <NeurodivergenceItem
+          title="Anxiété"
+          icon="😰"
+          score={anxiety.score}
+          profile={anxiety.profile}
+          manifestations={anxiety.manifestations}
+          strategies={anxiety.strategies}
+          color="purple"
+        />
+      )}
+
+      {sleepDisorder.score > 25 && (
+        <NeurodivergenceItem
+          title="Troubles du Sommeil"
+          icon="😴"
+          score={sleepDisorder.score}
+          profile={sleepDisorder.profile}
+          manifestations={sleepDisorder.manifestations}
+          strategies={sleepDisorder.strategies}
+          color="blue"
+        />
+      )}
+
+      {toc.score > 25 && (
+        <NeurodivergenceItem
+          title="TOC (Troubles Obsessionnels Compulsifs)"
+          icon="🔄"
+          score={toc.score}
+          profile={toc.profile}
+          manifestations={toc.manifestations}
+          strategies={toc.strategies}
+          color="indigo"
+        />
+      )}
+
+      {dys.score > 25 && (
+        <NeurodivergenceItem
+          title="Troubles Dys- (Apprentissage)"
+          icon="📚"
+          score={dys.score}
+          profile={dys.profile}
+          manifestations={dys.manifestations}
+          strategies={dys.strategies}
+          color="pink"
+        />
+      )}
 
       {/* Summary Info */}
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-white">

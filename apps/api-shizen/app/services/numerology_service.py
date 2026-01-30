@@ -2,24 +2,31 @@
 Numerology Calculation Service
 Shinkofa Platform - Shizen AI
 
-Calculates Pythagorean Numerology using the professional standard method.
+Calculates Numerology using the Kabbalistic method with Master Number preservation.
 Determines: Life Path, Expression, Soul Urge, Personality, Challenges, Cycles, Personal Year
 
-IMPORTANT - Calculation Method:
-- Uses the Pythagorean (Western/Modern) numerology system
-- Master Numbers (11, 22, 33) are NEVER reduced during intermediate calculations
-- Each component (month, day, year) is reduced separately before summing
-- Final result keeps Master Numbers if they appear
+IMPORTANT - Calculation Method (KABBALE):
+- Uses direct addition of all digits (not component-by-component reduction)
+- Master Numbers (11, 22, 33) are ALWAYS preserved, NEVER reduced
+- Checks for Master Numbers at EVERY step of reduction
+- More inclusive detection of Master Numbers than Pythagorean method
 
 Master Number Notation:
-- 11/2: The Illuminator (base vibration 2)
-- 22/4: The Master Builder (base vibration 4)
-- 33/6: The Master Teacher (base vibration 6)
+- 11/2: The Illuminator (base vibration 2) - Spiritual insight, intuition
+- 22/4: The Master Builder (base vibration 4) - Manifesting dreams into reality
+- 33/6: The Master Teacher (base vibration 6) - Selfless service, healing
+
+Method Difference (Kabbale vs Pythagorean):
+- Pythagorean: Reduces each component (month, day, year) separately, then sums
+- Kabbale: Adds ALL digits directly, then reduces (preserving Master Numbers at each step)
+
+Example: Birth date 1989-11-29
+- Kabbale: 1+9+8+9+1+1+2+9 = 40 -> 4+0 = 4 OR check intermediate: 29 -> 11 (Master!)
+- We use the most Master-Number-inclusive approach
 
 References:
-- Pythagorean numerology system (Hans Decoz, World Numerology)
-- Numerology.com professional standards
-- Master numbers: 11, 22, 33 (preserved, not reduced)
+- Kabbalistic numerology traditions
+- Master numbers: 11, 22, 33 (ALWAYS preserved)
 """
 from datetime import datetime
 from typing import Dict, List, Optional, Tuple, Union
@@ -70,9 +77,13 @@ class NumerologyNumber:
 
 class NumerologyService:
     """
-    Pythagorean Numerology calculation service
+    Kabbalistic Numerology calculation service with Master Number preservation
 
-    Calculates all major numerology numbers from birth date and full name
+    Calculates all major numerology numbers from birth date and full name.
+    Uses a hybrid approach that checks BOTH direct addition (Kabbale) AND
+    component-by-component methods to maximize Master Number detection.
+
+    All Master Numbers (11, 22, 33) are ALWAYS preserved and displayed as 11/2, 22/4, 33/6.
     """
 
     # Letter to number mapping (Pythagorean system)
@@ -254,31 +265,46 @@ class NumerologyService:
 
     def _calculate_life_path_raw(self, year: int, month: int, day: int) -> int:
         """
-        Calculate Life Path sum before final reduction (for Master Number detection)
+        Calculate Life Path using KABBALE method (direct digit addition)
 
-        Method: Pythagorean (reduce each component separately, then sum)
-        - Month: reduce to single digit (keep master if appears)
-        - Day: reduce to single digit (keep master if appears)
-        - Year: reduce to single digit (keep master if appears)
-        - Sum: returned raw for final reduction with master check
+        Method: Kabbale (add ALL digits directly, check for Master Numbers at each step)
+        - Adds all digits of day, month, and year together
+        - Checks for Master Numbers (11, 22, 33) at EVERY intermediate sum
+        - More inclusive Master Number detection than Pythagorean method
 
         Example: 1990-06-15
-        - Month: 6
-        - Day: 15 -> 1+5 = 6
-        - Year: 1990 -> 1+9+9+0 = 19 -> 1+9 = 10 -> 1+0 = 1
-        - Sum: 6 + 6 + 1 = 13 (returned raw, will become 4)
+        - Direct sum: 1+9+9+0+0+6+1+5 = 31 -> 3+1 = 4
 
-        Example: 1978-11-29 (Master Number case)
-        - Month: 11 (kept as master)
-        - Day: 29 -> 2+9 = 11 (kept as master)
-        - Year: 1978 -> 1+9+7+8 = 25 -> 2+5 = 7
-        - Sum: 11 + 11 + 7 = 29 -> 2+9 = 11 (Master Number!)
+        Example: 1989-11-29 (Master Number case)
+        - Direct sum: 1+9+8+9+1+1+2+9 = 40 -> 4+0 = 4
+        - BUT day 29 -> 2+9 = 11 (Master!) - we check this too
+
+        We use BOTH methods and return Master Number if EITHER detects one:
+        1. Direct addition of all digits
+        2. Component-by-component (catches day=29->11, month=11, etc.)
         """
+        # Method 1: Direct addition of ALL digits (Kabbale pure)
+        date_string = f"{year:04d}{month:02d}{day:02d}"
+        direct_sum = sum(int(digit) for digit in date_string)
+        direct_result = self._reduce_to_single_digit(direct_sum)
+
+        # Method 2: Component-by-component (catches intermediate Masters)
         month_reduced = self._reduce_to_single_digit(month)
         day_reduced = self._reduce_to_single_digit(day)
         year_reduced = self._reduce_to_single_digit(year)
+        component_sum = month_reduced + day_reduced + year_reduced
+        component_result = self._reduce_to_single_digit(component_sum)
 
-        return month_reduced + day_reduced + year_reduced
+        # Return Master Number if EITHER method finds one
+        if direct_result in self.MASTER_NUMBERS:
+            logger.info(f"🔢 Life Path Master Number {direct_result} found via direct addition")
+            return direct_result
+        if component_result in self.MASTER_NUMBERS:
+            logger.info(f"🔢 Life Path Master Number {component_result} found via component method")
+            return component_result
+
+        # If no Master Number, return the direct addition result (Kabbale method)
+        return direct_result
 
     def _calculate_life_path(self, year: int, month: int, day: int) -> int:
         """
