@@ -524,17 +524,32 @@ class PsychologicalAnalysisService:
 
 ### ✨ ASTROLOGIE OCCIDENTALE
 
-- **Soleil** : {astrology.get('sun_sign', '')} (maison {astrology.get('sun_house', '')})
-- **Lune** : {astrology.get('moon_sign', '')} (maison {astrology.get('moon_house', '')})
-- **Ascendant** : {astrology.get('ascendant', '')}
-- **Aspects majeurs** : {astrology.get('major_aspects', [])}
-- **Dominantes planétaires** : {astrology.get('dominant_planets', [])}
+**Trio Soleil-Lune-Ascendant (identité fondamentale)** :
+- **Soleil en {astrology.get('sun_sign', 'inconnu').title()}** : Énergie vitale, identité consciente, expression de soi
+- **Lune en {astrology.get('moon_sign', 'inconnu').title()}** : Monde émotionnel, besoins instinctifs, sécurité intérieure
+- **Ascendant {astrology.get('ascendant', 'inconnu').title()}** : Masque social, première impression, approche de la vie
+
+**Élément dominant** : {astrology.get('dominant_element', 'inconnu').title()}
+- Feu : Action, passion, initiative
+- Terre : Stabilité, pragmatisme, ancrage
+- Air : Communication, mental, relations
+- Eau : Émotions, intuition, sensibilité
+
+**Modalité dominante** : {astrology.get('dominant_modality', 'inconnu').title()}
+- Cardinal : Initiative, leadership, démarrage
+- Fixe : Persévérance, stabilité, concentration
+- Mutable : Adaptabilité, flexibilité, changement
+
+**Planètes détaillées** : {astrology.get('planets', [])}
+**Aspects majeurs** : {astrology.get('aspects', [])}
+**Forme du thème** : {astrology.get('chart_shape', 'non déterminé')}
+**Emphase hémisphère** : {astrology.get('hemisphere_emphasis', {})}
 
 ---
 
 ### 🐉 ASTROLOGIE CHINOISE
 
-{astrology.get('chinese', {})}
+{self._format_chinese_astrology(astrology.get('chinese', {}))}
 
 ---
 
@@ -597,6 +612,25 @@ class PsychologicalAnalysisService:
 - **Croiser avec profil** : Comment ton Design Humain + MBTI + neurodiv influence tes perceptions
 - Ton neutre et validant (ni sur-valoriser ni minimiser)
 
+### 4c. Portrait Astrologique Complet (300 mots) - **V5.0 NOUVEAU**
+
+**ASTROLOGIE OCCIDENTALE** (150 mots) :
+- **Analyse du trio fondamental** : Comment ton Soleil (identité), Lune (émotions), Ascendant (expression) créent ta personnalité unique
+- **Élément dominant** : Impact sur ton tempérament et tes réactions naturelles
+- **Modalité dominante** : Comment tu abordes les défis et le changement
+- **Aspects majeurs** : Tensions et harmonies intérieures (carrés = défis à intégrer, trigones = talents naturels)
+- **Synthèse pratique** : Périodes favorables, rythmes naturels, conseils timing
+
+**ASTROLOGIE CHINOISE** (150 mots) :
+- **Analyse de ton signe animal + élément** : Ce que signifie être un(e) [Élément] [Animal]
+- **Influence Yin/Yang** : Énergie active ou réceptive et son impact sur ton approche
+- **Forces du signe** : Talents naturels et atouts caractéristiques
+- **Points de vigilance** : Défis typiques de ton signe à surveiller
+- **Compatibilités relationnelles** : Types de personnes avec qui tu t'entends naturellement
+- **Année en cours** : Comment l'année astrologique chinoise actuelle t'influence
+
+**CROISER avec autres systèmes** : Liens entre ton signe astrologique et ton Design Humain/MBTI/Ennéagramme
+
 ### 5. Situation Actuelle & Coaching Personnalisé (400 mots) - **V5.0 NOUVEAU**
 - **Analyse des défis identifiés** : Pour chaque défi, expliquer comment ton profil (MBTI + DH + neurodiv) peut l'aborder
 - **Stratégies d'action concrètes** : 3-5 stratégies personnalisées selon profil holistique
@@ -615,13 +649,14 @@ class PsychologicalAnalysisService:
 - Citation Shinkofa personnalisée
 
 **CONTRAINTES** :
-- Longueur : 1800-2200 mots MINIMUM (inclut section nom/prénom + coaching V5.0)
+- Longueur : 2200-2600 mots MINIMUM (inclut sections nom/prénom + astrologie + coaching V5.0)
 - Format : Markdown avec ## headers, **gras**, listes
 - Ton : Bienveillant, chaleureux, empathique, empowering, COACHING ACTIONNABLE
 - Style : Narratif (pas liste sèche), exemples concrets
 - Éviter : Jargon technique sans explication
 - Intégrer : Prénom {full_name} naturellement dans le texte
 - **NOUVEAU** : Analyse étymologique profonde du prénom (origine, signification, vibration)
+- **NOUVEAU** : Section astrologie DÉVELOPPÉE avec interprétations (pas juste lister les placements)
 
 **MÉTHODOLOGIE V5.0** :
 - Priorité absolue aux patterns comportementaux observés
@@ -670,19 +705,135 @@ Génère la synthèse holistique complète MAINTENANT.
             formatted.append(f"- **{comment['question']}** : {comment['comment']}")
         return "\n".join(formatted)
 
+    def _format_chinese_astrology(self, chinese: Dict) -> str:
+        """Format Chinese Astrology data with interpretations"""
+        if not chinese:
+            return "Non disponible"
+
+        animal = chinese.get('animal_sign', 'inconnu').title()
+        element = chinese.get('element', 'inconnu').title()
+        yin_yang = chinese.get('yin_yang', 'inconnu').title()
+        traits = chinese.get('traits', [])
+        compatible = chinese.get('compatible_signs', [])
+        incompatible = chinese.get('incompatible_signs', [])
+
+        # Element interpretations
+        element_meanings = {
+            'Wood': 'Croissance, créativité, flexibilité, compassion',
+            'Fire': 'Passion, dynamisme, charisme, enthousiasme',
+            'Earth': 'Stabilité, pragmatisme, loyauté, fiabilité',
+            'Metal': 'Détermination, discipline, clarté, justice',
+            'Water': 'Sagesse, intuition, adaptabilité, profondeur'
+        }
+
+        # Animal interpretations
+        animal_meanings = {
+            'Rat': 'Intelligence, adaptabilité, charme, débrouillardise',
+            'Ox': 'Patience, fiabilité, force, détermination',
+            'Tiger': 'Courage, confiance, compétitivité, charisme',
+            'Rabbit': 'Gentillesse, élégance, compassion, sensibilité artistique',
+            'Dragon': 'Pouvoir, ambition, chance, magnétisme',
+            'Snake': 'Sagesse, intuition, mystère, élégance',
+            'Horse': 'Énergie, indépendance, liberté, sociabilité',
+            'Goat': 'Douceur, créativité, calme, bienveillance',
+            'Monkey': 'Intelligence, curiosité, espièglerie, innovation',
+            'Rooster': 'Confiance, travail acharné, ponctualité, honnêteté',
+            'Dog': 'Loyauté, honnêteté, protection, fidélité',
+            'Pig': 'Générosité, compassion, honnêteté, optimisme'
+        }
+
+        result = f"""**🐲 Signe animal : {element} {animal} ({yin_yang})**
+
+**Signification de ton signe {animal}** :
+{animal_meanings.get(animal, 'Qualités uniques et distinctives')}
+
+**Influence de l'élément {element}** :
+{element_meanings.get(element, 'Énergie particulière influençant ton caractère')}
+
+**Polarité {yin_yang}** :
+{"Yang = Énergie active, extravertie, initiative" if yin_yang.lower() == 'yang' else "Yin = Énergie réceptive, introspective, intuitive"}
+
+**Traits caractéristiques** : {', '.join(traits) if traits else 'Selon ton signe'}
+
+**Compatibilités** :
+- ✅ Signes compatibles : {', '.join([s.title() for s in compatible]) if compatible else 'Non spécifié'}
+- ⚠️ Signes à attention : {', '.join([s.title() for s in incompatible]) if incompatible else 'Non spécifié'}
+"""
+        return result
+
     def _format_detected_neurodiv(self, neuro_profile: Dict) -> str:
-        """Format detected neurodivergences (score > 50) for synthesis prompt"""
+        """Format detected neurodivergences (score > 50) for synthesis prompt with prominent profile display"""
         detected = []
         threshold = 50
 
-        for key, data in neuro_profile.items():
-            if isinstance(data, dict) and data.get('score', 0) > threshold:
-                score = data.get('score', 0)
-                profile = data.get('profile', '')
-                manifestations = data.get('manifestations', [])
-                detected.append(f"- {key.upper()} : {score}/100 - Profil: {profile} - Manifestations: {', '.join(manifestations[:3])}")
+        # Score interpretation guide
+        score_guide = {
+            (51, 70): "Modéré",
+            (71, 85): "Marqué",
+            (86, 100): "Très marqué"
+        }
 
-        return "\n".join(detected) if detected else "- Aucune neurodivergence significative détectée"
+        def get_intensity(score):
+            for (low, high), label in score_guide.items():
+                if low <= score <= high:
+                    return label
+            return "Modéré"
+
+        for key, data in neuro_profile.items():
+            if isinstance(data, dict):
+                # Support both old format (score) and new format (score_global)
+                score = data.get('score_global', data.get('score', 0))
+                if score > threshold:
+                    # Get profile label (new format) or profile (old format)
+                    profile_label = data.get('profil_label', data.get('profile', 'Non spécifié'))
+                    manifestations = data.get('manifestations_principales', data.get('manifestations', []))
+                    strategies = data.get('strategies_adaptation', data.get('strategies', []))
+                    dimensions = data.get('dimensions', {})
+                    intensity = get_intensity(score)
+
+                    # Build enhanced display
+                    entry = f"""
+**━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━**
+### 🎯 {key.upper()} — Score : {score}/100 ({intensity})
+
+**📌 TON PROFIL : {profile_label}**
+
+"""
+                    # Add dimensions if available
+                    if dimensions:
+                        entry += "**📊 Tes dimensions détaillées :**\n"
+                        for dim_name, dim_score in dimensions.items():
+                            bar = "█" * (dim_score // 10) + "░" * (10 - dim_score // 10)
+                            entry += f"  • {dim_name.replace('_', ' ').title()} : {bar} {dim_score}/100\n"
+                        entry += "\n"
+
+                    if manifestations:
+                        entry += "**🔍 Tes manifestations principales :**\n"
+                        for m in manifestations[:4]:
+                            entry += f"  • {m}\n"
+                        entry += "\n"
+
+                    if strategies:
+                        entry += "**💡 Tes stratégies d'adaptation :**\n"
+                        for s in strategies[:4]:
+                            entry += f"  • {s}\n"
+
+                    detected.append(entry)
+
+        if detected:
+            header = """
+## 📊 INTERPRÉTATION DES SCORES
+
+| Plage | Signification |
+|-------|--------------|
+| 51-70 | **Modéré** — Pattern identifiable, impact fonctionnel léger |
+| 71-85 | **Marqué** — Pattern clair, impact fonctionnel modéré |
+| 86-100 | **Très marqué** — Pattern dominant, impact significatif |
+
+"""
+            return header + "\n".join(detected)
+        else:
+            return "- Aucune neurodivergence significative détectée (scores ≤ 50)"
 
     # ===== HELPER METHODS =====
 
@@ -772,7 +923,7 @@ Retourne un JSON structuré **UNIQUEMENT** :
 """
 
     def _build_neurodivergence_prompt(self, responses: List[Dict]) -> str:
-        """Build prompt for neurodivergence analysis"""
+        """Build prompt for neurodivergence analysis with multi-dimensional scoring"""
         responses_summary = self._summarize_responses(responses)
 
         return f"""Analyse les réponses suivantes pour identifier les patterns de neurodivergence.
@@ -780,24 +931,130 @@ Retourne un JSON structuré **UNIQUEMENT** :
 **RÉPONSES QUESTIONNAIRE** :
 {responses_summary}
 
-**CONSIGNES** :
-Analyse les patterns pour :
-- TDA(H) - Trouble du Déficit de l'Attention avec ou sans Hyperactivité (inattention, hyperactivité/impulsivité)
-- Autisme (spectre autistique)
-- HPI (Haut Potentiel Intellectuel)
-- Multipotentialité
-- Hypersensibilité (émotionnelle, sensorielle)
+═══════════════════════════════════════════════════════════════
+## 📊 MÉTHODOLOGIE DE SCORING (CRITIQUE - À RESPECTER)
 
-Scores : 0-100 (probabilité du pattern)
+**PRINCIPE** : Chaque neurodivergence est évaluée sur PLUSIEURS DIMENSIONS indépendantes.
+Le score global est une MOYENNE PONDÉRÉE des dimensions, PAS un chiffre arbitraire.
 
-Retourne un JSON structuré **UNIQUEMENT** :
+### GRILLE DE SCORING :
+- **0-25** : Absent - Aucun indicateur significatif
+- **26-50** : Léger - Quelques traits présents mais non prédominants
+- **51-70** : Modéré - Pattern identifiable, impact fonctionnel léger
+- **71-85** : Marqué - Pattern clair, impact fonctionnel modéré
+- **86-100** : Très marqué - Pattern dominant, impact fonctionnel significatif
+
+═══════════════════════════════════════════════════════════════
+## 🧠 HPI (HAUT POTENTIEL INTELLECTUEL) - ANALYSE DÉTAILLÉE
+
+**PROFILS HPI** (choisir le plus proche) :
+- **Laminaire** : Homogène, analytique, stable, carrière académique linéaire
+- **Complexe** : Hétérogène, intuitif, artistique, hypersensibilité sensorielle
+- **Mixte** : Combinaison des deux profils
+
+**DIMENSIONS À SCORER SÉPARÉMENT (0-100 chaque)** :
+1. **Intellectuelle** : Rapidité cognitive, pensée arborescente, besoin stimulation mentale
+2. **Émotionnelle** : Intensité émotionnelle, empathie exacerbée, réactivité émotionnelle
+3. **Créative** : Pensée divergente, créativité, besoin d'innovation
+4. **Sensorielle** : Hypersensibilité sensorielle (sons, lumières, textures)
+
+**CALCUL SCORE GLOBAL** : (intellectuelle * 0.4) + (émotionnelle * 0.25) + (créative * 0.2) + (sensorielle * 0.15)
+
+═══════════════════════════════════════════════════════════════
+## 🎯 TDA(H) - ANALYSE DÉTAILLÉE
+
+**PROFILS TDAH** (choisir le plus proche) :
+- **Inattention prédominante** : Difficultés concentration, oublis, désorganisation
+- **Hyperactivité-impulsivité** : Agitation motrice, impulsivité, impatience
+- **Combiné** : Les deux aspects présents
+
+**DIMENSIONS À SCORER** :
+1. **Inattention** : Difficultés de concentration, distraction, oublis
+2. **Hyperactivité** : Agitation motrice, besoin de bouger, impatience
+3. **Impulsivité** : Réactions rapides, interruptions, décisions précipitées
+4. **Dysrégulation émotionnelle** : Fluctuations émotionnelles, frustration rapide
+
+═══════════════════════════════════════════════════════════════
+## 🌈 AUTISME (TSA) - ANALYSE DÉTAILLÉE
+
+**NIVEAUX** : Traits autistiques légers / Profil autistique modéré / TSA marqué
+
+**DIMENSIONS À SCORER** :
+1. **Communication sociale** : Difficulté implicite, conversation réciproque
+2. **Interactions sociales** : Préférence solitude, malaise social, codes sociaux
+3. **Intérêts restreints** : Passions intenses, expertise pointue
+4. **Sensorialité** : Hyper/hypo-sensibilités sensorielles
+5. **Routines** : Besoin prévisibilité, résistance au changement
+
+═══════════════════════════════════════════════════════════════
+## 📝 FORMAT DE RÉPONSE (JSON STRICT)
+
+Retourne **UNIQUEMENT** ce JSON, sans texte avant/après :
+
 {{
-  "adhd": {{"score": 72, "profile": "inattention", "manifestations": ["...", "..."], "strategies": ["...", "..."]}},
-  "autism": {{"score": 45, "profile": "...", "manifestations": [...], "strategies": [...]}},
-  "hpi": {{"score": 85, "profile": "...", "manifestations": [...], "strategies": [...]}},
-  "multipotentiality": {{"score": 70, "manifestations": [...]}},
-  "hypersensitivity": {{"score": 80, "types": ["emotional", "sensory"], "manifestations": [...], "strategies": [...]}}
+  "adhd": {{
+    "score_global": 72,
+    "profil": "inattention_predominante",
+    "profil_label": "TDAH type Inattention prédominante",
+    "dimensions": {{
+      "inattention": 85,
+      "hyperactivite": 45,
+      "impulsivite": 60,
+      "dysregulation_emotionnelle": 70
+    }},
+    "manifestations_principales": ["Difficulté à maintenir l'attention sur tâches longues", "Oublis fréquents dans activités quotidiennes", "Désorganisation chronique"],
+    "strategies_adaptation": ["Utiliser des listes et rappels", "Fractionner les tâches", "Environnement calme pour concentration"]
+  }},
+  "autism": {{
+    "score_global": 45,
+    "profil": "traits_legers",
+    "profil_label": "Traits autistiques légers",
+    "dimensions": {{
+      "communication_sociale": 50,
+      "interactions_sociales": 55,
+      "interets_restreints": 40,
+      "sensorialite": 35,
+      "routines": 45
+    }},
+    "manifestations_principales": [],
+    "strategies_adaptation": []
+  }},
+  "hpi": {{
+    "score_global": 82,
+    "profil": "complexe",
+    "profil_label": "HPI Profil Complexe",
+    "dimensions": {{
+      "intellectuelle": 90,
+      "emotionnelle": 85,
+      "creative": 75,
+      "sensorielle": 70
+    }},
+    "manifestations_principales": ["Pensée arborescente intense", "Besoin constant de stimulation intellectuelle", "Empathie et intensité émotionnelle élevées"],
+    "strategies_adaptation": ["Projets complexes et stimulants", "Temps de récupération après interactions sociales intenses", "Canaliser créativité dans projets concrets"]
+  }},
+  "multipotentiality": {{
+    "score_global": 70,
+    "profil_label": "Multipotentiel modéré",
+    "manifestations_principales": ["Intérêts multiples et variés", "Difficulté à choisir une seule voie"],
+    "strategies_adaptation": ["Portfolio career", "Rotation de projets"]
+  }},
+  "hypersensitivity": {{
+    "score_global": 80,
+    "types": ["emotionnelle", "sensorielle"],
+    "profil_label": "Hypersensibilité émotionnelle et sensorielle",
+    "dimensions": {{
+      "emotionnelle": 85,
+      "sensorielle": 75
+    }},
+    "manifestations_principales": ["Réactions émotionnelles intenses", "Sensibilité aux ambiances"],
+    "strategies_adaptation": ["Temps seul pour récupérer", "Environnement sensoriel contrôlé"]
+  }}
 }}
+
+**RAPPEL CRITIQUE** :
+- Le score global DOIT refléter la moyenne pondérée des dimensions
+- Deux personnes avec le même profil peuvent avoir des scores DIFFÉRENTS selon l'intensité
+- Justifie chaque score par les réponses concrètes du questionnaire
 """
 
     def _build_shinkofa_prompt(self, responses: List[Dict]) -> str:
