@@ -65,6 +65,69 @@ class DesignHumanService:
         (34, 57), (35, 36), (37, 40), (39, 55), (42, 53), (47, 64)
     ]
 
+    # Channel to Centers mapping - which two centers each channel connects
+    # CRITICAL: This is the source of truth for determining connections between centers
+    # Used for path finding to determine if motor centers connect to throat
+    CHANNEL_CENTERS = {
+        # Format: (gate1, gate2): (center1, center2)
+        # Head ↔ Ajna
+        (4, 63): ("ajna", "head"),
+        (24, 61): ("ajna", "head"),
+        (47, 64): ("ajna", "head"),
+        # Ajna ↔ Throat
+        (11, 56): ("ajna", "throat"),
+        (17, 62): ("ajna", "throat"),
+        (23, 43): ("ajna", "throat"),
+        # G Center ↔ Throat
+        (1, 8): ("g_center", "throat"),
+        (7, 31): ("g_center", "throat"),
+        (10, 20): ("g_center", "throat"),
+        (13, 33): ("g_center", "throat"),
+        # G Center ↔ Sacral
+        (2, 14): ("g_center", "sacral"),
+        (5, 15): ("g_center", "sacral"),
+        (10, 34): ("g_center", "sacral"),
+        (29, 46): ("g_center", "sacral"),
+        # G Center ↔ Spleen
+        (10, 57): ("g_center", "spleen"),
+        # G Center ↔ Heart
+        (25, 51): ("g_center", "heart_will"),
+        # Throat ↔ Sacral (DIRECT motor-throat)
+        (20, 34): ("throat", "sacral"),
+        # Throat ↔ Spleen
+        (16, 48): ("throat", "spleen"),
+        (20, 57): ("throat", "spleen"),
+        # Throat ↔ Solar Plexus (DIRECT motor-throat)
+        (12, 22): ("throat", "solar_plexus"),
+        (35, 36): ("throat", "solar_plexus"),
+        # Throat ↔ Heart (DIRECT motor-throat)
+        (21, 45): ("throat", "heart_will"),
+        # Sacral ↔ Spleen
+        (27, 50): ("sacral", "spleen"),
+        (34, 57): ("sacral", "spleen"),
+        # Sacral ↔ Root
+        (3, 60): ("sacral", "root"),
+        (9, 52): ("sacral", "root"),
+        (42, 53): ("sacral", "root"),
+        # Sacral ↔ Solar Plexus
+        (6, 59): ("sacral", "solar_plexus"),
+        # Spleen ↔ Root
+        (18, 58): ("spleen", "root"),
+        (28, 38): ("spleen", "root"),
+        (32, 54): ("spleen", "root"),
+        # Spleen ↔ Heart
+        (26, 44): ("spleen", "heart_will"),
+        # Solar Plexus ↔ Root
+        (19, 49): ("solar_plexus", "root"),
+        (30, 41): ("solar_plexus", "root"),
+        (39, 55): ("solar_plexus", "root"),
+        # Solar Plexus ↔ Heart
+        (37, 40): ("solar_plexus", "heart_will"),
+    }
+
+    # Motor centers in Human Design (can initiate action)
+    MOTOR_CENTERS = ["sacral", "solar_plexus", "heart_will", "root"]
+
     # Human Design Types
     TYPES = {
         "generator": "Generator",
@@ -561,70 +624,132 @@ class DesignHumanService:
 
     def _determine_type(self, defined_centers: List[str], gates: List[Dict] = None) -> str:
         """
-        Determine Human Design type based on defined centers and channels
+        Determine Human Design type based on defined centers and channel connections
 
         Logic:
-        - Manifestor: Throat defined + motor to throat (not Sacral)
-        - Generator: Sacral defined, NO motor to throat
-        - Manifesting Generator: Sacral defined + motor to throat connection
-        - Projector: No Sacral, no motor to throat
         - Reflector: No centers defined
+        - Manifestor: Throat defined + motor connected to throat (not via Sacral)
+        - Manifesting Generator: Sacral defined + Sacral connected to Throat (direct or indirect)
+        - Generator: Sacral defined, Sacral NOT connected to Throat
+        - Projector: No Sacral, no motor to throat
 
-        CRITICAL: Manifesting Generator requires a MOTOR center (Root, Sacral, Solar Plexus, or Heart)
-        connected to Throat via a specific channel. The G Center is NOT a motor.
+        CRITICAL: Uses path finding (BFS) to detect ANY connection path between centers,
+        not just direct channels. This correctly identifies MGs with indirect connections
+        (e.g., Sacral → G Center → Throat via channels 34-10 and 10-20).
         """
-        sacral_defined = "sacral" in defined_centers
-        throat_defined = "throat" in defined_centers
-
         if not defined_centers:
             return "reflector"
 
-        # Determine motor-to-throat connection by checking specific channels
-        has_motor_to_throat = False
+        sacral_defined = "sacral" in defined_centers
+        throat_defined = "throat" in defined_centers
 
-        if gates:
-            # Channels that connect MOTOR centers DIRECTLY to THROAT
-            # Format: (throat_gate, motor_gate, motor_center_involved)
-            # CRITICAL: Only include channels where one gate is IN the Throat
-            # and the other gate is IN a Motor center (Sacral, Solar Plexus, Heart, Root)
-            motor_throat_channels = [
-                # Sacral → Throat (DIRECT - the defining MG channel)
-                (20, 34, "sacral"),  # Channel 20-34: Charisma - Throat(20) ↔ Sacral(34)
+        # Build graph of connected centers based on active channels
+        active_channels = self._get_active_channels(gates) if gates else []
+        center_connections = self._build_center_graph(active_channels)
 
-                # Solar Plexus → Throat (DIRECT)
-                (12, 22, "solar_plexus"),  # Channel 12-22: Openness - Throat(12) ↔ Solar Plexus(22)
-                (35, 36, "solar_plexus"),  # Channel 35-36: Transitoriness - Throat(35) ↔ Solar Plexus(36)
+        # Check if Sacral is connected to Throat (for MG determination)
+        sacral_to_throat = self._has_path_between_centers(
+            "sacral", "throat", center_connections
+        ) if sacral_defined and throat_defined else False
 
-                # Heart/Ego → Throat (DIRECT)
-                (21, 45, "heart_will"),  # Channel 21-45: Money Line - Heart(21) ↔ Throat(45)
-
-                # Root → Throat (no direct channel exists in Human Design)
-                # Root connects to Sacral, Spleen, or Solar Plexus, not directly to Throat
-            ]
-
-            # Get activated gate numbers
-            activated_gates = {gate["number"] for gate in gates}
-
-            # Check each motor-throat channel
-            for gate1, gate2, motor in motor_throat_channels:
-                if gate1 in activated_gates and gate2 in activated_gates:
-                    # This motor-throat channel is active
-                    if motor in defined_centers:
-                        has_motor_to_throat = True
-                        logger.info(f"🔗 Motor-Throat connection found: Channel {gate1}-{gate2} ({motor} → throat)")
+        # Check if any motor (not Sacral) is connected to Throat (for Manifestor)
+        other_motor_to_throat = False
+        if throat_defined and not sacral_defined:
+            for motor in ["solar_plexus", "heart_will", "root"]:
+                if motor in defined_centers:
+                    if self._has_path_between_centers(motor, "throat", center_connections):
+                        other_motor_to_throat = True
+                        logger.info(f"🔗 Motor-Throat path found: {motor} → throat")
                         break
 
+        # Determine type
         if sacral_defined:
-            if has_motor_to_throat:
+            if sacral_to_throat:
+                logger.info("✅ Type: Manifesting Generator (Sacral connected to Throat)")
                 return "manifesting_generator"
             else:
+                logger.info("✅ Type: Generator (Sacral defined, no throat connection)")
                 return "generator"
 
-        # Manifestor: Throat + motor (not Sacral) connected to throat
-        if throat_defined and has_motor_to_throat and not sacral_defined:
+        if throat_defined and other_motor_to_throat:
+            logger.info("✅ Type: Manifestor (Motor connected to Throat, no Sacral)")
             return "manifestor"
 
+        logger.info("✅ Type: Projector (no Sacral, no motor-throat connection)")
         return "projector"
+
+    def _get_active_channels(self, gates: List[Dict]) -> List[Tuple[int, int]]:
+        """
+        Get list of active channels based on activated gates
+
+        A channel is active when BOTH of its gates are activated.
+        """
+        activated_gate_numbers = {gate["number"] for gate in gates}
+        active_channels = []
+
+        for channel in self.CHANNELS:
+            gate1, gate2 = channel
+            if gate1 in activated_gate_numbers and gate2 in activated_gate_numbers:
+                active_channels.append(channel)
+
+        return active_channels
+
+    def _build_center_graph(self, active_channels: List[Tuple[int, int]]) -> Dict[str, set]:
+        """
+        Build adjacency graph of centers based on active channels
+
+        Returns dict where key is center name and value is set of connected centers
+        """
+        graph = {center: set() for center in self.CENTERS}
+
+        for channel in active_channels:
+            # Normalize channel tuple for lookup (smaller gate first)
+            channel_key = tuple(sorted(channel))
+
+            if channel_key in self.CHANNEL_CENTERS:
+                center1, center2 = self.CHANNEL_CENTERS[channel_key]
+                graph[center1].add(center2)
+                graph[center2].add(center1)
+                logger.debug(f"📊 Channel {channel}: connects {center1} ↔ {center2}")
+
+        return graph
+
+    def _has_path_between_centers(
+        self, start: str, end: str, graph: Dict[str, set]
+    ) -> bool:
+        """
+        Check if there's a path between two centers using BFS
+
+        This correctly handles indirect connections through intermediate centers.
+        For example: Sacral → G Center → Throat is detected as a valid path.
+        """
+        if start == end:
+            return True
+
+        if start not in graph or end not in graph:
+            return False
+
+        # BFS to find path
+        visited = set()
+        queue = [start]
+
+        while queue:
+            current = queue.pop(0)
+
+            if current == end:
+                logger.info(f"🔗 Path found: {start} → ... → {end}")
+                return True
+
+            if current in visited:
+                continue
+
+            visited.add(current)
+
+            for neighbor in graph[current]:
+                if neighbor not in visited:
+                    queue.append(neighbor)
+
+        return False
 
     def _determine_authority(self, defined_centers: List[str], gates: List[Dict]) -> str:
         """
