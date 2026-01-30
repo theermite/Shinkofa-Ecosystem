@@ -2,19 +2,70 @@
 Numerology Calculation Service
 Shinkofa Platform - Shizen AI
 
-Calculates Pythagorean Numerology
+Calculates Pythagorean Numerology using the professional standard method.
 Determines: Life Path, Expression, Soul Urge, Personality, Challenges, Cycles, Personal Year
 
+IMPORTANT - Calculation Method:
+- Uses the Pythagorean (Western/Modern) numerology system
+- Master Numbers (11, 22, 33) are NEVER reduced during intermediate calculations
+- Each component (month, day, year) is reduced separately before summing
+- Final result keeps Master Numbers if they appear
+
+Master Number Notation:
+- 11/2: The Illuminator (base vibration 2)
+- 22/4: The Master Builder (base vibration 4)
+- 33/6: The Master Teacher (base vibration 6)
+
 References:
-- Pythagorean numerology system
-- Master numbers: 11, 22, 33 (not reduced)
+- Pythagorean numerology system (Hans Decoz, World Numerology)
+- Numerology.com professional standards
+- Master numbers: 11, 22, 33 (preserved, not reduced)
 """
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple, Union
 import logging
 import re
 
 logger = logging.getLogger(__name__)
+
+
+class NumerologyNumber:
+    """
+    Represents a numerology number with Master Number awareness.
+
+    Provides proper notation (11/2, 22/4, 33/6) and indicates if it's a Master Number.
+    """
+    MASTER_BASES = {11: 2, 22: 4, 33: 6}
+
+    def __init__(self, value: int):
+        self.value = value
+        self.is_master = value in self.MASTER_BASES
+        self.base = self.MASTER_BASES.get(value, value)
+
+    def __str__(self) -> str:
+        if self.is_master:
+            return f"{self.value}/{self.base}"
+        return str(self.value)
+
+    def __repr__(self) -> str:
+        return f"NumerologyNumber({self.value})"
+
+    def __int__(self) -> int:
+        return self.value
+
+    def __eq__(self, other) -> bool:
+        if isinstance(other, NumerologyNumber):
+            return self.value == other.value
+        return self.value == other
+
+    def to_dict(self) -> Dict:
+        """Convert to dictionary for JSON serialization"""
+        return {
+            "value": self.value,
+            "display": str(self),
+            "is_master_number": self.is_master,
+            "base_number": self.base if self.is_master else None,
+        }
 
 
 class NumerologyService:
@@ -88,53 +139,70 @@ class NumerologyService:
             year, month, day = map(int, birth_date.split("-"))
             birth_dt = datetime(year, month, day)
 
-            # Calculate all numbers
-            life_path = self._calculate_life_path(year, month, day)
-            expression = self._calculate_expression(full_name)
-            soul_urge = self._calculate_soul_urge(full_name)
-            personality = self._calculate_personality(full_name)
-            maturity = self._calculate_maturity(life_path, expression)
+            # Calculate all numbers (as NumerologyNumber for proper Master Number notation)
+            life_path = self._reduce_to_numerology_number(
+                self._calculate_life_path_raw(year, month, day)
+            )
+            expression = self._reduce_to_numerology_number(
+                self._calculate_expression_raw(full_name)
+            )
+            soul_urge = self._reduce_to_numerology_number(
+                self._calculate_soul_urge_raw(full_name)
+            )
+            personality = self._reduce_to_numerology_number(
+                self._calculate_personality_raw(full_name)
+            )
+            maturity = self._reduce_to_numerology_number(
+                int(life_path) + int(expression)
+            )
 
             # Active and Hereditary numbers
             first_name = full_name.split()[0] if full_name.split() else ""
             last_name = full_name.split()[-1] if len(full_name.split()) > 1 else ""
-            active = self._name_to_number(first_name)
-            hereditary = self._name_to_number(last_name)
+            active = self._reduce_to_numerology_number(
+                self._name_to_number_raw(first_name)
+            )
+            hereditary = self._reduce_to_numerology_number(
+                self._name_to_number_raw(last_name)
+            )
 
-            # Challenges
+            # Challenges (don't use NumerologyNumber - challenges are always 0-8)
             challenges = self._calculate_challenges(month, day, year)
 
-            # Cycles (Formative, Productive, Harvest)
-            cycles = self._calculate_cycles(full_name, year, month, day)
+            # Cycles (Formative, Productive, Harvest) - can have master numbers
+            cycles = self._calculate_cycles_with_master(year, month, day)
 
             # Personal Year
             current_year = datetime.now().year
-            personal_year = self._calculate_personal_year(month, day, current_year)
+            personal_year = self._reduce_to_numerology_number(
+                self._calculate_personal_year_raw(month, day, current_year)
+            )
 
-            # Build complete chart
-            active_interp = self._get_interpretation(active)
-            hereditary_interp = self._get_interpretation(hereditary)
+            # Build complete chart with proper notation
+            active_interp = self._get_interpretation(int(active))
+            hereditary_interp = self._get_interpretation(int(hereditary))
 
             chart = {
-                "life_path": life_path,
-                "expression": expression,
-                "soul_urge": soul_urge,
-                "personality": personality,
-                "maturity": maturity,
-                "active": active,
-                "hereditary": hereditary,
+                # Core numbers with Master Number notation
+                "life_path": life_path.to_dict(),
+                "expression": expression.to_dict(),
+                "soul_urge": soul_urge.to_dict(),
+                "personality": personality.to_dict(),
+                "maturity": maturity.to_dict(),
+                "active": active.to_dict(),
+                "hereditary": hereditary.to_dict(),
                 "challenges": challenges,
                 "cycles": cycles,
-                "personal_year": personal_year,
+                "personal_year": personal_year.to_dict(),
                 "interpretations": {
-                    "life_path": self._get_interpretation(life_path),
-                    "expression": self._get_interpretation(expression),
-                    "soul_urge": self._get_interpretation(soul_urge),
-                    "personality": self._get_interpretation(personality),
+                    "life_path": self._get_interpretation(int(life_path)),
+                    "expression": self._get_interpretation(int(expression)),
+                    "soul_urge": self._get_interpretation(int(soul_urge)),
+                    "personality": self._get_interpretation(int(personality)),
                     "active": active_interp,
                     "hereditary": hereditary_interp,
                 },
-                # V5.0: Text analysis for first/last names
+                # V5.0: Text analysis for first/last names (using display notation)
                 "first_name_analysis": f"Prénom '{first_name}' → Nombre Actif {active} ({active_interp.get('keyword', 'Unknown')}) : {', '.join(active_interp.get('traits', [])[:3])}",
                 "last_name_analysis": f"Nom '{last_name}' → Nombre Héréditaire {hereditary} ({hereditary_interp.get('keyword', 'Unknown')}) : {', '.join(hereditary_interp.get('traits', [])[:3])}",
             }
@@ -158,38 +226,70 @@ class NumerologyService:
             keep_master: If True, keep master numbers (11, 22, 33)
 
         Returns:
-            Reduced number
+            Reduced number (int)
         """
         while number > 9:
-            # Check for master numbers
+            # Check for master numbers BEFORE reducing
             if keep_master and number in self.MASTER_NUMBERS:
                 return number
 
-            # Reduce
+            # Reduce by summing digits
             number = sum(int(digit) for digit in str(number))
 
         return number
 
-    def _calculate_life_path(self, year: int, month: int, day: int) -> int:
+    def _reduce_to_numerology_number(self, number: int, keep_master: bool = True) -> NumerologyNumber:
         """
-        Calculate Life Path number from birth date
+        Reduce number and return as NumerologyNumber with proper notation
+
+        Args:
+            number: Number to reduce
+            keep_master: If True, keep master numbers (11, 22, 33)
+
+        Returns:
+            NumerologyNumber with proper display (e.g., 11/2, 22/4, 33/6)
+        """
+        reduced = self._reduce_to_single_digit(number, keep_master)
+        return NumerologyNumber(reduced)
+
+    def _calculate_life_path_raw(self, year: int, month: int, day: int) -> int:
+        """
+        Calculate Life Path sum before final reduction (for Master Number detection)
+
+        Method: Pythagorean (reduce each component separately, then sum)
+        - Month: reduce to single digit (keep master if appears)
+        - Day: reduce to single digit (keep master if appears)
+        - Year: reduce to single digit (keep master if appears)
+        - Sum: returned raw for final reduction with master check
 
         Example: 1990-06-15
         - Month: 6
         - Day: 15 -> 1+5 = 6
         - Year: 1990 -> 1+9+9+0 = 19 -> 1+9 = 10 -> 1+0 = 1
-        - Life Path: 6 + 6 + 1 = 13 -> 1+3 = 4
+        - Sum: 6 + 6 + 1 = 13 (returned raw, will become 4)
+
+        Example: 1978-11-29 (Master Number case)
+        - Month: 11 (kept as master)
+        - Day: 29 -> 2+9 = 11 (kept as master)
+        - Year: 1978 -> 1+9+7+8 = 25 -> 2+5 = 7
+        - Sum: 11 + 11 + 7 = 29 -> 2+9 = 11 (Master Number!)
         """
         month_reduced = self._reduce_to_single_digit(month)
         day_reduced = self._reduce_to_single_digit(day)
         year_reduced = self._reduce_to_single_digit(year)
 
-        total = month_reduced + day_reduced + year_reduced
+        return month_reduced + day_reduced + year_reduced
+
+    def _calculate_life_path(self, year: int, month: int, day: int) -> int:
+        """
+        Calculate Life Path number from birth date (backwards compatible)
+        """
+        total = self._calculate_life_path_raw(year, month, day)
         return self._reduce_to_single_digit(total)
 
-    def _name_to_number(self, name: str, vowels_only: bool = False, consonants_only: bool = False) -> int:
+    def _name_to_number_raw(self, name: str, vowels_only: bool = False, consonants_only: bool = False) -> int:
         """
-        Convert name to numerology number
+        Convert name to raw sum (for Master Number detection)
 
         Args:
             name: Name to convert
@@ -197,7 +297,7 @@ class NumerologyService:
             consonants_only: If True, only count consonants (for Personality)
 
         Returns:
-            Numerology number
+            Raw sum before reduction
         """
         # Remove special characters and spaces
         name = re.sub(r'[^A-Za-z]', '', name.upper())
@@ -215,30 +315,37 @@ class NumerologyService:
 
             total += self.LETTER_VALUES.get(letter, 0)
 
+        return total
+
+    def _name_to_number(self, name: str, vowels_only: bool = False, consonants_only: bool = False) -> int:
+        """
+        Convert name to numerology number (backwards compatible)
+        """
+        total = self._name_to_number_raw(name, vowels_only, consonants_only)
         return self._reduce_to_single_digit(total)
 
-    def _calculate_expression(self, full_name: str) -> int:
-        """
-        Calculate Expression Number (Destiny Number)
+    def _calculate_expression_raw(self, full_name: str) -> int:
+        """Calculate Expression Number raw sum (for Master Number detection)"""
+        return self._name_to_number_raw(full_name)
 
-        Sum of all letters in full birth name
-        """
+    def _calculate_expression(self, full_name: str) -> int:
+        """Calculate Expression Number (Destiny Number) - sum of all letters"""
         return self._name_to_number(full_name)
 
-    def _calculate_soul_urge(self, full_name: str) -> int:
-        """
-        Calculate Soul Urge Number (Heart's Desire)
+    def _calculate_soul_urge_raw(self, full_name: str) -> int:
+        """Calculate Soul Urge raw sum (for Master Number detection)"""
+        return self._name_to_number_raw(full_name, vowels_only=True)
 
-        Sum of all vowels in full birth name
-        """
+    def _calculate_soul_urge(self, full_name: str) -> int:
+        """Calculate Soul Urge Number (Heart's Desire) - sum of vowels"""
         return self._name_to_number(full_name, vowels_only=True)
 
-    def _calculate_personality(self, full_name: str) -> int:
-        """
-        Calculate Personality Number
+    def _calculate_personality_raw(self, full_name: str) -> int:
+        """Calculate Personality raw sum (for Master Number detection)"""
+        return self._name_to_number_raw(full_name, consonants_only=True)
 
-        Sum of all consonants in full birth name
-        """
+    def _calculate_personality(self, full_name: str) -> int:
+        """Calculate Personality Number - sum of consonants"""
         return self._name_to_number(full_name, consonants_only=True)
 
     def _calculate_maturity(self, life_path: int, expression: int) -> int:
@@ -276,7 +383,7 @@ class NumerologyService:
 
     def _calculate_cycles(self, full_name: str, year: int, month: int, day: int) -> List[Dict]:
         """
-        Calculate the 3 life cycles
+        Calculate the 3 life cycles (backwards compatible)
 
         - Formative (0-28): Birth month
         - Productive (28-56): Birth day
@@ -292,17 +399,34 @@ class NumerologyService:
             {"type": "harvest", "value": year_reduced, "ages": "56+"},
         ]
 
-    def _calculate_personal_year(self, birth_month: int, birth_day: int, current_year: int) -> int:
+    def _calculate_cycles_with_master(self, year: int, month: int, day: int) -> List[Dict]:
         """
-        Calculate Personal Year number
+        Calculate the 3 life cycles with Master Number support
 
-        Sum of birth month + birth day + current year
+        Note: Some numerologists keep Master Numbers in cycles, others don't.
+        We keep them for consistency with the Pythagorean tradition.
         """
+        month_num = self._reduce_to_numerology_number(month)
+        day_num = self._reduce_to_numerology_number(day)
+        year_num = self._reduce_to_numerology_number(year)
+
+        return [
+            {"type": "formative", **month_num.to_dict(), "ages": "0-28"},
+            {"type": "productive", **day_num.to_dict(), "ages": "28-56"},
+            {"type": "harvest", **year_num.to_dict(), "ages": "56+"},
+        ]
+
+    def _calculate_personal_year_raw(self, birth_month: int, birth_day: int, current_year: int) -> int:
+        """Calculate Personal Year raw sum (for Master Number detection)"""
         month_reduced = self._reduce_to_single_digit(birth_month)
         day_reduced = self._reduce_to_single_digit(birth_day)
         year_reduced = self._reduce_to_single_digit(current_year)
 
-        total = month_reduced + day_reduced + year_reduced
+        return month_reduced + day_reduced + year_reduced
+
+    def _calculate_personal_year(self, birth_month: int, birth_day: int, current_year: int) -> int:
+        """Calculate Personal Year number (backwards compatible)"""
+        total = self._calculate_personal_year_raw(birth_month, birth_day, current_year)
         return self._reduce_to_single_digit(total)
 
     def _get_interpretation(self, number: int) -> Dict:
