@@ -31,7 +31,7 @@ from app.models import MessageRole, ConversationStatus
 from sqlalchemy import select
 
 logger = logging.getLogger(__name__)
-router = APIRouter(prefix="", tags=["shizen-ai"])
+router = APIRouter(prefix="/shizen", tags=["shizen-ai"])
 
 
 # === Schemas ===
@@ -655,6 +655,180 @@ async def activate_profile_version(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Profile activation failed: {str(e)}",
+        )
+
+
+class EnrichProfileSectionRequest(BaseModel):
+    """Request to enrich a profile section with Shizen AI"""
+    profile_id: str = Field(..., description="Profile ID to enrich")
+    section: str = Field(..., description="Section to enrich: synthesis, psychological, neurodivergence, shinkofa, design_human, astrology, numerology, recommendations")
+
+
+ENRICHABLE_SECTIONS = ['synthesis', 'psychological', 'neurodivergence', 'shinkofa', 'design_human', 'astrology', 'numerology', 'name_analysis', 'recommendations']
+ENRICHMENT_ALLOWED_TIERS = ['samurai', 'samurai_famille', 'sensei', 'sensei_famille', 'founder']
+
+
+@router.post("/enrich-profile-section")
+async def enrich_profile_section(
+    request: EnrichProfileSectionRequest,
+    user_id: str = Depends(get_current_user_id),
+    db: AsyncSession = Depends(get_async_db),
+):
+    """
+    Enrich a specific section of the holistic profile using Shizen AI
+
+    **Tier restriction**: Only Samurai+ tiers can use this feature
+
+    **Sections available**:
+    - synthesis, psychological, neurodivergence, shinkofa
+    - design_human, astrology, numerology, name_analysis, recommendations
+
+    **Process**:
+    1. Verify tier authorization (Samurai+)
+    2. Load profile and requested section
+    3. Generate AI enrichment
+    4. Update profile with enriched content
+
+    **Returns**: Updated section content
+    """
+    try:
+        # Verify section is valid
+        if request.section not in ENRICHABLE_SECTIONS:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Invalid section: {request.section}. Must be one of: {', '.join(ENRICHABLE_SECTIONS)}",
+            )
+
+        # === TIER CHECK ===
+        tier = await get_user_tier(user_id)
+        if tier.tier not in ENRICHMENT_ALLOWED_TIERS:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Enrichissement IA disponible à partir du plan Samurai. Votre plan actuel: {tier.tier}",
+            )
+
+        # Get profile
+        result = await db.execute(
+            select(HolisticProfile).where(HolisticProfile.id == request.profile_id)
+        )
+        profile = result.scalar_one_or_none()
+
+        if not profile:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Profile {request.profile_id} not found",
+            )
+
+        # Security: Users can only enrich their own profiles
+        if profile.user_id != user_id:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="You can only enrich your own profile",
+            )
+
+        # Get current section data
+        section_data = None
+        if request.section == 'synthesis':
+            section_data = profile.synthesis
+        elif request.section == 'psychological':
+            section_data = profile.psychological_analysis
+        elif request.section == 'neurodivergence':
+            section_data = profile.neurodivergence_analysis
+        elif request.section == 'shinkofa':
+            section_data = profile.shinkofa_analysis
+        elif request.section == 'design_human':
+            section_data = profile.design_human
+        elif request.section == 'astrology':
+            section_data = {'western': profile.astrology_western, 'chinese': profile.astrology_chinese}
+        elif request.section == 'numerology' or request.section == 'name_analysis':
+            section_data = profile.numerology
+        elif request.section == 'recommendations':
+            section_data = profile.recommendations
+
+        if not section_data:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Section '{request.section}' is empty or not available",
+            )
+
+        # Generate enrichment prompt
+        enrichment_prompt = f"""Tu es Shizen, expert en développement holistique Shinkofa.
+
+L'utilisateur souhaite enrichir la section "{request.section}" de son profil holistique.
+
+Voici les données actuelles de cette section:
+{json.dumps(section_data, ensure_ascii=False, indent=2) if isinstance(section_data, dict) else section_data}
+
+Ta mission:
+1. Analyse en profondeur les informations existantes
+2. Ajoute des insights supplémentaires, des nuances, des connexions
+3. Enrichis avec des conseils pratiques et personnalisés
+4. Garde le format original mais avec plus de détails
+5. Sois bienveillant, précis et actionnable
+
+Réponds avec le contenu enrichi au format JSON (si c'était un JSON) ou texte enrichi (si c'était du texte).
+"""
+
+        # Call Ollama for enrichment
+        ollama = get_ollama_service()
+        response = await ollama.chat(
+            messages=[{"role": "user", "content": enrichment_prompt}],
+            system=SHIZEN_SYSTEM_PROMPT,
+            temperature=0.7,
+        )
+
+        enriched_content = response.get("message", {}).get("content", "")
+
+        if not enriched_content:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="No enrichment generated",
+            )
+
+        # Try to parse as JSON if applicable
+        try:
+            if request.section != 'synthesis':
+                enriched_data = json.loads(enriched_content)
+            else:
+                enriched_data = enriched_content
+        except json.JSONDecodeError:
+            enriched_data = enriched_content
+
+        # Update profile with enriched content
+        if request.section == 'synthesis':
+            profile.synthesis = enriched_data if isinstance(enriched_data, str) else json.dumps(enriched_data)
+        elif request.section == 'psychological':
+            profile.psychological_analysis = enriched_data if isinstance(enriched_data, dict) else {"enriched": enriched_data}
+        elif request.section == 'neurodivergence':
+            profile.neurodivergence_analysis = enriched_data if isinstance(enriched_data, dict) else {"enriched": enriched_data}
+        elif request.section == 'shinkofa':
+            profile.shinkofa_analysis = enriched_data if isinstance(enriched_data, dict) else {"enriched": enriched_data}
+        elif request.section == 'design_human':
+            profile.design_human = enriched_data if isinstance(enriched_data, dict) else {"enriched": enriched_data}
+        elif request.section == 'recommendations':
+            profile.recommendations = enriched_data if isinstance(enriched_data, dict) else {"enriched": enriched_data}
+
+        profile.updated_at = datetime.now(timezone.utc)
+        await db.commit()
+
+        logger.info(f"✨ Profile section '{request.section}' enriched for user {user_id}")
+
+        return {
+            "status": "success",
+            "message": f"Section '{request.section}' enrichie avec succès",
+            "section": request.section,
+            "profile_id": request.profile_id,
+        }
+
+    except HTTPException:
+        raise
+
+    except Exception as e:
+        logger.error(f"❌ Profile enrichment error: {e}")
+        await db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Enrichment failed: {str(e)}",
         )
 
 

@@ -28,14 +28,25 @@ export function ShizenEnrichButton({
   profileId,
   onEnrichmentComplete,
 }: ShizenEnrichButtonProps) {
-  const { user } = useAuth()
+  const { user, isLoading: authLoading } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState(false)
 
   const userTier = (user?.subscription?.tier || 'musha') as SubscriptionTier
   const canUseEnrichment = ALLOWED_TIERS.includes(userTier)
 
   const apiUrl = process.env.NEXT_PUBLIC_API_SHIZEN_URL || 'https://app.shinkofa.com/api'
+
+  // Show loading state while auth is loading
+  if (authLoading) {
+    return (
+      <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse">
+        <div className="w-4 h-4 bg-gray-300 dark:bg-gray-600 rounded" />
+        <span className="text-gray-400 text-sm">Chargement...</span>
+      </div>
+    )
+  }
 
   const handleEnrich = async () => {
     if (!canUseEnrichment || !user?.id) return
@@ -67,6 +78,8 @@ export function ShizenEnrichButton({
         throw new Error(data.detail || 'Échec de l\'enrichissement')
       }
 
+      setSuccess(true)
+      setTimeout(() => setSuccess(false), 3000)
       onEnrichmentComplete?.()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erreur lors de l\'enrichissement')
@@ -97,13 +110,21 @@ export function ShizenEnrichButton({
     <div className="inline-flex flex-col items-end gap-1">
       <button
         onClick={handleEnrich}
-        disabled={isLoading}
-        className="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-500 text-white text-sm font-semibold rounded-lg hover:from-green-600 hover:to-teal-600 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+        disabled={isLoading || success}
+        className={`px-4 py-2 text-white text-sm font-semibold rounded-lg transition-all shadow-md hover:shadow-lg disabled:cursor-not-allowed flex items-center gap-2 ${
+          success
+            ? 'bg-green-600'
+            : 'bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 disabled:opacity-50'
+        }`}
       >
         {isLoading ? (
           <>
             <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-            Enrichissement...
+            Enrichissement en cours...
+          </>
+        ) : success ? (
+          <>
+            ✅ Enrichi avec succès !
           </>
         ) : (
           <>
