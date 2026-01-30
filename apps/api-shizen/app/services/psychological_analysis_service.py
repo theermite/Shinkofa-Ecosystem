@@ -474,24 +474,34 @@ class PsychologicalAnalysisService:
 
 ---
 
-### 🧬 NEURODIVERGENCES (Scores 0-100)
+### 🧬 NEURODIVERGENCES - ANALYSE COMPLÈTE (12 types évalués)
 
-**DÉTECTÉ** (scores > 50) :
+**📊 TABLEAU RÉCAPITULATIF DE TOUS LES TYPES ANALYSÉS :**
+
+| Neurodivergence | Score | Statut |
+|-----------------|-------|--------|
+| TDA(H) | {adhd_score}/100 | {"🔴 **DÉTECTÉ**" if adhd_score > 50 else "✅ Non détecté"} |
+| Autisme (TSA) | {autism_score}/100 | {"🔴 **DÉTECTÉ**" if autism_score > 50 else "✅ Non détecté"} |
+| HPI | {hpi_score}/100 | {"🔴 **DÉTECTÉ**" if hpi_score > 50 else "✅ Non détecté"} |
+| Multipotentialité | {multipotential_score}/100 | {"🔴 **DÉTECTÉ**" if multipotential_score > 50 else "✅ Non détecté"} |
+| Hypersensibilité | {hypersensitivity_score}/100 | {"🔴 **DÉTECTÉ**" if hypersensitivity_score > 50 else "✅ Non détecté"} |
+| TOC | {toc_score}/100 | {"🔴 **DÉTECTÉ**" if toc_score > 50 else "✅ Non détecté"} |
+| Troubles Dys- | {dys_score}/100 | {"🔴 **DÉTECTÉ**" if dys_score > 50 else "✅ Non détecté"} |
+| Anxiété généralisée | {anxiety_score}/100 | {"🔴 **DÉTECTÉ**" if anxiety_score > 50 else "✅ Non détecté"} |
+| Bipolarité | {bipolar_score}/100 | {"🔴 **DÉTECTÉ**" if bipolar_score > 50 else "✅ Non détecté"} |
+| SSPT (PTSD) | {ptsd_score}/100 | {"🔴 **DÉTECTÉ**" if ptsd_score > 50 else "✅ Non détecté"} |
+| Troubles alimentaires | {eating_disorder_score}/100 | {"🔴 **DÉTECTÉ**" if eating_disorder_score > 50 else "✅ Non détecté"} |
+| Troubles du sommeil | {sleep_disorder_score}/100 | {"🔴 **DÉTECTÉ**" if sleep_disorder_score > 50 else "✅ Non détecté"} |
+
+---
+
+**🔴 PROFILS DÉTAILLÉS DES NEURODIVERGENCES DÉTECTÉES (score > 50) :**
 {self._format_detected_neurodiv(neurodivergence_profile)}
 
-**NON DÉTECTÉ** (scores ≤ 50) :
-- TDA(H) : {adhd_score}/100 {"✅ Pas de TDA(H) détecté" if adhd_score <= 50 else ""}
-- Autisme : {autism_score}/100 {"✅ Pas de TSA détecté" if autism_score <= 50 else ""}
-- HPI : {hpi_score}/100 {"✅ Pas de HPI détecté" if hpi_score <= 50 else ""}
-- Multipotentialité : {multipotential_score}/100 {"✅ Pas de multipotentialité détectée" if multipotential_score <= 50 else ""}
-- Hypersensibilité : {hypersensitivity_score}/100 {"✅ Pas d'hypersensibilité détectée" if hypersensitivity_score <= 50 else ""}
-- TOC : {toc_score}/100 {"✅ Pas de TOC détecté" if toc_score <= 50 else ""}
-- Troubles Dys- : {dys_score}/100 {"✅ Pas de troubles Dys- détectés" if dys_score <= 50 else ""}
-- Anxiété généralisée : {anxiety_score}/100 {"✅ Pas d'anxiété généralisée détectée" if anxiety_score <= 50 else ""}
-- Bipolarité : {bipolar_score}/100 {"✅ Pas de bipolarité détectée" if bipolar_score <= 50 else ""}
-- SSPT : {ptsd_score}/100 {"✅ Pas de SSPT détecté" if ptsd_score <= 50 else ""}
-- Troubles alimentaires : {eating_disorder_score}/100 {"✅ Pas de troubles alimentaires détectés" if eating_disorder_score <= 50 else ""}
-- Troubles du sommeil : {sleep_disorder_score}/100 {"✅ Pas de troubles du sommeil détectés" if sleep_disorder_score <= 50 else ""}
+---
+
+**✅ CE QUI N'EST PAS DÉTECTÉ (score ≤ 50) :**
+{self._format_not_detected_neurodiv(neurodivergence_profile)}
 
 ---
 
@@ -595,7 +605,12 @@ class PsychologicalAnalysisService:
 - 4-6 défis CROISÉS entre systèmes
 - Exemple : "Projecteur + Ennéagramme 5 + Introversion = risque épuisement si non-reconnaissance"
 - Inclure paradigmes limitants Shinkofa
-- **IMPORTANT** : Mentionner explicitement ce qui N'est PAS présent ("Pas de TOC, pas de troubles Dys- détectés - tu as cette chance")
+
+**⚠️ SECTION OBLIGATOIRE - CE QUI N'EST PAS DÉTECTÉ (50 mots minimum)** :
+- Lister EXPLICITEMENT les neurodivergences NON détectées (score ≤ 50)
+- Exemple : "Bonne nouvelle : tu n'as pas de TOC, pas de troubles Dys-, pas de PTSD, pas de bipolarité, pas de troubles alimentaires."
+- Cela rassure l'utilisateur et montre la complétude de l'analyse
+- Tourner positivement : "Tu as cette chance de ne pas avoir X, Y, Z"
 
 ### 4. Stratégie Énergétique Optimale (250 mots)
 - Basée sur Design Humain (stratégie Type + Autorité)
@@ -834,6 +849,39 @@ Génère la synthèse holistique complète MAINTENANT.
             return header + "\n".join(detected)
         else:
             return "- Aucune neurodivergence significative détectée (scores ≤ 50)"
+
+    def _format_not_detected_neurodiv(self, neuro_profile: Dict) -> str:
+        """Format neurodivergences NOT detected (score ≤ 50) for synthesis prompt"""
+        not_detected = []
+        threshold = 50
+
+        # Labels for each type
+        type_labels = {
+            "adhd": "TDA(H)",
+            "autism": "Autisme (TSA)",
+            "hpi": "HPI (Haut Potentiel Intellectuel)",
+            "multipotentiality": "Multipotentialité",
+            "hypersensitivity": "Hypersensibilité",
+            "toc": "TOC (Troubles Obsessionnels Compulsifs)",
+            "dys": "Troubles Dys- (apprentissage)",
+            "anxiety": "Anxiété généralisée",
+            "bipolar": "Bipolarité",
+            "ptsd": "SSPT (Stress Post-Traumatique)",
+            "eating_disorder": "Troubles alimentaires",
+            "sleep_disorder": "Troubles du sommeil"
+        }
+
+        for key, label in type_labels.items():
+            data = neuro_profile.get(key, {})
+            if isinstance(data, dict):
+                score = data.get('score_global', data.get('score', 0))
+                if score <= threshold:
+                    not_detected.append(f"- ✅ **{label}** : {score}/100 — Non détecté")
+
+        if not_detected:
+            return "\n".join(not_detected)
+        else:
+            return "- Toutes les neurodivergences analysées ont été détectées (scores > 50)"
 
     # ===== HELPER METHODS =====
 
