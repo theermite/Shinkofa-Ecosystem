@@ -17,15 +17,25 @@ export function useTheme() {
   useEffect(() => {
     setMounted(true)
 
-    // Get theme from localStorage or system preference
-    const stored = localStorage.getItem('theme') as Theme | null
-    const systemPreference = window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light'
+    try {
+      // Get theme from localStorage or system preference
+      const stored = localStorage.getItem('theme') as Theme | null
+      const systemPreference = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light'
 
-    const initialTheme = stored || systemPreference
-    setTheme(initialTheme)
-    applyTheme(initialTheme)
+      const initialTheme = stored || systemPreference
+      setTheme(initialTheme)
+      applyTheme(initialTheme)
+    } catch (error) {
+      // localStorage may be unavailable or corrupted - use system preference
+      console.warn('Failed to read theme from localStorage:', error)
+      const systemPreference = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light'
+      setTheme(systemPreference)
+      applyTheme(systemPreference)
+    }
   }, [])
 
   // Apply theme to document
@@ -38,7 +48,12 @@ export function useTheme() {
       root.classList.remove('dark')
     }
 
-    localStorage.setItem('theme', newTheme)
+    try {
+      localStorage.setItem('theme', newTheme)
+    } catch (error) {
+      // localStorage may be full or unavailable - ignore silently
+      console.warn('Failed to save theme to localStorage:', error)
+    }
   }
 
   // Toggle theme
