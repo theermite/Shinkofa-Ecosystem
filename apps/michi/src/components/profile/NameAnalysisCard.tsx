@@ -21,9 +21,33 @@ interface NameHolisticAnalysis {
   energetic_weight: string
 }
 
+// Support both old (number) and new (object) API formats for numerology values
+interface NumerologyNumberObject {
+  value: number
+  display: string
+  is_master_number: boolean
+  base_number: number | null
+}
+
+type NumerologyValue = number | NumerologyNumberObject
+
+// Helper to extract numeric value from either format
+const getNumValue = (val?: NumerologyValue | null): number => {
+  if (val === undefined || val === null) return 0
+  if (typeof val === 'number') return val
+  return val?.value ?? 0
+}
+
+// Helper to get display string (for master numbers: "11/2")
+const getNumDisplay = (val?: NumerologyValue | null): string => {
+  if (val === undefined || val === null) return '0'
+  if (typeof val === 'number') return String(val)
+  return val?.display ?? String(val?.value ?? 0)
+}
+
 interface NameAnalysisData {
-  active: number
-  hereditary: number
+  active: NumerologyValue
+  hereditary: NumerologyValue
   first_name_analysis?: string
   last_name_analysis?: string
   name_holistic_analysis?: NameHolisticAnalysis
@@ -246,7 +270,7 @@ export const NameAnalysisCard: React.FC<NameAnalysisCardProps> = ({ data }) => {
         <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl p-6 border-2 border-amber-200 dark:border-amber-800">
           <div className="flex items-center gap-4 mb-4">
             <div className="w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-500 rounded-full flex items-center justify-center text-4xl font-bold text-white shadow-lg">
-              {data.active}
+              {getNumDisplay(data.active)}
             </div>
             <div>
               <h3 className="text-xl font-bold text-gray-900 dark:text-white">
@@ -273,7 +297,7 @@ export const NameAnalysisCard: React.FC<NameAnalysisCardProps> = ({ data }) => {
               ))}
             </div>
             <p className="text-sm text-gray-600 dark:text-gray-400 italic mb-3">
-              {getNumberMeaning(data.active)}
+              {getNumberMeaning(getNumValue(data.active))}
             </p>
           </div>
 
@@ -282,7 +306,7 @@ export const NameAnalysisCard: React.FC<NameAnalysisCardProps> = ({ data }) => {
               <span>💫</span> Influence sur votre vie
             </h4>
             <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
-              {getActiveNumberDescription(data.active)}
+              {getActiveNumberDescription(getNumValue(data.active))}
             </p>
           </div>
 
@@ -299,7 +323,7 @@ export const NameAnalysisCard: React.FC<NameAnalysisCardProps> = ({ data }) => {
         <div className="bg-gradient-to-br from-indigo-50 to-violet-50 dark:from-indigo-900/20 dark:to-violet-900/20 rounded-xl p-6 border-2 border-indigo-200 dark:border-indigo-800">
           <div className="flex items-center gap-4 mb-4">
             <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-violet-500 rounded-full flex items-center justify-center text-4xl font-bold text-white shadow-lg">
-              {data.hereditary}
+              {getNumDisplay(data.hereditary)}
             </div>
             <div>
               <h3 className="text-xl font-bold text-gray-900 dark:text-white">
@@ -326,7 +350,7 @@ export const NameAnalysisCard: React.FC<NameAnalysisCardProps> = ({ data }) => {
               ))}
             </div>
             <p className="text-sm text-gray-600 dark:text-gray-400 italic mb-3">
-              {getNumberMeaning(data.hereditary)}
+              {getNumberMeaning(getNumValue(data.hereditary))}
             </p>
           </div>
 
@@ -335,7 +359,7 @@ export const NameAnalysisCard: React.FC<NameAnalysisCardProps> = ({ data }) => {
               <span>🌳</span> Héritage ancestral
             </h4>
             <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
-              {getHereditaryNumberDescription(data.hereditary)}
+              {getHereditaryNumberDescription(getNumValue(data.hereditary))}
             </p>
           </div>
 
@@ -356,15 +380,15 @@ export const NameAnalysisCard: React.FC<NameAnalysisCardProps> = ({ data }) => {
         </h3>
         <div className="bg-white/70 dark:bg-gray-800/70 rounded-lg p-5">
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            La combinaison de votre <strong>Nombre Actif {data.active}</strong> ({translateKeyword(data.interpretations.active?.keyword || 'Unknown')})
-            et de votre <strong>Nombre Héréditaire {data.hereditary}</strong> ({translateKeyword(data.interpretations.hereditary?.keyword || 'Unknown')})
+            La combinaison de votre <strong>Nombre Actif {getNumDisplay(data.active)}</strong> ({translateKeyword(data.interpretations.active?.keyword || 'Unknown')})
+            et de votre <strong>Nombre Héréditaire {getNumDisplay(data.hereditary)}</strong> ({translateKeyword(data.interpretations.hereditary?.keyword || 'Unknown')})
             crée une signature énergétique unique qui influence votre façon d'être dans le monde.
           </p>
 
-          {data.active === data.hereditary ? (
+          {getNumValue(data.active) === getNumValue(data.hereditary) ? (
             <div className="p-4 bg-purple-50 dark:bg-purple-900/30 rounded-lg border-l-4 border-purple-500">
               <p className="text-purple-800 dark:text-purple-200 font-medium">
-                <strong>Harmonie parfaite :</strong> Vos nombres Actif et Héréditaire sont identiques ({data.active}).
+                <strong>Harmonie parfaite :</strong> Vos nombres Actif et Héréditaire sont identiques ({getNumDisplay(data.active)}).
                 Cela signifie que l'énergie que vous projetez naturellement est parfaitement alignée avec l'héritage
                 de votre lignée. Vous incarnez pleinement les qualités de ce nombre sans conflit intérieur entre
                 qui vous êtes et d'où vous venez.
@@ -373,9 +397,9 @@ export const NameAnalysisCard: React.FC<NameAnalysisCardProps> = ({ data }) => {
           ) : (
             <div className="p-4 bg-purple-50 dark:bg-purple-900/30 rounded-lg border-l-4 border-purple-500">
               <p className="text-purple-800 dark:text-purple-200 font-medium">
-                <strong>Richesse complémentaire :</strong> Votre Nombre Actif ({data.active}) apporte l'énergie de
+                <strong>Richesse complémentaire :</strong> Votre Nombre Actif ({getNumDisplay(data.active)}) apporte l'énergie de
                 {data.interpretations.active?.traits?.[0] ? ` ${translateTrait(data.interpretations.active.traits[0]).toLowerCase()}` : ''},
-                tandis que votre Nombre Héréditaire ({data.hereditary}) vous connecte à l'héritage de
+                tandis que votre Nombre Héréditaire ({getNumDisplay(data.hereditary)}) vous connecte à l'héritage de
                 {data.interpretations.hereditary?.traits?.[0] ? ` ${translateTrait(data.interpretations.hereditary.traits[0]).toLowerCase()}` : ''}.
                 Cette combinaison vous offre une palette riche de ressources intérieures à explorer et à intégrer.
               </p>

@@ -25,9 +25,24 @@ interface MultipotentialityProfile {
   strategies?: string[]
 }
 
-// Helper to get score from either format
-const getScore = (data: { score?: number; score_global?: number }): number => {
+// Helper to get score from either format - with null safety
+const getScore = (data?: { score?: number; score_global?: number } | null): number => {
+  if (!data) return 0
   return data.score_global ?? data.score ?? 0
+}
+
+// Default empty neurodivergence profile
+const emptyProfile: NeurodivergenceProfile = {
+  score: 0,
+  score_global: 0,
+  profile: 'Non analysé',
+  manifestations: [],
+  strategies: [],
+}
+
+// Safe getter for neurodivergence profiles
+const getSafeProfile = (profile?: NeurodivergenceProfile | null): NeurodivergenceProfile => {
+  return profile || emptyProfile
 }
 
 interface NeurodivergenceAnalysis {
@@ -45,6 +60,13 @@ interface NeurodivergenceCardProps {
 }
 
 export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }) => {
+  // Safe access to all profiles with fallbacks
+  const adhd = getSafeProfile(data?.adhd)
+  const autism = getSafeProfile(data?.autism)
+  const hpi = getSafeProfile(data?.hpi)
+  const multipotentiality = data?.multipotentiality || { score: 0, score_global: 0, manifestations: [], profile: 'Non analysé', strategies: [] }
+  const hypersensitivity = data?.hypersensitivity || { ...emptyProfile, types: [] }
+
   return (
     <ProfileSection
       title="Profil Neurodivergent"
@@ -55,10 +77,10 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
       <NeurodivergenceItem
         title="TDA(H) - Trouble du Déficit de l'Attention avec ou sans Hyperactivité"
         icon="⚡"
-        score={getScore(data.adhd)}
-        profile={data.adhd.profile}
-        manifestations={data.adhd.manifestations}
-        strategies={data.adhd.strategies}
+        score={getScore(adhd)}
+        profile={adhd.profile}
+        manifestations={adhd.manifestations || []}
+        strategies={adhd.strategies || []}
         color="purple"
       />
 
@@ -66,10 +88,10 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
       <NeurodivergenceItem
         title="Traits Autistiques"
         icon="🧩"
-        score={getScore(data.autism)}
-        profile={data.autism.profile}
-        manifestations={data.autism.manifestations}
-        strategies={data.autism.strategies}
+        score={getScore(autism)}
+        profile={autism.profile}
+        manifestations={autism.manifestations || []}
+        strategies={autism.strategies || []}
         color="blue"
       />
 
@@ -77,10 +99,10 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
       <NeurodivergenceItem
         title="Haut Potentiel Intellectuel (HPI)"
         icon="🧠"
-        score={getScore(data.hpi)}
-        profile={data.hpi.profile}
-        manifestations={data.hpi.manifestations}
-        strategies={data.hpi.strategies}
+        score={getScore(hpi)}
+        profile={hpi.profile}
+        manifestations={hpi.manifestations || []}
+        strategies={hpi.strategies || []}
         color="indigo"
       />
 
@@ -88,10 +110,10 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
       <NeurodivergenceItem
         title="Multipotentialité"
         icon="🎨"
-        score={getScore(data.multipotentiality)}
-        profile={data.multipotentiality.profile || 'Multipotentiel'}
-        manifestations={data.multipotentiality.manifestations}
-        strategies={data.multipotentiality.strategies || []}
+        score={getScore(multipotentiality)}
+        profile={multipotentiality.profile || 'Multipotentiel'}
+        manifestations={multipotentiality.manifestations || []}
+        strategies={multipotentiality.strategies || []}
         color="pink"
       />
 
@@ -105,11 +127,11 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
                 Hypersensibilité
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                Profil : {data.hypersensitivity.profile}
+                Profil : {hypersensitivity.profile}
               </p>
             </div>
           </div>
-          <ScoreBadge score={getScore(data.hypersensitivity)} />
+          <ScoreBadge score={getScore(hypersensitivity)} />
         </div>
 
         {/* Types d'hypersensibilité */}
@@ -118,7 +140,7 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
             Types d'hypersensibilité identifiés :
           </h4>
           <div className="flex flex-wrap gap-2">
-            {data.hypersensitivity.types.map((type, idx) => (
+            {(hypersensitivity.types || []).map((type, idx) => (
               <span
                 key={idx}
                 className="px-4 py-2 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-full font-medium shadow-md"
@@ -132,13 +154,13 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <DetailCard
             title="🔍 Manifestations"
-            items={data.hypersensitivity.manifestations}
+            items={hypersensitivity.manifestations || []}
             icon="•"
             color="purple"
           />
           <DetailCard
             title="💡 Stratégies d'Adaptation"
-            items={data.hypersensitivity.strategies}
+            items={hypersensitivity.strategies || []}
             icon="✓"
             color="green"
           />
