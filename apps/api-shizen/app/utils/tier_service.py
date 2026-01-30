@@ -85,10 +85,11 @@ async def get_user_tier(user_id: str) -> UserTier:
                 )
 
             data = response.json()
+            # Normalize tier and status to lowercase for consistent comparison
             return UserTier(
                 user_id=data["user_id"],
-                tier=data["tier"],
-                status=data["status"],
+                tier=data["tier"].lower() if data.get("tier") else "musha",
+                status=data["status"].lower() if data.get("status") else "active",
                 is_active=data["is_active"],
                 project_limit=data["project_limit"],
                 task_limit=data["task_limit"],
