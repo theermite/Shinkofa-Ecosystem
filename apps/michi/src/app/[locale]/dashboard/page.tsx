@@ -4,7 +4,6 @@ import { useAuth } from '@/contexts/AuthContext'
 import { useHolisticProfileByUser } from '@/hooks/api/useHolisticProfile'
 import { Link } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
-import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 
 // Helper to get score from either format (score or score_global)
 const getNeuroScore = (item: { score?: number; score_global?: number } | undefined): number => {
@@ -370,10 +369,7 @@ function DashboardContent() {
   )
 }
 
+// Note: ProtectedRoute is already in layout.tsx, no need to wrap again
 export default function DashboardPage() {
-  return (
-    <ProtectedRoute>
-      <DashboardContent />
-    </ProtectedRoute>
-  )
+  return <DashboardContent />
 }
