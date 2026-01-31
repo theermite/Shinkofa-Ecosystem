@@ -10,100 +10,135 @@
 
 ```
 Shinkofa-Ecosystem/
-├── apps/
-│   ├── michi/              # Plateforme principale Shinkofa
-│   ├── hibiki-dictate/     # Application dictée vocale
-│   ├── slf-esport/         # Plateforme SLF eSport
-│   ├── kazoku/             # Family Hub (alpha, famille uniquement)
-│   ├── takumi-kit/         # Toolbox développement
-│   └── sakusei/            # Social Content Master
-│
-├── packages/               # Packages partagés (à venir)
-│   └── ui/                 # Composants UI partagés
-│
-├── docs/                   # Documentation Shinkofa
-│   ├── Masterplan-Shinkofa.md
-│   ├── Glossaire-Shinkofa.md
-│   ├── Compendium-Shizen.md
-│   └── Systeme-Coaching-Shinkofa.md
-│
+├── apps/                   # 25+ applications
+├── packages/               # Packages partagés
+│   ├── ui/                 # Design system
+│   ├── config/             # Configs communes
+│   └── database/           # Prisma schemas
+├── docs/                   # Documentation centralisée
 └── .claude/
     └── CLAUDE.md           # CE FICHIER
 ```
 
 ---
 
-## 📚 DOCUMENTATION RAG - SOURCE DE VÉRITÉ SHINKOFA
+## 📚 DOCUMENTATION RAG - SOURCE DE VÉRITÉ
 
-> ⚠️ **CONSULTER CES FICHIERS** pour toute question sur Shinkofa, coaching, tarifs, philosophie.
+> ⚠️ **CONSULTER CES FICHIERS** pour toute question sur Shinkofa.
 
 | Document | Contenu | Priorité |
 |----------|---------|----------|
-| `docs/Masterplan-Shinkofa.md` | Vision, mission, stratégie, tarifs officiels, roadmap | CRITIQUE |
-| `docs/Glossaire-Shinkofa.md` | Terminologie japonaise, définitions, prononciation | HAUTE |
-| `docs/Compendium-Shizen.md` | Spécifications IA Shizen, architecture, intégrations | CRITIQUE |
-| `docs/Systeme-Coaching-Shinkofa.md` | Méthodologie tri-dimensionnelle, 7 sphères, profil holistique | HAUTE |
-| `docs/Citations-Shinkofa.md` | Citations fondatrices pour réseaux sociaux | NORMALE |
-
-### Règles RAG
-
-```
-✅ Tarifs → Masterplan-Shinkofa.md (Musha 0€, Samurai 19.99€, Sensei 39.99€)
-✅ Termes japonais → Glossaire-Shinkofa.md
-✅ Shizen/IA → Compendium-Shizen.md
-✅ Coaching → Systeme-Coaching-Shinkofa.md
-✅ Philosophie 4 piliers → Sankofa, Bushido/Ninjutsu, Neuroplasticité, Sagesses Ancestrales
-```
+| `docs/Ecosysteme-Projets-Shinkofa.md` | Catalogue complet 25+ apps | CRITIQUE |
+| `docs/Masterplan-Shinkofa.md` | Vision, mission, tarifs | CRITIQUE |
+| `docs/Glossaire-Shinkofa.md` | Terminologie japonaise | HAUTE |
+| `docs/Compendium-Shizen.md` | Spécifications IA Shizen | CRITIQUE |
+| `docs/Systeme-Coaching-Shinkofa.md` | Méthodologie coaching | HAUTE |
 
 ---
 
-## 🎯 Applications
+## 🎯 Applications par Phase
 
-### Michi (`apps/michi/`)
+### Phase 1 : Infrastructure Fondation
 
-**Plateforme principale Shinkofa**
+| App | Kanji | Type | Status |
+|-----|-------|------|--------|
+| **shizen-ia** | 至善 | IA Holistique Coach | 🟡 En dev |
+| **hibiki-dictate** | 響き | Dictée vocale | 🔴 Stub |
 
-- Stack : Next.js, TypeScript, TailwindCSS
-- Auth : Clerk ou Auth.js
-- DB : PostgreSQL + Prisma
-- Déploiement : VPS OVH
+### Phase 2 : Plateforme Centrale
 
-### Hibiki-Dictate (`apps/hibiki-dictate/`)
+| App | Kanji | Type | Status |
+|-----|-------|------|--------|
+| **michi** | 道 | Plateforme coaching | 🟡 En dev |
+| **sakusei** | 作成 | Suite création | 🟡 En dev |
+| **takumi-kit** | 匠 | Toolbox | 🔴 Stub |
 
-**Application de dictée vocale**
+### Phase 3 : Gaming & Développement
 
-- Stack : Electron + React
-- Speech-to-Text : Whisper (local via Ollama)
-- Focus : Accessibilité, offline-first
+| App | Kanji | Type | Status |
+|-----|-------|------|--------|
+| **slf-esport** | — | Académie gaming | 🟢 Actif |
+| **gemu-dojo** | 道場 | Hub gaming | 🔴 Stub |
 
-### SLF eSport (`apps/slf-esport/`)
+### Phase 4 : Création & Visibilité
 
-**Plateforme eSport communautaire**
+| App | Kanji | Type | Status |
+|-----|-------|------|--------|
+| **hikari-stream** | 光 | Streaming | 🔴 Stub |
+| **the-ermite** | 仙人 | Site vitrine Jay | 🔴 Stub |
+| **site-vitrine** | — | Site Shinkofa | 🔴 Stub |
 
-- Stack : Next.js, TypeScript
-- Features : Tournois, équipes, matchmaking
+### Phase 5 : Famille & Communication
 
-### Kazoku (`apps/kazoku/`)
+| App | Kanji | Type | Status |
+|-----|-------|------|--------|
+| **kazoku** | 家族 | Hub famille | 🟡 En dev (alpha) |
+| **tegami-mail** | 手紙 | Client email | 🔴 Stub |
+| **musubu-hub** | 結ぶ | Messaging unifié | 🔴 Stub |
+| **kaigi-meet** | 会議 | Visioconférence | 🔴 Stub |
+| **nakama-hub** | 仲間 | Hub communautaire | 📋 Réservé |
 
-**Family Hub - Application familiale**
+### Phase 6 : Développement & Business
 
-- Status : **Alpha** (utilisateurs = famille Jay uniquement)
-- Stack : Next.js, TypeScript
-- Features : Calendrier partagé, tâches, communication
+| App | Kanji | Type | Status |
+|-----|-------|------|--------|
+| **kodo-hub** | コード | Hub développement | 🔴 Stub |
+| **kankei-crm** | 関係 | CRM coaching | 🔴 Stub |
 
-### Takumi-Kit (`apps/takumi-kit/`)
+### Phase 7 : Media
 
-**Toolbox développement**
+| App | Kanji | Type | Status |
+|-----|-------|------|--------|
+| **media-kura** | 蔵 | Hub media | 🔴 Stub |
 
-- Outils internes pour productivité dev
-- Scripts, snippets, automatisation
+### Phase 8 : Bureautique & Créativité
 
-### Sakusei (`apps/sakusei/`)
+| App | Kanji | Type | Status |
+|-----|-------|------|--------|
+| **jimu-suite** | 事務 | Suite bureautique | 🔴 Stub |
+| **dezain-suite** | デザイン | Suite créative | 🔴 Stub |
 
-**Social Content Master**
+### Phase 9 : Administration Système
 
-- Gestion contenu réseaux sociaux
-- Planification, templates, analytics
+| App | Kanji | Type | Status |
+|-----|-------|------|--------|
+| **seigyo-admin** | 制御 | Admin Windows | 🔴 Stub |
+| **shirei-admin** | 司令 | Admin Linux | 🔴 Stub |
+
+### Phase 10 : Mobile & Système
+
+| App | Kanji | Type | Status |
+|-----|-------|------|--------|
+| **tobira-launcher** | 扉 | Launcher Android | 🔴 Stub |
+| **keitai-hub** | 携帯 | Hub mobile | 🔴 Stub |
+| **enkaku-connect** | 遠隔 | Accès distant | 🔴 Stub |
+
+### Phase 11 : Révolution Finale
+
+| App | Kanji | Type | Status |
+|-----|-------|------|--------|
+| **shin-os** | 真 | OS propriétaire | 📋 2030 |
+
+### Autres Apps
+
+| App | Type | Status |
+|-----|------|--------|
+| **api-shizen** | API IA Shizen | 🟡 En dev |
+| **shizen** | Core Shizen | 🟡 En dev |
+| **kosei** | Profil utilisateur | 🔴 Stub |
+| **toolbox-theermite** | Legacy toolbox | ⚠️ Migré vers takumi-kit |
+
+---
+
+## 🚦 Légende Statuts
+
+| Icône | Statut | Description |
+|-------|--------|-------------|
+| 🟢 | Actif | En production |
+| 🟡 | En dev | Développement actif |
+| 🔴 | Stub | Structure créée, pas de code |
+| 📋 | Planifié | Réservé pour le futur |
+| ⚠️ | Legacy | À migrer/nettoyer |
 
 ---
 
@@ -116,6 +151,8 @@ Shinkofa-Ecosystem/
 | TailwindCSS | 3.x | Styling |
 | Prisma | 5.x | ORM |
 | PostgreSQL | 17 | Database |
+| Python | 3.12 | IA/Backend Shizen |
+| LangChain | 1.2+ | IA orchestration |
 
 ---
 
@@ -125,12 +162,10 @@ Shinkofa-Ecosystem/
 # Installation
 pnpm install
 
-# Dev (toutes les apps)
-pnpm dev
-
 # Dev (app spécifique)
 pnpm --filter michi dev
-pnpm --filter hibiki-dictate dev
+pnpm --filter sakusei dev
+pnpm --filter kazoku dev
 
 # Build
 pnpm build
@@ -141,33 +176,18 @@ pnpm test
 
 ---
 
-## 📝 Conventions Spécifiques
+## ⚠️ Nettoyage Requis
 
-### Imports entre apps
-
-```typescript
-// ✅ Utiliser les alias
-import { Button } from '@shinkofa/ui'
-
-// ❌ Pas d'imports relatifs entre apps
-import { Button } from '../../packages/ui/Button'
-```
-
-### Variables d'environnement
-
-Chaque app a son propre `.env.local` :
-- `apps/michi/.env.local`
-- `apps/hibiki-dictate/.env.local`
-
-Variables partagées dans `.env` à la racine (non sensibles uniquement).
+- `apps/sakusei/Social-Content-Master/` — Ancien projet imbriqué à supprimer après vérification
 
 ---
 
 ## 🔗 Ressources
 
-- **Méthodologie complète** : `../Instruction-Claude-Code/.claude/CLAUDE.md`
+- **Catalogue complet** : `docs/Ecosysteme-Projets-Shinkofa.md`
 - **Instructions workspace** : `../../.claude/CLAUDE.md`
+- **Méthodologie** : `../../Instruction-Claude-Code/.claude/CLAUDE.md`
 
 ---
 
-**Version** : 2.0.0 | **Date** : 2026-01-31 | **Refactored** : Héritage workspace CLAUDE.md
+**Version** : 3.0.0 | **Date** : 2026-01-31 | **Apps** : 25+ | **Refactored** : Liste complète écosystème
