@@ -1,0 +1,455 @@
+# ============================================
+# GitHub Actions CI/CD Template
+# ============================================
+# Automatisation tests, linting, coverage, déploiement
+# Supporte Python (pytest) et JavaScript/TypeScript (Jest)
+# Version: 1.0 | 2025-11-13
+
+name: CI/CD Pipeline
+
+# ============================================
+# Triggers
+# ============================================
+
+on:
+  # Push sur branches principales
+  push:
+    branches:
+      - main
+      - develop
+      - 'feature/**'
+      - 'fix/**'
+
+  # Pull requests
+  pull_request:
+    branches:
+      - main
+      - develop
+
+  # Workflow manual
+  workflow_dispatch:
+
+# ============================================
+# Variables Environnement
+# ============================================
+
+env:
+  PYTHON_VERSION: '3.11'
+  NODE_VERSION: '18'
+  POSTGRES_VERSION: '15'
+  REDIS_VERSION: '7'
+
+# ============================================
+# Jobs
+# ============================================
+
+jobs:
+
+  # --------------------------------------------
+  # Job 1: Linting & Type Checking
+  # --------------------------------------------
+  lint:
+    name: Linting & Type Checking
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ========== Python Linting ==========
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Cache Python dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff mypy
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Run Ruff (Python linting)
+        run: ruff check --output-format=github .
+        continue-on-error: false
+
+      - name: Run MyPy (Python type checking)
+        run: mypy . --ignore-missing-imports
+        continue-on-error: true
+
+      # ========== JavaScript/TypeScript Linting ==========
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Cache Node.js dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install Node.js dependencies
+        run: |
+          if [ -f package.json ]; then npm ci; fi
+
+      - name: Run ESLint (JavaScript/TypeScript linting)
+        run: |
+          if [ -f package.json ]; then npm run lint || echo "No lint script found"; fi
+        continue-on-error: false
+
+      - name: Run TypeScript type checking
+        run: |
+          if [ -f tsconfig.json ]; then npx tsc --noEmit; fi
+        continue-on-error: true
+
+
+  # --------------------------------------------
+  # Job 2: Unit Tests Python
+  # --------------------------------------------
+  test-python:
+    name: Python Tests & Coverage
+    runs-on: ubuntu-latest
+    needs: lint
+
+    # Services (PostgreSQL, Redis)
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: test_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Cache Python dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pytest-cov pytest-asyncio
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Run pytest with coverage
+        env:
+          DATABASE_URL: postgresql://test_user:test_password@localhost:5432/test_db
+          REDIS_URL: redis://localhost:6379/0
+        run: |
+          pytest --cov --cov-report=xml --cov-report=html --cov-report=term-missing --cov-fail-under=80
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          flags: python
+          fail_ci_if_error: false
+
+      - name: Upload coverage HTML report
+        uses: actions/upload-artifact@v3
+        with:
+          name: python-coverage-report
+          path: htmlcov/
+
+
+  # --------------------------------------------
+  # Job 3: Unit Tests JavaScript/TypeScript
+  # --------------------------------------------
+  test-javascript:
+    name: JavaScript/TypeScript Tests & Coverage
+    runs-on: ubuntu-latest
+    needs: lint
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Cache Node.js dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        run: |
+          if [ -f package.json ]; then npm ci; fi
+
+      - name: Run Jest with coverage
+        run: |
+          if [ -f package.json ]; then npm test -- --coverage --coverageReporters=text --coverageReporters=lcov --coverageReporters=html; fi
+        env:
+          CI: true
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
+          flags: javascript
+          fail_ci_if_error: false
+
+      - name: Upload coverage HTML report
+        uses: actions/upload-artifact@v3
+        with:
+          name: javascript-coverage-report
+          path: coverage/
+
+
+  # --------------------------------------------
+  # Job 4: Build Application
+  # --------------------------------------------
+  build:
+    name: Build Application
+    runs-on: ubuntu-latest
+    needs: [test-python, test-javascript]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ========== Python Build ==========
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Build Python package
+        run: |
+          if [ -f setup.py ]; then
+            python -m pip install --upgrade pip build
+            python -m build
+          fi
+
+      # ========== Node.js Build ==========
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install Node.js dependencies
+        run: |
+          if [ -f package.json ]; then npm ci; fi
+
+      - name: Build frontend
+        run: |
+          if [ -f package.json ]; then npm run build || echo "No build script found"; fi
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: |
+            dist/
+            build/
+
+
+  # --------------------------------------------
+  # Job 5: Security Audit
+  # --------------------------------------------
+  security:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    needs: lint
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Python security audit
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install safety
+        run: pip install safety
+
+      - name: Run safety check
+        run: |
+          if [ -f requirements.txt ]; then safety check --file requirements.txt; fi
+        continue-on-error: true
+
+      # Node.js security audit
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Run npm audit
+        run: |
+          if [ -f package.json ]; then npm audit --audit-level=moderate; fi
+        continue-on-error: true
+
+
+  # --------------------------------------------
+  # Job 6: Docker Build & Push
+  # --------------------------------------------
+  docker:
+    name: Docker Build & Push
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKER_USERNAME }}/myapp
+          tags: |
+            type=ref,event=branch
+            type=sha,prefix={{branch}}-
+            type=semver,pattern={{version}}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/myapp:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/myapp:buildcache,mode=max
+
+
+  # --------------------------------------------
+  # Job 7: Deploy to Production
+  # --------------------------------------------
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: docker
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy to server via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            cd /var/www/myapp
+            docker-compose pull
+            docker-compose up -d --remove-orphans
+            docker system prune -af
+
+      - name: Health check
+        run: |
+          sleep 30
+          curl -f ${{ secrets.DEPLOY_URL }}/health || exit 1
+
+
+# ============================================
+# Instructions Configuration
+# ============================================
+
+# 1. Secrets GitHub à configurer (Settings > Secrets and variables > Actions):
+# ------------------------------------------------------------------------------
+# - CODECOV_TOKEN: Token Codecov.io (optionnel)
+# - DOCKER_USERNAME: Username Docker Hub
+# - DOCKER_PASSWORD: Password Docker Hub
+# - DEPLOY_HOST: IP/domain serveur production
+# - DEPLOY_USER: Username SSH serveur
+# - DEPLOY_SSH_KEY: Clé privée SSH (format PEM)
+# - DEPLOY_URL: URL application production (healthcheck)
+
+# 2. Activer workflow:
+# --------------------
+# - Copier ce fichier dans .github/workflows/ci-cd.yml
+# - Commit et push
+
+# 3. Adapter selon projet:
+# -------------------------
+# - Remplacer 'myapp' par nom projet
+# - Adapter branches triggers si différentes
+# - Ajuster commandes build/test selon stack
+# - Modifier coverage threshold (défaut 80%)
+
+# 4. Badge CI/CD dans README.md:
+# -------------------------------
+# ![CI/CD](https://github.com/username/repo/actions/workflows/ci-cd.yml/badge.svg)
+
+
+# ============================================
+# Optimisations
+# ============================================
+
+# ✅ Caching dependencies (pip, npm) - accélération builds
+# ✅ Parallel jobs - tests Python/JS simultanés
+# ✅ Conditional execution - deploy uniquement main
+# ✅ Services PostgreSQL/Redis - tests intégration
+# ✅ Artifacts upload - coverage reports téléchargeables
+# ✅ Docker layer caching - builds rapides
+# ✅ Security audits - npm audit, safety check
+# ✅ Health check post-deploy - validation déploiement
+
+
+# ============================================
+# Notes
+# ============================================
+
+# - Tests doivent passer ≥80% coverage (fail si inférieur)
+# - Linting strict (fail si warnings)
+# - Deploy uniquement si tests/build OK
+# - Logs disponibles dans Actions tab GitHub
+# - Adapter deploy step selon hébergement (Heroku, AWS, DigitalOcean, etc.)

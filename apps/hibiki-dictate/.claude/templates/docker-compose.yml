@@ -1,0 +1,367 @@
+# ============================================
+# Docker Compose Template - Production-Ready
+# ============================================
+# Setup multi-services: App + PostgreSQL + Redis
+# Version: 1.0 | 2025-11-13
+
+version: '3.8'
+
+# ============================================
+# Services
+# ============================================
+
+services:
+
+  # --------------------------------------------
+  # Application Backend (FastAPI/Node.js)
+  # --------------------------------------------
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ${APP_NAME:-myapp}-backend
+    restart: unless-stopped
+
+    # Ports
+    ports:
+      - "${APP_PORT:-8000}:8000"
+
+    # Variables d'environnement
+    environment:
+      - NODE_ENV=${NODE_ENV:-production}
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      - REDIS_URL=redis://redis:6379/0
+      - JWT_SECRET=${JWT_SECRET}
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:3000}
+
+    # Variables depuis fichier .env
+    env_file:
+      - .env
+
+    # Dépendances (attend postgres et redis)
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+    # Volumes (persistance logs, uploads)
+    volumes:
+      - ./logs:/app/logs
+      - ./uploads:/app/uploads
+
+    # Networks
+    networks:
+      - app-network
+
+    # Healthcheck
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+
+  # --------------------------------------------
+  # Frontend (React/Next.js) - Optionnel
+  # --------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ${APP_NAME:-myapp}-frontend
+    restart: unless-stopped
+
+    # Ports
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+
+    # Variables d'environnement
+    environment:
+      - REACT_APP_API_URL=http://localhost:${APP_PORT:-8000}
+      - NODE_ENV=${NODE_ENV:-production}
+
+    # Dépendances
+    depends_on:
+      - app
+
+    # Networks
+    networks:
+      - app-network
+
+    # Healthcheck
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+
+  # --------------------------------------------
+  # PostgreSQL Database
+  # --------------------------------------------
+  postgres:
+    image: postgres:15-alpine
+    container_name: ${APP_NAME:-myapp}-postgres
+    restart: unless-stopped
+
+    # Ports (exposer si accès externe nécessaire)
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+
+    # Variables d'environnement
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
+      - POSTGRES_DB=${POSTGRES_DB:-myapp_db}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+
+    # Volumes (persistance données)
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d  # Scripts SQL initialisation
+
+    # Networks
+    networks:
+      - app-network
+
+    # Healthcheck
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+
+  # --------------------------------------------
+  # Redis Cache
+  # --------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: ${APP_NAME:-myapp}-redis
+    restart: unless-stopped
+
+    # Ports (exposer si accès externe nécessaire)
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+
+    # Commande (persistence + maxmemory)
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+
+    # Volumes (persistance cache si besoin)
+    volumes:
+      - redis-data:/data
+
+    # Networks
+    networks:
+      - app-network
+
+    # Healthcheck
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+
+  # --------------------------------------------
+  # Nginx Reverse Proxy - Optionnel
+  # --------------------------------------------
+  nginx:
+    image: nginx:alpine
+    container_name: ${APP_NAME:-myapp}-nginx
+    restart: unless-stopped
+
+    # Ports
+    ports:
+      - "80:80"
+      - "443:443"
+
+    # Volumes
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro  # Certificats SSL
+
+    # Dépendances
+    depends_on:
+      - app
+      - frontend
+
+    # Networks
+    networks:
+      - app-network
+
+    # Healthcheck
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+
+  # --------------------------------------------
+  # PgAdmin - Interface PostgreSQL (Dev only)
+  # --------------------------------------------
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: ${APP_NAME:-myapp}-pgadmin
+    restart: unless-stopped
+
+    # Ports
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+
+    # Variables d'environnement
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL:-admin@example.com}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD:-admin}
+
+    # Volumes
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
+    # Dépendances
+    depends_on:
+      - postgres
+
+    # Networks
+    networks:
+      - app-network
+
+    # Note: Désactiver en production (sécurité)
+    profiles:
+      - dev
+
+
+# ============================================
+# Volumes (Persistance Données)
+# ============================================
+
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
+  pgadmin-data:
+    driver: local
+
+
+# ============================================
+# Networks
+# ============================================
+
+networks:
+  app-network:
+    driver: bridge
+
+
+# ============================================
+# Instructions Utilisation
+# ============================================
+
+# 1. Créer fichier .env à la racine:
+# -----------------------------------
+# APP_NAME=myapp
+# APP_PORT=8000
+# FRONTEND_PORT=3000
+# NODE_ENV=production
+#
+# POSTGRES_USER=postgres
+# POSTGRES_PASSWORD=strongpassword123
+# POSTGRES_DB=myapp_db
+# POSTGRES_PORT=5432
+#
+# REDIS_PORT=6379
+#
+# JWT_SECRET=your-secret-key-here-change-me
+# CORS_ORIGINS=http://localhost:3000,https://myapp.com
+#
+# PGADMIN_EMAIL=admin@example.com
+# PGADMIN_PASSWORD=admin123
+# PGADMIN_PORT=5050
+
+
+# 2. Démarrer tous les services:
+# -------------------------------
+# docker-compose up -d
+
+# 3. Démarrer services spécifiques:
+# ----------------------------------
+# docker-compose up -d app postgres redis
+
+# 4. Voir logs:
+# -------------
+# docker-compose logs -f app
+# docker-compose logs -f postgres
+
+# 5. Arrêter tous les services:
+# ------------------------------
+# docker-compose down
+
+# 6. Arrêter et supprimer volumes (⚠️ PERTE DONNÉES):
+# ----------------------------------------------------
+# docker-compose down -v
+
+# 7. Rebuild après changements code:
+# -----------------------------------
+# docker-compose up -d --build app
+
+# 8. Démarrer avec profil dev (inclut pgadmin):
+# ----------------------------------------------
+# docker-compose --profile dev up -d
+
+# 9. Scaling (multiple instances app):
+# -------------------------------------
+# docker-compose up -d --scale app=3
+
+# 10. Exécuter commande dans container:
+# --------------------------------------
+# docker-compose exec app bash
+# docker-compose exec postgres psql -U postgres -d myapp_db
+
+
+# ============================================
+# Optimisations Production
+# ============================================
+
+# ✅ Healthchecks tous services (monitoring)
+# ✅ Restart policies (haute disponibilité)
+# ✅ Named volumes (persistance données)
+# ✅ Networks isolation (sécurité)
+# ✅ Environment variables (.env)
+# ✅ Service dependencies (ordre démarrage)
+# ✅ Alpine images (légères)
+# ✅ Resource limits (optionnel, voir ci-dessous)
+
+
+# ============================================
+# Resource Limits (Optionnel Production)
+# ============================================
+
+# Ajouter dans chaque service si nécessaire:
+# deploy:
+#   resources:
+#     limits:
+#       cpus: '1.0'
+#       memory: 1G
+#     reservations:
+#       cpus: '0.5'
+#       memory: 512M
+
+
+# ============================================
+# Notes
+# ============================================
+
+# - Adapter services selon besoins (supprimer frontend/nginx si inutiles)
+# - Remplacer POSTGRES_PASSWORD par valeur forte en production
+# - Utiliser secrets Docker Swarm en production (pas .env)
+# - Configurer backups automatiques PostgreSQL
+# - Désactiver pgadmin en production (profil dev)
+# - Ajouter monitoring (Prometheus, Grafana) si pertinent
+# - Configurer logs aggregation (ELK stack) si production

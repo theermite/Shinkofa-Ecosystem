@@ -1,0 +1,38 @@
+# Family Hub - Docker Compose (Développement Local)
+# © 2025 La Voie Shinkofa
+
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: family_hub_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: family_hub_root_2025
+      MYSQL_DATABASE: family_hub
+      MYSQL_USER: family_hub_user
+      MYSQL_PASSWORD: family_hub_pass_2025
+    ports:
+      - "3307:3306"  # Port 3307 pour éviter conflits
+    volumes:
+      - family_hub_mysql_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./database/seeds.sql:/docker-entrypoint-initdb.d/02-seeds.sql
+    networks:
+      - family_hub_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pfamily_hub_root_2025"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  family_hub_mysql_data:
+    name: family_hub_mysql_data
+
+networks:
+  family_hub_network:
+    name: family_hub_network
+    driver: bridge

@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dark Mode - Fix contraste select, option, input */
+body.dark select,
+body.dark select option {
+  color: #E8F4F8 !important;
+  background-color: #1a2538 !important;
+}
+
+body.dark input[type="file"] {
+  color: #E8F4F8 !important;
+}
+
+body.dark input[type="file"]::file-selector-button {
+  background-color: #2B4C7E;
+  color: #ffffff;
+  border: 1px solid #4a5a7a;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+body.dark input[type="file"]::file-selector-button:hover {
+  background-color: #3d5f99;
+}
+
+/* Fix range slider en dark mode */
+body.dark input[type="range"] {
+  accent-color: #8A9A85;
+}
+
+/* Fix placeholder text en dark mode */
+body.dark input::placeholder,
+body.dark textarea::placeholder {
+  color: #9BB4D9 !important;
+  opacity: 0.7;
+}

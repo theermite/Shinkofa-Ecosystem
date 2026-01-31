@@ -1,0 +1,57 @@
+{
+  "version": "2.0",
+  "created_at": "2026-01-29",
+  "description": "Knowledge Library configuration for Claude Code RAG system",
+
+  "categories": {
+    "coaching": {
+      "description": "Frameworks coaching, Design Humain, méthodologies",
+      "priority": 1,
+      "auto_load": ["design-humain", "projecteur", "coaching ontologique"]
+    },
+    "business": {
+      "description": "Business plan Shinkofa, stratégie, marketing",
+      "priority": 2,
+      "auto_load": ["shinkofa", "business plan", "écosystème"]
+    },
+    "technical": {
+      "description": "Architecture, patterns, décisions techniques",
+      "priority": 3,
+      "auto_load": ["architecture", "fastapi", "react", "postgresql"]
+    }
+  },
+
+  "metadata_schema": {
+    "required": ["title", "category", "tags", "created_at"],
+    "optional": ["author", "version", "sources", "related_docs"]
+  },
+
+  "search": {
+    "enabled": true,
+    "min_query_length": 3,
+    "max_results": 10,
+    "relevance_threshold": 0.6,
+    "search_fields": ["title", "tags", "content"],
+    "case_sensitive": false
+  },
+
+  "indexing": {
+    "enabled": true,
+    "auto_index_on_add": true,
+    "index_file": ".claude/knowledge/.index.json"
+  },
+
+  "embeddings": {
+    "enabled": false,
+    "provider": "openai",
+    "model": "text-embedding-3-small",
+    "note": "Désactivé par défaut (économie tokens). Activer si besoin recherche sémantique avancée."
+  },
+
+  "backup": {
+    "enabled": true,
+    "auto_backup": true,
+    "backup_dir": "_backups/knowledge",
+    "retention_days": 90
+  }
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Désinstallation Service Worker</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #1c3049;
+      margin-bottom: 20px;
+    }
+    .status {
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+    .success {
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      color: #155724;
+    }
+    .info {
+      background: #d1ecf1;
+      border: 1px solid #bee5eb;
+      color: #0c5460;
+    }
+    button {
+      background: #1c3049;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 15px;
+    }
+    button:hover {
+      background: #2c4059;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🔧 Désinstallation du Service Worker</h1>
+
+    <div id="status" class="status info">
+      Vérification des service workers en cours...
+    </div>
+
+    <button onclick="location.href='/'">← Retour à l'application</button>
+  </div>
+
+  <script>
+    async function unregisterAllServiceWorkers() {
+      const statusEl = document.getElementById('status');
+
+      try {
+        if ('serviceWorker' in navigator) {
+          const registrations = await navigator.serviceWorker.getRegistrations();
+
+          if (registrations.length === 0) {
+            statusEl.className = 'status info';
+            statusEl.innerHTML = '✅ Aucun service worker trouvé. Tout est déjà propre !';
+            return;
+          }
+
+          statusEl.className = 'status info';
+          statusEl.innerHTML = `⏳ ${registrations.length} service worker(s) trouvé(s). Désinstallation en cours...`;
+
+          for (const registration of registrations) {
+            await registration.unregister();
+            console.log('Service worker unregistered:', registration);
+          }
+
+          // Clear all caches
+          if ('caches' in window) {
+            const cacheNames = await caches.keys();
+            await Promise.all(cacheNames.map(cacheName => caches.delete(cacheName)));
+            console.log('All caches cleared:', cacheNames);
+          }
+
+          statusEl.className = 'status success';
+          statusEl.innerHTML = `
+            ✅ <strong>Succès !</strong><br>
+            ${registrations.length} service worker(s) désinstallé(s).<br>
+            Tous les caches ont été vidés.<br>
+            <br>
+            <strong>Action requise :</strong> Fermez TOUS les onglets de cette application, puis rouvrez-la pour un redémarrage complet.
+          `;
+        } else {
+          statusEl.className = 'status info';
+          statusEl.innerHTML = '⚠️ Les service workers ne sont pas supportés par ce navigateur.';
+        }
+      } catch (error) {
+        console.error('Error unregistering service workers:', error);
+        statusEl.className = 'status error';
+        statusEl.innerHTML = `❌ Erreur lors de la désinstallation : ${error.message}`;
+      }
+    }
+
+    // Run automatically on page load
+    unregisterAllServiceWorkers();
+  </script>
+</body>
+</html>

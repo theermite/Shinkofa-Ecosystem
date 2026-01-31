@@ -1,0 +1,42 @@
+{
+  "whisperx": {
+    "model": "base",
+    "device": "auto",
+    "compute_type": "float16",
+    "language": "fr",
+    "batch_size": 16
+  },
+  "audio": {
+    "sample_rate": 16000,
+    "channels": 1,
+    "chunk_duration_ms": 32,
+    "device_index": null
+  },
+  "vad": {
+    "threshold": 0.3,
+    "min_speech_duration_ms": 150,
+    "max_speech_duration_s": 3.0,
+    "min_silence_duration_ms": 300,
+    "speech_pad_ms": 30
+  },
+  "hotkey": {
+    "toggle_key": "alt+shift+d",
+    "push_to_talk_key": "alt+shift+d",
+    "mode": "push_to_talk"
+  },
+  "text_injection": {
+    "default_method": "clipboard",
+    "typing_speed_cps": 100,
+    "preserve_clipboard": true,
+    "add_space_before": true
+  },
+  "auto_start": false,
+  "minimize_to_tray": true,
+  "show_notifications": true,
+  "check_updates_on_startup": true,
+  "log_level": "INFO",
+  "theme_mode": "light",
+  "models_dir": "models",
+  "logs_dir": "logs",
+  "config_file": "config\\hibiki_preferences.json"
+}

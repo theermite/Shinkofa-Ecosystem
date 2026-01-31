@@ -1,0 +1,19 @@
+Couleurs Logo LSLF E-Sport
+Vert principale : #004225
+Dégradé de gris du cercle : #cfcfcf - #9e9e9e
+Blanc dans le vert : #eaedeb
+Blanc du contour : #f9fdfa
+
+Police d'écriture 
+Oxanium
+Marck Script
+
+**Vert principal LSLF**   | #004225    | Fond, titres, éléments majeurs                              |
+**Vert clair fruité**    | #3CB371    | Boutons, survol, highlights, éléments interactifs           |
+**Jaune mangue**         | #FFD600    | Accents, emojis, éléments de mise en avant                  |
+**Orange papaye**        | #FF9800    | Call-to-action, notifications, détails dynamiques           |
+**Rouge fraise**         | #E53935    | Alertes, likes, éléments d’engagement                       |
+**Violet myrtille**      | #8E24AA    | Badges, tags spéciaux, citations pop culture/manga          |
+**Blanc doux**           | #F9FDFA    | Texte principal, fonds secondaires, lisibilité              |
+**Gris clair**           | #CFCFCF    | Fonds neutres, séparateurs, zones secondaires                |
+**Gris foncé**           | #9E9E9E    | Texte secondaire, ombres, discrétion                        |

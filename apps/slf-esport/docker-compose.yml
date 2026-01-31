@@ -1,0 +1,123 @@
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: slf-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-slf_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-slf_password_change_me}
+      POSTGRES_DB: ${POSTGRES_DB:-slf_esport}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - slf-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-slf_user} -d ${POSTGRES_DB:-slf_esport}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis (optional - for caching and session management)
+  redis:
+    image: redis:7-alpine
+    container_name: slf-redis
+    restart: unless-stopped
+    ports:
+      - "6380:6379"
+    networks:
+      - slf-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend FastAPI
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: slf-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file:
+      - ./backend/.env
+    environment:
+      - ENVIRONMENT=${ENVIRONMENT:-production}
+      - POSTGRES_SERVER=postgres
+      - POSTGRES_USER=${POSTGRES_USER:-slf_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-slf_password_change_me}
+      - POSTGRES_DB=${POSTGRES_DB:-slf_esport}
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-slf_user}:${POSTGRES_PASSWORD:-slf_password_change_me}@postgres:5432/${POSTGRES_DB:-slf_esport}
+      - REDIS_HOST=redis
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-here-change-in-production}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-your-jwt-secret-key-change-in-production}
+    volumes:
+      - ./backend:/app
+      - ./uploads:/app/uploads
+      - ./media:/app/media
+    ports:
+      - "8003:8000"
+    networks:
+      - slf-network
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  # Frontend React
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: production
+    container_name: slf-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=https://lslf.shinkofa.com
+      - VITE_WEBSOCKET_URL=wss://lslf.shinkofa.com/ws
+      - VITE_ENVIRONMENT=production
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "3001:80"
+    networks:
+      - slf-network
+    stdin_open: true
+    tty: true
+
+  # Nginx (production only)
+  nginx:
+    image: nginx:alpine
+    container_name: slf-nginx
+    restart: unless-stopped
+    depends_on:
+      - backend
+      - frontend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./frontend/build:/usr/share/nginx/html:ro
+      - ./docker/ssl:/etc/nginx/ssl:ro
+    networks:
+      - slf-network
+    profiles:
+      - production
+
+volumes:
+  postgres-data:
+    driver: local
+
+networks:
+  slf-network:
+    driver: bridge

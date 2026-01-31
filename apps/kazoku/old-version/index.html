@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organisateur Familial v8 - Famille Gonçalves Méjias</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header avec Gestion de crise -->
+        <header class="app-header">
+            <div class="container">
+                <h1>🏠 Organisateur Familial v8</h1>
+                <div class="header-actions">
+                    <div class="weather-family">
+                        <span class="weather-icon" id="weather-icon">☀️</span>
+                        <span class="weather-text" id="weather-text">Météo familiale : Ensoleillée</span>
+                    </div>
+                    <div class="current-date">
+                        <span id="current-date">Samedi 2 août 2025</span>
+                    </div>
+                    <button class="btn btn--secondary crisis-btn" id="crisis-btn">🚨 Gestion de Crise</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="app-nav">
+            <div class="container">
+                <div class="nav-tabs">
+                    <button class="nav-tab active" data-tab="dashboard">🏠 Dashboard</button>
+                    <button class="nav-tab" data-tab="planning">📅 Planning Interactif</button>
+                    <button class="nav-tab" data-tab="profiles">👥 Profils & Checklists</button>
+                    <button class="nav-tab" data-tab="tools">🛠️ Outils</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="app-main container">
+            <!-- Dashboard Tab -->
+            <div id="dashboard" class="tab-content active">
+                <!-- Actions Rapides EN PREMIER -->
+                <div class="card quick-actions-main">
+                    <div class="card__header">
+                        <h2>⚡ Actions Rapides</h2>
+                    </div>
+                    <div class="card__body">
+                        <div class="actions-grid">
+                            <button class="btn btn--primary quick-action-btn" data-action="add-activity">
+                                ➕ Ajouter activité
+                            </button>
+                            <button class="btn btn--secondary quick-action-btn" data-action="meal-planner">
+                                🍽️ Plan repas
+                            </button>
+                            <button class="btn btn--outline quick-action-btn" data-action="task-assign">
+                                📋 Répartir tâches
+                            </button>
+                            <button class="btn btn--outline quick-action-btn" data-action="dice-activity">
+                                🎲 Dé activités
+                            </button>
+                            <button class="btn btn--secondary quick-action-btn" data-action="energy-check">
+                                🔋 Check Energy
+                            </button>
+                            <button class="btn btn--outline quick-action-btn" data-action="optimize">
+                                🎯 Optimiser planning
+                            </button>
+                            <button class="btn btn--primary quick-action-btn" data-action="export-ical">
+                                📅 Export iCal
+                            </button>
+                            <button class="btn btn--outline quick-action-btn" data-action="export-pdf">
+                                📄 Export PDF
+                            </button>
+                            <button class="btn btn--secondary quick-action-btn" data-action="export-meals-md">
+                                📝 Export repas MD
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Vue d'ensemble semaine -->
+                    <div class="card dashboard-overview">
+                        <div class="card__header">
+                            <h2>📅 Vue d'ensemble de la semaine</h2>
+                        </div>
+                        <div class="card__body">
+                            <div class="week-overview" id="week-overview">
+                                <!-- Contenu généré par JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Membres famille avec tracker énergie -->
+                    <div class="card family-members">
+                        <div class="card__header">
+                            <h2>👥 Membres de la famille</h2>
+                            <button class="btn btn--sm btn--primary" id="update-energy">📊 Tracker Energie</button>
+                        </div>
+                        <div class="card__body">
+                            <div class="members-grid" id="family-members">
+                                <!-- Contenu généré par JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Système de reconnaissance -->
+                    <div class="card recognition-system-card">
+                        <div class="card__header">
+                            <h2>🏆 Système de reconnaissance</h2>
+                            <button class="btn btn--sm btn--outline" id="reset-recognition">🔄 Reset</button>
+                        </div>
+                        <div class="card__body">
+                            <div class="recognition-system" id="recognition-system">
+                                <!-- Contenu généré par JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Planning Interactif Tab -->
+            <div id="planning" class="tab-content">
+                <div class="planning-layout">
+                    <!-- Sidebar avec contraintes et impératifs -->
+                    <div class="planning-sidebar">
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>📋 Impératifs & Contraintes</h3>
+                                <div class="sidebar-controls">
+                                    <select class="form-control" id="template-selector">
+                                        <option value="">Templates</option>
+                                        <option value="weekend">Journée week-end</option>
+                                        <option value="crisis">Mode crise</option>
+                                        <option value="vacation">Vacances</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="constraints-checklist" id="constraints-checklist">
+                                    <!-- Contenu généré par JS -->
+                                </div>
+                                <button class="btn btn--sm btn--outline mt-16" id="add-constraint">➕ Ajouter impératif</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contenu principal planning -->
+                    <div class="planning-main">
+                        <div class="planning-container">
+                            <div class="planning-header">
+                                <h2>📅 Planning Interactif (7h-24h, créneaux 30 min)</h2>
+                                <div class="planning-controls">
+                                    <button class="btn btn--sm btn--outline" id="prev-week">← Semaine précédente</button>
+                                    <span class="current-week" id="current-week-display">Semaine du 28 juillet - 3 août 2025</span>
+                                    <button class="btn btn--sm btn--outline" id="next-week">Semaine suivante →</button>
+                                </div>
+                                <div class="planning-legend">
+                                    <span class="legend-item legend-jay">Jay</span>
+                                    <span class="legend-item legend-angelique">Angélique</span>
+                                    <span class="legend-item legend-gautier">Gautier</span>
+                                    <span class="legend-item legend-family">Famille</span>
+                                </div>
+                            </div>
+                            <div class="planning-wrapper">
+                                <div class="planning-timeline">
+                                    <div class="timeline-hours" id="timeline-hours">
+                                        <!-- Heures générées par JS -->
+                                    </div>
+                                </div>
+                                <div class="planning-grid-container">
+                                    <div class="planning-days-header" id="planning-days-header">
+                                        <!-- En-têtes des jours générées par JS -->
+                                    </div>
+                                    <div class="planning-grid" id="planning-grid">
+                                        <!-- Grille générée par JS -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="planning-instructions">
+                                <p><strong>Instructions :</strong> Cliquez pour créer • Glissez-déposez pour déplacer • Redimensionnez avec les poignées • Double-clic pour éditer • Clic droit pour supprimer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profils Détaillés Tab -->
+            <div id="profiles" class="tab-content">
+                <div class="profiles-container">
+                    <h2>👥 Profils détaillés Human Design</h2>
+                    <div class="profiles-detailed" id="profiles-detailed">
+                        <!-- Contenu généré par JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Outils Tab -->
+            <div id="tools" class="tab-content">
+                <div class="tools-container">
+                    <h2>🛠️ Outils d'organisation</h2>
+                    <div class="tools-grid">
+                        <!-- Plan repas avec export MD -->
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>🍽️ Plan repas (7 jours × 2 repas)</h3>
+                                <button class="btn btn--sm btn--primary" id="export-meals-btn">📝 Export MD + Courses</button>
+                            </div>
+                            <div class="card__body">
+                                <div class="meal-planning" id="meal-planning">
+                                    <!-- Générée par JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Répartition tâches multi-assignation -->
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>📋 Répartition tâches - Multi-assignation</h3>
+                                <button class="btn btn--sm btn--outline" id="add-task">➕ Ajouter tâche</button>
+                            </div>
+                            <div class="card__body">
+                                <div class="task-distribution" id="task-distribution">
+                                    <!-- Générée par JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dé activités avec édition -->
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>🎲 Dé activités par énergie</h3>
+                                <button class="btn btn--sm btn--outline" id="edit-activities">✏️ Éditer listes</button>
+                            </div>
+                            <div class="card__body">
+                                <div class="activity-dice" id="activity-dice">
+                                    <!-- Générée par JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pomodoro réglable -->
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>🍅 Timer Pomodoro par profil</h3>
+                                <button class="btn btn--sm btn--outline" id="pomodoro-settings">⚙️ Réglages</button>
+                            </div>
+                            <div class="card__body">
+                                <div class="pomodoro-timer" id="pomodoro-timer">
+                                    <!-- Générée par JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Modal création/édition événement -->
+        <div class="modal hidden" id="event-modal">
+            <div class="modal-overlay modal-overlay-opaque"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="event-modal-title">Créer événement</h3>
+                    <button class="modal-close" id="close-event-modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="event-form">
+                        <input type="hidden" id="event-id">
+                        <div class="form-group">
+                            <label class="form-label">Titre</label>
+                            <input type="text" class="form-control" id="event-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Jour de la semaine</label>
+                            <select class="form-control" id="event-day" required>
+                                <option value="0">Lundi</option>
+                                <option value="1">Mardi</option>
+                                <option value="2">Mercredi</option>
+                                <option value="3">Jeudi</option>
+                                <option value="4">Vendredi</option>
+                                <option value="5">Samedi</option>
+                                <option value="6">Dimanche</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Heure début</label>
+                            <input type="time" class="form-control" id="event-start" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Heure fin</label>
+                            <input type="time" class="form-control" id="event-end" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Durée calculée</label>
+                            <input type="text" class="form-control" id="event-duration-display" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Membre responsable</label>
+                            <select class="form-control" id="event-member" required>
+                                <option value="jay">Jay</option>
+                                <option value="angelique">Angélique</option>
+                                <option value="gautier">Gautier</option>
+                                <option value="family">Famille</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" id="event-description" rows="3"></textarea>
+                        </div>
+                        <div class="flex gap-8 mt-16">
+                            <button type="submit" class="btn btn--primary">✅ Sauvegarder</button>
+                            <button type="button" class="btn btn--outline" id="cancel-event">❌ Annuler</button>
+                            <button type="button" class="btn btn--secondary" id="delete-event">🗑️ Supprimer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Gestion de Crise -->
+        <div class="modal hidden" id="crisis-modal">
+            <div class="modal-overlay modal-overlay-opaque"></div>
+            <div class="modal-content modal-large">
+                <div class="modal-header">
+                    <h3>🚨 Protocoles de Gestion de Crise</h3>
+                    <button class="modal-close" id="close-crisis-modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="crisis-selector">
+                        <div class="form-group">
+                            <label class="form-label">Personne concernée</label>
+                            <select class="form-control" id="crisis-person">
+                                <option value="">Sélectionner...</option>
+                                <option value="jay">Jay</option>
+                                <option value="angelique">Angélique</option>
+                                <option value="gautier">Gautier</option>
+                                <option value="lyam">Lyam (9 ans)</option>
+                                <option value="theo">Théo (7 ans)</option>
+                                <option value="evy">Evy (1.5 ans)</option>
+                                <option value="nami">Nami (0.3 ans)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="crisis-protocols" class="crisis-protocols">
+                        <p>Sélectionnez une personne pour afficher les protocoles appropriés.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Dé activités -->
+        <div class="modal hidden" id="dice-modal">
+            <div class="modal-overlay modal-overlay-opaque"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🎲 Dé d'activités</h3>
+                    <button class="modal-close" id="close-dice-modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="dice-container">
+                        <div class="form-group">
+                            <label class="form-label">Type</label>
+                            <select class="form-control" id="dice-type">
+                                <option value="member">Par membre</option>
+                                <option value="family">Famille</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="member-selector">
+                            <label class="form-label">Membre</label>
+                            <select class="form-control" id="dice-member">
+                                <option value="jay">Jay</option>
+                                <option value="angelique">Angélique</option>
+                                <option value="gautier">Gautier</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Niveau d'énergie (1-5)</label>
+                            <div class="energy-slider">
+                                <input type="range" min="1" max="5" value="3" class="form-control" id="energy-slider">
+                                <div class="energy-display">
+                                    <span>😴</span><span>😔</span><span>😐</span><span>😊</span><span>⚡</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn--primary btn--full-width" id="roll-dice">🎲 Lancer</button>
+                        <div class="dice-result" id="dice-result"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Plan repas -->
+        <div class="modal hidden" id="meal-modal">
+            <div class="modal-overlay modal-overlay-opaque"></div>
+            <div class="modal-content modal-large">
+                <div class="modal-header">
+                    <h3>🍽️ Plan repas hebdomadaire</h3>
+                    <button class="modal-close" id="close-meal-modal">×</button>
+                </div>
+                <div class="modal-body" id="meal-modal-content">
+                    <!-- Contenu généré par JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Répartition tâches -->
+        <div class="modal hidden" id="tasks-modal">
+            <div class="modal-overlay modal-overlay-opaque"></div>
+            <div class="modal-content modal-large">
+                <div class="modal-header">
+                    <h3>📋 Répartition des tâches</h3>
+                    <button class="modal-close" id="close-tasks-modal">×</button>
+                </div>
+                <div class="modal-body" id="tasks-modal-content">
+                    <!-- Contenu généré par JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Tracker énergie -->
+        <div class="modal hidden" id="energy-modal">
+            <div class="modal-overlay modal-overlay-opaque"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🔋 Tracker Énergie Quotidien</h3>
+                    <button class="btn btn--sm btn--outline" id="energy-help">ℹ️</button>
+                    <button class="modal-close" id="close-energy-modal">×</button>
+                </div>
+                <div class="modal-body" id="energy-modal-content">
+                    <!-- Contenu généré par JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Pomodoro Settings -->
+        <div class="modal hidden" id="pomodoro-settings-modal">
+            <div class="modal-overlay modal-overlay-opaque"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🍅 Réglages Pomodoro</h3>
+                    <button class="modal-close" id="close-pomodoro-settings">×</button>
+                </div>
+                <div class="modal-body" id="pomodoro-settings-content">
+                    <!-- Contenu généré par JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Édition activités -->
+        <div class="modal hidden" id="edit-activities-modal">
+            <div class="modal-overlay modal-overlay-opaque"></div>
+            <div class="modal-content modal-large">
+                <div class="modal-header">
+                    <h3>✏️ Éditer les listes d'activités</h3>
+                    <button class="modal-close" id="close-edit-activities">×</button>
+                </div>
+                <div class="modal-body" id="edit-activities-content">
+                    <!-- Contenu généré par JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

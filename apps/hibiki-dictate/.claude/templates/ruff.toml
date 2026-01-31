@@ -1,0 +1,119 @@
+# ============================================
+# Ruff Configuration - Python Linter & Formatter
+# ============================================
+# https://docs.astral.sh/ruff/
+
+# Python version target
+target-version = "py311"
+
+# Line length
+line-length = 100
+
+# Indentation
+indent-width = 4
+
+[lint]
+# Enable rule categories
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes
+    "I",      # isort
+    "N",      # pep8-naming
+    "UP",     # pyupgrade
+    "ANN",    # flake8-annotations
+    "ASYNC",  # flake8-async
+    "B",      # flake8-bugbear
+    "A",      # flake8-builtins
+    "C4",     # flake8-comprehensions
+    "DTZ",    # flake8-datetimez
+    "T10",    # flake8-debugger
+    "EXE",    # flake8-executable
+    "ISC",    # flake8-implicit-str-concat
+    "ICN",    # flake8-import-conventions
+    "G",      # flake8-logging-format
+    "PIE",    # flake8-pie
+    "T20",    # flake8-print
+    "PT",     # flake8-pytest-style
+    "Q",      # flake8-quotes
+    "RSE",    # flake8-raise
+    "RET",    # flake8-return
+    "SLF",    # flake8-self
+    "SIM",    # flake8-simplify
+    "TID",    # flake8-tidy-imports
+    "ARG",    # flake8-unused-arguments
+    "PTH",    # flake8-use-pathlib
+    "PL",     # pylint
+    "TRY",    # tryceratops
+    "RUF",    # ruff-specific rules
+]
+
+# Rules to ignore
+ignore = [
+    "ANN101",  # Missing type annotation for self
+    "ANN102",  # Missing type annotation for cls
+    "ANN401",  # Dynamically typed expressions (Any)
+    "TRY003",  # Avoid specifying long messages outside exception class
+    "PLR0913", # Too many arguments to function call
+]
+
+# Allow autofix for these rules
+fixable = ["ALL"]
+unfixable = []
+
+# Exclude patterns
+exclude = [
+    ".git",
+    ".venv",
+    "venv",
+    "__pycache__",
+    "*.egg-info",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+    "dist",
+    "build",
+    "migrations",  # Alembic migrations
+]
+
+[lint.per-file-ignores]
+"__init__.py" = ["F401"]  # Unused imports in __init__.py
+"tests/**/*.py" = [
+    "S101",    # Use of assert
+    "ANN",     # Type annotations (less critical in tests)
+    "ARG",     # Unused arguments (fixtures)
+]
+
+[lint.isort]
+# Import sorting configuration
+known-first-party = ["app", "src"]
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
+
+[lint.pylint]
+max-args = 7
+max-branches = 15
+max-returns = 8
+max-statements = 60
+
+[lint.mccabe]
+# McCabe complexity
+max-complexity = 10
+
+[format]
+# Formatting options
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "lf"
+
+# Docstring formatting
+docstring-code-format = true
+docstring-code-line-length = 80
+
+# ============================================
+# Usage
+# ============================================
+# Check: ruff check .
+# Fix: ruff check --fix .
+# Format: ruff format .
+# Both: ruff check --fix . && ruff format .

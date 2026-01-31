@@ -1,0 +1,28 @@
+{
+  "version": "1.0",
+  "chunk_size": 800,
+  "chunk_overlap": 100,
+  "categories": {
+    "coaching": {
+      "description": "Frameworks et méthodologies coaching Shinkofa",
+      "enabled": true,
+      "auto_tags": true
+    },
+    "business": {
+      "description": "Business plan Shinkofa, vision, stratégie",
+      "enabled": true,
+      "auto_tags": true
+    },
+    "technical": {
+      "description": "Architecture, patterns, décisions techniques",
+      "enabled": true,
+      "auto_tags": true
+    }
+  },
+  "auto_enrich": true,
+  "embeddings": {
+    "enabled": false,
+    "provider": "openai",
+    "model": "text-embedding-3-small"
+  }
+}

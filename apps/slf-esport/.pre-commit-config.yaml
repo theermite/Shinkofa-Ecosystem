@@ -1,0 +1,191 @@
+# Pre-commit Hooks Configuration
+# https://pre-commit.com/
+
+default_language_version:
+  python: python3.11
+  node: '18.0.0'
+
+repos:
+  # ========================================
+  # 1. Git Hygiene
+  # ========================================
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-yaml
+        args: ['--unsafe']  # Allow custom YAML tags
+      - id: check-json
+      - id: check-toml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+        args: ['--markdown-linebreak-ext=md']
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+      - id: detect-private-key
+      - id: no-commit-to-branch
+        args: ['--branch', 'main', '--branch', 'master']
+        stages: [commit]
+
+  # ========================================
+  # 2. Secrets Detection
+  # ========================================
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.2
+    hooks:
+      - id: gitleaks
+        name: Detect secrets with Gitleaks
+        entry: gitleaks protect --verbose --redact --staged
+        language: system
+
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
+        exclude: package-lock.json
+
+  # ========================================
+  # 3. Python Linting & Formatting
+  # ========================================
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.2.1
+    hooks:
+      # Linter (replaces flake8, pylint, isort)
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+        types_or: [python, pyi]
+
+      # Formatter (replaces black)
+      - id: ruff-format
+        types_or: [python, pyi]
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.8.0
+    hooks:
+      - id: mypy
+        name: Type check with mypy
+        additional_dependencies: [types-requests, types-PyYAML]
+        args: [--ignore-missing-imports, --show-error-codes]
+        exclude: ^(tests/|docs/)
+
+  # ========================================
+  # 4. JavaScript/TypeScript Linting
+  # ========================================
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.56.0
+    hooks:
+      - id: eslint
+        name: Lint JavaScript/TypeScript
+        files: \.(js|jsx|ts|tsx)$
+        types: [file]
+        args: [--fix, --max-warnings=0]
+        additional_dependencies:
+          - eslint@8.56.0
+          - '@typescript-eslint/parser@6.19.0'
+          - '@typescript-eslint/eslint-plugin@6.19.0'
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.1.0
+    hooks:
+      - id: prettier
+        name: Format with Prettier
+        files: \.(js|jsx|ts|tsx|json|css|scss|md|yaml|yml)$
+        args: [--write]
+
+  # ========================================
+  # 5. Markdown Linting
+  # ========================================
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.39.0
+    hooks:
+      - id: markdownlint
+        name: Lint Markdown files
+        args: [--fix, --config, .markdownlint.json]
+
+  # ========================================
+  # 6. YAML Linting
+  # ========================================
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        name: Lint YAML files
+        args: [-c, .yamllint.yml]
+
+  # ========================================
+  # 7. Shell Script Validation
+  # ========================================
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.9.0.6
+    hooks:
+      - id: shellcheck
+        name: Check shell scripts
+        args: [--severity=warning]
+
+  # ========================================
+  # 8. Commit Message Validation
+  # ========================================
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v3.0.0
+    hooks:
+      - id: conventional-pre-commit
+        name: Check conventional commit message
+        stages: [commit-msg]
+        args: [--force-scope]
+
+  # ========================================
+  # 9. Custom Hooks (Local)
+  # ========================================
+  - repo: local
+    hooks:
+      # Check that documentation is in sync
+      - id: check-docs-sync
+        name: Check documentation sync
+        entry: python scripts/hooks/check-docs-sync.py
+        language: system
+        pass_filenames: false
+        always_run: false
+        files: ^(Prompt-2026-Optimized/|\.claude/)
+
+      # Validate template structure
+      - id: check-template-structure
+        name: Validate template structure
+        entry: python scripts/hooks/check-template-structure.py
+        language: system
+        pass_filenames: false
+        files: ^Prompt-2026-Optimized/templates/
+
+      # Check for TODOs in production code
+      - id: check-todos
+        name: Check for unresolved TODOs
+        entry: python scripts/hooks/check-todos.py
+        language: system
+        pass_filenames: true
+        files: \.(py|js|ts|tsx)$
+        exclude: ^(tests/|_archive/)
+
+      # Prevent commits to protected files without review
+      - id: protect-critical-files
+        name: Protect critical configuration files
+        entry: python scripts/hooks/protect-critical-files.py
+        language: system
+        pass_filenames: true
+        files: ^(\.github/workflows/|\.claude/CLAUDE\.md|scripts/monitor-projects\.py)
+
+# Configuration
+ci:
+  autofix_commit_msg: |
+    ci: auto fixes from pre-commit hooks
+
+    For more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_branch: ''
+  autoupdate_commit_msg: 'chore: update pre-commit hooks'
+  autoupdate_schedule: weekly
+  skip: []
+  submodules: false

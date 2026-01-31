@@ -1,0 +1,143 @@
+/**
+ * Family Hub - Global Styles
+ * © 2025 La Voie Shinkofa
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-gray-300;
+  }
+
+  body {
+    @apply bg-shinkofa-cream text-shinkofa-blue-deep font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold text-shinkofa-blue-deep;
+  }
+
+  h1 {
+    @apply text-2xl md:text-4xl;
+  }
+
+  h2 {
+    @apply text-xl md:text-3xl;
+  }
+
+  h3 {
+    @apply text-lg md:text-2xl;
+  }
+
+  h4 {
+    @apply text-lg md:text-xl;
+  }
+}
+
+@layer components {
+  /* Buttons */
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply bg-shinkofa-emerald text-white hover:bg-opacity-90 focus:ring-shinkofa-emerald;
+  }
+
+  .btn-secondary {
+    @apply bg-shinkofa-blue-royal text-white hover:bg-opacity-90 focus:ring-shinkofa-blue-royal;
+  }
+
+  .btn-outline {
+    @apply border-2 border-shinkofa-blue-royal text-shinkofa-blue-royal hover:bg-shinkofa-blue-royal hover:text-white focus:ring-shinkofa-blue-royal;
+  }
+
+  .btn-danger {
+    @apply bg-shinkofa-bordeaux text-white hover:bg-opacity-90 focus:ring-shinkofa-bordeaux;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6 transition-shadow hover:shadow-lg;
+  }
+
+  /* Forms */
+  .input {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-shinkofa-blue-royal focus:border-transparent;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-shinkofa-blue-deep mb-1;
+  }
+
+  /* Badges */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .badge-success {
+    @apply bg-green-100 text-green-800;
+  }
+
+  .badge-warning {
+    @apply bg-yellow-100 text-yellow-800;
+  }
+
+  .badge-danger {
+    @apply bg-red-100 text-red-800;
+  }
+
+  .badge-info {
+    @apply bg-blue-100 text-blue-800;
+  }
+}
+
+@layer utilities {
+  /* Accessibility - High contrast mode */
+  .high-contrast {
+    @apply contrast-150;
+  }
+
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-gray-100 rounded-lg;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-shinkofa-blue-royal bg-opacity-50 rounded-lg hover:bg-opacity-70;
+  }
+
+  /* Loading spinner */
+  .spinner {
+    @apply inline-block w-6 h-6 border-4 border-shinkofa-blue-royal border-t-transparent rounded-full animate-spin;
+  }
+
+  /* Fade in animation */
+  .animate-fade-in {
+    animation: fadeIn 0.2s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

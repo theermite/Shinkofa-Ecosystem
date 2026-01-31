@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ssh root@vps-af24e24d.vps.ovh.net:*)",
+      "Bash(ssh:*)",
+      "Bash(scp:*)",
+      "Bash(git fetch:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(npm test:*)",
+      "Bash(python -m pytest:*)",
+      "Bash(if [ -f \"TODO.md\" ])",
+      "Bash(then cat TODO.md)",
+      "Bash(else echo \"No TODO.md file found\")",
+      "Bash(fi)",
+      "Bash(npm outdated:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(git stash:*)",
+      "Bash(git pull:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Skill(Session-Manager)",
+      "Bash(pip-audit:*)",
+      "Bash(find:*)",
+      "Bash(xargs -I {} sh -c 'echo \"\"=== $\\(basename {}\\) ===\"\" && grep \"\"router\\\\.\"\" \"\"{}\"\" | grep -E \"\"^\\\\s*@router\\\\.\"\" | head -15')"
+    ]
+  }
+}

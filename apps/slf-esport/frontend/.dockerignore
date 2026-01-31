@@ -1,0 +1,17 @@
+node_modules
+build
+build-new
+dist
+.env
+.env.local
+.env.development
+.env.production
+*.log
+.git
+.gitignore
+README.md
+.vscode
+.idea
+.DS_Store
+coverage
+.nyc_output

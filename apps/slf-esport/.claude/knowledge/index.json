@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-01-26T21:00:00Z",
+  "documents": [],
+  "stats": {
+    "total_documents": 0,
+    "total_chunks": 0,
+    "categories": {
+      "coaching": 0,
+      "business": 0,
+      "technical": 0
+    }
+  }
+}
