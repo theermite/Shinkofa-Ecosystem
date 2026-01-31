@@ -188,8 +188,7 @@ Vérifier/mettre à jour section "Comportement dans ce Projet" :
 ...
 
 **Environnements** :
-- LOCAL: [URL]
-- ALPHA/STAGING: [URL]
+- LOCAL: localhost
 - PRODUCTION: [URL]
 
 **Actions typiques** :

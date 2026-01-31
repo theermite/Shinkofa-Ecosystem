@@ -102,7 +102,7 @@ Infrastructure v4.0
 ├─────────────────────────────────────────────────────────────┤
 │  VPS OVH (vps-xxx.ovh.net)                                  │
 │  ├── Shinkofa Platform (PROD)                              │
-│  ├── SLF Esport (ALPHA)                                    │
+│  ├── SLF Esport (PROD)                                     │
 │  ├── Docker containers (Postgres, Redis, Nginx)            │
 │  └── SSL/TLS (Let's Encrypt)                               │
 └─────────────────────────────────────────────────────────────┘
@@ -133,7 +133,7 @@ VPS OVH
 │   ├── Backend (FastAPI): :8000
 │   ├── Frontend (React): :3000
 │   └── PostgreSQL: :5432
-├── SLF Esport (Alpha)
+├── SLF Esport
 │   ├── Backend: :8001
 │   └── Frontend: :3001
 ├── Reverse Proxy
