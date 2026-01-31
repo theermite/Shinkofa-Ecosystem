@@ -58,8 +58,7 @@ shizen/
 ## 🌐 URLs
 
 - **Dev**: http://localhost:3000
-- **ALPHA**: https://shizen.alpha.shinkofa.com (à venir)
-- **PROD**: https://shizen.shinkofa.com (à venir)
+- **PROD**: https://shizen.shinkofa.com (a venir)
 
 ## 🔧 Configuration
 

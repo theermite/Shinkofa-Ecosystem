@@ -24,7 +24,6 @@
 | Environnement | Domaine | Services |
 |---------------|---------|----------|
 | **Production** | app.shinkofa.com | Web :3000, API Auth, API Shizen :8001 |
-| **Alpha/Staging** | alpha.shinkofa.com | Web :3100, API Auth :8100, API Shizen :8101 |
 
 **Stack** : Next.js + FastAPI + PostgreSQL + Redis
 
@@ -74,11 +73,10 @@ Code utile extrait vers daily-journal widget. Conteneurs supprimés.
 
 ---
 
-## Conteneurs Docker (14 total)
+## Conteneurs Docker (10 total)
 
 | Projet | Conteneurs |
 |--------|------------|
-| Shinkofa Alpha | 4 (web, api-auth, api-shizen, postgres, redis) |
 | Shinkofa Prod | 5 (web, api-auth, api-shizen, postgres, redis) |
 | SLF | 4 (frontend, backend, postgres, redis) |
 | N8N | 1 |
@@ -103,12 +101,9 @@ Code utile extrait vers daily-journal widget. Conteneurs supprimés.
 | Port | Service |
 |------|---------|
 | 3000 | Shinkofa Web Prod |
-| 3100 | Shinkofa Web Alpha |
 | 5678 | N8N |
 | 8001 | Shinkofa API Shizen Prod |
 | 8050 | Ermite Toolbox API |
-| 8100 | Shinkofa API Auth Alpha |
-| 8101 | Shinkofa API Shizen Alpha |
 
 ---
 
@@ -118,7 +113,6 @@ Code utile extrait vers daily-journal widget. Conteneurs supprimés.
 |---------|------------|--------|
 | tools.theermite.com | 2026-04-17 | ✅ 87j |
 | app.shinkofa.com | 2026-04-13 | ✅ 84j |
-| alpha.shinkofa.com | 2026-04-05 | ✅ 76j |
 | devslf.shinkofa.com | 2026-04-04 | ✅ 75j |
 | brain-training.theermite.com | 2026-03-28 | ✅ 68j |
 | n8n.theermite.com | 2026-03-12 | ✅ 51j |
@@ -134,20 +128,17 @@ Code utile extrait vers daily-journal widget. Conteneurs supprimés.
 - `n8n_publisher` (user: n8n_user)
 
 ### PostgreSQL Docker
-- **Shinkofa Alpha** : shinkofa_auth_alpha + shinkofa_shizen_planner_alpha
 - **Shinkofa Prod** : shinkofa_auth_prod + shinkofa_shizen_planner_prod
 - **SLF** : slf_user (port 5433)
 
 ### Redis
-- Shinkofa Alpha/Prod
+- Shinkofa Prod
 - SLF (port 6380 public)
 
 ---
 
 ## Réseaux Docker
 
-- shinkofa-alpha_shinkofa-alpha-network
-- docker_shinkofa-alpha-network
 - docker_shinkofa-prod-network
 - shinkofa-platform_shinkofa-network
 - slf-esport_slf-network

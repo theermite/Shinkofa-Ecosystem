@@ -207,7 +207,7 @@ xl: 1280px  # Large desktop
 ### Base URL
 ```typescript
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001'
-// Production: https://alpha.shinkofa.com/api/shizen
+// Production: https://app.shinkofa.com/api/shizen
 ```
 
 ### Authentication

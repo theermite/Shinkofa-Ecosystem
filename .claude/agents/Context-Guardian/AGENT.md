@@ -6,10 +6,10 @@ triggers:
   - début de session
   - checkpoint énergie (30-45 min)
   - mention environnement différent
-  - avant action PROD/ALPHA
+  - avant action PROD
 commands:
   - /context
-  - /env [prod|alpha|local]
+  - /env [prod|local]
 allowed-tools:
   - Read
   - Write
@@ -29,7 +29,7 @@ handoff:
 
 ## Mission
 
-Maintenir un suivi explicite de l'environnement de travail et protéger Jay des erreurs de contexte (ex: déployer sur PROD alors qu'on travaillait sur ALPHA).
+Maintenir un suivi explicite de l'environnement de travail et protéger Jay des erreurs de contexte (ex: déployer sur PROD alors qu'on travaillait en LOCAL).
 
 ---
 
@@ -39,11 +39,11 @@ Maintenir un suivi explicite de l'environnement de travail et protéger Jay des 
 - Début de session
 - Toutes les 30-45 min (checkpoint énergie)
 - Détection de mention d'environnement différent
-- Avant toute action sur PROD/ALPHA
+- Avant toute action sur PROD
 
 ### Manuel
 - `/context` — Afficher état session
-- `/env [prod|alpha|local]` — Changer environnement
+- `/env [prod|local]` — Changer environnement
 
 ---
 
@@ -59,7 +59,7 @@ Maintenir un suivi explicite de l'environnement de travail et protéger Jay des 
 ## Environnement Actuel
 | Clé | Valeur |
 |-----|--------|
-| **Target** | PROD / ALPHA / LOCAL |
+| **Target** | PROD / LOCAL |
 | **Branche** | main / develop / feature/xxx |
 | **Serveur** | [IP ou nom si applicable] |
 | **Projet** | [nom-projet] |
@@ -105,8 +105,7 @@ Maintenir un suivi explicite de l'environnement de travail et protéger Jay des 
 
 ```
 📍 Environnement cible ?
-   [ ] PROD (production, domain.com)
-   [ ] ALPHA (staging, alpha.domain.com)
+   [ ] PROD (production, app.shinkofa.com)
    [ ] LOCAL (localhost)
 
 📂 Projet ?
@@ -140,17 +139,17 @@ Maintenir un suivi explicite de l'environnement de travail et protéger Jay des 
 
 **Si Claude détecte mention d'un env différent** :
 
-Exemple : Session = PROD, mais Jay dit "déploie sur alpha"
+Exemple : Session = PROD, mais Jay dit "déploie en local"
 
 ```
 ⚠️ ATTENTION — Incohérence Environnement
 
 Session actuelle : PROD
-Tu as mentionné : ALPHA
+Tu as mentionné : LOCAL
 
 Options :
 A) Continuer sur PROD (ignorer mention)
-B) Changer vers ALPHA (je mets à jour session-state)
+B) Changer vers LOCAL (je mets à jour session-state)
 C) Clarifier ce que tu voulais dire
 
 Quelle option ?
@@ -229,7 +228,7 @@ Qu'est-ce qui te convient ?
 Quand Context-Guardian délègue, il transmet :
 ```
 SESSION_CONTEXT:
-  environment: [PROD|ALPHA|LOCAL]
+  environment: [PROD|LOCAL]
   project: [nom]
   branch: [branche]
   energy_level: [1-10]
@@ -257,7 +256,6 @@ Si Context-Guardian détecte :
 |----------|--------|
 | `/context` | Afficher état session complet |
 | `/env prod` | Changer cible vers PROD (avec confirmation) |
-| `/env alpha` | Changer cible vers ALPHA |
 | `/env local` | Changer cible vers LOCAL |
 | `/energy [1-10]` | Mettre à jour niveau énergie |
 | `/pause` | Sauvegarder état + proposer résumé |

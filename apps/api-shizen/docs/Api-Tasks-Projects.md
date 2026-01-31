@@ -1,8 +1,8 @@
 # Tasks & Projects API Documentation
 
 **Service**: Shinkofa Shizen-Planner API
-**Base URL**: `http://localhost:8001` (dev) | `https://alpha.shinkofa.com` (prod)
-**Authentication**: JWT Token (production) or `X-User-ID` header (dev/alpha)
+**Base URL**: `http://localhost:8001` (dev) | `https://app.shinkofa.com` (prod)
+**Authentication**: JWT Token (production) or `X-User-ID` header (dev)
 
 ---
 

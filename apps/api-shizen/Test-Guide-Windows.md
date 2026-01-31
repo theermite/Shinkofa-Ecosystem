@@ -6,7 +6,7 @@ Tester les endpoints Journals et Rituals de l'API Shizen-Planner depuis Windows.
 
 ## 📍 URL de l'API
 
-**Base URL**: `https://alpha.shinkofa.com/api/shizen`
+**Base URL**: `https://app.shinkofa.com/api/shizen`
 
 ## 🛠️ Méthodes de Test
 
@@ -30,7 +30,7 @@ $body = @{
     adjustments = "Continuer les tests"
 } | ConvertTo-Json
 
-Invoke-RestMethod -Uri "https://alpha.shinkofa.com/api/shizen/journals/" `
+Invoke-RestMethod -Uri "https://app.shinkofa.com/api/shizen/journals/" `
     -Method POST `
     -Headers $headers `
     -Body $body
@@ -42,7 +42,7 @@ $headers = @{
     "X-User-ID" = "jay"
 }
 
-Invoke-RestMethod -Uri "https://alpha.shinkofa.com/api/shizen/journals/?limit=5" `
+Invoke-RestMethod -Uri "https://app.shinkofa.com/api/shizen/journals/?limit=5" `
     -Method GET `
     -Headers $headers
 ```
@@ -62,7 +62,7 @@ $body = @{
     order = 1
 } | ConvertTo-Json
 
-Invoke-RestMethod -Uri "https://alpha.shinkofa.com/api/shizen/rituals/" `
+Invoke-RestMethod -Uri "https://app.shinkofa.com/api/shizen/rituals/" `
     -Method POST `
     -Headers $headers `
     -Body $body
@@ -74,7 +74,7 @@ $headers = @{
     "X-User-ID" = "jay"
 }
 
-Invoke-RestMethod -Uri "https://alpha.shinkofa.com/api/shizen/rituals/" `
+Invoke-RestMethod -Uri "https://app.shinkofa.com/api/shizen/rituals/" `
     -Method GET `
     -Headers $headers
 ```
@@ -85,7 +85,7 @@ $headers = @{
     "X-User-ID" = "jay"
 }
 
-Invoke-RestMethod -Uri "https://alpha.shinkofa.com/api/shizen/rituals/reset" `
+Invoke-RestMethod -Uri "https://app.shinkofa.com/api/shizen/rituals/reset" `
     -Method POST `
     -Headers $headers
 ```
@@ -96,7 +96,7 @@ Invoke-RestMethod -Uri "https://alpha.shinkofa.com/api/shizen/rituals/reset" `
 
 #### Test 1: Créer un Journal
 ```bash
-curl -X POST "https://alpha.shinkofa.com/api/shizen/journals/" ^
+curl -X POST "https://app.shinkofa.com/api/shizen/journals/" ^
   -H "Content-Type: application/json" ^
   -H "X-User-ID: jay" ^
   -d "{\"date\":\"2026-01-07\",\"energy_morning\":7,\"energy_evening\":6,\"intentions\":\"Tester l'API\",\"gratitudes\":[\"Test 1\",\"Test 2\",\"Test 3\"],\"successes\":[\"Success 1\",\"Success 2\",\"Success 3\"],\"learning\":\"Apprentissage\",\"adjustments\":\"Ajustements\"}"
@@ -104,13 +104,13 @@ curl -X POST "https://alpha.shinkofa.com/api/shizen/journals/" ^
 
 #### Test 2: Lister les Journals
 ```bash
-curl "https://alpha.shinkofa.com/api/shizen/journals/?limit=5" ^
+curl "https://app.shinkofa.com/api/shizen/journals/?limit=5" ^
   -H "X-User-ID: jay"
 ```
 
 #### Test 3: Créer un Ritual
 ```bash
-curl -X POST "https://alpha.shinkofa.com/api/shizen/rituals/" ^
+curl -X POST "https://app.shinkofa.com/api/shizen/rituals/" ^
   -H "Content-Type: application/json" ^
   -H "X-User-ID: jay" ^
   -d "{\"label\":\"Morning meditation\",\"icon\":\"🧘\",\"completed\":false,\"category\":\"morning\",\"order\":1}"
@@ -118,13 +118,13 @@ curl -X POST "https://alpha.shinkofa.com/api/shizen/rituals/" ^
 
 #### Test 4: Lister les Rituals
 ```bash
-curl "https://alpha.shinkofa.com/api/shizen/rituals/" ^
+curl "https://app.shinkofa.com/api/shizen/rituals/" ^
   -H "X-User-ID: jay"
 ```
 
 #### Test 5: Réinitialiser tous les Rituals
 ```bash
-curl -X POST "https://alpha.shinkofa.com/api/shizen/rituals/reset" ^
+curl -X POST "https://app.shinkofa.com/api/shizen/rituals/reset" ^
   -H "X-User-ID: jay"
 ```
 
@@ -133,7 +133,7 @@ curl -X POST "https://alpha.shinkofa.com/api/shizen/rituals/reset" ^
 ### Option 3: Postman / Insomnia (GUI)
 
 #### Configuration
-1. **Base URL**: `https://alpha.shinkofa.com/api/shizen`
+1. **Base URL**: `https://app.shinkofa.com/api/shizen`
 2. **Header requis**: `X-User-ID: jay`
 3. **Content-Type**: `application/json` (pour POST/PUT)
 
@@ -157,7 +157,7 @@ curl -X POST "https://alpha.shinkofa.com/api/shizen/rituals/reset" ^
 #### Exemple de requête Postman (Create Journal)
 
 **Method**: POST
-**URL**: `https://alpha.shinkofa.com/api/shizen/journals/`
+**URL**: `https://app.shinkofa.com/api/shizen/journals/`
 
 **Headers**:
 ```

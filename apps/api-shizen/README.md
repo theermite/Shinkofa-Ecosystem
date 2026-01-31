@@ -73,7 +73,6 @@ alembic revision --autogenerate -m "description"
 
 - **Dev**: http://localhost:8000
 - **Docs**: http://localhost:8000/docs
-- **ALPHA**: https://api.alpha.shinkofa.com
 - **PROD**: https://api.shinkofa.com
 
 ## 🧪 Tests

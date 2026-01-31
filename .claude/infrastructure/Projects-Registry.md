@@ -98,7 +98,6 @@
 | Domaine | Projet | SSL | État |
 |---------|--------|-----|------|
 | app.shinkofa.com | shinkofa-platform (prod) | ✅ | Actif |
-| alpha.shinkofa.com | shinkofa-platform (staging) | ✅ | Actif |
 | **studio.shinkofa.com** | Social-Content-Master | ⏳ | À configurer |
 | **media.shinkofa.com** | API Stockage médias | ⏳ | À configurer |
 | **cloud.shinkofa.com** | Cloud storage (futur) | ⏳ | Planifié |

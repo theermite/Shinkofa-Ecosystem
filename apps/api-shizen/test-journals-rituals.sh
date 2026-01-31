@@ -3,7 +3,7 @@
 # Usage: ./test-journals-rituals.sh
 
 # Configuration
-API_URL="https://alpha.shinkofa.com/api/shizen"
+API_URL="https://app.shinkofa.com/api/shizen"
 USER_ID="jay"
 
 echo "🧪 Test des endpoints Journals & Rituals"

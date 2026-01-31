@@ -35,7 +35,7 @@ function VerifyEmailContent() {
     // Verify email with backend
     async function verifyEmail() {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_API_URL || 'https://alpha.shinkofa.com'}/auth/verify-email`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_API_URL || 'https://app.shinkofa.com'}/auth/verify-email`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

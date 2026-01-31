@@ -54,5 +54,4 @@ kosei/
 ## 🌐 URLs
 
 - **Dev**: http://localhost:3001
-- **ALPHA**: https://kosei.alpha.shinkofa.com (à venir)
 - **PROD**: https://kosei.shinkofa.com (à venir)

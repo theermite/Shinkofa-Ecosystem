@@ -7,7 +7,7 @@
 ### Branches
 
 - `main` - Production (shinkofa.com, app.shinkofa.com)
-- `develop` - Développement (alpha.shinkofa.com)
+- `develop` - Développement (local)
 - `feature/*` - Nouvelles fonctionnalités
 - `fix/*` - Corrections de bugs
 - `hotfix/*` - Corrections urgentes production
