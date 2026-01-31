@@ -1,4 +1,4 @@
-name: CI - Build & Test
+name: CI - Shinkofa Ecosystem
 
 on:
   push:
@@ -6,66 +6,238 @@ on:
   pull_request:
     branches: [main, develop]
 
+env:
+  NODE_VERSION: '20'
+  PNPM_VERSION: '8'
+
 jobs:
-  build:
-    name: Build and Test
+  # ============================================
+  # JOB 1: Install & Cache
+  # ============================================
+  setup:
+    name: 📦 Setup
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
 
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Setup PNPM
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v3
         with:
-          version: 8
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Get PNPM store directory
         id: pnpm-cache
         shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      - name: Setup PNPM cache
-        uses: actions/cache@v3
+      - name: Cache PNPM store
+        uses: actions/cache@v4
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+          restore-keys: ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build all apps
-        run: pnpm build
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            apps/*/node_modules
+            packages/*/node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
 
-      - name: Lint all apps
+  # ============================================
+  # JOB 2: Lint
+  # ============================================
+  lint:
+    name: 🔍 Lint
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Restore node_modules cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            apps/*/node_modules
+            packages/*/node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Run ESLint
         run: pnpm lint
 
-      - name: Type check all apps
+  # ============================================
+  # JOB 3: Type Check
+  # ============================================
+  type-check:
+    name: 📝 Type Check
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Restore node_modules cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            apps/*/node_modules
+            packages/*/node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Run TypeScript check
         run: pnpm type-check
+
+  # ============================================
+  # JOB 4: Tests
+  # ============================================
+  test:
+    name: 🧪 Tests
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Restore node_modules cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            apps/*/node_modules
+            packages/*/node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Run tests
         run: pnpm test
-        continue-on-error: true
+
+  # ============================================
+  # JOB 5: Build
+  # ============================================
+  build:
+    name: 🏗️ Build
+    runs-on: ubuntu-latest
+    needs: [lint, type-check]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Restore node_modules cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            apps/*/node_modules
+            packages/*/node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Build all apps
+        run: pnpm build
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: build-artifacts-${{ matrix.node-version }}
+          name: build-artifacts
           path: |
             apps/*/dist
             apps/*/.next
           retention-days: 7
+
+  # ============================================
+  # JOB 6: Summary & Notification
+  # ============================================
+  summary:
+    name: ✅ Summary
+    runs-on: ubuntu-latest
+    needs: [lint, type-check, test, build]
+    if: always()
+    steps:
+      - name: Check job results
+        run: |
+          echo "## CI Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Job | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Lint | ${{ needs.lint.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Type Check | ${{ needs.type-check.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Tests | ${{ needs.test.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Build | ${{ needs.build.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
+
+      - name: Fail if any job failed
+        if: contains(needs.*.result, 'failure')
+        run: |
+          echo "❌ One or more jobs failed!"
+          exit 1
+
+  # ============================================
+  # JOB 7: Notify on Failure (main branch only)
+  # ============================================
+  notify-failure:
+    name: 📧 Notify Failure
+    runs-on: ubuntu-latest
+    needs: [lint, type-check, test, build]
+    if: failure() && github.ref == 'refs/heads/main'
+    steps:
+      - name: Create failure issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const runUrl = `https://github.com/${owner}/${repo}/actions/runs/${context.runId}`;
+
+            await github.rest.issues.create({
+              owner,
+              repo,
+              title: `🚨 CI Failed on main - ${new Date().toISOString().split('T')[0]}`,
+              body: `## CI Pipeline Failed\n\n**Branch:** main\n**Commit:** ${context.sha.substring(0, 7)}\n**Author:** @${context.actor}\n\n[View failed workflow](${runUrl})\n\n---\n*Auto-generated by CI*`,
+              labels: ['ci-failure', 'bug']
+            });
