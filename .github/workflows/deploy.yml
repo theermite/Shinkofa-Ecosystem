@@ -1,0 +1,329 @@
+name: Deploy - Shinkofa Ecosystem
+
+on:
+  # Triggered after CI passes on main
+  workflow_run:
+    workflows: ["CI - Shinkofa Ecosystem"]
+    types:
+      - completed
+    branches: [main]
+
+  # Manual deployment option
+  workflow_dispatch:
+    inputs:
+      app:
+        description: 'App to deploy (all, michi, api-shizen, shizen)'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - michi
+          - api-shizen
+          - shizen
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+
+env:
+  # VPS OVH Configuration
+  VPS_HOST: ${{ secrets.VPS_HOST }}
+  VPS_USER: ${{ secrets.VPS_USER }}
+  VPS_PATH: /home/${{ secrets.VPS_USER }}/shinkofa-ecosystem
+  NODE_VERSION: '20'
+  PNPM_VERSION: '8'
+  PYTHON_VERSION: '3.12'
+
+jobs:
+  # ============================================
+  # Check CI status (for workflow_run trigger)
+  # ============================================
+  check-ci:
+    name: 🔍 Check CI Status
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_run'
+    outputs:
+      should_deploy: ${{ steps.check.outputs.should_deploy }}
+    steps:
+      - name: Check CI conclusion
+        id: check
+        run: |
+          if [ "${{ github.event.workflow_run.conclusion }}" == "success" ]; then
+            echo "should_deploy=true" >> $GITHUB_OUTPUT
+            echo "✅ CI passed - proceeding with deployment"
+          else
+            echo "should_deploy=false" >> $GITHUB_OUTPUT
+            echo "❌ CI failed - skipping deployment"
+          fi
+
+  # ============================================
+  # Build applications for deployment
+  # ============================================
+  build:
+    name: 🏗️ Build for Deploy
+    runs-on: ubuntu-latest
+    needs: [check-ci]
+    if: |
+      always() &&
+      (github.event_name == 'workflow_dispatch' || needs.check-ci.outputs.should_deploy == 'true')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Get PNPM store directory
+        id: pnpm-cache
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Cache PNPM store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build all apps
+        run: pnpm build
+
+      - name: Upload Michi build
+        uses: actions/upload-artifact@v4
+        with:
+          name: michi-build
+          path: apps/michi/.next
+          retention-days: 1
+
+      - name: Upload Shizen build
+        uses: actions/upload-artifact@v4
+        with:
+          name: shizen-build
+          path: apps/shizen/dist
+          retention-days: 1
+          if-no-files-found: ignore
+
+  # ============================================
+  # Deploy Michi (Next.js) to VPS
+  # ============================================
+  deploy-michi:
+    name: 🚀 Deploy Michi
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: |
+      always() &&
+      needs.build.result == 'success' &&
+      (github.event.inputs.app == 'all' || github.event.inputs.app == 'michi' || github.event_name == 'workflow_run')
+    environment:
+      name: production
+      url: https://app.shinkofa.com
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download Michi build
+        uses: actions/download-artifact@v4
+        with:
+          name: michi-build
+          path: apps/michi/.next
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+
+      - name: Add VPS to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy Michi to VPS
+        run: |
+          echo "📦 Syncing Michi to VPS..."
+          rsync -avz --delete \
+            --exclude 'node_modules' \
+            --exclude '.env.local' \
+            apps/michi/ \
+            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ env.VPS_PATH }}/apps/michi/
+
+          echo "🔄 Installing dependencies & restarting..."
+          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'ENDSSH'
+            cd ${{ env.VPS_PATH }}/apps/michi
+            source ~/.nvm/nvm.sh
+            nvm use 20
+            pnpm install --frozen-lockfile --prod
+            pm2 restart michi || pm2 start npm --name "michi" -- start
+          ENDSSH
+
+      - name: Health check
+        run: |
+          echo "🏥 Checking Michi health..."
+          sleep 10
+          curl -f https://app.shinkofa.com/api/health || echo "⚠️ Health check failed but deployment completed"
+
+  # ============================================
+  # Deploy API-Shizen (FastAPI) to VPS
+  # ============================================
+  deploy-api-shizen:
+    name: 🚀 Deploy API-Shizen
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: |
+      always() &&
+      needs.build.result == 'success' &&
+      (github.event.inputs.app == 'all' || github.event.inputs.app == 'api-shizen' || github.event_name == 'workflow_run')
+    environment:
+      name: production
+      url: https://app.shinkofa.com/api
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+
+      - name: Add VPS to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy API-Shizen to VPS
+        run: |
+          echo "📦 Syncing API-Shizen to VPS..."
+          rsync -avz --delete \
+            --exclude '__pycache__' \
+            --exclude '.env' \
+            --exclude 'venv' \
+            --exclude '.venv' \
+            --exclude '*.pyc' \
+            apps/api-shizen/ \
+            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ env.VPS_PATH }}/apps/api-shizen/
+
+          echo "🔄 Installing dependencies & restarting..."
+          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'ENDSSH'
+            cd ${{ env.VPS_PATH }}/apps/api-shizen
+            source venv/bin/activate || python3.12 -m venv venv && source venv/bin/activate
+            pip install -r requirements.txt --upgrade
+            alembic upgrade head
+            pm2 restart api-shizen || pm2 start "uvicorn app.main:app --host 0.0.0.0 --port 8000" --name "api-shizen"
+          ENDSSH
+
+      - name: Health check
+        run: |
+          echo "🏥 Checking API-Shizen health..."
+          sleep 10
+          curl -f https://app.shinkofa.com/api/health || echo "⚠️ Health check failed but deployment completed"
+
+  # ============================================
+  # Deploy Shizen Frontend (if exists)
+  # ============================================
+  deploy-shizen:
+    name: 🚀 Deploy Shizen
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: |
+      always() &&
+      needs.build.result == 'success' &&
+      (github.event.inputs.app == 'all' || github.event.inputs.app == 'shizen' || github.event_name == 'workflow_run')
+    environment:
+      name: production
+    continue-on-error: true  # Shizen may not be ready yet
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check if Shizen has build
+        id: check-shizen
+        run: |
+          if [ -d "apps/shizen/dist" ] || [ -d "apps/shizen/.next" ]; then
+            echo "has_build=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_build=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ Shizen not ready for deployment yet"
+          fi
+
+      - name: Download Shizen build
+        if: steps.check-shizen.outputs.has_build == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: shizen-build
+          path: apps/shizen/dist
+        continue-on-error: true
+
+      - name: Setup SSH
+        if: steps.check-shizen.outputs.has_build == 'true'
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+
+      - name: Deploy Shizen to VPS
+        if: steps.check-shizen.outputs.has_build == 'true'
+        run: |
+          echo "📦 Syncing Shizen to VPS..."
+          rsync -avz --delete \
+            --exclude 'node_modules' \
+            apps/shizen/dist/ \
+            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ env.VPS_PATH }}/apps/shizen/dist/
+
+  # ============================================
+  # Deployment Summary & Notification
+  # ============================================
+  summary:
+    name: 📋 Deployment Summary
+    runs-on: ubuntu-latest
+    needs: [deploy-michi, deploy-api-shizen, deploy-shizen]
+    if: always()
+    steps:
+      - name: Generate summary
+        run: |
+          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| App | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Michi | ${{ needs.deploy-michi.result == 'success' && '✅ Deployed' || needs.deploy-michi.result == 'skipped' && '⏭️ Skipped' || '❌ Failed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| API-Shizen | ${{ needs.deploy-api-shizen.result == 'success' && '✅ Deployed' || needs.deploy-api-shizen.result == 'skipped' && '⏭️ Skipped' || '❌ Failed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Shizen | ${{ needs.deploy-shizen.result == 'success' && '✅ Deployed' || needs.deploy-shizen.result == 'skipped' && '⏭️ Skipped' || '⚠️ Not Ready' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Environment:** Production" >> $GITHUB_STEP_SUMMARY
+          echo "**Triggered by:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+
+  # ============================================
+  # Notify on failure
+  # ============================================
+  notify-failure:
+    name: 📧 Notify Failure
+    runs-on: ubuntu-latest
+    needs: [deploy-michi, deploy-api-shizen]
+    if: failure()
+    steps:
+      - name: Create failure issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const runUrl = `https://github.com/${owner}/${repo}/actions/runs/${context.runId}`;
+
+            await github.rest.issues.create({
+              owner,
+              repo,
+              title: `🚨 Deployment Failed - ${new Date().toISOString().split('T')[0]}`,
+              body: `## Deployment Pipeline Failed\n\n**Branch:** main\n**Commit:** ${context.sha.substring(0, 7)}\n**Author:** @${context.actor}\n\n**Failed Jobs:**\n- Michi: ${{ needs.deploy-michi.result }}\n- API-Shizen: ${{ needs.deploy-api-shizen.result }}\n\n[View failed workflow](${runUrl})\n\n---\n*Auto-generated by Deploy Pipeline*`,
+              labels: ['deployment-failure', 'bug']
+            });

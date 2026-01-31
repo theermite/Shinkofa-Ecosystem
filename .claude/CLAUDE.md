@@ -177,6 +177,40 @@ pnpm test
 
 ---
 
+## 🔄 CI/CD (GitHub Actions)
+
+### Workflows Configurés
+
+| Workflow | Fichier | Déclencheur |
+|----------|---------|-------------|
+| **CI** | `.github/workflows/ci.yml` | Push/PR sur main, develop |
+| **Deploy** | `.github/workflows/deploy.yml` | Après CI réussi sur main |
+
+### Pipeline CI (Standard)
+
+```
+Setup → Lint + Type-Check + Tests (parallel) → Build → Summary
+```
+
+### Pipeline Deploy (Complet)
+
+```
+Check CI → Build → Deploy Michi → Deploy API-Shizen → Deploy Shizen → Summary
+```
+
+### Déploiement Manuel
+
+1. Actions > "Deploy - Shinkofa Ecosystem"
+2. "Run workflow"
+3. Sélectionner app (all, michi, api-shizen, shizen)
+
+### Secrets Requis
+
+Voir `.github/SECRETS-REQUIRED.md` pour configurer:
+- `VPS_HOST`, `VPS_USER`, `VPS_SSH_KEY`
+
+---
+
 ## ⚠️ Nettoyage Requis
 
 - `apps/sakusei/Social-Content-Master/` — Ancien projet imbriqué à supprimer après vérification
