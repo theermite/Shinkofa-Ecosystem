@@ -20,6 +20,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          submodules: false
+          fetch-depth: 1
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -64,6 +67,8 @@ jobs:
     needs: setup
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -96,6 +101,8 @@ jobs:
     needs: setup
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -128,6 +135,8 @@ jobs:
     needs: setup
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -160,6 +169,8 @@ jobs:
     needs: [lint, type-check]
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -225,7 +236,7 @@ jobs:
     name: 📧 Notify Failure
     runs-on: ubuntu-latest
     needs: [lint, type-check, test, build]
-    if: failure() && github.ref == 'refs/heads/main'
+    if: failure() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
     steps:
       - name: Create failure issue
         uses: actions/github-script@v7
