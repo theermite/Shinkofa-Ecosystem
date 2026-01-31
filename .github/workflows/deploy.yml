@@ -6,7 +6,7 @@ on:
     workflows: ["CI - Shinkofa Ecosystem"]
     types:
       - completed
-    branches: [main]
+    branches: [main, master]
 
   # Manual deployment option
   workflow_dispatch:
