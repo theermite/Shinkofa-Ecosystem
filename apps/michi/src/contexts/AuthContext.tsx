@@ -1,6 +1,8 @@
 /**
  * Auth Context
  * Shinkofa Platform - Global authentication state
+ *
+ * Supports DEV_AUTH_BYPASS mode for local testing without real auth
  */
 
 'use client'
@@ -15,6 +17,29 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 const TOKEN_KEY = 'shinkofa_access_token'
 const REFRESH_TOKEN_KEY = 'shinkofa_refresh_token'
 const REMEMBER_ME_KEY = 'shinkofa_remember_me'
+
+// === DEV BYPASS MODE ===
+const DEV_AUTH_BYPASS = process.env.NEXT_PUBLIC_DEV_AUTH_BYPASS === 'true'
+const DEV_USER: User | null = DEV_AUTH_BYPASS
+  ? {
+      id: process.env.NEXT_PUBLIC_DEV_USER_ID || 'dev-user-123',
+      email: process.env.NEXT_PUBLIC_DEV_USER_EMAIL || 'dev@shinkofa.local',
+      username: 'dev_user',
+      full_name: process.env.NEXT_PUBLIC_DEV_USER_NAME || 'Dev User',
+      is_active: true,
+      email_verified: true,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      subscription: {
+        id: 'dev-sub-123',
+        tier: 'sensei', // Full access for testing
+        status: 'active',
+        amount: 0,
+        currency: 'EUR',
+        cancel_at_period_end: false,
+      },
+    }
+  : null
 
 // Helper function to get token from appropriate storage
 function getStoredToken(key: string): string | null {
@@ -58,6 +83,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       // Prevent SSR hydration mismatch
       if (typeof window === 'undefined') {
+        setIsLoading(false)
+        return
+      }
+
+      // === DEV BYPASS: Auto-login with mock user ===
+      if (DEV_AUTH_BYPASS && DEV_USER) {
+        console.log('🔓 DEV AUTH BYPASS: Auto-logged in as', DEV_USER.full_name)
+        setUser(DEV_USER)
         setIsLoading(false)
         return
       }
@@ -229,16 +262,29 @@ export function useAuth() {
 
 /**
  * Get access token from localStorage
+ * In DEV BYPASS mode, returns a fake token
  */
 export function getAccessToken(): string | null {
   if (typeof window === 'undefined') return null
+
+  // DEV BYPASS: Return fake token
+  if (DEV_AUTH_BYPASS) {
+    return 'dev-bypass-token'
+  }
+
   return getStoredToken(TOKEN_KEY)
 }
 
 /**
  * Get user_id from stored token
+ * In DEV BYPASS mode, returns the dev user ID
  */
 export function getUserIdFromToken(): string | null {
+  // DEV BYPASS: Return dev user ID
+  if (DEV_AUTH_BYPASS && DEV_USER) {
+    return DEV_USER.id
+  }
+
   const token = getAccessToken()
   if (!token) return null
 

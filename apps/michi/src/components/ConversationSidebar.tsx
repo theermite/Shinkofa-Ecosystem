@@ -184,10 +184,13 @@ export default function ConversationSidebar({
                     </div>
                   </div>
                 ) : (
-                  // View mode
-                  <button
+                  // View mode - using div instead of button to allow nested buttons
+                  <div
                     onClick={() => onSelect(conv)}
-                    className={`w-full px-3 py-3 text-left transition-colors group ${
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === 'Enter' && onSelect(conv)}
+                    className={`w-full px-3 py-3 text-left transition-colors group cursor-pointer ${
                       selectedId === conv.id
                         ? 'bg-purple-100 dark:bg-purple-900/40 border-l-4 border-purple-600'
                         : 'hover:bg-gray-100 dark:hover:bg-gray-800 border-l-4 border-transparent'
@@ -232,7 +235,7 @@ export default function ConversationSidebar({
                         </button>
                       </div>
                     </div>
-                  </button>
+                  </div>
                 )}
               </li>
             ))}

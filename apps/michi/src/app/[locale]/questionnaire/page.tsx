@@ -104,8 +104,8 @@ function QuestionnairePageContent() {
       // Check for existing session (includes answers by default)
       const existingSessions = await getUserSessions(user.id.toString());
       let currentSessionId: string;
-      let existingAnswers: Record<string, any> = {};
-      let resumeIndex = 0;
+      const existingAnswers: Record<string, unknown> = {};
+      const resumeIndex = 0;
 
       // Check for existing session with answers
       const sessionWithAnswers = existingSessions?.find(s => s.answers && s.answers.length > 0);
@@ -478,7 +478,7 @@ function QuestionnairePageContent() {
           // H3 headers
           if (line.startsWith('### ')) return `<h3 class="text-2xl font-semibold mb-3 mt-5 text-gray-800 dark:text-gray-200">${line.substring(4)}</h3>`;
           // Bold text
-          let processed = line.replace(/\*\*(.+?)\*\*/g, '<strong class="font-bold text-gray-900 dark:text-white">$1</strong>');
+          const processed = line.replace(/\*\*(.+?)\*\*/g, '<strong class="font-bold text-gray-900 dark:text-white">$1</strong>');
           // List items
           if (line.startsWith('- ')) return `<li class="ml-6 text-gray-700 dark:text-gray-300">${processed.substring(2)}</li>`;
           // Regular paragraphs

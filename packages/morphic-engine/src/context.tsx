@@ -2,7 +2,7 @@
  * React Context for Morphic Engine
  */
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import type { MorphicProfile } from '@shinkofa/types';
 import type { MorphicAdaptation, MorphicPreferences } from './types';
 import {

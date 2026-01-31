@@ -99,7 +99,7 @@ export function formatRelativeTime(date: Date, locale: Locale): string {
   for (const [unit, seconds] of Object.entries(intervals)) {
     const interval = Math.floor(diffInSeconds / seconds);
     if (interval >= 1) {
-      const trans = translations[locale][unit as keyof typeof translations.fr];
+      const trans = translations[locale][unit as 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute'];
       const unitName = interval === 1 ? trans.singular : trans.plural;
 
       if (locale === 'en') {

@@ -123,7 +123,7 @@ function getNeurodivergencePreferences(
 function getDesignHumainRecommendations(
   profile: MorphicProfile
 ): Partial<MorphicRecommendations> {
-  const { type, autorite, profil } = profile.designHumain;
+  const { type, autorite: _autorite, profil: _profil } = profile.designHumain;
 
   const recommendations: Record<DesignHumainType, Partial<MorphicRecommendations>> = {
     Manifesteur: {

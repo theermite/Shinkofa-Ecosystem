@@ -250,9 +250,9 @@ export default function RegisterPage() {
         <div className="mt-8 text-center">
           <p className="text-sm text-gray-500 dark:text-gray-400">
             {t('termsPrefix')}{' '}
-            <a href="/terms" className="text-shinkofa-marine dark:text-secondary-300 hover:underline">
+            <Link href="/terms" className="text-shinkofa-marine dark:text-secondary-300 hover:underline">
               {t('termsLink')}
-            </a>
+            </Link>
           </p>
         </div>
       </div>

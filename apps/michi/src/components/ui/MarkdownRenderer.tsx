@@ -100,7 +100,7 @@ function processInlineFormatting(text: string): React.ReactNode {
   if (!text) return null
 
   const parts: React.ReactNode[] = []
-  let remaining = text
+  const _remaining = text
   let keyIndex = 0
 
   // Process **bold** text

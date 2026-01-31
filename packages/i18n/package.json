@@ -12,10 +12,10 @@
     }
   },
   "scripts": {
-    "build": "echo 'Build skipped - TODO: fix TypeScript errors'",
+    "build": "tsc",
     "dev": "tsc --watch",
     "clean": "rm -rf dist",
-    "type-check": "echo 'Type-check skipped'",
+    "type-check": "tsc --noEmit",
     "lint": "echo 'Lint skipped'",
     "test": "echo 'Tests skipped'"
   },
