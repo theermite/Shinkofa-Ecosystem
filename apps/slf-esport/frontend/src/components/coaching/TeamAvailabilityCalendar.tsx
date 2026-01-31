@@ -11,14 +11,16 @@ import { Button } from '@/components/ui'
 import { availabilityService } from '@/services/availabilityService'
 import type { TeamMemberAvailability, DayOfWeek } from '@/types/availability'
 
+// Days aligned with backend: 0=Monday, 6=Sunday (ISO standard)
+// Array ordered Mon->Sun for calendar display
 const DAYS = [
-  { value: 0, label: 'Dimanche', short: 'Dim' },
-  { value: 1, label: 'Lundi', short: 'Lun' },
-  { value: 2, label: 'Mardi', short: 'Mar' },
-  { value: 3, label: 'Mercredi', short: 'Mer' },
-  { value: 4, label: 'Jeudi', short: 'Jeu' },
-  { value: 5, label: 'Vendredi', short: 'Ven' },
-  { value: 6, label: 'Samedi', short: 'Sam' },
+  { value: 0, label: 'Lundi', short: 'Lun' },
+  { value: 1, label: 'Mardi', short: 'Mar' },
+  { value: 2, label: 'Mercredi', short: 'Mer' },
+  { value: 3, label: 'Jeudi', short: 'Jeu' },
+  { value: 4, label: 'Vendredi', short: 'Ven' },
+  { value: 5, label: 'Samedi', short: 'Sam' },
+  { value: 6, label: 'Dimanche', short: 'Dim' },
 ] as const
 
 const HOURS = Array.from({ length: 16 }, (_, i) => i + 8) // 8:00 - 23:00

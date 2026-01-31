@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '@/store/authStore'
 import { Button, Badge, ThemeToggle } from '@/components/ui'
+import { NotificationBell } from '@/components/notifications'
 import { UserRole } from '@/types/user'
 import { useEffectiveRole } from "@/hooks/useEffectiveRole"
 
@@ -136,9 +137,15 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Right: Theme Toggle + User Menu (Desktop) */}
+          {/* Right: Theme Toggle + Notifications + User Menu (Desktop) */}
           <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
             <ThemeToggle />
+
+            {user && (
+              <>
+                <NotificationBell />
+              </>
+            )}
 
             {user && (
               <>
@@ -174,9 +181,11 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Mobile: Theme Toggle + Burger Menu */}
+          {/* Mobile: Theme Toggle + Notifications + Burger Menu */}
           <div className="flex lg:hidden items-center gap-2">
             <ThemeToggle />
+
+            {user && <NotificationBell />}
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

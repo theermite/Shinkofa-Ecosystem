@@ -30,12 +30,12 @@ import TeamAvailabilityCalendar from '@/components/coaching/TeamAvailabilityCale
 
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 
-// Configure date-fns localizer
+// Configure date-fns localizer with Monday as first day of week
 const locales = { 'fr': fr }
 const localizer = dateFnsLocalizer({
   format,
   parse,
-  startOfWeek,
+  startOfWeek: (date: Date) => startOfWeek(date, { weekStartsOn: 1 }), // Monday
   getDay,
   locales,
 })

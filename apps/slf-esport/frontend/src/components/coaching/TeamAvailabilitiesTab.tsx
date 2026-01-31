@@ -9,26 +9,34 @@ import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
 import { Button } from '@/components/ui'
 import { availabilityService } from '@/services/availabilityService'
-import type { TeamMemberAvailability, DayOfWeek } from '@/types/availability'
+import type { TeamMemberAvailability, PlayerAvailabilityException, DayOfWeek } from '@/types/availability'
 
+interface TeamException extends PlayerAvailabilityException {
+  username?: string
+}
+
+// Days aligned with backend: 0=Monday, 6=Sunday (ISO standard)
 const DAYS = [
-  { value: 0, label: 'Dimanche' },
-  { value: 1, label: 'Lundi' },
-  { value: 2, label: 'Mardi' },
-  { value: 3, label: 'Mercredi' },
-  { value: 4, label: 'Jeudi' },
-  { value: 5, label: 'Vendredi' },
-  { value: 6, label: 'Samedi' },
+  { value: 0, label: 'Lundi' },
+  { value: 1, label: 'Mardi' },
+  { value: 2, label: 'Mercredi' },
+  { value: 3, label: 'Jeudi' },
+  { value: 4, label: 'Vendredi' },
+  { value: 5, label: 'Samedi' },
+  { value: 6, label: 'Dimanche' },
 ] as const
 
 export default function TeamAvailabilitiesTab() {
   const [availabilities, setAvailabilities] = useState<TeamMemberAvailability[]>([])
+  const [exceptions, setExceptions] = useState<TeamException[]>([])
   const [loading, setLoading] = useState(true)
+  const [_loadingExceptions, setLoadingExceptions] = useState(true)
   const [teamOnly, setTeamOnly] = useState(true)
   const [error, setError] = useState('')
 
   useEffect(() => {
     loadTeamAvailabilities()
+    loadTeamExceptions()
   }, [teamOnly])
 
   const loadTeamAvailabilities = async () => {
@@ -41,6 +49,18 @@ export default function TeamAvailabilitiesTab() {
       setError(err.response?.data?.detail || 'Erreur lors du chargement')
     } finally {
       setLoading(false)
+    }
+  }
+
+  const loadTeamExceptions = async () => {
+    try {
+      setLoadingExceptions(true)
+      const data = await availabilityService.getTeamExceptions(teamOnly)
+      setExceptions(data)
+    } catch (err: any) {
+      console.error('Failed to load team exceptions:', err)
+    } finally {
+      setLoadingExceptions(false)
     }
   }
 
@@ -130,7 +150,7 @@ export default function TeamAvailabilitiesTab() {
               return usernameA.localeCompare(usernameB)
             })
             .map(([key, userAvailabilities]) => {
-              const [userId, username] = key.split('-')
+              const [_userId, username] = key.split('-')
               const recurringAvails = userAvailabilities.filter(a => !a.specific_date)
               const specificAvails = userAvailabilities.filter(a => a.specific_date)
 
@@ -251,6 +271,68 @@ export default function TeamAvailabilitiesTab() {
                 </div>
               )
             })}
+        </div>
+      )}
+
+      {/* Team Exceptions Section */}
+      {exceptions.length > 0 && (
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+            <span>⚠️</span>
+            <span>Exceptions à venir</span>
+            <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+              ({exceptions.length})
+            </span>
+          </h2>
+
+          <div className="space-y-3">
+            {exceptions.map((exception) => {
+              const dateObj = new Date(exception.exception_date + 'T00:00:00')
+              return (
+                <div
+                  key={exception.id}
+                  className={`p-4 rounded-lg border ${
+                    exception.is_unavailable
+                      ? 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
+                      : 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+                  }`}
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">
+                        {exception.is_unavailable ? '🚫' : '✅'}
+                      </span>
+                      <div>
+                        <p className="font-medium text-gray-900 dark:text-white">
+                          {exception.username || `Joueur #${exception.user_id}`}
+                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          {format(dateObj, 'EEEE d MMMM yyyy', { locale: fr })}
+                          {exception.start_time && exception.end_time && (
+                            <span className="ml-2">
+                              • {exception.start_time.substring(0, 5)} - {exception.end_time.substring(0, 5)}
+                            </span>
+                          )}
+                        </p>
+                      </div>
+                    </div>
+                    <span className={`text-xs px-2 py-1 rounded-full ${
+                      exception.is_unavailable
+                        ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                        : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                    }`}>
+                      {exception.is_unavailable ? 'Indisponible' : 'Disponible'}
+                    </span>
+                  </div>
+                  {exception.reason && (
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 ml-11">
+                      💬 {exception.reason}
+                    </p>
+                  )}
+                </div>
+              )
+            })}
+          </div>
         </div>
       )}
     </div>

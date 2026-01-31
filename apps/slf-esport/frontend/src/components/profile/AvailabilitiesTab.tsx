@@ -18,14 +18,15 @@ import type {
   DayOfWeek
 } from '@/types/availability'
 
+// Days aligned with backend: 0=Monday, 6=Sunday (ISO standard)
 const DAYS = [
-  { value: 1, label: 'Lundi' },
-  { value: 2, label: 'Mardi' },
-  { value: 3, label: 'Mercredi' },
-  { value: 4, label: 'Jeudi' },
-  { value: 5, label: 'Vendredi' },
-  { value: 6, label: 'Samedi' },
-  { value: 0, label: 'Dimanche' },
+  { value: 0, label: 'Lundi' },
+  { value: 1, label: 'Mardi' },
+  { value: 2, label: 'Mercredi' },
+  { value: 3, label: 'Jeudi' },
+  { value: 4, label: 'Vendredi' },
+  { value: 5, label: 'Samedi' },
+  { value: 6, label: 'Dimanche' },
 ] as const
 
 export default function AvailabilitiesTab() {

@@ -1,36 +1,96 @@
 /**
- * Reports Page - Team reports and data export
+ * Reports Page - Generate and view team reports
+ * @author Jay "The Ermite" Goncalves
+ * @copyright La Voie Shinkofa - La Salade de Fruits
  */
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import MainLayout from '@/components/layout/MainLayout'
 import { Card, CardHeader, CardBody, Button, Badge } from '@/components/ui'
 import { useAuthStore } from '@/store/authStore'
+import reportService, { REPORT_TYPES, type Report, type ReportType } from '@/services/reportService'
+import { format, formatDistanceToNow } from 'date-fns'
+import { fr } from 'date-fns/locale'
 
 export default function ReportsPage() {
+  const navigate = useNavigate()
   const { user } = useAuthStore()
-  const [isGenerating, setIsGenerating] = useState(false)
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+  const [reports, setReports] = useState<Report[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [isGenerating, setIsGenerating] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState<string | null>(null)
+  const [filterType, setFilterType] = useState<ReportType | 'all'>('all')
 
-  const handleGenerateReport = async (reportType: string) => {
-    setIsGenerating(true)
-    setMessage(null)
+  const isManager = user?.role === 'MANAGER' || user?.is_super_admin
 
+  useEffect(() => {
+    loadReports()
+  }, [filterType])
+
+  const loadReports = async () => {
+    setIsLoading(true)
+    setError(null)
     try {
-      // TODO: Implement API call to generate report
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      setMessage({ type: 'success', text: `Rapport "${reportType}" généré avec succès. Téléchargement démarré.` })
-    } catch (error: any) {
-      setMessage({
-        type: 'error',
-        text: error.response?.data?.detail || 'Erreur lors de la génération du rapport',
-      })
+      const typeFilter = filterType === 'all' ? undefined : filterType
+      if (isManager) {
+        const response = await reportService.getAllReports(typeFilter)
+        setReports(response.reports)
+      } else {
+        const data = await reportService.getMyReports(typeFilter)
+        setReports(data)
+      }
+    } catch (err: any) {
+      console.error('Failed to load reports:', err)
+      setError(err.response?.data?.detail || 'Erreur lors du chargement des rapports')
     } finally {
-      setIsGenerating(false)
+      setIsLoading(false)
     }
   }
 
-  // Check if user has permission (coaches, managers, and super admins)
+  const handleGenerateReport = async (reportType: ReportType) => {
+    setIsGenerating(reportType)
+    setError(null)
+    setSuccess(null)
+
+    try {
+      const report = await reportService.generateReport({
+        report_type: reportType,
+        format: 'markdown',
+        title: `${REPORT_TYPES[reportType].label} - ${format(new Date(), 'dd/MM/yyyy')}`,
+      })
+
+      setSuccess(`Rapport "${report.title}" généré avec succès`)
+      await loadReports()
+
+      // Navigate to report viewer
+      navigate(`/reports/${report.id}`)
+    } catch (err: any) {
+      console.error('Failed to generate report:', err)
+      setError(err.response?.data?.detail || 'Erreur lors de la génération du rapport')
+    } finally {
+      setIsGenerating(null)
+    }
+  }
+
+  const handleViewReport = (reportId: number) => {
+    navigate(`/reports/${reportId}`)
+  }
+
+  const handleDeleteReport = async (reportId: number) => {
+    if (!confirm('Supprimer ce rapport ?')) return
+
+    try {
+      await reportService.deleteReport(reportId)
+      setSuccess('Rapport supprimé')
+      await loadReports()
+    } catch (err: any) {
+      setError(err.response?.data?.detail || 'Erreur lors de la suppression')
+    }
+  }
+
+  // Check access permissions
   if (user?.role !== 'MANAGER' && user?.role !== 'COACH' && !user?.is_super_admin) {
     return (
       <MainLayout>
@@ -38,12 +98,12 @@ export default function ReportsPage() {
           <Card>
             <CardBody>
               <div className="text-center">
-                <span className="text-6xl mb-4">⚠️</span>
+                <span className="text-6xl mb-4 block">⚠️</span>
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                   Accès refusé
                 </h2>
                 <p className="text-gray-600 dark:text-gray-400">
-                  Cette page est réservée aux managers et coachs uniquement.
+                  Cette page est réservée aux managers et coachs.
                 </p>
               </div>
             </CardBody>
@@ -53,272 +113,195 @@ export default function ReportsPage() {
     )
   }
 
-  const reportCategories = [
-    {
-      title: 'Rapports de Progression',
-      description: 'Analyses détaillées des performances individuelles et de l\'équipe',
-      reports: [
-        {
-          name: 'Progression Individuelle',
-          description: 'Rapport détaillé de progression pour chaque joueur',
-          icon: '👤',
-          format: 'PDF',
-        },
-        {
-          name: 'Progression d\'Équipe',
-          description: 'Vue d\'ensemble des performances globales',
-          icon: '👥',
-          format: 'PDF',
-        },
-        {
-          name: 'Comparatif Mensuel',
-          description: 'Comparaison des performances mois par mois',
-          icon: '📊',
-          format: 'Excel',
-        },
-      ],
-    },
-    {
-      title: 'Rapports d\'Assiduité',
-      description: 'Suivi de présence et engagement',
-      reports: [
-        {
-          name: 'Assiduité Hebdomadaire',
-          description: 'Taux de présence aux sessions d\'entraînement',
-          icon: '📅',
-          format: 'Excel',
-        },
-        {
-          name: 'Participation aux Exercices',
-          description: 'Détail de participation par exercice',
-          icon: '🎯',
-          format: 'PDF',
-        },
-      ],
-    },
-    {
-      title: 'Rapports d\'Exercices',
-      description: 'Statistiques détaillées sur les exercices cognitifs',
-      reports: [
-        {
-          name: 'Performance par Catégorie',
-          description: 'Scores moyens par catégorie d\'exercice',
-          icon: '🏆',
-          format: 'Excel',
-        },
-        {
-          name: 'Historique des Scores',
-          description: 'Évolution des scores dans le temps',
-          icon: '📈',
-          format: 'CSV',
-        },
-        {
-          name: 'Top Performers',
-          description: 'Classement des meilleurs joueurs',
-          icon: '🥇',
-          format: 'PDF',
-        },
-      ],
-    },
-    {
-      title: 'Rapports Financiers',
-      description: 'Suivi du budget et ROI (Manager uniquement)',
-      reports: [
-        {
-          name: 'Budget Mensuel',
-          description: 'Détail des dépenses et investissements',
-          icon: '💰',
-          format: 'Excel',
-          managerOnly: true,
-        },
-        {
-          name: 'ROI Progression',
-          description: 'Analyse du retour sur investissement',
-          icon: '📊',
-          format: 'PDF',
-          managerOnly: true,
-        },
-      ],
-    },
-  ]
-
   return (
     <MainLayout>
       <div className="space-y-6">
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl p-8 text-white">
-          <h1 className="text-3xl font-bold mb-2">Rapports et Exports</h1>
+          <h1 className="text-3xl font-bold mb-2">📊 Rapports</h1>
           <p className="text-blue-100">
-            Génération de rapports détaillés et export de données
+            Génère et consulte les rapports d'analyse de l'équipe
           </p>
         </div>
 
         {/* Messages */}
-        {message && (
-          <div
-            className={`p-4 rounded-lg ${
-              message.type === 'success'
-                ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200'
-                : 'bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200'
-            }`}
-          >
-            {message.text}
+        {error && (
+          <div className="p-4 bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 rounded-lg text-red-800 dark:text-red-200">
+            {error}
+          </div>
+        )}
+        {success && (
+          <div className="p-4 bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500 rounded-lg text-green-800 dark:text-green-200">
+            {success}
           </div>
         )}
 
-        {/* Quick Actions */}
+        {/* Generate New Report */}
         <Card>
           <CardHeader
-            title="Actions Rapides"
-            subtitle="Générez rapidement les rapports les plus courants"
+            title="Générer un nouveau rapport"
+            subtitle="Sélectionne le type de rapport à générer"
           />
           <CardBody>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Button
-                variant="primary"
-                onClick={() => handleGenerateReport('Rapport Hebdomadaire Complet')}
-                disabled={isGenerating}
-                className="p-6 h-auto flex flex-col items-center gap-2"
-              >
-                <span className="text-3xl">📊</span>
-                <span className="font-semibold">Rapport Hebdomadaire</span>
-                <span className="text-xs opacity-80">Vue complète de la semaine</span>
-              </Button>
-
-              <Button
-                variant="outline"
-                onClick={() => handleGenerateReport('Export Données Brutes')}
-                disabled={isGenerating}
-                className="p-6 h-auto flex flex-col items-center gap-2"
-              >
-                <span className="text-3xl">📁</span>
-                <span className="font-semibold">Export Données</span>
-                <span className="text-xs opacity-80">Toutes les données (CSV)</span>
-              </Button>
-
-              <Button
-                variant="outline"
-                onClick={() => handleGenerateReport('Rapport Performance Mensuel')}
-                disabled={isGenerating}
-                className="p-6 h-auto flex flex-col items-center gap-2"
-              >
-                <span className="text-3xl">📈</span>
-                <span className="font-semibold">Performance Mensuelle</span>
-                <span className="text-xs opacity-80">Analyse du mois</span>
-              </Button>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+              {(Object.entries(REPORT_TYPES) as [ReportType, typeof REPORT_TYPES[ReportType]][]).map(
+                ([type, info]) => (
+                  <button
+                    key={type}
+                    onClick={() => handleGenerateReport(type)}
+                    disabled={isGenerating !== null}
+                    className={`
+                      p-6 rounded-xl border-2 transition-all text-left
+                      ${isGenerating === type
+                        ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                        : 'border-gray-200 dark:border-gray-700 hover:border-primary-500 hover:bg-primary-50/50 dark:hover:bg-primary-900/10'
+                      }
+                      ${isGenerating !== null && isGenerating !== type ? 'opacity-50 cursor-not-allowed' : ''}
+                    `}
+                  >
+                    <span className="text-3xl mb-3 block">{info.icon}</span>
+                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                      {info.label}
+                    </h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      {info.description}
+                    </p>
+                    {isGenerating === type && (
+                      <div className="mt-3 flex items-center gap-2 text-primary-600 dark:text-primary-400">
+                        <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                        <span className="text-sm">Génération...</span>
+                      </div>
+                    )}
+                  </button>
+                )
+              )}
             </div>
           </CardBody>
         </Card>
 
-        {/* Report Categories */}
-        {reportCategories.map((category, categoryIndex) => (
-          <Card key={categoryIndex}>
-            <CardHeader
-              title={category.title}
-              subtitle={category.description}
-            />
-            <CardBody>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {category.reports.map((report, reportIndex) => {
-                  // Hide manager-only reports for non-managers (super admins allowed)
-                  if (report.managerOnly && user?.role !== 'MANAGER' && !user?.is_super_admin) {
-                    return null
-                  }
+        {/* Reports List */}
+        <Card>
+          <CardHeader
+            title="Rapports générés"
+            subtitle={`${reports.length} rapport${reports.length > 1 ? 's' : ''}`}
+          />
+          <CardBody>
+            {/* Filter */}
+            <div className="flex flex-wrap gap-2 mb-6">
+              <button
+                onClick={() => setFilterType('all')}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  filterType === 'all'
+                    ? 'bg-primary-600 text-white'
+                    : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                }`}
+              >
+                Tous
+              </button>
+              {(Object.entries(REPORT_TYPES) as [ReportType, typeof REPORT_TYPES[ReportType]][]).map(
+                ([type, info]) => (
+                  <button
+                    key={type}
+                    onClick={() => setFilterType(type)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 ${
+                      filterType === type
+                        ? 'bg-primary-600 text-white'
+                        : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                    }`}
+                  >
+                    <span>{info.icon}</span>
+                    {info.label}
+                  </button>
+                )
+              )}
+            </div>
 
+            {/* List */}
+            {isLoading ? (
+              <div className="flex justify-center py-12">
+                <div className="w-10 h-10 border-4 border-primary-500 border-t-transparent rounded-full animate-spin" />
+              </div>
+            ) : reports.length === 0 ? (
+              <div className="text-center py-12">
+                <span className="text-5xl mb-4 block">📭</span>
+                <p className="text-gray-600 dark:text-gray-400">
+                  Aucun rapport trouvé. Génère ton premier rapport !
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {reports.map((report) => {
+                  const typeInfo = REPORT_TYPES[report.report_type as ReportType]
                   return (
                     <div
-                      key={reportIndex}
-                      className="p-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/10 transition-all"
+                      key={report.id}
+                      className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group"
                     >
-                      <div className="flex items-start gap-3 mb-3">
-                        <span className="text-3xl">{report.icon}</span>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
-                            <h3 className="font-semibold text-gray-900 dark:text-white">
-                              {report.name}
-                            </h3>
+                      <div className="flex items-center gap-4">
+                        <span className="text-2xl">{typeInfo?.icon || '📄'}</span>
+                        <div>
+                          <h4 className="font-medium text-gray-900 dark:text-white">
+                            {report.title}
+                          </h4>
+                          <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
+                            <span>
+                              {formatDistanceToNow(new Date(report.generated_at), {
+                                addSuffix: true,
+                                locale: fr,
+                              })}
+                            </span>
                             <Badge variant="info" size="sm">
-                              {report.format}
+                              {report.format.toUpperCase()}
                             </Badge>
+                            {report.file_size && (
+                              <span>{(report.file_size / 1024).toFixed(1)} KB</span>
+                            )}
                           </div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
-                            {report.description}
-                          </p>
                         </div>
                       </div>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        fullWidth
-                        onClick={() => handleGenerateReport(report.name)}
-                        disabled={isGenerating}
-                      >
-                        {isGenerating ? 'Génération...' : 'Générer'}
-                      </Button>
+
+                      <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          onClick={() => handleViewReport(report.id)}
+                        >
+                          Voir
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleDeleteReport(report.id)}
+                          className="text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
+                        >
+                          🗑️
+                        </Button>
+                      </div>
                     </div>
                   )
                 })}
               </div>
-            </CardBody>
-          </Card>
-        ))}
-
-        {/* Export History */}
-        <Card>
-          <CardHeader
-            title="Historique des Exports"
-            subtitle="Rapports récemment générés"
-          />
-          <CardBody>
-            <div className="space-y-3">
-              {[
-                { name: 'Rapport Hebdomadaire Complet', date: 'Aujourd\'hui à 10:30', format: 'PDF', size: '2.4 MB' },
-                { name: 'Export Données Brutes', date: 'Hier à 15:45', format: 'CSV', size: '1.8 MB' },
-                { name: 'Performance Mensuelle', date: 'Il y a 3 jours', format: 'Excel', size: '3.2 MB' },
-              ].map((export_, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">📄</span>
-                    <div>
-                      <h4 className="font-medium text-gray-900 dark:text-white">
-                        {export_.name}
-                      </h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        {export_.date} • {export_.format} • {export_.size}
-                      </p>
-                    </div>
-                  </div>
-                  <Button variant="outline" size="sm">
-                    Télécharger
-                  </Button>
-                </div>
-              ))}
-            </div>
+            )}
           </CardBody>
         </Card>
 
-        {/* Info */}
+        {/* Help */}
         <Card>
           <CardHeader
-            title="ℹ️ Informations"
-            subtitle="À propos des rapports"
+            title="💡 À propos des rapports"
           />
           <CardBody>
             <div className="space-y-3 text-sm text-gray-700 dark:text-gray-300">
               <p>
-                <strong>Formats disponibles :</strong> Les rapports sont disponibles en PDF (lecture/impression),
-                Excel (analyse avancée), ou CSV (import dans d'autres outils).
+                <strong>Format Markdown :</strong> Les rapports sont générés en Markdown,
+                un format lisible et facilement exportable vers Obsidian ou d'autres outils.
               </p>
               <p>
-                <strong>Historique :</strong> Les rapports générés sont conservés pendant 30 jours.
-                Vous pouvez les télécharger à nouveau depuis l'historique.
+                <strong>Export :</strong> Depuis la vue d'un rapport, tu peux télécharger
+                le fichier .md pour l'ajouter à ta base de notes.
               </p>
               <p>
-                <strong>Automatisation :</strong> Configurez l'envoi automatique de rapports hebdomadaires
-                dans les paramètres de notification.
+                <strong>Historique :</strong> Les rapports sont conservés pour consultation ultérieure.
               </p>
             </div>
           </CardBody>

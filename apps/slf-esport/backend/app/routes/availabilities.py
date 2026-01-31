@@ -123,6 +123,24 @@ def delete_exception(
         raise HTTPException(status_code=404, detail="Exception not found")
 
 
+@router.get("/exceptions/team", response_model=List[PlayerAvailabilityExceptionResponse])
+def get_team_exceptions(
+    start_date: Optional[date] = Query(None, description="Filter exceptions starting from this date"),
+    end_date: Optional[date] = Query(None, description="Filter exceptions up to this date"),
+    team_only: bool = Query(True, description="Only show team members (IDs: 4, 5, 6, 7, 9)"),
+    current_user: User = Depends(require_role(["COACH", "MANAGER"])),
+    db: Session = Depends(get_db)
+):
+    """
+    Get all team members' availability exceptions (coaches/managers only)
+    Returns upcoming exceptions with user info, sorted by date
+    """
+    # Team member IDs
+    team_member_ids = [4, 5, 6, 7, 9] if team_only else None
+
+    return availability_service.get_team_exceptions(db, team_member_ids, start_date, end_date)
+
+
 # ========== Available Players Query ==========
 
 @router.get("/available-players", response_model=List[AvailablePlayerResponse])

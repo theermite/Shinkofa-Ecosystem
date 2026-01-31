@@ -12,8 +12,6 @@ import type {
   PlayerAvailabilityException,
   PlayerAvailabilityExceptionCreate,
   AvailablePlayer,
-  SessionInvitationRequest,
-  SessionResponseRequest,
   TeamMemberAvailability,
 } from '@/types/availability'
 import type { Session } from '@/types/session'
@@ -76,6 +74,17 @@ export const availabilityService = {
   // Delete an exception
   async deleteException(id: number): Promise<void> {
     await api.delete(`${BASE_URL}/exceptions/${id}`)
+  },
+
+  // Get team exceptions (coaches/managers only)
+  async getTeamExceptions(teamOnly: boolean = true, startDate?: string, endDate?: string): Promise<(PlayerAvailabilityException & { username?: string })[]> {
+    const params = new URLSearchParams()
+    params.append('team_only', teamOnly.toString())
+    if (startDate) params.append('start_date', startDate)
+    if (endDate) params.append('end_date', endDate)
+
+    const { data } = await api.get(`${BASE_URL}/exceptions/team?${params.toString()}`)
+    return data
   },
 
   // ========== Available Players Query ==========

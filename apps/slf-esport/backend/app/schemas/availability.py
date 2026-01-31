@@ -115,6 +115,7 @@ class PlayerAvailabilityExceptionResponse(PlayerAvailabilityExceptionBase):
     """Schema for availability exception response"""
     id: int
     user_id: int
+    username: Optional[str] = None  # Optional for team exceptions (includes user info)
     created_at: datetime
     updated_at: datetime
 

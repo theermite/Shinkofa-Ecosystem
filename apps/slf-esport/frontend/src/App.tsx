@@ -24,6 +24,7 @@ import ProfilePage from '@/pages/ProfilePage'
 import TeamManagementPage from '@/pages/TeamManagementPage'
 import SettingsPage from '@/pages/SettingsPage'
 import ReportsPage from '@/pages/ReportsPage'
+import ReportViewerPage from '@/pages/ReportViewerPage'
 import ContactSubmissionsPage from "@/pages/ContactSubmissionsPage"
 import RecruitmentPage from "@/pages/RecruitmentPage"
 import UsersPage from '@/pages/UsersPage'
@@ -215,8 +216,35 @@ function App() {
             element={
               <ProtectedRoute>
                 <ReportsPage />
-          <Route path="/contact-submissions" element={<ProtectedRoute><ContactSubmissionsPage /></ProtectedRoute>} />
-          <Route path="/recruitment" element={<ProtectedRoute><RecruitmentPage /></ProtectedRoute>} />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/reports/:id"
+            element={
+              <ProtectedRoute>
+                <ReportViewerPage />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Contact Submissions (Coaches/Managers) */}
+          <Route
+            path="/contact-submissions"
+            element={
+              <ProtectedRoute>
+                <ContactSubmissionsPage />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Recruitment (Coaches/Managers) */}
+          <Route
+            path="/recruitment"
+            element={
+              <ProtectedRoute>
+                <RecruitmentPage />
               </ProtectedRoute>
             }
           />

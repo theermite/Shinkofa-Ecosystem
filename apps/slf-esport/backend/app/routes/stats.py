@@ -4,16 +4,92 @@ Statistics routes - Dashboard stats for Coach/Manager
 
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
-from sqlalchemy import func
+from sqlalchemy import func, and_
 from datetime import datetime, timedelta
 
 from app.core.database import get_db
 from app.models.user import User, UserRole
-from app.models.session import Session as SessionModel, SessionStatus
+from app.models.session import Session as SessionModel, SessionStatus, SessionParticipant
 from app.utils.dependencies import get_current_active_user, require_role
 from app.models.exercise import ExerciseScore
 
 router = APIRouter()
+
+
+def calculate_attendance_rate(db: Session, days: int = 30) -> float:
+    """
+    Calculate real attendance rate based on session participation.
+
+    Formula: (confirmed responses / total invited participants) * 100
+    Only for completed sessions in the given period.
+    """
+    start_date = datetime.utcnow() - timedelta(days=days)
+
+    # Get all participants from completed sessions in the period
+    total_participants = db.query(SessionParticipant).join(
+        SessionModel, SessionParticipant.session_id == SessionModel.id
+    ).filter(
+        SessionModel.status == SessionStatus.COMPLETED,
+        SessionModel.end_time >= start_date
+    ).count()
+
+    if total_participants == 0:
+        return 0.0
+
+    # Count confirmed participants
+    confirmed_participants = db.query(SessionParticipant).join(
+        SessionModel, SessionParticipant.session_id == SessionModel.id
+    ).filter(
+        SessionModel.status == SessionStatus.COMPLETED,
+        SessionModel.end_time >= start_date,
+        SessionParticipant.response_status == 'confirmed'
+    ).count()
+
+    return (confirmed_participants / total_participants) * 100
+
+
+def calculate_progression_rate(db: Session) -> float:
+    """
+    Calculate progression rate comparing this month vs last month.
+
+    Formula: ((avg_score_this_month - avg_score_last_month) / avg_score_last_month) * 100
+    """
+    now = datetime.utcnow()
+
+    # This month's start and end
+    this_month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+
+    # Last month's start and end
+    if now.month == 1:
+        last_month_start = now.replace(year=now.year - 1, month=12, day=1, hour=0, minute=0, second=0, microsecond=0)
+    else:
+        last_month_start = now.replace(month=now.month - 1, day=1, hour=0, minute=0, second=0, microsecond=0)
+    last_month_end = this_month_start
+
+    # Average score this month
+    avg_this_month = db.query(func.avg(ExerciseScore.score)).filter(
+        ExerciseScore.completed_at >= this_month_start
+    ).scalar()
+
+    # Average score last month
+    avg_last_month = db.query(func.avg(ExerciseScore.score)).filter(
+        and_(
+            ExerciseScore.completed_at >= last_month_start,
+            ExerciseScore.completed_at < last_month_end
+        )
+    ).scalar()
+
+    if avg_last_month is None or avg_last_month == 0:
+        # No data from last month, check if there's data this month
+        if avg_this_month is not None and avg_this_month > 0:
+            return 100.0  # Consider full improvement if there was no baseline
+        return 0.0
+
+    if avg_this_month is None:
+        return 0.0
+
+    # Calculate progression rate
+    return ((float(avg_this_month) - float(avg_last_month)) / float(avg_last_month)) * 100
 
 
 @router.get("/coach-dashboard")
@@ -27,8 +103,8 @@ async def get_coach_dashboard_stats(
     Returns:
         - active_players: Number of active JOUEUR accounts
         - total_capacity: Maximum team capacity
-        - attendance_rate: Average attendance rate (%)
-        - progression_rate: Progression rate vs last month (%)
+        - attendance_rate: Average attendance rate (%) - REAL DATA
+        - progression_rate: Progression rate vs last month (%) - REAL DATA
         - upcoming_sessions: Number of upcoming sessions this week
     """
 
@@ -40,23 +116,11 @@ async def get_coach_dashboard_stats(
 
     total_capacity = 10  # Max team size
 
-    # Calculate attendance rate (based on session participation)
-    # For now, return 0 if no data, will be calculated when we have real sessions
-    total_sessions = db.query(SessionModel).count()
-    if total_sessions > 0:
-        # TODO: Calculate real attendance based on session_participants
-        attendance_rate = 85.0  # Placeholder
-    else:
-        attendance_rate = 0.0
+    # Calculate REAL attendance rate
+    attendance_rate = calculate_attendance_rate(db, days=30)
 
-    # Calculate progression rate
-    # For now, return 0 if no scores
-    total_scores = db.query(ExerciseScore).count()
-    if total_scores > 0:
-        # TODO: Calculate real progression comparing this month vs last month
-        progression_rate = 0.0  # Placeholder
-    else:
-        progression_rate = 0.0
+    # Calculate REAL progression rate
+    progression_rate = calculate_progression_rate(db)
 
     # Count upcoming sessions this week
     now = datetime.utcnow()

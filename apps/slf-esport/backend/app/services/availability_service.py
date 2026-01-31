@@ -170,6 +170,59 @@ def delete_exception(db: Session, exception_id: int, user_id: int) -> bool:
     return True
 
 
+def get_team_exceptions(db: Session, team_member_ids: Optional[List[int]] = None, start_date: Optional[date] = None, end_date: Optional[date] = None) -> List:
+    """
+    Get all team members' availability exceptions (coaches only)
+    Returns exceptions with user info included
+    """
+    from app.schemas.availability import PlayerAvailabilityExceptionResponse
+
+    # Query exceptions with user join
+    query = db.query(PlayerAvailabilityException, User).join(
+        User, PlayerAvailabilityException.user_id == User.id
+    )
+
+    # Filter by specific team members if provided
+    if team_member_ids:
+        query = query.filter(User.id.in_(team_member_ids))
+    else:
+        # Default: all players
+        query = query.filter(User.role == UserRole.JOUEUR)
+
+    # Date filters
+    if start_date:
+        query = query.filter(PlayerAvailabilityException.exception_date >= start_date)
+    else:
+        # By default, only show future exceptions
+        query = query.filter(PlayerAvailabilityException.exception_date >= date.today())
+
+    if end_date:
+        query = query.filter(PlayerAvailabilityException.exception_date <= end_date)
+
+    # Order by date
+    query = query.order_by(PlayerAvailabilityException.exception_date)
+
+    results = query.all()
+
+    # Build response with user info
+    team_exceptions = []
+    for exception, user in results:
+        team_exceptions.append(PlayerAvailabilityExceptionResponse(
+            id=exception.id,
+            user_id=user.id,
+            username=user.username,
+            exception_date=exception.exception_date,
+            start_time=exception.start_time,
+            end_time=exception.end_time,
+            is_unavailable=exception.is_unavailable,
+            reason=exception.reason,
+            created_at=exception.created_at,
+            updated_at=exception.updated_at
+        ))
+
+    return team_exceptions
+
+
 # ========== Availability Calculation ==========
 
 def check_user_available(db: Session, user_id: int, start_time: datetime, end_time: datetime) -> Dict[str, any]:
