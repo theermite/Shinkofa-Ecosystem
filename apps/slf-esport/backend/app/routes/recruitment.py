@@ -7,10 +7,13 @@ from fastapi import APIRouter, Depends, HTTPException, status, Query, Request
 from sqlalchemy.orm import Session
 from sqlalchemy import desc
 from datetime import datetime
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 
 from app.core.database import get_db
 from app.models.user import User, UserRole
 from app.models.recruitment_application import RecruitmentApplication, ApplicationStatus
+from app.models.notification import Notification, NotificationType
 from app.utils.dependencies import get_current_user, require_role
 from app.schemas.recruitment_application import (
     RecruitmentApplicationCreate,
@@ -19,11 +22,16 @@ from app.schemas.recruitment_application import (
     RecruitmentApplicationListResponse
 )
 from app.services.email_service import email_service
+import logging
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(tags=["recruitment"])
+limiter = Limiter(key_func=get_remote_address)
 
 
 @router.post("/submit", response_model=RecruitmentApplicationResponse, status_code=status.HTTP_201_CREATED)
+@limiter.limit("3/hour")
 async def submit_application(
     request: Request,
     data: RecruitmentApplicationCreate,
@@ -32,6 +40,7 @@ async def submit_application(
     """
     Submit a recruitment application (PUBLIC endpoint - no auth required)
     Called from the website recruitment form
+    Rate limited to 3 submissions per hour per IP
     """
     try:
         # Get client IP and user agent
@@ -74,6 +83,32 @@ async def submit_application(
         db.commit()
         db.refresh(application)
 
+        # Create in-app notifications for managers and coaches
+        try:
+            # Find all managers and coaches
+            managers_coaches = db.query(User).filter(
+                User.is_active == True,
+                User.role.in_([UserRole.MANAGER, UserRole.COACH])
+            ).all()
+
+            # Create notification for each manager/coach
+            for user in managers_coaches:
+                notification = Notification(
+                    user_id=user.id,
+                    type=NotificationType.RECRUITMENT_APPLICATION,
+                    title=f"🎮 Nouvelle candidature : {data.pseudo}",
+                    message=f"{data.first_name} {data.last_name} ({data.pseudo}) a soumis une candidature de recrutement. Pays: {data.country}, Âge: {data.age} ans.",
+                    link="/recruitment",
+                    action_text="Voir la candidature"
+                )
+                db.add(notification)
+
+            db.commit()
+            logger.info(f"Created {len(managers_coaches)} notifications for recruitment application #{application.id}")
+        except Exception as e:
+            logger.error(f"Failed to create in-app notifications: {e}")
+            # Don't fail the submission
+
         # Send notification email to managers
         try:
             email_service.send_recruitment_notification_email(
@@ -85,7 +120,7 @@ async def submit_application(
             )
         except Exception as e:
             # Log error but don't fail the submission
-            print(f"Failed to send recruitment notification email: {e}")
+            logger.error(f"Failed to send recruitment notification email: {e}")
 
         return application
 

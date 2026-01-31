@@ -3,8 +3,10 @@ Authentication routes - Login, Register, Refresh Token
 """
 
 from datetime import datetime
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from sqlalchemy.orm import Session
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 
 from app.core.database import get_db
 from app.core.security import create_access_token, create_refresh_token
@@ -16,10 +18,13 @@ from app.utils.dependencies import get_current_active_user
 from app.models.user import User
 
 router = APIRouter()
+limiter = Limiter(key_func=get_remote_address)
 
 
 @router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
+@limiter.limit("3/minute")
 async def register(
+    request: Request,
     user_data: UserCreate,
     db: Session = Depends(get_db)
 ):
@@ -41,7 +46,9 @@ async def register(
 
 
 @router.post("/login", response_model=Token)
+@limiter.limit("5/minute")
 async def login(
+    request: Request,
     credentials: UserLogin,
     db: Session = Depends(get_db)
 ):

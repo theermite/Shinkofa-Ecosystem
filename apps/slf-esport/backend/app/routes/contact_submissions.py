@@ -7,6 +7,8 @@ from fastapi import APIRouter, Depends, HTTPException, status, Query, Request
 from sqlalchemy.orm import Session
 from sqlalchemy import desc
 from datetime import datetime
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 
 from app.core.database import get_db
 from app.models.user import User, UserRole
@@ -21,9 +23,11 @@ from app.schemas.contact_submission import (
 from app.services.email_service import email_service
 
 router = APIRouter(tags=["contact-submissions"])
+limiter = Limiter(key_func=get_remote_address)
 
 
 @router.post("/submit", response_model=ContactSubmissionResponse, status_code=status.HTTP_201_CREATED)
+@limiter.limit("5/hour")
 async def submit_contact_form(
     request: Request,
     data: ContactSubmissionCreate,
@@ -32,6 +36,7 @@ async def submit_contact_form(
     """
     Submit a contact form (PUBLIC endpoint - no auth required)
     Called from the website contact form
+    Rate limited to 5 submissions per hour per IP
     """
     try:
         # Get client IP and user agent

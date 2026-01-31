@@ -19,6 +19,7 @@ class NotificationType(str, enum.Enum):
     SESSION_REMINDER = "session_reminder"
     REPORT_READY = "report_ready"
     CONTACT_FORM = "contact_form"
+    RECRUITMENT_APPLICATION = "recruitment_application"
 
 
 class Notification(Base):

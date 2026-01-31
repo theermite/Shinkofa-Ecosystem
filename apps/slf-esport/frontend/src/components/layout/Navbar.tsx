@@ -181,7 +181,9 @@ export default function Navbar() {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-              aria-label="Menu"
+              aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
             >
               {isMobileMenuOpen ? (
                 // X icon
@@ -200,7 +202,7 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-gray-200 dark:border-gray-700 py-4">
+          <div id="mobile-menu" className="lg:hidden border-t border-gray-200 dark:border-gray-700 py-4">
             <div className="flex flex-col space-y-3">
               <Link
                 to="/dashboard"

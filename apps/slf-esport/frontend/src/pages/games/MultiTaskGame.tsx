@@ -5,6 +5,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import DOMPurify from 'dompurify'
 import MainLayout from '@/components/layout/MainLayout'
 import { Card, CardHeader, CardBody, Button } from '@/components/ui'
 
@@ -392,7 +393,7 @@ export default function MultiTaskGame() {
                   {/* Question */}
                   <div
                     className="text-lg font-semibold text-gray-900 dark:text-white mb-4"
-                    dangerouslySetInnerHTML={{ __html: task.question }}
+                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(task.question) }}
                   />
 
                   {/* Options */}

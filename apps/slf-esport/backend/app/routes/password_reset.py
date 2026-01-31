@@ -2,10 +2,12 @@
 Password Reset routes - Request and validate password reset
 """
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, EmailStr, Field, validator
 from datetime import datetime
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 
 from app.core.database import get_db
 from app.models.user import User
@@ -15,6 +17,7 @@ from app.services.email_service import EmailService
 from app.core.security import get_password_hash
 
 router = APIRouter()
+limiter = Limiter(key_func=get_remote_address)
 
 
 class PasswordResetRequest(BaseModel):
@@ -40,22 +43,25 @@ class PasswordResetConfirm(BaseModel):
 
 
 @router.post("/request", status_code=status.HTTP_200_OK)
+@limiter.limit("3/minute")
 async def request_password_reset(
-    request: PasswordResetRequest,
+    request: Request,
+    data: PasswordResetRequest,
     db: Session = Depends(get_db)
 ):
     """
     Request password reset - Send email with reset link
 
     Args:
-        request: Email address
+        request: FastAPI request object (for rate limiting)
+        data: Email address
         db: Database session
 
     Returns:
         Success message (always returns success to avoid email enumeration)
     """
     # Find user by email
-    user = UserService.get_by_email(db, request.email)
+    user = UserService.get_by_email(db, data.email)
 
     # Always return success message (security: don't reveal if email exists)
     if not user:
@@ -109,15 +115,18 @@ async def request_password_reset(
 
 
 @router.post("/confirm", status_code=status.HTTP_200_OK)
+@limiter.limit("5/minute")
 async def confirm_password_reset(
-    request: PasswordResetConfirm,
+    request: Request,
+    data: PasswordResetConfirm,
     db: Session = Depends(get_db)
 ):
     """
     Confirm password reset with token
 
     Args:
-        request: Reset token and new password
+        request: FastAPI request object (for rate limiting)
+        data: Reset token and new password
         db: Database session
 
     Returns:
@@ -128,7 +137,7 @@ async def confirm_password_reset(
     """
     # Find token
     reset_token = db.query(PasswordResetToken).filter(
-        PasswordResetToken.token == request.token
+        PasswordResetToken.token == data.token
     ).first()
 
     if not reset_token:
@@ -154,7 +163,7 @@ async def confirm_password_reset(
         )
 
     # Update password
-    user.hashed_password = get_password_hash(request.new_password)
+    user.hashed_password = get_password_hash(data.new_password)
 
     # Mark token as used
     reset_token.is_used = True
