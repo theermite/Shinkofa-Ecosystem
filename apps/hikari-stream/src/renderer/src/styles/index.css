@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: theme('colors.hikari.900');
+}
+
+::-webkit-scrollbar-thumb {
+  background: theme('colors.hikari.700');
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: theme('colors.hikari.600');
+}
+
+/* Drag region for custom title bar */
+.drag-region {
+  -webkit-app-region: drag;
+}
+
+.no-drag {
+  -webkit-app-region: no-drag;
+}
+
+/* Prevent text selection during drag */
+.select-none {
+  user-select: none;
+}
+
+/* Live indicator pulse */
+@keyframes live-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-live-pulse {
+  animation: live-pulse 2s ease-in-out infinite;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid theme('colors.hikari.500');
+  outline-offset: 2px;
+}
+
+/* Button base styles */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hikari-500 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn bg-hikari-600 text-white hover:bg-hikari-500;
+  }
+
+  .btn-secondary {
+    @apply btn bg-hikari-800 text-hikari-100 hover:bg-hikari-700;
+  }
+
+  .btn-danger {
+    @apply btn bg-red-600 text-white hover:bg-red-500;
+  }
+
+  .btn-ghost {
+    @apply btn bg-transparent text-hikari-300 hover:bg-hikari-800 hover:text-white;
+  }
+
+  .btn-icon {
+    @apply btn h-9 w-9 p-0;
+  }
+}

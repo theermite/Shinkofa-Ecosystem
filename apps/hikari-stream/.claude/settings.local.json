@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create @electron-vite/create@latest . -- --template react-ts)",
+      "Bash(npx create-electron-vite@latest . --template react-ts)",
+      "Bash(npm install)",
+      "Bash(npx tsc:*)",
+      "Bash(timeout 15 npm run dev:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm install:*)",
+      "Bash(taskkill:*)",
+      "Bash(timeout:*)",
+      "Skill(Session-Manager)",
+      "Bash(git add:*)"
+    ]
+  }
+}
