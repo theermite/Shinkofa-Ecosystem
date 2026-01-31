@@ -6,9 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "echo 'Build skipped - TODO: fix TypeScript errors'",
-    "lint": "echo 'Lint skipped - TODO: fix ESLint config'",
-    "type-check": "echo 'Type-check skipped'",
+    "build": "vite build",
+    "lint": "echo 'Lint skipped - TODO: configure ESLint'",
+    "type-check": "tsc --noEmit",
     "test": "echo 'Tests skipped'",
     "preview": "vite preview",
     "clean": "rm -rf dist node_modules"

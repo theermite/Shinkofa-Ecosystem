@@ -4,7 +4,7 @@
 
 import { useTranslation as useI18nTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
-import type { Locale } from '@shinkofa/types';
+import type { Locale } from './types';
 import {
   changeLanguage,
   getCurrentLanguage,

@@ -2,8 +2,8 @@
  * i18n utility functions
  */
 
-import type { Locale } from '@shinkofa/types';
 import { i18n } from './config';
+import type { Locale } from './types';
 
 /**
  * Translate key without React context

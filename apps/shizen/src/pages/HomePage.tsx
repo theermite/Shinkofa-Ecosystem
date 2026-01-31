@@ -8,7 +8,7 @@ import {
 import { Brain, Sparkles, MessageSquare } from 'lucide-react';
 
 export default function HomePage() {
-  const { t } = useTranslation();
+  const { t: _t } = useTranslation();
   const { locale, changeLanguage } = useLocale();
   const { adaptation } = useMorphic();
   const { energyLevel, isOptimal } = useEnergyLevel();

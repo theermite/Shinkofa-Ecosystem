@@ -4,7 +4,7 @@
 
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import type { Locale } from '@shinkofa/types';
+import type { Locale } from './types';
 
 export const DEFAULT_LOCALE: Locale = 'fr';
 export const SUPPORTED_LOCALES: Locale[] = ['fr', 'en', 'es'];

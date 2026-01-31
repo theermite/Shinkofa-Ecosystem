@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3016",
-    "build": "echo 'Build skipped - TODO: fix build errors'",
+    "build": "next build",
     "start": "next start -p 3016",
-    "lint": "echo 'Lint skipped - TODO: fix ESLint config'",
-    "type-check": "echo 'Type-check skipped'",
+    "lint": "echo 'Lint skipped - TODO: fix ESLint flat config with Next.js 16'",
+    "type-check": "tsc --noEmit",
     "test": "echo 'Tests skipped'",
     "db:generate": "prisma generate",
     "db:push": "prisma db push",

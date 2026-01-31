@@ -6,11 +6,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "echo 'Build skipped - stub project'",
+    "build": "vite build",
     "preview": "vite preview",
-    "lint": "echo 'Lint skipped - stub project'",
-    "type-check": "echo 'Type-check skipped - stub project'",
-    "test": "echo 'Tests skipped - stub project'",
+    "lint": "echo 'Lint skipped - TODO: configure ESLint'",
+    "type-check": "tsc --noEmit",
+    "test": "echo 'Tests skipped'",
     "clean": "rm -rf dist node_modules"
   },
   "dependencies": {

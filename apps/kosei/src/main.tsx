@@ -6,6 +6,11 @@ import { initI18n } from '@shinkofa/i18n';
 import App from './App';
 import './styles/index.css';
 
+// Import locale files
+import frTranslation from './locales/fr.json';
+import enTranslation from './locales/en.json';
+import esTranslation from './locales/es.json';
+
 // Initialize i18n
 initI18n({
   defaultLocale: 'fr',
@@ -13,13 +18,13 @@ initI18n({
   debug: import.meta.env.DEV,
   resources: {
     fr: {
-      translation: require('./locales/fr.json'),
+      translation: frTranslation,
     },
     en: {
-      translation: require('./locales/en.json'),
+      translation: enTranslation,
     },
     es: {
-      translation: require('./locales/es.json'),
+      translation: esTranslation,
     },
   },
 });
