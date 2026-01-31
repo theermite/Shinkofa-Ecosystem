@@ -6,7 +6,7 @@
 
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, SyntheticEvent } from 'react'
 import Image from 'next/image'
 import { Menu, X, Bug, User, LogOut, HelpCircle, ChevronDown, Lightbulb } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -26,8 +26,32 @@ export function Navbar() {
   const [isSuggestionModalOpen, setIsSuggestionModalOpen] = useState(false)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const [showOnboarding, setShowOnboarding] = useState(false)
+  const [avatarError, setAvatarError] = useState(false)
   const userMenuRef = useRef<HTMLDivElement>(null)
   const t = useTranslations('nav')
+
+  // Reset avatar error when user changes
+  useEffect(() => {
+    setAvatarError(false)
+  }, [user?.profile?.avatar_url])
+
+  // Handle avatar load error - fallback to initials
+  const handleAvatarError = (e: SyntheticEvent<HTMLImageElement>) => {
+    setAvatarError(true)
+  }
+
+  // Get full avatar URL (prefix with API URL if relative)
+  const getAvatarUrl = (url: string | undefined): string | null => {
+    if (!url) return null
+    // If already absolute URL, return as-is
+    if (url.startsWith('http://') || url.startsWith('https://')) return url
+    // If relative, prefix with API URL
+    const apiUrl = process.env.NEXT_PUBLIC_AUTH_API_URL || 'https://app.shinkofa.com'
+    return `${apiUrl}${url.startsWith('/') ? '' : '/'}${url}`
+  }
+
+  const avatarUrl = getAvatarUrl(user?.profile?.avatar_url)
+  const showAvatar = avatarUrl && !avatarError
 
   // Close user dropdown when clicking outside
   useEffect(() => {
@@ -155,8 +179,8 @@ export function Navbar() {
                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                     className="flex items-center gap-2 px-2 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all"
                   >
-                    {user.profile?.avatar_url ? (
-                      <img src={user.profile.avatar_url} alt="" className="h-7 w-7 rounded-full object-cover ring-2 ring-gray-200 dark:ring-gray-600" />
+                    {showAvatar ? (
+                      <img src={avatarUrl} alt="" className="h-7 w-7 rounded-full object-cover ring-2 ring-gray-200 dark:ring-gray-600" onError={handleAvatarError} />
                     ) : (
                       <div className="h-7 w-7 rounded-full bg-gradient-to-br from-shinkofa-marine to-shinkofa-orange flex items-center justify-center text-white text-xs font-bold">
                         {user.username?.charAt(0).toUpperCase() || 'U'}
@@ -244,8 +268,8 @@ export function Navbar() {
                   className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                   aria-label="Profil"
                 >
-                  {user.profile?.avatar_url ? (
-                    <img src={user.profile.avatar_url} alt="" className="h-8 w-8 rounded-full object-cover ring-2 ring-gray-200 dark:ring-gray-600" />
+                  {showAvatar ? (
+                    <img src={avatarUrl} alt="" className="h-8 w-8 rounded-full object-cover ring-2 ring-gray-200 dark:ring-gray-600" onError={handleAvatarError} />
                   ) : (
                     <div className="h-8 w-8 rounded-full bg-gradient-to-br from-shinkofa-marine to-shinkofa-orange flex items-center justify-center text-white text-sm font-bold">
                       {user.username?.charAt(0).toUpperCase() || 'U'}
@@ -298,8 +322,8 @@ export function Navbar() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                 >
-                  {user.profile?.avatar_url ? (
-                    <img src={user.profile.avatar_url} alt="" className="h-12 w-12 rounded-full object-cover ring-2 ring-gray-200 dark:ring-gray-600" />
+                  {showAvatar ? (
+                    <img src={avatarUrl} alt="" className="h-12 w-12 rounded-full object-cover ring-2 ring-gray-200 dark:ring-gray-600" onError={handleAvatarError} />
                   ) : (
                     <div className="h-12 w-12 rounded-full bg-gradient-to-br from-shinkofa-marine to-shinkofa-orange flex items-center justify-center text-white text-lg font-bold">
                       {user.username?.charAt(0).toUpperCase() || 'U'}

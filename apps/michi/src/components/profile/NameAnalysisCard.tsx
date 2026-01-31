@@ -6,6 +6,7 @@
 
 import React from 'react'
 import { ProfileSection } from './ProfileSection'
+import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer'
 
 interface NumerologyInterpretation {
   keyword: string
@@ -219,18 +220,20 @@ export const NameAnalysisCard: React.FC<NameAnalysisCardProps> = ({ data }) => {
                 <h4 className="font-semibold text-amber-800 dark:text-amber-300 mb-2 flex items-center gap-2">
                   <span>📜</span> Prénom
                 </h4>
-                <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
-                  {data.name_holistic_analysis.etymology.first_name}
-                </p>
+                <MarkdownRenderer
+                  content={data.name_holistic_analysis.etymology.first_name}
+                  className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed"
+                />
               </div>
               {/* Last Name Etymology */}
               <div className="bg-white/70 dark:bg-gray-800/70 rounded-lg p-4">
                 <h4 className="font-semibold text-amber-800 dark:text-amber-300 mb-2 flex items-center gap-2">
                   <span>🏛️</span> Nom de Famille
                 </h4>
-                <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
-                  {data.name_holistic_analysis.etymology.last_name}
-                </p>
+                <MarkdownRenderer
+                  content={data.name_holistic_analysis.etymology.last_name}
+                  className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed"
+                />
               </div>
             </div>
           </div>
@@ -241,9 +244,10 @@ export const NameAnalysisCard: React.FC<NameAnalysisCardProps> = ({ data }) => {
               <span className="text-3xl">🏛️</span> Anthroponomie - Symbolique Culturelle
             </h3>
             <div className="bg-white/70 dark:bg-gray-800/70 rounded-lg p-5">
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                {data.name_holistic_analysis.anthroponymy}
-              </p>
+              <MarkdownRenderer
+                content={data.name_holistic_analysis.anthroponymy}
+                className="text-gray-700 dark:text-gray-300 leading-relaxed"
+              />
             </div>
             <div className="mt-3 p-3 bg-teal-100/50 dark:bg-teal-900/30 rounded-lg">
               <p className="text-xs text-teal-800 dark:text-teal-200 italic">
@@ -259,9 +263,10 @@ export const NameAnalysisCard: React.FC<NameAnalysisCardProps> = ({ data }) => {
               <span className="text-3xl">⚡</span> Poids Énergétique - Vibration du Nom
             </h3>
             <div className="bg-white/70 dark:bg-gray-800/70 rounded-lg p-5">
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                {data.name_holistic_analysis.energetic_weight}
-              </p>
+              <MarkdownRenderer
+                content={data.name_holistic_analysis.energetic_weight}
+                className="text-gray-700 dark:text-gray-300 leading-relaxed"
+              />
             </div>
             <div className="mt-3 p-3 bg-purple-100/50 dark:bg-purple-900/30 rounded-lg">
               <p className="text-xs text-purple-800 dark:text-purple-200 italic">

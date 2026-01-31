@@ -154,42 +154,43 @@ export default function HolisticProfilePage() {
       <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-green-900 dark:to-blue-900 py-8 px-4">
         <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-2xl shadow-xl p-8 mb-6 text-white">
-          <div className="flex items-center justify-between">
+        <div className="bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8 mb-6 text-white">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div>
-              <h1 className="text-4xl font-bold mb-2 flex items-center gap-3">
-                <span className="text-5xl">🌟</span> Mon Profil Holistique Shinkofa
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 flex items-center gap-2 sm:gap-3">
+                <span className="text-3xl sm:text-4xl lg:text-5xl">🌟</span> Mon Profil Holistique Shinkofa
               </h1>
-              <p className="text-white/90 text-lg">
-                Généré le {new Date(profile.generated_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
+              <p className="text-white/90 text-sm sm:text-base lg:text-lg">
+                Généré le {new Date(profile.generated_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })} à {new Date(profile.generated_at).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
               </p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               <button
                 onClick={handleRegenerateProfile}
                 disabled={isRegenerating}
-                className="px-6 py-3 bg-green-500/80 hover:bg-green-600 border-2 border-green-300 text-white rounded-lg transition font-semibold disabled:opacity-50 flex items-center gap-2"
+                className="px-3 py-2 sm:px-4 sm:py-2.5 bg-green-500/80 hover:bg-green-600 border border-green-300 text-white rounded-lg transition text-sm sm:text-base font-medium disabled:opacity-50 flex items-center gap-1.5 sm:gap-2"
               >
                 {isRegenerating ? (
                   <>
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    Régénération...
+                    <div className="w-3 h-3 sm:w-4 sm:h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <span className="hidden sm:inline">Régénération...</span>
+                    <span className="sm:hidden">...</span>
                   </>
                 ) : (
-                  <>🔄 Régénérer</>
+                  <>🔄 <span className="hidden sm:inline">Régénérer</span></>
                 )}
               </button>
               <button
                 onClick={() => setShowDeleteModal(true)}
-                className="px-6 py-3 bg-red-500/80 hover:bg-red-600 border-2 border-red-300 text-white rounded-lg transition font-semibold"
+                className="px-3 py-2 sm:px-4 sm:py-2.5 bg-red-500/80 hover:bg-red-600 border border-red-300 text-white rounded-lg transition text-sm sm:text-base font-medium"
               >
-                🗑️ Supprimer
+                🗑️ <span className="hidden sm:inline">Supprimer</span>
               </button>
               <Link
                 href="/profile"
-                className="px-6 py-3 bg-white/20 hover:bg-white/30 border-2 border-white text-white rounded-lg transition font-semibold"
+                className="px-3 py-2 sm:px-4 sm:py-2.5 bg-white/20 hover:bg-white/30 border border-white text-white rounded-lg transition text-sm sm:text-base font-medium"
               >
-                ← Retour au profil
+                ← <span className="hidden sm:inline">Retour au profil</span><span className="sm:hidden">Profil</span>
               </Link>
             </div>
           </div>
@@ -484,6 +485,184 @@ export default function HolisticProfilePage() {
                   </div>
                 )}
               </div>
+
+              {/* Lifestyle & Bien-être Section - Based on Human Design */}
+              {profile.design_human && (
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-8 border-2 border-rose-300 dark:border-rose-700 shadow-lg">
+                  <div className="mb-6">
+                    <h3 className="text-2xl font-bold text-rose-700 dark:text-rose-400 mb-3 flex items-center gap-2">
+                      <span className="text-3xl">🌸</span> Lifestyle & Bien-être
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                      Ces conseils sont issus de votre Design Humain et vous guident vers un mode de vie aligné avec votre nature profonde : alimentation, environnement, couleurs et rythme de vie.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Digestion - Alimentation */}
+                    {profile.design_human.variable && profile.design_human.variable.length >= 7 && (
+                      <div className="p-6 bg-gradient-to-br from-rose-50 to-pink-50 dark:from-rose-900/20 dark:to-pink-900/20 rounded-xl border-l-4 border-rose-500">
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="text-3xl">🍽️</span>
+                          <h4 className="font-bold text-lg text-gray-900 dark:text-white">Alimentation Idéale</h4>
+                        </div>
+                        <div className="space-y-3 text-gray-700 dark:text-gray-300">
+                          {profile.design_human.variable[5] === 'L' ? (
+                            <>
+                              <p className="font-medium text-rose-700 dark:text-rose-400">🎯 Digestion Sélective</p>
+                              <ul className="text-sm space-y-2">
+                                <li>• <strong>Un type d'aliment à la fois</strong> — évitez les mélanges complexes</li>
+                                <li>• <strong>Environnement calme</strong> — mangez sans distractions (TV, téléphone)</li>
+                                <li>• <strong>Horaires réguliers</strong> — votre corps aime la routine alimentaire</li>
+                                <li>• <strong>Petites portions</strong> — qualité plutôt que quantité</li>
+                                <li>• <strong>Aliments simples</strong> — préférez les plats mono-ingrédient</li>
+                              </ul>
+                            </>
+                          ) : (
+                            <>
+                              <p className="font-medium text-rose-700 dark:text-rose-400">🌈 Digestion Ouverte</p>
+                              <ul className="text-sm space-y-2">
+                                <li>• <strong>Variété d'aliments</strong> — mélangez les saveurs et textures</li>
+                                <li>• <strong>Stimulation pendant les repas</strong> — conversation, musique, lecture</li>
+                                <li>• <strong>Flexibilité horaire</strong> — mangez quand vous avez faim</li>
+                                <li>• <strong>Contextes variés</strong> — restaurants, pique-niques, repas sociaux</li>
+                                <li>• <strong>Exploration culinaire</strong> — nouvelles cuisines et recettes</li>
+                              </ul>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Environnement - Lieu de vie */}
+                    {profile.design_human.variable && profile.design_human.variable.length >= 7 && (
+                      <div className="p-6 bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20 rounded-xl border-l-4 border-violet-500">
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="text-3xl">🏠</span>
+                          <h4 className="font-bold text-lg text-gray-900 dark:text-white">Environnement Idéal</h4>
+                        </div>
+                        <div className="space-y-3 text-gray-700 dark:text-gray-300">
+                          {profile.design_human.variable[6] === 'L' ? (
+                            <>
+                              <p className="font-medium text-violet-700 dark:text-violet-400">🎯 Environnement Sélectif</p>
+                              <ul className="text-sm space-y-2">
+                                <li>• <strong>Espace personnel défini</strong> — bureau dédié, coin à vous</li>
+                                <li>• <strong>Contrôle de l'ambiance</strong> — lumière, température, bruit</li>
+                                <li>• <strong>Peu de changements</strong> — stabilité dans votre cadre de vie</li>
+                                <li>• <strong>Choix intentionnel</strong> — chaque objet a sa place et son sens</li>
+                                <li>• <strong>Limites claires</strong> — séparez espaces de travail et détente</li>
+                              </ul>
+                            </>
+                          ) : (
+                            <>
+                              <p className="font-medium text-violet-700 dark:text-violet-400">🌈 Environnement Ouvert</p>
+                              <ul className="text-sm space-y-2">
+                                <li>• <strong>Espaces partagés</strong> — coworking, cafés, bibliothèques</li>
+                                <li>• <strong>Mouvement et vie</strong> — gens qui passent, animation</li>
+                                <li>• <strong>Changement régulier</strong> — réaménagez, déplacez-vous</li>
+                                <li>• <strong>Multi-usage</strong> — même espace pour différentes activités</li>
+                                <li>• <strong>Stimulation visuelle</strong> — couleurs, plantes, art</li>
+                              </ul>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Couleurs énergétiques basées sur le Type */}
+                    <div className="p-6 bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 rounded-xl border-l-4 border-amber-500">
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="text-3xl">🎨</span>
+                        <h4 className="font-bold text-lg text-gray-900 dark:text-white">Couleurs & Énergies</h4>
+                      </div>
+                      <div className="space-y-3 text-gray-700 dark:text-gray-300">
+                        {(() => {
+                          const type = profile.design_human.type?.toLowerCase()
+                          if (type?.includes('generator') || type?.includes('générateur')) {
+                            return (
+                              <>
+                                <p className="font-medium text-amber-700 dark:text-amber-400">⚡ Énergies du Générateur</p>
+                                <ul className="text-sm space-y-2">
+                                  <li>• <strong>Couleurs chaudes</strong> — orange, rouge, jaune (énergie sacrale)</li>
+                                  <li>• <strong>Vert nature</strong> — pour la régénération</li>
+                                  <li>• <strong>Évitez</strong> — trop de gris/noir qui éteignent votre vitalité</li>
+                                </ul>
+                              </>
+                            )
+                          } else if (type?.includes('projector') || type?.includes('projecteur')) {
+                            return (
+                              <>
+                                <p className="font-medium text-amber-700 dark:text-amber-400">🔮 Énergies du Projecteur</p>
+                                <ul className="text-sm space-y-2">
+                                  <li>• <strong>Bleu profond</strong> — sagesse et reconnaissance</li>
+                                  <li>• <strong>Violet/mauve</strong> — intuition et guidance</li>
+                                  <li>• <strong>Blanc/crème</strong> — clarté et réceptivité</li>
+                                </ul>
+                              </>
+                            )
+                          } else if (type?.includes('manifestor') || type?.includes('manifesteur')) {
+                            return (
+                              <>
+                                <p className="font-medium text-amber-700 dark:text-amber-400">🔥 Énergies du Manifesteur</p>
+                                <ul className="text-sm space-y-2">
+                                  <li>• <strong>Rouge/bordeaux</strong> — pouvoir d'initiation</li>
+                                  <li>• <strong>Noir élégant</strong> — mystère et impact</li>
+                                  <li>• <strong>Or/bronze</strong> — leadership naturel</li>
+                                </ul>
+                              </>
+                            )
+                          } else if (type?.includes('reflector') || type?.includes('réflecteur')) {
+                            return (
+                              <>
+                                <p className="font-medium text-amber-700 dark:text-amber-400">🌙 Énergies du Réflecteur</p>
+                                <ul className="text-sm space-y-2">
+                                  <li>• <strong>Argent/gris perle</strong> — reflet de la lune</li>
+                                  <li>• <strong>Toutes les couleurs</strong> — selon le cycle lunaire</li>
+                                  <li>• <strong>Couleurs changeantes</strong> — variez selon votre humeur</li>
+                                </ul>
+                              </>
+                            )
+                          }
+                          return (
+                            <p className="text-sm italic">Couleurs basées sur votre type énergétique</p>
+                          )
+                        })()}
+                      </div>
+                    </div>
+
+                    {/* Rythme de vie basé sur la Stratégie */}
+                    <div className="p-6 bg-gradient-to-br from-cyan-50 to-teal-50 dark:from-cyan-900/20 dark:to-teal-900/20 rounded-xl border-l-4 border-cyan-500">
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="text-3xl">⏰</span>
+                        <h4 className="font-bold text-lg text-gray-900 dark:text-white">Rythme de Vie</h4>
+                      </div>
+                      <div className="space-y-3 text-gray-700 dark:text-gray-300">
+                        <p className="font-medium text-cyan-700 dark:text-cyan-400">📅 Votre tempo naturel</p>
+                        <ul className="text-sm space-y-2">
+                          {profile.design_human.strategy && (
+                            <li>• <strong>Stratégie</strong> : {profile.design_human.strategy}</li>
+                          )}
+                          {profile.design_human.authority && (
+                            <li>• <strong>Décisions</strong> : Écoutez votre {profile.design_human.authority.toLowerCase().includes('emotional') ? 'vague émotionnelle (attendez la clarté)' : profile.design_human.authority.toLowerCase().includes('sacral') ? 'réponse sacrale (oui/non viscéral)' : profile.design_human.authority.toLowerCase().includes('splenic') ? 'intuition splénique (instant présent)' : 'autorité intérieure'}</li>
+                          )}
+                          {profile.design_human.signature && (
+                            <li>• <strong>Quand aligné</strong> : Vous ressentez {profile.design_human.signature.toLowerCase()}</li>
+                          )}
+                          {profile.design_human.not_self && (
+                            <li>• <strong>Signal d'alerte</strong> : {profile.design_human.not_self}</li>
+                          )}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 p-4 bg-rose-100/50 dark:bg-rose-900/20 rounded-lg">
+                    <p className="text-sm text-rose-800 dark:text-rose-200 italic">
+                      💡 Ces conseils lifestyle sont basés sur votre Design Humain. Pour un approfondissement, consultez l'onglet "Design Humain" de votre profil où vous trouverez les détails de votre Variable (4 flèches PHS).
+                    </p>
+                  </div>
+                </div>
+              )}
 
               {/* Additional Guidance Section */}
               <div className="bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900/30 dark:to-orange-900/30 rounded-xl p-8 border-2 border-amber-200 dark:border-amber-800">
