@@ -17,7 +17,7 @@ Quand un agent délègue à un autre, il doit passer un **contexte structuré** 
 
 ### Contexte Session
 - **Projet** : [nom]
-- **Environnement** : [PROD|ALPHA|LOCAL]
+- **Environnement** : [PROD|LOCAL]
 - **Branche** : [branch]
 - **Énergie Jay** : [1-10]
 

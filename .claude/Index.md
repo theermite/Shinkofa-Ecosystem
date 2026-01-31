@@ -41,7 +41,7 @@
 
 | Fichier | Mots-clés | Déclencheur |
 |---------|-----------|-------------|
-| `agents/Context-Guardian/AGENT.md` | session, environnement, énergie, PROD, ALPHA | Début session, /context |
+| `agents/Context-Guardian/AGENT.md` | session, environnement, énergie, PROD, LOCAL | Début session, /context |
 | `agents/Build-Deploy-Test/AGENT.md` | build, deploy, test, vérification, preuves | npm build, docker, deploy |
 | `agents/Code-Reviewer/AGENT.md` | review, commit, qualité, faits, objectif | Avant commit, /pre-commit |
 | `agents/Debug-Investigator/AGENT.md` | debug, bug, erreur, investigation, preuves | Erreur détectée, /debug |

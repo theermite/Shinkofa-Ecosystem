@@ -36,7 +36,7 @@ cp Prompt-2026-Optimized/templates/session-state.md votre-projet/.claude/session
 ```
 
 Remplir :
-- **Target** : PROD / ALPHA / LOCAL
+- **Target** : PROD / LOCAL
 - **Branche** : main / develop
 - **Objectif** : Description courte de la session
 

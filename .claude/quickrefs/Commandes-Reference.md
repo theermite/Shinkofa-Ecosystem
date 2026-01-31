@@ -19,7 +19,6 @@ Certaines commandes acceptent des parametres : `/commande parametre`
 |----------|----------------|
 | `/context` | Voir l'etat de ta session (projet, branche, environnement) |
 | `/context prod` | Passer en mode PRODUCTION (demande confirmation) |
-| `/context alpha` | Passer en mode ALPHA/TEST |
 | `/context local` | Passer en mode LOCAL |
 | `/session-summary` | Resume de ta session en cours |
 | `/resume-dev` | Reprendre le dev apres une pause - restaure le contexte |
@@ -59,7 +58,6 @@ Claude: Tu es sur projet X, branche main, env LOCAL, energie 7/10
 |----------|----------------|
 | `/deploy` | Lance le cycle de deploiement complet |
 | `/deploy prod` | Deployer en PRODUCTION (securite renforcee) |
-| `/deploy alpha` | Deployer en ALPHA/TEST |
 | `/deployment-check` | Verifier que tout est pret pour deployer |
 
 **Ce que /deploy fait automatiquement** :

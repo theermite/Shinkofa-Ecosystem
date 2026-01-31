@@ -166,11 +166,11 @@ Claude:
 
 ## 📍 Session State
 
-**Vérifier `.claude/session-state.md` AVANT toute action PROD/ALPHA** :
+**Vérifier `.claude/session-state.md` AVANT toute action PROD** :
 
 ```markdown
 ## Environnement Actuel
-| Target | PROD / ALPHA / LOCAL |
+| Target | PROD / LOCAL |
 | Branche | main / develop / feature/* |
 | Projet | [nom] |
 ```

@@ -117,7 +117,7 @@ Optimiser les sessions de travail en respectant l'énergie de Jay et en maintena
 **Durée estimée** : ~Xh
 **Projet** : [nom-projet]
 **Branche** : [branch]
-**Environnement** : [PROD|ALPHA|LOCAL]
+**Environnement** : [PROD|LOCAL]
 
 #### ✅ Accompli
 - [x] [Tâche 1]

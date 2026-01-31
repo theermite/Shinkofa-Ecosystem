@@ -224,7 +224,7 @@ pytest --cov=src --cov-report=term-missing
 ## 📋 Rapport [BUILD|DEPLOY|TEST] — [DATE HEURE]
 
 ### Environnement
-- **Cible** : [PROD|ALPHA|LOCAL]
+- **Cible** : [PROD|LOCAL]
 - **Projet** : [nom]
 - **Branche** : [branch]
 

@@ -19,8 +19,7 @@
 | Env | URL | Branche | Serveur |
 |-----|-----|---------|---------|
 | **PROD** | [url] | main | [serveur] |
-| **ALPHA** | [url] | develop | [serveur] |
-| **LOCAL** | localhost:[port] | feature/* | local |
+| **LOCAL** | localhost:[port] | develop / feature/* | local |
 
 ---
 
@@ -44,7 +43,7 @@ Tous les agents de `Instruction-Claude-Code/Prompt-2026-Optimized/agents/` s'app
 
 Fichier : `.claude/session-state.md`
 
-**OBLIGATOIRE** avant toute action sur PROD/ALPHA :
+**OBLIGATOIRE** avant toute action sur PROD :
 1. Vérifier l'environnement dans session-state
 2. Confirmer avec Jay si action ≠ env session
 

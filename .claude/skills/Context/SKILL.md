@@ -15,7 +15,6 @@ user-invocable: true
 ## Déclencheurs
 - `/context` — Afficher état session
 - `/context prod` — Changer vers PROD
-- `/context alpha` — Changer vers ALPHA
 - `/context local` — Changer vers LOCAL
 - `/env [env]` — Alias pour changer environnement
 
@@ -71,7 +70,6 @@ Si `.claude/session-state.md` n'existe pas :
 
 Commandes :
 - /context prod → Changer vers PROD
-- /context alpha → Changer vers ALPHA
 - /context local → Changer vers LOCAL
 ```
 
@@ -80,7 +78,7 @@ Commandes :
 ```
 ⚠️ Changement Environnement
 
-Actuel : ALPHA
+Actuel : LOCAL
 Demandé : PROD
 
 Confirmes-tu ce changement ?
@@ -89,7 +87,7 @@ Confirmes-tu ce changement ?
 
 → Si confirmé :
 ```
-✅ Environnement changé : ALPHA → PROD
+✅ Environnement changé : LOCAL → PROD
 Session-state.md mis à jour.
 ```
 

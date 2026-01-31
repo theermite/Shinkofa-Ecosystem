@@ -243,7 +243,7 @@ Je te propose de skip le RAG uniquement pour :
 
 ### Vérification Environnement (Recommandée)
 
-**Avant toute action sur PROD/ALPHA, je te propose de** :
+**Avant toute action sur PROD, je te propose de** :
 
 1. Lire `.claude/session-state.md`
 2. Afficher : "🎯 Cible actuelle : [ENV]"

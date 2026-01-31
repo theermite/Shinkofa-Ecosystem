@@ -9,7 +9,7 @@
 
 | Clé | Valeur |
 |-----|--------|
-| **Target** | `LOCAL` / `ALPHA` / `PROD` |
+| **Target** | `LOCAL` / `PROD` |
 | **Branche** | `main` / `develop` / `feature/xxx` |
 | **Serveur** | [IP ou nom si applicable] |
 | **Projet** | [nom-projet] |
