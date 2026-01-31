@@ -1,14 +1,15 @@
 name: Deploy - Shinkofa Ecosystem
 
 on:
-  # Triggered after CI passes on main
-  workflow_run:
-    workflows: ["CI - Shinkofa Ecosystem"]
-    types:
-      - completed
-    branches: [main, master]
+  # AUTO-DEPLOY DISABLED until builds are fixed
+  # Uncomment when ready:
+  # workflow_run:
+  #   workflows: ["CI - Shinkofa Ecosystem"]
+  #   types:
+  #     - completed
+  #   branches: [main, master]
 
-  # Manual deployment option
+  # Manual deployment only (for now)
   workflow_dispatch:
     inputs:
       app:
