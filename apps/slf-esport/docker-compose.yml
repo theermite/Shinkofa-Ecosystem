@@ -84,8 +84,7 @@ services:
       - VITE_WEBSOCKET_URL=wss://lslf.shinkofa.com/ws
       - VITE_ENVIRONMENT=production
     volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - ./frontend/build:/usr/share/nginx/html:ro
     ports:
       - "3001:80"
     networks:

@@ -3,16 +3,19 @@
 # Development stage
 FROM node:20-alpine AS development
 
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@8 --activate
+
 WORKDIR /app
 
 # Copy package files
-COPY package*.json ./
+COPY package.json pnpm-lock.yaml* ./
 
 # Copy brain-training package (needed for file-based dependency)
 COPY brain-training-package ./brain-training-package
 
-# Install dependencies
-RUN npm install
+# Install dependencies (ignore workspace packages for standalone build)
+RUN pnpm install --ignore-workspace
 
 # Copy source code
 COPY . .
@@ -21,28 +24,30 @@ COPY . .
 EXPOSE 3000
 
 # Start development server
-CMD ["npm", "run", "dev", "--", "--host"]
+CMD ["pnpm", "run", "dev", "--", "--host"]
 
 # Build stage
 FROM node:20-alpine AS build
 
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@8 --activate
+
 WORKDIR /app
 
 # Copy package files
-COPY package*.json ./
+COPY package.json pnpm-lock.yaml* ./
 
 # Copy brain-training package (needed for file-based dependency)
 COPY brain-training-package ./brain-training-package
 
-# Install dependencies (including dev deps needed for build)
-# Using npm install instead of npm ci because of local brain-training-package dependency
-RUN npm install
+# Install dependencies (ignore workspace packages for standalone build)
+RUN pnpm install --ignore-workspace
 
 # Copy source code
 COPY . .
 
 # Build application
-RUN npm run build
+RUN pnpm run build
 
 # Production stage
 FROM nginx:alpine AS production
