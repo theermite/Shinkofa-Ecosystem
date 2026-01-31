@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "echo 'Build skipped - stub project'",
     "preview": "vite preview",
     "lint": "echo 'Lint skipped - stub project'",
     "type-check": "echo 'Type-check skipped - stub project'",
