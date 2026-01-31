@@ -6,8 +6,8 @@
 
 ## 📊 Statistiques
 
-**Leçons documentées** : 8
-**Dernière mise à jour** : 2026-01-29
+**Leçons documentées** : 9
+**Dernière mise à jour** : 2026-01-31
 
 ---
 
@@ -431,6 +431,95 @@ location / {
 
 **Catégorie** : DevOps
 **Tags** : nginx, cache, next.js, deployment
+
+---
+
+### 9. React Error #31 - Objects Not Valid as React Child
+
+**Date** : 2026-01-31 | **Projet** : Shinkofa (Michi) | **Sévérité** : 🔴 Critique
+
+**Contexte** : Affichage de valeurs numérologie après changement format API (support Master Numbers)
+
+**Problème** :
+```tsx
+// ❌ Rendre directement une valeur qui est devenue un objet
+interface Numerology {
+  life_path: number | { value: number; display: string; is_master_number: boolean }
+}
+
+// Après changement backend pour Master Numbers:
+// life_path = { value: 11, display: "11/2", is_master_number: true }
+
+<p>{holisticProfile.numerology.life_path}</p>
+// 💥 React Error #31: Objects with keys {value, display, is_master_number, base_number}
+//    are not valid as a React child
+```
+
+**Symptômes** :
+- 🐛 Page crash complet avec erreur React #31
+- 🐛 Console: `object with keys {value, display, is_master_number, base_number}`
+- 🐛 Erreur intermittente si données mixtes (ancien format number, nouveau format object)
+
+**Cause racine** :
+- Backend modifié pour retourner objets (support Master Numbers 11/2, 22/4, 33/6)
+- Frontend continue à rendre `{value}` directement
+- React ne peut pas afficher un objet comme enfant
+
+**Solution** :
+```tsx
+// ✅ Helper function pour gérer les deux formats
+const getNumDisplay = (
+  val: number | { value: number; display: string } | undefined
+): string => {
+  if (val === undefined || val === null) return '0'
+  if (typeof val === 'number') return String(val)
+  return val.display ?? String(val.value ?? 0)
+}
+
+// Usage
+<p>{getNumDisplay(holisticProfile.numerology.life_path)}</p>
+// Affiche "11/2" pour Master Number, "5" pour nombre normal
+```
+
+**Pattern générique** :
+```tsx
+// Pour TOUTE valeur pouvant être object ou primitive
+const safeDisplay = <T extends { display?: string; value?: unknown }>(
+  val: T | string | number | undefined,
+  fallback = ''
+): string => {
+  if (val === undefined || val === null) return fallback
+  if (typeof val === 'string' || typeof val === 'number') return String(val)
+  if (typeof val === 'object' && 'display' in val) return val.display ?? String(val.value ?? fallback)
+  return fallback
+}
+```
+
+**Prévention** :
+1. **TypeScript strict** : Définir types précis dans interfaces
+   ```tsx
+   interface NumerologyValue {
+     value: number
+     display: string
+     is_master_number: boolean
+     base_number?: number
+   }
+   ```
+2. **Linting** : ESLint rule pour détecter render d'objets
+3. **Tests** : Tester avec les deux formats de données
+
+**Règle d'or** :
+> Quand le backend change le format d'une valeur (primitive → object),
+> TOUS les endroits qui affichent cette valeur doivent être mis à jour.
+> Chercher avec grep: `{variable_name}` dans le JSX.
+
+**Impact** :
+- ✅ Dashboard fonctionne avec Master Numbers
+- ✅ Backward compatible (gère ancien format number)
+- ✅ Affichage correct: "11/2" au lieu de "[object Object]"
+
+**Catégorie** : Bug Fix (Critique)
+**Tags** : react, typescript, api-format, objects, render-error
 
 ---
 
