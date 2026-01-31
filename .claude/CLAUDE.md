@@ -38,12 +38,15 @@ Shinkofa-Ecosystem/
 
 ## 🎯 Applications par Phase
 
-### Phase 1 : Infrastructure Fondation
+### Phase 1 : Infrastructure Fondation (IA Shizen)
 
 | App | Kanji | Type | Status |
 |-----|-------|------|--------|
-| **shizen-ia** | 至善 | IA Holistique Coach | 🟡 En dev |
+| **shizen** | 至善 | Frontend IA (React/Vite) | 🟡 En dev |
+| **api-shizen** | 至善 | Backend IA (FastAPI) | 🟡 En dev |
 | **hibiki-dictate** | 響き | Dictée vocale | 🔴 Stub |
+
+> ℹ️ L'IA Shizen = `shizen` (frontend) + `api-shizen` (backend). Le dossier `shizen-ia` a été supprimé (doublon vide).
 
 ### Phase 2 : Plateforme Centrale
 
@@ -123,8 +126,6 @@ Shinkofa-Ecosystem/
 
 | App | Type | Status |
 |-----|------|--------|
-| **api-shizen** | API IA Shizen | 🟡 En dev |
-| **shizen** | Core Shizen | 🟡 En dev |
 | **kosei** | Profil utilisateur | 🔴 Stub |
 | **toolbox-theermite** | Legacy toolbox | ⚠️ Migré vers takumi-kit |
 
