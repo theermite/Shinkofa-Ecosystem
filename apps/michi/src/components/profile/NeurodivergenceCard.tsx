@@ -168,6 +168,9 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
         </div>
       )}
 
+      {/* Légende des scores - toujours visible */}
+      <ScoreLegend />
+
       {/* ADD/ADHD */}
       <NeurodivergenceItem
         title="TDA(H) - Trouble du Déficit de l'Attention avec ou sans Hyperactivité"
@@ -218,23 +221,39 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
 
       {/* Hypersensitivity */}
       <div className={`bg-gradient-to-br from-rose-50 to-pink-50 dark:from-rose-900/20 dark:to-pink-900/20 rounded-xl p-6 border-2 border-rose-200 dark:border-rose-800 ${hypersensitivityPending || overallPending ? 'opacity-75' : ''}`}>
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <span className="text-4xl">💎</span>
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <div className="flex items-start justify-between mb-4">
+          <div className="flex items-start gap-3 flex-1">
+            <span className="text-4xl mt-1">💎</span>
+            <div className="flex-1">
+              {/* Catégorie en petit */}
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
                 Hypersensibilité
-              </h3>
-              <p className={`text-sm mt-1 ${hypersensitivityPending || overallPending ? 'text-amber-600 dark:text-amber-400 font-medium' : 'text-gray-600 dark:text-gray-400'}`}>
-                Profil : {hypersensitivityPending || overallPending ? 'Analyse en attente' : hypersensitivity.profile}
               </p>
+              {/* Profil déterminé en grand - MISE EN AVANT */}
+              <h3 className={`text-xl md:text-2xl font-bold ${hypersensitivityPending || overallPending ? 'text-amber-600 dark:text-amber-400' : 'text-rose-700 dark:text-rose-300'}`}>
+                {hypersensitivityPending || overallPending ? 'Analyse en attente' : hypersensitivity.profile}
+              </h3>
+              {/* Explication du score */}
+              {!(hypersensitivityPending || overallPending) && hypersensitivity.score >= 26 && (
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
+                  {hypersensitivity.score >= 81 && "Votre sensibilité est très développée. C'est une force qui nécessite des stratégies de protection."}
+                  {hypersensitivity.score >= 61 && hypersensitivity.score < 81 && "Votre sensibilité influence significativement vos perceptions et émotions."}
+                  {hypersensitivity.score >= 41 && hypersensitivity.score < 61 && "Une sensibilité modérée est présente, enrichissant votre expérience du monde."}
+                  {hypersensitivity.score >= 26 && hypersensitivity.score < 41 && "Quelques traits de sensibilité sont présents sans impact majeur."}
+                </p>
+              )}
+              {!(hypersensitivityPending || overallPending) && hypersensitivity.score < 26 && (
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+                  Aucune hypersensibilité significative détectée.
+                </p>
+              )}
             </div>
           </div>
           <ScoreBadge score={hypersensitivity.score} isPending={hypersensitivityPending || overallPending} />
         </div>
 
-        {/* Types d'hypersensibilité */}
-        {hypersensitivity.types && hypersensitivity.types.length > 0 && !(hypersensitivityPending || overallPending) && (
+        {/* Types d'hypersensibilité - seulement si score >= 26 */}
+        {hypersensitivity.types && hypersensitivity.types.length > 0 && !(hypersensitivityPending || overallPending) && hypersensitivity.score >= 26 && (
           <div className="mb-6 p-4 bg-white/70 dark:bg-gray-800/70 rounded-lg">
             <h4 className="font-semibold text-gray-900 dark:text-white mb-3 text-lg">
               Types d'hypersensibilité identifiés :
@@ -252,24 +271,27 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <DetailCard
-            title={hypersensitivityPending || overallPending ? "⏳ En attente" : "🔍 Manifestations"}
-            items={hypersensitivityPending || overallPending
-              ? ["L'analyse n'a pas pu être complétée", "Cliquez sur 'Enrichir avec Shizen' pour relancer"]
-              : hypersensitivity.manifestations}
-            icon="•"
-            color="purple"
-          />
-          <DetailCard
-            title={hypersensitivityPending || overallPending ? "💡 Action requise" : "💡 Stratégies d'Adaptation"}
-            items={hypersensitivityPending || overallPending
-              ? ["Régénérez votre profil pour obtenir des stratégies personnalisées"]
-              : hypersensitivity.strategies}
-            icon="✓"
-            color="green"
-          />
-        </div>
+        {/* Manifestations/Stratégies - seulement si score >= 26 ou pending */}
+        {((hypersensitivityPending || overallPending) || hypersensitivity.score >= 26) && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <DetailCard
+              title={hypersensitivityPending || overallPending ? "⏳ En attente" : "🔍 Manifestations"}
+              items={hypersensitivityPending || overallPending
+                ? ["L'analyse n'a pas pu être complétée", "Cliquez sur 'Enrichir avec Shizen' pour relancer"]
+                : hypersensitivity.manifestations}
+              icon="•"
+              color="purple"
+            />
+            <DetailCard
+              title={hypersensitivityPending || overallPending ? "💡 Action requise" : "💡 Stratégies d'Adaptation"}
+              items={hypersensitivityPending || overallPending
+                ? ["Régénérez votre profil pour obtenir des stratégies personnalisées"]
+                : hypersensitivity.strategies}
+              icon="✓"
+              color="green"
+            />
+          </div>
+        )}
       </div>
 
       {/* Additional Neurodivergences - Only show if score > 25 (traits present) */}
@@ -364,6 +386,13 @@ const NeurodivergenceItem: React.FC<NeurodivergenceItemProps> = ({
     pink: 'from-pink-50 to-fuchsia-50 dark:from-pink-900/20 dark:to-fuchsia-900/20 border-pink-200 dark:border-pink-800',
   }
 
+  const profileColorClasses = {
+    purple: 'text-purple-700 dark:text-purple-300',
+    blue: 'text-blue-700 dark:text-blue-300',
+    indigo: 'text-indigo-700 dark:text-indigo-300',
+    pink: 'text-pink-700 dark:text-pink-300',
+  }
+
   // Show pending state with informative message
   const displayProfile = isPending ? 'Analyse en attente' : profile
   const displayManifestations = isPending && manifestations.length === 0
@@ -375,35 +404,54 @@ const NeurodivergenceItem: React.FC<NeurodivergenceItemProps> = ({
 
   return (
     <div className={`bg-gradient-to-br ${colorClasses[color]} rounded-xl p-6 border-2 ${isPending ? 'opacity-75' : ''}`}>
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-3">
-          <span className="text-4xl">{icon}</span>
-          <div>
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+      <div className="flex items-start justify-between mb-4">
+        <div className="flex items-start gap-3 flex-1">
+          <span className="text-4xl mt-1">{icon}</span>
+          <div className="flex-1">
+            {/* Catégorie en petit */}
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
               {title}
-            </h3>
-            <p className={`text-sm mt-1 ${isPending ? 'text-amber-600 dark:text-amber-400 font-medium' : 'text-gray-600 dark:text-gray-400'}`}>
-              Profil : {displayProfile}
             </p>
+            {/* Profil déterminé en grand - MISE EN AVANT */}
+            <h3 className={`text-xl md:text-2xl font-bold ${isPending ? 'text-amber-600 dark:text-amber-400' : profileColorClasses[color]}`}>
+              {displayProfile}
+            </h3>
+            {/* Explication du score si significatif */}
+            {!isPending && score >= 26 && (
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
+                {score >= 81 && "Ce trait est très présent dans votre fonctionnement. Des stratégies adaptées peuvent vous aider au quotidien."}
+                {score >= 61 && score < 81 && "Ce trait influence significativement votre quotidien. Les stratégies proposées peuvent vous être utiles."}
+                {score >= 41 && score < 61 && "Quelques caractéristiques sont présentes. Elles méritent une attention légère."}
+                {score >= 26 && score < 41 && "Des indices subtils sont présents, sans impact majeur sur le quotidien."}
+              </p>
+            )}
+            {!isPending && score < 26 && (
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+                Aucun indicateur significatif détecté pour cette caractéristique.
+              </p>
+            )}
           </div>
         </div>
         <ScoreBadge score={score} isPending={isPending} />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <DetailCard
-          title={isPending ? "⏳ En attente" : "🔍 Manifestations"}
-          items={displayManifestations}
-          icon="•"
-          color="purple"
-        />
-        <DetailCard
-          title={isPending ? "💡 Action requise" : "💡 Stratégies d'Adaptation"}
-          items={displayStrategies}
-          icon="✓"
-          color="green"
-        />
-      </div>
+      {/* N'afficher manifestations/stratégies que si score >= 26 ou si pending */}
+      {(isPending || score >= 26) && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <DetailCard
+            title={isPending ? "⏳ En attente" : "🔍 Manifestations"}
+            items={displayManifestations}
+            icon="•"
+            color="purple"
+          />
+          <DetailCard
+            title={isPending ? "💡 Action requise" : "💡 Stratégies d'Adaptation"}
+            items={displayStrategies}
+            icon="✓"
+            color="green"
+          />
+        </div>
+      )}
     </div>
   )
 }
@@ -424,18 +472,21 @@ const ScoreBadge: React.FC<ScoreBadgeProps> = ({ score, isPending = false }) => 
     )
   }
 
+  // Paliers alignés avec l'analyse backend (standards cliniques adaptés)
   const getScoreColor = (val: number) => {
-    if (val >= 70) return 'bg-red-500 text-white'
-    if (val >= 50) return 'bg-orange-500 text-white'
-    if (val >= 30) return 'bg-yellow-500 text-gray-900'
-    return 'bg-green-500 text-white'
+    if (val >= 81) return 'bg-red-600 text-white'      // MARQUÉ
+    if (val >= 61) return 'bg-orange-500 text-white'   // MODÉRÉ
+    if (val >= 41) return 'bg-yellow-500 text-gray-900' // LÉGER
+    if (val >= 26) return 'bg-blue-400 text-white'     // TRAITS PRÉSENTS
+    return 'bg-green-500 text-white'                   // ABSENT
   }
 
   const getScoreLabel = (val: number) => {
-    if (val >= 70) return 'Fort'
-    if (val >= 50) return 'Modéré'
-    if (val >= 30) return 'Léger'
-    return 'Faible'
+    if (val >= 81) return 'Marqué'
+    if (val >= 61) return 'Modéré'
+    if (val >= 41) return 'Léger'
+    if (val >= 26) return 'Traits'
+    return 'Absent'
   }
 
   return (
@@ -445,3 +496,37 @@ const ScoreBadge: React.FC<ScoreBadgeProps> = ({ score, isPending = false }) => 
     </div>
   )
 }
+
+// Légende explicative des scores
+const ScoreLegend: React.FC = () => (
+  <div className="bg-white/80 dark:bg-gray-800/80 rounded-xl p-4 mb-6 border border-gray-200 dark:border-gray-700">
+    <h4 className="font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+      <span>📊</span> Comprendre votre score
+    </h4>
+    <div className="grid grid-cols-2 md:grid-cols-5 gap-2 text-sm">
+      <div className="flex items-center gap-2">
+        <span className="w-4 h-4 rounded-full bg-green-500 flex-shrink-0"></span>
+        <span className="text-gray-700 dark:text-gray-300"><strong>0-25</strong> Absent</span>
+      </div>
+      <div className="flex items-center gap-2">
+        <span className="w-4 h-4 rounded-full bg-blue-400 flex-shrink-0"></span>
+        <span className="text-gray-700 dark:text-gray-300"><strong>26-40</strong> Traits</span>
+      </div>
+      <div className="flex items-center gap-2">
+        <span className="w-4 h-4 rounded-full bg-yellow-500 flex-shrink-0"></span>
+        <span className="text-gray-700 dark:text-gray-300"><strong>41-60</strong> Léger</span>
+      </div>
+      <div className="flex items-center gap-2">
+        <span className="w-4 h-4 rounded-full bg-orange-500 flex-shrink-0"></span>
+        <span className="text-gray-700 dark:text-gray-300"><strong>61-80</strong> Modéré</span>
+      </div>
+      <div className="flex items-center gap-2">
+        <span className="w-4 h-4 rounded-full bg-red-600 flex-shrink-0"></span>
+        <span className="text-gray-700 dark:text-gray-300"><strong>81-100</strong> Marqué</span>
+      </div>
+    </div>
+    <p className="text-xs text-gray-500 dark:text-gray-400 mt-3">
+      💡 Un score élevé n'est pas négatif — il indique une caractéristique plus prononcée qui mérite attention et stratégies adaptées.
+    </p>
+  </div>
+)

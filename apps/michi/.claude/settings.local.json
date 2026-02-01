@@ -10,7 +10,22 @@
       "Bash(git commit:*)",
       "Bash(git push)",
       "Bash(git push:*)",
-      "Bash(ssh:*)"
+      "Bash(ssh:*)",
+      "Bash(if [ -d \".next\" ])",
+      "Bash(then echo \"✅ Build directory found \\(.next\\)\")",
+      "Bash(else echo \"⚠️ No .next build directory\")",
+      "Bash(fi)",
+      "Bash(npm outdated:*)",
+      "Bash(scp:*)",
+      "Bash(python -m py_compile:*)",
+      "Bash(python:*)",
+      "WebSearch",
+      "Bash(git check-ignore:*)",
+      "Bash(npm run build:*)",
+      "Bash(docker compose build:*)",
+      "Bash(ls:*)",
+      "Bash(git diff:*)",
+      "Skill(Session-Manager)"
     ]
   }
 }

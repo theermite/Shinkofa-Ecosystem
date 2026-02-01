@@ -71,8 +71,21 @@ export default function HolisticProfilePage() {
         await refetch()
         alert('✅ Profil régénéré avec succès !')
       } else {
-        const error = await response.json()
-        throw new Error(error.detail || 'Échec de la régénération')
+        // Safely parse error response - may be JSON or HTML
+        const contentType = response.headers.get('content-type') || ''
+        let errorMessage = 'Échec de la régénération'
+        if (contentType.includes('application/json')) {
+          try {
+            const errorData = await response.json()
+            errorMessage = errorData.detail || errorMessage
+          } catch {
+            // JSON parse failed, use default message
+          }
+        } else {
+          // Non-JSON response (likely HTML error page)
+          errorMessage = `Erreur serveur (${response.status})`
+        }
+        throw new Error(errorMessage)
       }
     } catch (error) {
       console.error('Failed to regenerate profile:', error)
