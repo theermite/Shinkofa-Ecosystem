@@ -749,10 +749,29 @@ async def enrich_profile_section(
             section_data = profile.recommendations
 
         # Check if section is empty or pending - trigger REGENERATION instead of enrichment
+        def is_neurodivergence_invalid(data: dict) -> bool:
+            """Check if neurodivergence data is invalid/empty and needs regeneration"""
+            if not data or not isinstance(data, dict):
+                return True
+            # Check if all main types have score 0 or -1 (invalid)
+            main_types = ['adhd', 'autism', 'hpi', 'multipotentiality', 'hypersensitivity']
+            valid_scores = 0
+            for neuro_type in main_types:
+                type_data = data.get(neuro_type, {})
+                if isinstance(type_data, dict):
+                    score = type_data.get('score_global') or type_data.get('score')
+                    profil_label = type_data.get('profil_label', '')
+                    # Valid if: score > 0 AND has a real profil_label (not "Non analysé" or empty)
+                    if score and score > 0 and profil_label and 'analyse' not in profil_label.lower() and profil_label != 'Non analysé':
+                        valid_scores += 1
+            # If less than 3 valid entries, consider it invalid
+            return valid_scores < 3
+
         is_pending = (
             not section_data or
             (isinstance(section_data, dict) and section_data.get('_analysis_status') == 'pending') or
-            (isinstance(section_data, dict) and section_data.get('adhd', {}).get('score_global') == -1)
+            (isinstance(section_data, dict) and section_data.get('adhd', {}).get('score_global') == -1) or
+            (request.section == 'neurodivergence' and isinstance(section_data, dict) and is_neurodivergence_invalid(section_data))
         )
 
         if is_pending and request.section == 'neurodivergence':
