@@ -799,9 +799,12 @@ async def enrich_profile_section(
             responses = list(responses_result.scalars().all())
 
             if len(responses) < 10:
+                # Not enough responses - suggest using full regeneration instead
+                logger.warning(f"⚠️ Only {len(responses)} responses for session {profile.session_id}")
                 raise HTTPException(
                     status_code=status.HTTP_400_BAD_REQUEST,
-                    detail=f"Not enough questionnaire responses ({len(responses)}) to regenerate analysis",
+                    detail=f"Pas assez de réponses ({len(responses)}) pour régénérer cette section. "
+                           f"Utilisez le bouton 'Régénérer le profil complet' à la place.",
                 )
 
             # Convert responses to dict format

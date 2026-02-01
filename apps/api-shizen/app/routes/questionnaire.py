@@ -783,18 +783,20 @@ async def trigger_analysis(
             detail=f"Session {session_id} not found"
         )
 
-    if session.status != SessionStatus.COMPLETED:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Session must be completed before analysis"
-        )
-
-    # Check if profile(s) already exist - delete ALL to avoid duplicates
+    # Check if profile(s) already exist - if yes, allow re-analysis even if session not "completed"
     profile_result = await db.execute(
         select(HolisticProfile).where(HolisticProfile.session_id == session_id)
     )
     existing_profiles = profile_result.scalars().all()
 
+    # If no existing profile, session MUST be completed
+    if not existing_profiles and session.status != SessionStatus.COMPLETED:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Session must be completed before analysis"
+        )
+
+    # If profile exists, allow re-analysis (session was analyzed before)
     if existing_profiles:
         # Re-analyze existing profile - delete ALL existing profiles for this session
         logger.info(f"🗑️ Deleting {len(existing_profiles)} existing profile(s) for session {session_id}")
