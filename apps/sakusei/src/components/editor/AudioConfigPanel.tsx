@@ -26,8 +26,6 @@ import {
   FREQUENCY_OPTIONS,
   MUSIC_LIBRARY,
   DEFAULT_AUDIO_CONFIG,
-  type FrequencyOption,
-  type MusicTrack,
 } from '@/constants/audio';
 import { audioService } from '@/services/audio/audioService';
 
@@ -43,7 +41,7 @@ export function AudioConfigPanel({
   open,
   onOpenChange,
   mediaFileId,
-  mediaDuration,
+  mediaDuration: _mediaDuration,
   onMixComplete,
 }: AudioConfigPanelProps) {
   // State
@@ -60,7 +58,7 @@ export function AudioConfigPanel({
 
   // Get selected options
   const frequencyOption = FREQUENCY_OPTIONS.find((f) => String(f.value) === selectedFrequency);
-  const musicOption = MUSIC_LIBRARY.find((m) => m.id === selectedMusic);
+  const _musicOption = MUSIC_LIBRARY.find((m) => m.id === selectedMusic);
 
   // Preview frequency
   const handlePreviewFrequency = () => {

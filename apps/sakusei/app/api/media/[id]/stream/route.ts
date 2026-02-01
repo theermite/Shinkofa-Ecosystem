@@ -106,7 +106,7 @@ function createWebStreamFromNodeStream(nodeStream: ReadStream): ReadableStream {
           if (controller.desiredSize !== null) {
             controller.enqueue(chunk);
           }
-        } catch (error) {
+        } catch (_error) {
           // Stream already closed, just clean up
           nodeStream.destroy();
         }
@@ -115,7 +115,7 @@ function createWebStreamFromNodeStream(nodeStream: ReadStream): ReadableStream {
       nodeStream.on('end', () => {
         try {
           controller.close();
-        } catch (error) {
+        } catch (_error) {
           // Controller already closed, ignore
         }
       });
@@ -123,15 +123,15 @@ function createWebStreamFromNodeStream(nodeStream: ReadStream): ReadableStream {
       nodeStream.on('error', (error) => {
         try {
           controller.error(error);
-        } catch (err) {
+        } catch (_err) {
           // Controller already closed, just log
-          console.warn('[Stream] Error after close:', err);
+          console.warn('[Stream] Error after close:', _err);
         }
         nodeStream.destroy();
       });
     },
 
-    cancel(reason) {
+    cancel(_reason) {
       // Client cancelled the stream (e.g., video seek)
       nodeStream.destroy();
     },

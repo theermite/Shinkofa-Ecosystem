@@ -28,7 +28,7 @@ function generateUUID(): string {
 }
 
 export function AudioTrackPanel() {
-  const { audioTracks, addAudioTrack, removeAudioTrack, setAudioTrackVolume, duration } =
+  const { audioTracks, addAudioTrack, removeAudioTrack, setAudioTrackVolume, duration: _duration } =
     useEditorStore();
 
   const [selectedMusic, setSelectedMusic] = useState<string>('none');

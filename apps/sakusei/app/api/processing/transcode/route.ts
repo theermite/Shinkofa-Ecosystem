@@ -62,6 +62,7 @@ export async function POST(req: NextRequest) {
       const exportEntry = await prisma.export.create({
         data: {
           clipId,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           format: spec.prismaFormat as any, // Use the Prisma enum value
           resolution: `${spec.width}x${spec.height}`,
           aspectRatio: spec.aspectRatio,
