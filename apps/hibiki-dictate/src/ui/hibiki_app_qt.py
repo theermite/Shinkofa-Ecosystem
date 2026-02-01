@@ -760,6 +760,9 @@ class HibikiMainWindow(QMainWindow):
         """Show window from system tray."""
         self.show()
         self.activateWindow()
+        # Restore overlay if it was hidden
+        if self.overlay and self.config.show_overlay:
+            self.overlay.show()
         logger.info("Window shown from tray")
 
     def _quit_from_tray(self):
@@ -802,6 +805,9 @@ class HibikiMainWindow(QMainWindow):
                 # Minimize to tray
                 logger.info("Minimizing to system tray...")
                 self.hide()
+                # Hide overlay when minimizing
+                if self.overlay:
+                    self.overlay.hide()
                 if self.system_tray:
                     self.system_tray.show_message(
                         "Hibiki",
@@ -828,13 +834,20 @@ class HibikiMainWindow(QMainWindow):
             if isinstance(self.transcription_engine, WhisperXEngine):
                 self.transcription_engine.unload()
 
-        # Close overlay
+        # Close and destroy overlay
         if self.overlay:
+            self.overlay.hide()
             self.overlay.close()
+            self.overlay.deleteLater()
+            self.overlay = None
+            logger.info("Overlay destroyed")
 
-        # Hide system tray
+        # Hide and destroy system tray
         if self.system_tray:
             self.system_tray.hide()
+            self.system_tray.tray_icon.deleteLater()
+            self.system_tray = None
+            logger.info("System tray destroyed")
 
         event.accept()
         QApplication.instance().quit()
