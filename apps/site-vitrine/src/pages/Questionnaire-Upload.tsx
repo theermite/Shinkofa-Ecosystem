@@ -28,6 +28,7 @@ export function QuestionnaireUpload() {
     }
   }, [searchParams]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleUploadComplete = (response: any) => {
     console.log('Upload terminé:', response);
     // TODO: Rediriger vers page de révision/import des données

@@ -129,6 +129,7 @@ export async function POST(request: NextRequest) {
     if (existingClipWithTranscription?.transcription) {
       try {
         filteredTranscription = filterTranscriptionForSegments(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           existingClipWithTranscription.transcription as any,
           activeSegments
         );

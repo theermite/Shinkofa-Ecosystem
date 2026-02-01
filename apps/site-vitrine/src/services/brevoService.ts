@@ -10,6 +10,7 @@ import { generateAIPrompt, generateAnswersText } from './promptGenerator';
 // Types Brevo
 interface BrevoContact {
   email: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   attributes?: Record<string, any>;
   listIds?: number[];
   updateEnabled?: boolean;
@@ -57,6 +58,7 @@ const brevoApi = axios.create({
 export async function addOrUpdateContact(contact: BrevoContact): Promise<void> {
   try {
     await brevoApi.post('/contacts', contact);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     // Si le contact existe déjà (code 400), on le met à jour
     if (error.response?.status === 400 && error.response?.data?.code === 'duplicate_parameter') {

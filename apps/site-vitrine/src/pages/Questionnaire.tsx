@@ -31,6 +31,7 @@ export function Questionnaire() {
     if (progress && !progress.completed) {
       setShowWelcomeBack(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleRestoreProgress = () => {
@@ -61,6 +62,7 @@ export function Questionnaire() {
       };
       setProgress(newProgress);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSectionIndex, currentQuestionIndex, answers]);
 
   const currentSection = questionnaireData.sections[currentSectionIndex];
@@ -196,7 +198,7 @@ export function Questionnaire() {
             Bon retour ! 👋
           </h2>
           <p className="text-bleu-profond/70 dark:text-blanc-pur/70 mb-6">
-            Nous avons sauvegardé ta progression. Tu en étais à la question {progress?.currentQuestionIndex! + 1} de la section "{questionnaireData.sections[progress?.currentSectionIndex!]?.title}".
+            Nous avons sauvegardé ta progression. Tu en étais à la question {(progress?.currentQuestionIndex ?? 0) + 1} de la section "{questionnaireData.sections[progress?.currentSectionIndex ?? 0]?.title}".
           </p>
           <p className="text-bleu-profond/70 dark:text-blanc-pur/70 mb-8">
             Que souhaites-tu faire ?

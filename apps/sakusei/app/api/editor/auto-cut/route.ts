@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
     }
 
     // If only 1 segment covering most of the video, no need to cut
-    const totalSpeechDuration = timelineSegments.reduce(
+    const _totalSpeechDuration = timelineSegments.reduce(
       (sum, seg) => sum + (seg.endTime - seg.startTime),
       0
     );

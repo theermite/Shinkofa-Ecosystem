@@ -123,6 +123,7 @@ export async function POST(request: NextRequest) {
     if (existingClipWithTranscription?.transcription) {
       try {
         filteredTranscription = filterTranscriptionByTimeRange(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           existingClipWithTranscription.transcription as any,
           startTime,
           endTime
