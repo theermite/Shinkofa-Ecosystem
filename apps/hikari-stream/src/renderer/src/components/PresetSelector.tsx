@@ -8,7 +8,7 @@ interface PresetSelectorProps {
 }
 
 function PresetSelector({ isOpen, onClose, onApplyPreset }: PresetSelectorProps): JSX.Element | null {
-  const { presets, activePresetId, addPreset, updatePreset, removePreset, applyPreset, scenes } = useAppStore()
+  const { presets, activePresetId, removePreset, applyPreset } = useAppStore()
   const [isEditing, setIsEditing] = useState<string | null>(null)
   const [isCreating, setIsCreating] = useState(false)
 
@@ -236,14 +236,14 @@ function PresetEditor({
   const [resolution, setResolution] = useState<'720p' | '1080p' | '1440p'>(existingPreset?.resolution || '1080p')
   const [fps, setFps] = useState<30 | 60>(existingPreset?.fps || 60)
   const [bitrate, setBitrate] = useState(existingPreset?.bitrate || 6000)
-  const [encoder, setEncoder] = useState<'nvenc' | 'amf' | 'qsv' | 'x264'>(existingPreset?.encoder || 'nvenc')
+  const [encoder] = useState<'nvenc' | 'amf' | 'qsv' | 'x264'>(existingPreset?.encoder || 'nvenc')
   const [startSceneId, setStartSceneId] = useState(existingPreset?.startSceneId || 'live')
 
   // Twitch config
   const [twitchEnabled, setTwitchEnabled] = useState(existingPreset?.platforms.twitch.enabled ?? true)
   const [twitchTitle, setTwitchTitle] = useState(existingPreset?.platforms.twitch.title || '')
   const [twitchGameName, setTwitchGameName] = useState(existingPreset?.platforms.twitch.gameName || '')
-  const [twitchGameId, setTwitchGameId] = useState(existingPreset?.platforms.twitch.gameId || '')
+  const [twitchGameId] = useState(existingPreset?.platforms.twitch.gameId || '')
 
   // YouTube config
   const [youtubeEnabled, setYoutubeEnabled] = useState(existingPreset?.platforms.youtube.enabled ?? false)

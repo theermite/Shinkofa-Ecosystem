@@ -235,16 +235,17 @@ export function useAudioLevels(): {
 
   // Cleanup on unmount
   useEffect(() => {
+    const sources = sourcesRef.current
+    const audioContext = audioContextRef.current
     return () => {
       console.log('[AudioLevels] Cleaning up...')
-      sourcesRef.current.forEach((source) => {
+      sources.forEach((source) => {
         source.stream.getTracks().forEach(track => track.stop())
       })
-      sourcesRef.current.clear()
+      sources.clear()
       stopLoop()
-      if (audioContextRef.current) {
-        audioContextRef.current.close()
-        audioContextRef.current = null
+      if (audioContext) {
+        audioContext.close()
       }
     }
   }, [stopLoop])

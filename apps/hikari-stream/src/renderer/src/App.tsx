@@ -8,7 +8,7 @@ import SetupWizard from './components/SetupWizard'
 import StreamInfoPanel from './components/StreamInfoPanel'
 
 function App(): JSX.Element {
-  const { isInitialized, setInitialized, setAppInfo } = useAppStore()
+  const { setInitialized, setAppInfo } = useAppStore()
   const [isLoading, setIsLoading] = useState(true)
   const [needsSetup, setNeedsSetup] = useState(false)
   const [controlPanelHeight, setControlPanelHeight] = useState(140)

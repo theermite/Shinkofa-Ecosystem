@@ -146,13 +146,9 @@ class FFmpegService extends EventEmitter {
     this._isRunning = true
     this.emit('start')
 
-    // Buffer for collecting stderr output for error detection
-    let stderrBuffer = ''
-
     // Parse stderr for progress and errors
     this.process.stderr?.on('data', (data: Buffer) => {
       const output = data.toString()
-      stderrBuffer += output
 
       // Log all FFmpeg output for debugging
       console.log('[FFmpeg stderr]', output.trim())

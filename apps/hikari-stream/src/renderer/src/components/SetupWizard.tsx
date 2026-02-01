@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 interface SetupWizardProps {
   onComplete: () => void
@@ -17,19 +17,7 @@ function SetupWizard({ onComplete }: SetupWizardProps): JSX.Element {
   })
   const [progress, setProgress] = useState<DownloadProgress>({ ffmpeg: 0, scrcpy: 0 })
 
-  useEffect(() => {
-    checkDependencies()
-
-    // Listen for download progress
-    const cleanup = window.api.on('deps:progress', (data: unknown) => {
-      const { type, percent } = data as { type: 'ffmpeg' | 'scrcpy'; percent: number }
-      setProgress((prev) => ({ ...prev, [type]: percent }))
-    })
-
-    return cleanup
-  }, [])
-
-  const checkDependencies = async (): Promise<void> => {
+  const checkDependencies = useCallback(async (): Promise<void> => {
     try {
       const depsStatus = await window.api.checkDepsStatus()
 
@@ -47,7 +35,20 @@ function SetupWizard({ onComplete }: SetupWizardProps): JSX.Element {
     } catch (error) {
       console.error('Failed to check dependencies:', error)
     }
-  }
+  }, [onComplete])
+
+  useEffect(() => {
+    checkDependencies()
+
+    // Listen for download progress
+    const cleanup = window.api.on('deps:progress', (data: unknown) => {
+      const { type, percent } = data as { type: 'ffmpeg' | 'scrcpy'; percent: number }
+      setProgress((prev) => ({ ...prev, [type]: percent }))
+    })
+
+    return cleanup
+  }, [checkDependencies])
+
 
   const downloadDependencies = async (): Promise<void> => {
     // Download FFmpeg if needed

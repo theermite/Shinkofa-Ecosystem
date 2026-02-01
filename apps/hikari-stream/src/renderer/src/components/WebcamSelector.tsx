@@ -51,6 +51,7 @@ function WebcamSelector({ isOpen, onClose }: WebcamSelectorProps): JSX.Element |
     }
 
     detectWebcams()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, setAvailableWebcams])
 
   // Start preview when a device is selected
@@ -96,6 +97,7 @@ function WebcamSelector({ isOpen, onClose }: WebcamSelectorProps): JSX.Element |
         previewStream.getTracks().forEach(track => track.stop())
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDeviceId, isOpen])
 
   // Cleanup on close

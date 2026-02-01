@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 
-const STORAGE_KEY = 'hikari-stream-settings'
 const PANEL_STATE_KEY = 'hikari-stream-info-panel'
 
 interface TwitchGame {

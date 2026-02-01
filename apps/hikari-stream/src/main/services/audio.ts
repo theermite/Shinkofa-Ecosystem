@@ -80,11 +80,6 @@ class AudioService extends EventEmitter {
                                     lowerName.includes('monitor of') ||
                                     lowerName.includes('virtual audio')
 
-              const isMicrophone = lowerName.includes('microphone') ||
-                                  lowerName.includes('mic ') ||
-                                  lowerName.includes('casque') ||
-                                  lowerName.includes('headset')
-
               // For SteelSeries Sonar: the "Microphone" device is actually routed
               // through Sonar and can be used as-is
               const deviceType: 'input' | 'output' = isDesktopAudio ? 'output' : 'input'

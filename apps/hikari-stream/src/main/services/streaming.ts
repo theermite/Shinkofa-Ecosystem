@@ -3,7 +3,7 @@ import { join } from 'path'
 import { app } from 'electron'
 import { ffmpegService, FFmpegStats } from './ffmpeg'
 import { captureService, ScreenSource } from './capture'
-import { audioService, AudioMixConfig } from './audio'
+import type { AudioMixConfig } from './audio'
 
 export interface StreamConfig {
   // Video settings

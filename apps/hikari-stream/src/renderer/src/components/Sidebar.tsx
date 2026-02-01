@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useAppStore, CaptureSource, PipPosition, PipSize, Scene, Overlay, TransitionType, TransitionConfig } from '../stores/appStore'
+import { useAppStore, CaptureSource, PipPosition, PipSize, Scene, Overlay, TransitionType } from '../stores/appStore'
 import SourceSelector from './SourceSelector'
 import MobileSelector from './MobileSelector'
 import WebcamSelector from './WebcamSelector'
@@ -16,13 +16,13 @@ interface MobileDevice {
 
 function Sidebar(): JSX.Element {
   const {
-    scenes, activeSceneId, setActiveScene, addScene, removeScene, renameScene, saveCurrentToScene,
+    scenes, activeSceneId, addScene, removeScene, renameScene, saveCurrentToScene,
     activeSource, setActiveSource,
     webcam, phone, setPhone, setWebcam,
     updateWebcamPosition, updateWebcamSize, toggleWebcam, bringWebcamToFront,
     updatePhonePosition, updatePhoneSize, togglePhone, bringPhoneToFront,
     overlays, toggleOverlay, removeOverlay, bringOverlayToFront,
-    transitionConfig, setTransitionConfig, switchSceneWithTransition, isTransitioning
+    transitionConfig, setTransitionConfig, switchSceneWithTransition
   } = useAppStore()
   const [isSourceSelectorOpen, setIsSourceSelectorOpen] = useState(false)
   const [isMobileSelectorOpen, setIsMobileSelectorOpen] = useState(false)
@@ -666,34 +666,6 @@ function SceneIcon({ type }: { type: string }): JSX.Element {
         </svg>
       )
   }
-}
-
-function SourceItem({
-  name,
-  type,
-  connected,
-  onClick
-}: {
-  name: string
-  type: 'screen' | 'webcam' | 'phone'
-  connected: boolean
-  onClick?: () => void
-}): JSX.Element {
-  return (
-    <button
-      onClick={onClick}
-      className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm text-hikari-300 hover:bg-hikari-800 transition-colors"
-    >
-      <div className="flex items-center gap-2">
-        <SourceIcon type={type} />
-        <span className="truncate">{name}</span>
-      </div>
-      <span
-        className={`h-2 w-2 flex-shrink-0 rounded-full ${connected ? 'bg-green-500' : 'bg-hikari-600'}`}
-        title={connected ? 'Connecté' : 'Déconnecté'}
-      />
-    </button>
-  )
 }
 
 function SourceItemWithControls({

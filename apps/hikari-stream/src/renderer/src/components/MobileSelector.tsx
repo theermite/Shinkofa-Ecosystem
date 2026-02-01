@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useAppStore, SavedDevice } from '../stores/appStore'
 
 interface AndroidDevice {
@@ -35,12 +35,30 @@ function MobileSelector({ isOpen, onClose, onStartCast }: MobileSelectorProps): 
   const [renamingSerial, setRenamingSerial] = useState<string | null>(null)
   const [renameValue, setRenameValue] = useState('')
 
+  const loadDevicesCallback = useCallback(async (): Promise<void> => {
+    setLoading(true)
+    setError(null)
+    try {
+      const deviceList = await window.api.listMobileDevices()
+      setDevices(deviceList)
+
+      if (deviceList.length === 0 && connectionMode === 'usb') {
+        setError('Aucun appareil Android detecte. Verifiez que le debogage USB est active.')
+      }
+    } catch (err) {
+      console.error('[MobileSelector] Failed to load devices:', err)
+      setError('Erreur lors de la detection des appareils')
+    } finally {
+      setLoading(false)
+    }
+  }, [connectionMode])
+
   useEffect(() => {
     if (isOpen) {
-      loadDevices()
+      loadDevicesCallback()
       checkScrcpyStatus()
     }
-  }, [isOpen])
+  }, [isOpen, loadDevicesCallback])
 
   // Listen for scrcpy events
   useEffect(() => {
@@ -66,23 +84,7 @@ function MobileSelector({ isOpen, onClose, onStartCast }: MobileSelectorProps): 
     }
   }, [])
 
-  const loadDevices = async (): Promise<void> => {
-    setLoading(true)
-    setError(null)
-    try {
-      const deviceList = await window.api.listMobileDevices()
-      setDevices(deviceList)
-
-      if (deviceList.length === 0 && connectionMode === 'usb') {
-        setError('Aucun appareil Android detecte. Verifiez que le debogage USB est active.')
-      }
-    } catch (err) {
-      console.error('[MobileSelector] Failed to load devices:', err)
-      setError('Erreur lors de la detection des appareils')
-    } finally {
-      setLoading(false)
-    }
-  }
+  const loadDevices = loadDevicesCallback
 
   const checkScrcpyStatus = async (): Promise<void> => {
     const running = await window.api.isScrcpyRunning()
@@ -265,11 +267,6 @@ function MobileSelector({ isOpen, onClose, onStartCast }: MobileSelectorProps): 
       return device.model.replace(/_/g, ' ')
     }
     return device.serial
-  }
-
-  // Get saved device by original serial (for WiFi devices)
-  const getSavedDeviceForWifi = (ip: string): SavedDevice | undefined => {
-    return savedDevices.find((d) => d.wifiIp === ip)
   }
 
   // Check if device is connected via WiFi (serial is IP:port format)

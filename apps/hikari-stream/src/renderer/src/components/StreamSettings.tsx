@@ -157,6 +157,7 @@ function StreamSettings({
     if (isOpen) {
       loadSettings()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen])
 
   const loadSettings = async (): Promise<void> => {

@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { useAppStore, ImageOverlay, TextOverlay, VideoOverlay, BrowserOverlay, OverlayType } from '../stores/appStore'
+import { useAppStore, ImageOverlay, TextOverlay, VideoOverlay, BrowserOverlay } from '../stores/appStore'
 
 interface OverlaySelectorProps {
   isOpen: boolean

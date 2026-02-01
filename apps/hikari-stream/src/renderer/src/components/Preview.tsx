@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from 'react'
-import { useAppStore, PipPosition, PipSize, CustomPosition, CustomSize, Overlay, ImageOverlay, TextOverlay, VideoOverlay, TransitionType } from '../stores/appStore'
+import { useAppStore, PipPosition, PipSize, CustomPosition, CustomSize, Overlay, ImageOverlay, TextOverlay, VideoOverlay } from '../stores/appStore'
 
 function Preview(): JSX.Element {
   const {
@@ -105,7 +105,8 @@ function Preview(): JSX.Element {
 
   // Start video capture when source is selected
   useEffect(() => {
-    if (!activeSource || !videoRef.current) return
+    const videoElement = videoRef.current
+    if (!activeSource || !videoElement) return
 
     const startCapture = async (): Promise<void> => {
       try {
@@ -121,9 +122,9 @@ function Preview(): JSX.Element {
           }
         })
 
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream
-          videoRef.current.play()
+        if (videoElement) {
+          videoElement.srcObject = stream
+          videoElement.play()
         }
       } catch (error) {
         console.error('[Preview] Failed to start capture:', error)
@@ -135,10 +136,10 @@ function Preview(): JSX.Element {
 
     return () => {
       // Cleanup: stop all tracks
-      if (videoRef.current?.srcObject) {
-        const stream = videoRef.current.srcObject as MediaStream
+      if (videoElement?.srcObject) {
+        const stream = videoElement.srcObject as MediaStream
         stream.getTracks().forEach((track) => track.stop())
-        videoRef.current.srcObject = null
+        videoElement.srcObject = null
       }
       setIsCapturing(false)
     }
@@ -186,12 +187,8 @@ function Preview(): JSX.Element {
 
     return () => {
       clearTimeout(timer)
-      if (webcamStream) {
-        webcamStream.getTracks().forEach((track) => track.stop())
-        setWebcamStream(null)
-      }
-      setIsWebcamCapturing(false)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [webcam?.enabled, webcam?.deviceId])
 
   // Start phone capture when enabled (captures scrcpy window)
@@ -239,12 +236,8 @@ function Preview(): JSX.Element {
 
     return () => {
       clearTimeout(timer)
-      if (phoneStream) {
-        phoneStream.getTracks().forEach((track) => track.stop())
-        setPhoneStream(null)
-      }
-      setIsPhoneCapturing(false)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phone?.enabled, phone?.sourceId])
 
   // Helper to get PiP position classes (for predefined positions)
@@ -331,7 +324,6 @@ function Preview(): JSX.Element {
     e.preventDefault()
     e.stopPropagation()
     if (!previewContainerRef.current) return
-    const container = previewContainerRef.current.getBoundingClientRect()
     const currentWidth = webcam?.customSize?.width || (webcam?.size === 'small' ? 15 : webcam?.size === 'medium' ? 25 : webcam?.size === 'large' ? 35 : 100)
     const currentHeight = webcam?.customSize?.height || (currentWidth * 0.5625) // 16:9 ratio
     setResizeStart({
