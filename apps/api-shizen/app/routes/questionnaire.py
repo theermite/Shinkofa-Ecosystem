@@ -784,10 +784,21 @@ async def trigger_analysis(
         )
 
     # Check if profile(s) already exist - if yes, allow re-analysis even if session not "completed"
+    # Check by session_id first
     profile_result = await db.execute(
         select(HolisticProfile).where(HolisticProfile.session_id == session_id)
     )
     existing_profiles = profile_result.scalars().all()
+
+    # Also check by user_id (profile might have different session_id)
+    if not existing_profiles:
+        user_profile_result = await db.execute(
+            select(HolisticProfile).where(HolisticProfile.user_id == session.user_id)
+        )
+        user_profiles = user_profile_result.scalars().all()
+        if user_profiles:
+            logger.info(f"🔍 Found {len(user_profiles)} profile(s) for user {session.user_id} (different session)")
+            existing_profiles = user_profiles
 
     # If no existing profile, session MUST be completed
     if not existing_profiles and session.status != SessionStatus.COMPLETED:
