@@ -1599,9 +1599,13 @@ Retourne UNIQUEMENT un JSON valide, sans texte explicatif avant/après."""
         """
         def clean_json(json_str: str) -> str:
             """Clean common LLM JSON mistakes"""
-            # Remove markdown code blocks (various formats)
-            json_str = re.sub(r'```json\s*\n?', '', json_str)
-            json_str = re.sub(r'```\s*\n?', '', json_str)
+            # Remove markdown code blocks (various formats - must handle multiline)
+            # Match ```json or ```JSON at start, and ``` at end
+            json_str = re.sub(r'^```(?:json|JSON)?\s*\n?', '', json_str.strip())
+            json_str = re.sub(r'\n?```\s*$', '', json_str)
+            # Also handle inline backticks anywhere in the string
+            json_str = re.sub(r'```json\s*', '', json_str, flags=re.IGNORECASE)
+            json_str = re.sub(r'```\s*', '', json_str)
             # Remove trailing commas before } or ]
             json_str = re.sub(r',\s*([}\]])', r'\1', json_str)
             # Remove control characters except whitespace
@@ -1668,6 +1672,22 @@ Retourne UNIQUEMENT un JSON valide, sans texte explicatif avant/après."""
                 if result:
                     logger.warning(f"⚠️ JSON was truncated, added {brace_count} closing braces")
                     return self._validate_parsed_json(result, required_keys)
+
+        # Method 3: Handle JSON starting with key instead of brace (LLM omitted root brace)
+        # Pattern: "adhd": { ... instead of { "adhd": { ...
+        cleaned_response = clean_json(response)
+        key_start_match = re.match(r'^\s*"([a-zA-Z_][a-zA-Z0-9_]*)"\s*:', cleaned_response)
+        if key_start_match:
+            # JSON starts with a key - wrap in braces
+            wrapped_json = '{' + cleaned_response
+            # Balance closing braces
+            brace_count = wrapped_json.count('{') - wrapped_json.count('}')
+            if brace_count > 0:
+                wrapped_json += '}' * brace_count
+            result = try_parse(wrapped_json, "missing root brace fix")
+            if result:
+                logger.warning(f"⚠️ JSON was missing root brace, fixed")
+                return self._validate_parsed_json(result, required_keys)
 
         # All methods failed - raise exception with details
         error_msg = f"Failed to parse JSON from LLM response. Response preview: {response_preview}"
