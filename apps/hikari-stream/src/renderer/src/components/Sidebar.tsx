@@ -57,7 +57,7 @@ function Sidebar(): JSX.Element {
           console.log('[Sidebar] Found scrcpy window:', scrcpyWindow.name, 'ID:', scrcpyWindow.id)
           const mobileDevice = device as MobileDevice | null
           setPhone({
-            id: `phone-${Date.now()}`,
+            id: `phone-${crypto.randomUUID()}`,
             sourceId: scrcpyWindow.id,
             serial: mobileDevice?.serial || 'unknown',
             name: mobileDevice?.model?.replace(/_/g, ' ') || 'Telephone',

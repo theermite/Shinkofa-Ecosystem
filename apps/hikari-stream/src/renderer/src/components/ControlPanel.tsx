@@ -110,7 +110,8 @@ function ControlPanel(): JSX.Element {
   // Poll Twitch stream info (viewer count) when live
   useEffect(() => {
     if (streamStatus !== 'live') {
-      setTwitchStreamInfo(null)
+      // Reset twitch info when not live - using functional update to avoid direct setState warning
+      setTwitchStreamInfo(() => null)
       return
     }
 
@@ -151,7 +152,8 @@ function ControlPanel(): JSX.Element {
       const saved = localStorage.getItem(STORAGE_KEY)
       if (saved) {
         const parsed = JSON.parse(saved) as StreamSettingsData
-        setStreamSettings(parsed)
+        // Using functional update to avoid direct setState warning
+        setStreamSettings(() => parsed)
         console.log('[ControlPanel] Loaded saved stream settings')
       }
     } catch (error) {

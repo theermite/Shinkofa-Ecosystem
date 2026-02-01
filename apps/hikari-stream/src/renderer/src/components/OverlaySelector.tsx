@@ -104,7 +104,7 @@ function OverlaySelector({ isOpen, onClose }: OverlaySelectorProps): JSX.Element
     if (!imagePreview) return
 
     const overlay: ImageOverlay = {
-      id: `overlay-${Date.now()}`,
+      id: `overlay-${crypto.randomUUID()}`,
       name: imageName || 'Image',
       type: 'image',
       enabled: true,
@@ -123,7 +123,7 @@ function OverlaySelector({ isOpen, onClose }: OverlaySelectorProps): JSX.Element
     if (!textContent.trim()) return
 
     const overlay: TextOverlay = {
-      id: `overlay-${Date.now()}`,
+      id: `overlay-${crypto.randomUUID()}`,
       name: textName || 'Texte',
       type: 'text',
       enabled: true,
@@ -150,7 +150,7 @@ function OverlaySelector({ isOpen, onClose }: OverlaySelectorProps): JSX.Element
     if (!videoPreview) return
 
     const overlay: VideoOverlay = {
-      id: `overlay-${Date.now()}`,
+      id: `overlay-${crypto.randomUUID()}`,
       name: videoName || 'Video',
       type: 'video',
       enabled: true,
@@ -171,7 +171,7 @@ function OverlaySelector({ isOpen, onClose }: OverlaySelectorProps): JSX.Element
     if (!browserUrl.trim()) return
 
     const overlay: BrowserOverlay = {
-      id: `overlay-${Date.now()}`,
+      id: `overlay-${crypto.randomUUID()}`,
       name: browserName || 'Widget',
       type: 'browser',
       enabled: true,

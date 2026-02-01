@@ -115,7 +115,7 @@ function WebcamSelector({ isOpen, onClose }: WebcamSelectorProps): JSX.Element |
     if (!selectedDevice) return
 
     const newWebcam: WebcamSource = {
-      id: `webcam-${Date.now()}`,
+      id: `webcam-${crypto.randomUUID()}`,
       deviceId: selectedDeviceId,
       label: selectedDevice.label || 'Webcam',
       enabled: true,
