@@ -225,4 +225,4 @@ Voir `.github/SECRETS-REQUIRED.md` pour configurer:
 
 ---
 
-**Version** : 3.0.0 | **Date** : 2026-01-31 | **Apps** : 25+ | **Refactored** : Liste complète écosystème
+**Version** : 3.1.0 | **Date** : 2026-02-01 | **Apps** : 25+ | **Sync** : Conventions Title-Kebab-Case
