@@ -68,7 +68,9 @@ export function useAudioLevels(): {
   }, [calculateLevel, updateAudioLevel])
 
   // Keep ref in sync with the latest updateLevels function
-  updateLevelsRef.current = updateLevels
+  useEffect(() => {
+    updateLevelsRef.current = updateLevels
+  }, [updateLevels])
 
   // Start the animation loop
   const startLoop = useCallback(() => {
