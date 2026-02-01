@@ -1,6 +1,9 @@
 import { EventEmitter } from 'events'
+import { join } from 'path'
+import { app } from 'electron'
 import { ffmpegService, FFmpegStats } from './ffmpeg'
 import { captureService, ScreenSource } from './capture'
+import { audioService, AudioMixConfig } from './audio'
 
 export interface StreamConfig {
   // Video settings
@@ -9,8 +12,14 @@ export interface StreamConfig {
   bitrate: number // kbps (e.g., 6000 for 6 Mbps)
   encoder: 'nvenc' | 'amf' | 'qsv' | 'x264'
 
-  // Source
-  source: ScreenSource
+  // Source (optional - can stream without screen capture)
+  source?: ScreenSource | null
+
+  // Audio
+  audio?: AudioMixConfig
+
+  // Test mode - records locally instead of streaming
+  testMode?: boolean
 
   // Outputs (can stream to multiple platforms)
   outputs: StreamOutput[]
@@ -21,6 +30,7 @@ export interface StreamOutput {
   enabled: boolean
   rtmpUrl: string
   streamKey: string
+  bandwidthTest?: boolean // Twitch only: stream privately for testing (won't appear live)
 }
 
 export interface StreamState {
@@ -56,6 +66,8 @@ class StreamingService extends EventEmitter {
 
   private config: StreamConfig | null = null
   private durationInterval: NodeJS.Timeout | null = null
+  private connectionCheckTimeout: NodeJS.Timeout | null = null
+  private hasReceivedStats: boolean = false
 
   constructor() {
     super()
@@ -86,18 +98,28 @@ class StreamingService extends EventEmitter {
       return false
     }
 
-    // Validate config
-    const enabledOutputs = config.outputs.filter((o) => o.enabled)
-    if (enabledOutputs.length === 0) {
-      this.setError('Aucune destination de stream configuree')
-      return false
-    }
-
-    // Validate stream keys
-    for (const output of enabledOutputs) {
-      if (!output.streamKey) {
-        this.setError(`Cle de stream manquante pour ${output.platform}`)
+    // Validate config (skip for test mode)
+    if (!config.testMode) {
+      const enabledOutputs = config.outputs.filter((o) => o.enabled)
+      if (enabledOutputs.length === 0) {
+        this.setError('Aucune destination de stream configuree')
         return false
+      }
+
+      // Validate stream keys
+      for (const output of enabledOutputs) {
+        if (!output.streamKey) {
+          this.setError(`Cle de stream manquante pour ${output.platform}`)
+          return false
+        }
+      }
+    } else {
+      // Ensure test output directory exists
+      const { mkdirSync, existsSync } = await import('fs')
+      const testDir = this.getTestOutputDir()
+      if (!existsSync(testDir)) {
+        mkdirSync(testDir, { recursive: true })
+        console.log(`[Streaming] Created test output directory: ${testDir}`)
       }
     }
 
@@ -107,7 +129,23 @@ class StreamingService extends EventEmitter {
     try {
       // Build FFmpeg arguments
       const args = this.buildFFmpegArgs(config)
-      console.log('[Streaming] Starting with config:', config)
+      console.log('[Streaming] Starting with config:', JSON.stringify({
+        ...config,
+        outputs: config.outputs.map(o => ({
+          ...o,
+          streamKey: o.streamKey ? '***HIDDEN***' : ''
+        }))
+      }, null, 2))
+
+      // Log FFmpeg args with masked stream keys for debugging
+      const maskedArgs = args.map(arg => {
+        if (arg.includes('live_') || arg.includes('rtmp://')) {
+          // Mask stream key in URLs
+          return arg.replace(/\/[a-zA-Z0-9_-]{20,}(\||\]|$)/g, '/***STREAM_KEY***$1')
+        }
+        return arg
+      })
+      console.log('[Streaming] FFmpeg command:', maskedArgs.join(' '))
 
       // Start FFmpeg
       ffmpegService.start(args)
@@ -136,7 +174,7 @@ class StreamingService extends EventEmitter {
    * Build FFmpeg command line arguments for streaming
    */
   private buildFFmpegArgs(config: StreamConfig): string[] {
-    const { source, resolution, fps, bitrate, encoder, outputs } = config
+    const { source, resolution, fps, bitrate, encoder, outputs, audio, testMode } = config
 
     const resMap = {
       '720p': { width: 1280, height: 720 },
@@ -154,30 +192,107 @@ class StreamingService extends EventEmitter {
     const res = resMap[resolution]
     const args: string[] = []
 
-    // Input: screen capture via gdigrab (Windows)
+    // Input 0: screen capture via gdigrab (Windows)
     const captureArgs = captureService.buildScreenCaptureArgs({
-      source,
+      source: source ?? null,
       fps,
-      captureAudio: false // TODO: audio mixing later
+      captureAudio: false // Audio handled separately
     })
     args.push(...captureArgs)
 
+    // Audio inputs (input 1, 2, ...)
+    let hasAudio = false
+    const audioInputs: { index: number; volume: number }[] = []
+    let inputIndex = 1
+
+    if (audio) {
+      for (const track of audio.tracks) {
+        if (!track.muted && track.deviceName) {
+          args.push('-f', 'dshow', '-i', `audio=${track.deviceName}`)
+          audioInputs.push({ index: inputIndex, volume: track.volume / 100 })
+          inputIndex++
+          hasAudio = true
+        }
+      }
+    }
+
+    // Build filter complex for video and audio
+    const filters: string[] = []
+
+    // Video filter: force constant framerate (gdigrab only captures on changes)
+    // This duplicates frames when screen is static to maintain constant fps
+    if (source) {
+      filters.push(`[0:v]fps=${fps}[vout]`)
+    }
+
+    // Audio mixing
+    if (hasAudio) {
+      if (audioInputs.length === 1) {
+        // Single audio input
+        const input = audioInputs[0]
+        filters.push(`[${input.index}:a]volume=${input.volume}[aout]`)
+      } else if (audioInputs.length > 1) {
+        // Multiple audio inputs - mix them
+        const volumeFilters: string[] = []
+        const mixInputs: string[] = []
+
+        audioInputs.forEach((input, i) => {
+          const label = `a${i}`
+          volumeFilters.push(`[${input.index}:a]volume=${input.volume}[${label}]`)
+          mixInputs.push(`[${label}]`)
+        })
+
+        filters.push(...volumeFilters)
+        filters.push(`${mixInputs.join('')}amix=inputs=${audioInputs.length}:duration=longest[aout]`)
+      }
+
+      // Apply filter complex
+      args.push('-filter_complex', filters.join(';'))
+
+      // Map video and audio outputs
+      if (source) {
+        args.push('-map', '[vout]')
+      }
+      args.push('-map', '[aout]')
+
+      // Audio encoding
+      args.push(
+        '-c:a', 'aac',
+        '-b:a', `${audio?.bitrate || 160}k`,
+        '-ar', `${audio?.sampleRate || 48000}`,
+        '-ac', '2'
+      )
+    } else {
+      // No audio - add silent audio track for compatibility
+      args.push(
+        '-f', 'lavfi', '-i', 'anullsrc=channel_layout=stereo:sample_rate=48000'
+      )
+
+      // Apply video filter if we have a source
+      if (source && filters.length > 0) {
+        args.push('-filter_complex', filters.join(';'))
+        args.push('-map', '[vout]')
+      } else if (source) {
+        args.push('-map', '0:v')
+      }
+
+      args.push(
+        '-map', `${source ? 1 : 0}:a`,
+        '-c:a', 'aac',
+        '-b:a', '128k',
+        '-shortest'
+      )
+    }
+
     // Video encoding
     args.push(
-      '-c:v',
-      encoderMap[encoder],
-      '-b:v',
-      `${bitrate}k`,
-      '-maxrate',
-      `${Math.round(bitrate * 1.5)}k`,
-      '-bufsize',
-      `${bitrate * 2}k`,
-      '-s',
-      `${res.width}x${res.height}`,
-      '-pix_fmt',
-      'yuv420p',
-      '-g',
-      (fps * 2).toString() // Keyframe every 2 seconds
+      '-c:v', encoderMap[encoder],
+      '-b:v', `${bitrate}k`,
+      '-maxrate', `${Math.round(bitrate * 1.5)}k`,
+      '-bufsize', `${bitrate * 2}k`,
+      '-s', `${res.width}x${res.height}`,
+      '-pix_fmt', 'yuv420p',
+      '-g', (fps * 2).toString() // Keyframe every 2 seconds
     )
 
     // Encoder-specific options
@@ -191,16 +306,58 @@ class StreamingService extends EventEmitter {
       args.push('-preset', 'veryfast', '-tune', 'zerolatency')
     }
 
-    // Output to each enabled platform
-    const enabledOutputs = outputs.filter((o) => o.enabled)
-    for (const output of enabledOutputs) {
-      const rtmpUrl = output.rtmpUrl || this.getPlatformUrl(output.platform)
-      const fullUrl = `${rtmpUrl}/${output.streamKey}`
+    // Output
+    if (testMode) {
+      // Test mode: record locally instead of streaming
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
+      const outputDir = this.getTestOutputDir()
+      const outputPath = join(outputDir, `test-${timestamp}.mp4`)
 
-      args.push('-f', 'flv', fullUrl)
+      console.log(`[Streaming] TEST MODE - Recording to: ${outputPath}`)
+      args.push('-f', 'mp4', outputPath)
+    } else {
+      // Live mode: stream to enabled platforms
+      const enabledOutputs = outputs.filter((o) => o.enabled)
+
+      if (enabledOutputs.length === 1) {
+        // Single output - simple format
+        const output = enabledOutputs[0]
+        const rtmpUrl = output.rtmpUrl || this.getPlatformUrl(output.platform)
+        // Append ?bandwidthtest=true for Twitch test mode
+        const streamKey = output.platform === 'twitch' && output.bandwidthTest
+          ? `${output.streamKey}?bandwidthtest=true`
+          : output.streamKey
+        const fullUrl = `${rtmpUrl}/${streamKey}`
+        args.push('-f', 'flv', fullUrl)
+      } else if (enabledOutputs.length > 1) {
+        // Multiple outputs - use tee muxer
+        const teeOutputs = enabledOutputs.map((output) => {
+          const rtmpUrl = output.rtmpUrl || this.getPlatformUrl(output.platform)
+          // Append ?bandwidthtest=true for Twitch test mode
+          const streamKey = output.platform === 'twitch' && output.bandwidthTest
+            ? `${output.streamKey}?bandwidthtest=true`
+            : output.streamKey
+          const fullUrl = `${rtmpUrl}/${streamKey}`
+          return `[f=flv]${fullUrl}`
+        })
+        args.push('-f', 'tee', teeOutputs.join('|'))
+      }
     }
 
     return args
+  }
+
+  /**
+   * Get test recording output path
+   */
+  getTestOutputDir(): string {
+    try {
+      // Try to use Videos folder first
+      return join(app.getPath('videos'), 'Hikari-Stream-Tests')
+    } catch {
+      // Fallback to user data folder
+      return join(app.getPath('userData'), 'Tests')
+    }
   }
 
   /**
@@ -208,21 +365,26 @@ class StreamingService extends EventEmitter {
    */
   private setupFFmpegListeners(): void {
     ffmpegService.on('start', () => {
-      console.log('[Streaming] FFmpeg started')
-      this.setState({
-        status: 'live',
-        startTime: Date.now(),
-        duration: 0
-      })
-      this.startDurationTimer()
-      this.emit('live')
+      console.log('[Streaming] FFmpeg process started, waiting for connection...')
+      this.hasReceivedStats = false
+
+      // Set a timeout to detect connection issues
+      // If no stats received within 15 seconds, something is wrong
+      this.connectionCheckTimeout = setTimeout(() => {
+        if (!this.hasReceivedStats && this._state.status === 'connecting') {
+          console.error('[Streaming] No stats received after 15 seconds - connection may have failed')
+          this.setError('Connexion RTMP échouée - vérifiez votre clé de stream et votre connexion internet')
+          ffmpegService.stop()
+        }
+      }, 15000)
     })
 
     ffmpegService.on('stop', (code: number) => {
       console.log('[Streaming] FFmpeg stopped with code:', code)
       this.stopDurationTimer()
+      this.clearConnectionCheck()
 
-      if (code !== 0 && this._state.status === 'live') {
+      if (code !== 0 && (this._state.status === 'live' || this._state.status === 'connecting')) {
         this.setError(`Stream interrompu (code ${code})`)
       } else {
         this.setState({ status: 'offline', startTime: null })
@@ -232,6 +394,20 @@ class StreamingService extends EventEmitter {
     })
 
     ffmpegService.on('stats', (stats: FFmpegStats) => {
+      // First stats received = stream is actually live
+      if (!this.hasReceivedStats) {
+        this.hasReceivedStats = true
+        this.clearConnectionCheck()
+        console.log('[Streaming] First stats received - stream is LIVE!')
+        this.setState({
+          status: 'live',
+          startTime: Date.now(),
+          duration: 0
+        })
+        this.startDurationTimer()
+        this.emit('live')
+      }
+
       this._state.stats = stats
       this.emit('stats', stats)
     })
@@ -261,6 +437,16 @@ class StreamingService extends EventEmitter {
     if (this.durationInterval) {
       clearInterval(this.durationInterval)
       this.durationInterval = null
+    }
+  }
+
+  /**
+   * Clear connection check timeout
+   */
+  private clearConnectionCheck(): void {
+    if (this.connectionCheckTimeout) {
+      clearTimeout(this.connectionCheckTimeout)
+      this.connectionCheckTimeout = null
     }
   }
 

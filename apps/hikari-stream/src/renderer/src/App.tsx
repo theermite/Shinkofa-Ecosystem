@@ -1,15 +1,57 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { useAppStore } from './stores/appStore'
 import TitleBar from './components/TitleBar'
 import Sidebar from './components/Sidebar'
 import Preview from './components/Preview'
 import ControlPanel from './components/ControlPanel'
 import SetupWizard from './components/SetupWizard'
+import StreamInfoPanel from './components/StreamInfoPanel'
 
 function App(): JSX.Element {
   const { isInitialized, setInitialized, setAppInfo } = useAppStore()
   const [isLoading, setIsLoading] = useState(true)
   const [needsSetup, setNeedsSetup] = useState(false)
+  const [controlPanelHeight, setControlPanelHeight] = useState(140)
+  const [isResizing, setIsResizing] = useState(false)
+  const mainRef = useRef<HTMLElement>(null)
+
+  // Handle resize
+  const handleMouseDown = useCallback(() => {
+    setIsResizing(true)
+  }, [])
+
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (!isResizing || !mainRef.current) return
+
+    const mainRect = mainRef.current.getBoundingClientRect()
+    const newHeight = mainRect.bottom - e.clientY
+
+    // Clamp height between 100 and 300 pixels
+    setControlPanelHeight(Math.min(300, Math.max(100, newHeight)))
+  }, [isResizing])
+
+  const handleMouseUp = useCallback(() => {
+    setIsResizing(false)
+  }, [])
+
+  useEffect(() => {
+    if (isResizing) {
+      document.addEventListener('mousemove', handleMouseMove)
+      document.addEventListener('mouseup', handleMouseUp)
+      document.body.style.cursor = 'ns-resize'
+      document.body.style.userSelect = 'none'
+    } else {
+      document.body.style.cursor = ''
+      document.body.style.userSelect = ''
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove)
+      document.removeEventListener('mouseup', handleMouseUp)
+      document.body.style.cursor = ''
+      document.body.style.userSelect = ''
+    }
+  }, [isResizing, handleMouseMove, handleMouseUp])
 
   useEffect(() => {
     const init = async (): Promise<void> => {
@@ -78,12 +120,23 @@ function App(): JSX.Element {
         <Sidebar />
 
         {/* Main content */}
-        <main className="flex flex-1 flex-col overflow-hidden">
-          {/* Preview area */}
-          <Preview />
+        <main ref={mainRef} className="flex flex-1 flex-col overflow-hidden">
+          {/* Preview area with info panel */}
+          <div className="flex flex-1 overflow-hidden">
+            <Preview />
+            <StreamInfoPanel />
+          </div>
+
+          {/* Resize handle */}
+          <div
+            className={`h-1 cursor-ns-resize bg-hikari-800 hover:bg-hikari-600 transition-colors ${isResizing ? 'bg-hikari-500' : ''}`}
+            onMouseDown={handleMouseDown}
+          />
 
           {/* Control panel - Audio mixer, stream controls */}
-          <ControlPanel />
+          <div style={{ height: controlPanelHeight, minHeight: controlPanelHeight }}>
+            <ControlPanel />
+          </div>
         </main>
       </div>
     </div>

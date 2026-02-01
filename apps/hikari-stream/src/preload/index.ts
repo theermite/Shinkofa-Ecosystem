@@ -49,6 +49,8 @@ const api = {
     name: string
     thumbnail: string
     type: 'screen' | 'window'
+    bounds?: { x: number; y: number; width: number; height: number }
+    displayId?: number
   }>> => ipcRenderer.invoke('capture:getSources'),
 
   getCaptureScreens: (): Promise<Array<{
@@ -56,6 +58,8 @@ const api = {
     name: string
     thumbnail: string
     type: 'screen'
+    bounds?: { x: number; y: number; width: number; height: number }
+    displayId?: number
   }>> => ipcRenderer.invoke('capture:getScreens'),
 
   getCaptureWindows: (): Promise<Array<{
@@ -66,6 +70,13 @@ const api = {
   }>> => ipcRenderer.invoke('capture:getWindows'),
 
   checkCapturePermission: (): Promise<boolean> => ipcRenderer.invoke('capture:checkPermission'),
+
+  findScrcpyWindow: (): Promise<{
+    id: string
+    name: string
+    thumbnail: string
+    type: 'window'
+  } | null> => ipcRenderer.invoke('capture:findScrcpyWindow'),
 
   // ============ FFmpeg ============
   isFFmpegAvailable: (): Promise<boolean> => ipcRenderer.invoke('ffmpeg:isAvailable'),
@@ -116,11 +127,13 @@ const api = {
 
   startScrcpy: (options?: {
     serial?: string
+    tcpip?: string // IP address for WiFi connection
     maxSize?: number
     bitrate?: string
     maxFps?: number
     noAudio?: boolean
     stayAwake?: boolean
+    windowTitle?: string
   }): Promise<boolean> => ipcRenderer.invoke('scrcpy:start', options),
 
   stopScrcpy: (): void => ipcRenderer.send('scrcpy:stop'),
@@ -130,7 +143,66 @@ const api = {
     bitrate: string
     maxFps: number
     stayAwake: boolean
+    windowTitle: string
   }> => ipcRenderer.invoke('scrcpy:getStreamingDefaults'),
+
+  // WiFi connection methods
+  enableScrcpyTcpip: (serial?: string): Promise<boolean> =>
+    ipcRenderer.invoke('scrcpy:enableTcpip', serial),
+
+  connectScrcpyWifi: (ipAddress: string, port?: number): Promise<boolean> =>
+    ipcRenderer.invoke('scrcpy:connectWifi', ipAddress, port),
+
+  disconnectScrcpyWifi: (ipAddress: string, port?: number): Promise<void> =>
+    ipcRenderer.invoke('scrcpy:disconnectWifi', ipAddress, port),
+
+  getScrcpyDeviceIp: (serial?: string): Promise<string | null> =>
+    ipcRenderer.invoke('scrcpy:getDeviceIp', serial),
+
+  // ============ Audio ============
+  detectAudioDevices: (): Promise<Array<{
+    id: string
+    name: string
+    type: 'input' | 'output'
+    isDefault: boolean
+  }>> => ipcRenderer.invoke('audio:detectDevices'),
+
+  getAudioDevices: (): Promise<Array<{
+    id: string
+    name: string
+    type: 'input' | 'output'
+    isDefault: boolean
+  }>> => ipcRenderer.invoke('audio:getDevices'),
+
+  getMicrophones: (): Promise<Array<{
+    id: string
+    name: string
+    type: 'input'
+    isDefault: boolean
+  }>> => ipcRenderer.invoke('audio:getMicrophones'),
+
+  getDesktopAudioDevices: (): Promise<Array<{
+    id: string
+    name: string
+    type: 'output'
+    isDefault: boolean
+  }>> => ipcRenderer.invoke('audio:getDesktopDevices'),
+
+  getDefaultAudioConfig: (): Promise<{
+    tracks: Array<{
+      id: string
+      name: string
+      type: 'mic' | 'desktop' | 'phone' | 'music'
+      deviceName: string | null
+      volume: number
+      muted: boolean
+    }>
+    sampleRate: 44100 | 48000
+    bitrate: 128 | 160 | 192 | 256
+  }> => ipcRenderer.invoke('audio:getDefaultConfig'),
+
+  testAudioDevice: (deviceName: string): Promise<boolean> =>
+    ipcRenderer.invoke('audio:testDevice', deviceName),
 
   // ============ Streaming ============
   getStreamState: (): Promise<{
@@ -184,6 +256,123 @@ const api = {
   }): Promise<boolean> => ipcRenderer.invoke('stream:start', config),
 
   stopStream: (): void => ipcRenderer.send('stream:stop'),
+
+  // ============ Twitch Integration ============
+  setTwitchCredentials: (clientId: string, clientSecret: string): Promise<boolean> =>
+    ipcRenderer.invoke('twitch:setCredentials', clientId, clientSecret),
+
+  hasTwitchCredentials: (): Promise<boolean> =>
+    ipcRenderer.invoke('twitch:hasCredentials'),
+
+  isTwitchAuthenticated: (): Promise<boolean> =>
+    ipcRenderer.invoke('twitch:isAuthenticated'),
+
+  getTwitchUserInfo: (): Promise<{ login: string; userId: string } | null> =>
+    ipcRenderer.invoke('twitch:getUserInfo'),
+
+  authenticateTwitch: (): Promise<boolean> =>
+    ipcRenderer.invoke('twitch:authenticate'),
+
+  disconnectTwitch: (): Promise<boolean> =>
+    ipcRenderer.invoke('twitch:disconnect'),
+
+  getTwitchChannelInfo: (): Promise<{
+    title: string
+    gameName: string
+    gameId: string
+    tags: string[]
+  } | null> => ipcRenderer.invoke('twitch:getChannelInfo'),
+
+  updateTwitchChannelInfo: (title?: string, gameId?: string, tags?: string[]): Promise<boolean> =>
+    ipcRenderer.invoke('twitch:updateChannelInfo', title, gameId, tags),
+
+  searchTwitchGames: (query: string): Promise<Array<{
+    id: string
+    name: string
+    boxArtUrl: string
+  }>> => ipcRenderer.invoke('twitch:searchGames', query),
+
+  getTwitchStreamInfo: (): Promise<{
+    isLive: boolean
+    viewerCount: number
+    startedAt: string | null
+    title: string
+    gameName: string
+    thumbnailUrl: string | null
+  } | null> => ipcRenderer.invoke('twitch:getStreamInfo'),
+
+  // ============ YouTube Integration ============
+  setYouTubeCredentials: (clientId: string, clientSecret: string): Promise<boolean> =>
+    ipcRenderer.invoke('youtube:setCredentials', clientId, clientSecret),
+
+  hasYouTubeCredentials: (): Promise<boolean> =>
+    ipcRenderer.invoke('youtube:hasCredentials'),
+
+  isYouTubeAuthenticated: (): Promise<boolean> =>
+    ipcRenderer.invoke('youtube:isAuthenticated'),
+
+  getYouTubeUserInfo: (): Promise<{ channelId: string; channelTitle: string } | null> =>
+    ipcRenderer.invoke('youtube:getUserInfo'),
+
+  authenticateYouTube: (): Promise<boolean> =>
+    ipcRenderer.invoke('youtube:authenticate'),
+
+  disconnectYouTube: (): Promise<boolean> =>
+    ipcRenderer.invoke('youtube:disconnect'),
+
+  getYouTubeChannelInfo: (): Promise<{
+    id: string
+    title: string
+    description: string
+    thumbnailUrl: string
+    subscriberCount: number
+  } | null> => ipcRenderer.invoke('youtube:getChannelInfo'),
+
+  getYouTubeBroadcasts: (): Promise<Array<{
+    id: string
+    title: string
+    description: string
+    scheduledStartTime: string
+    status: string
+    privacyStatus: 'public' | 'private' | 'unlisted'
+  }>> => ipcRenderer.invoke('youtube:getBroadcasts'),
+
+  createYouTubeBroadcast: (
+    title: string,
+    description: string,
+    privacyStatus: 'public' | 'private' | 'unlisted'
+  ): Promise<{
+    id: string
+    title: string
+    description: string
+    scheduledStartTime: string
+    status: string
+    privacyStatus: 'public' | 'private' | 'unlisted'
+  } | null> => ipcRenderer.invoke('youtube:createBroadcast', title, description, privacyStatus),
+
+  createYouTubeStream: (title: string): Promise<{
+    id: string
+    rtmpUrl: string
+    streamKey: string
+  } | null> => ipcRenderer.invoke('youtube:createStream', title),
+
+  bindYouTubeStreamToBroadcast: (broadcastId: string, streamId: string): Promise<boolean> =>
+    ipcRenderer.invoke('youtube:bindStreamToBroadcast', broadcastId, streamId),
+
+  transitionYouTubeBroadcast: (
+    broadcastId: string,
+    status: 'testing' | 'live' | 'complete'
+  ): Promise<boolean> => ipcRenderer.invoke('youtube:transitionBroadcast', broadcastId, status),
+
+  updateYouTubeBroadcast: (broadcastId: string, title: string, description?: string): Promise<boolean> =>
+    ipcRenderer.invoke('youtube:updateBroadcast', broadcastId, title, description),
+
+  getYouTubeCategories: (): Promise<Array<{ id: string; title: string }>> =>
+    ipcRenderer.invoke('youtube:getCategories'),
+
+  // ============ File System ============
+  writeFile: (filePath: string, content: string): Promise<boolean> =>
+    ipcRenderer.invoke('fs:writeFile', filePath, content),
 
   // ============ Event Listeners ============
   on: (channel: string, callback: (...args: unknown[]) => void): (() => void) => {

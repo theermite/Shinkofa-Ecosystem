@@ -1,11 +1,20 @@
-import { desktopCapturer, systemPreferences } from 'electron'
+import { desktopCapturer, systemPreferences, screen } from 'electron'
 import { EventEmitter } from 'events'
+
+export interface ScreenBounds {
+  x: number
+  y: number
+  width: number
+  height: number
+}
 
 export interface ScreenSource {
   id: string
   name: string
   thumbnail: string // base64 data URL
   type: 'screen' | 'window'
+  bounds?: ScreenBounds // Screen position and size (for screens only)
+  displayId?: number // Display ID from Electron (for screens only)
 }
 
 export interface AudioDevice {
@@ -26,12 +35,47 @@ class CaptureService extends EventEmitter {
         fetchWindowIcons: true
       })
 
-      return sources.map(source => ({
-        id: source.id,
-        name: source.name,
-        thumbnail: source.thumbnail.toDataURL(),
-        type: source.id.startsWith('screen') ? 'screen' : 'window'
-      }))
+      // Get all displays to match with screen sources
+      const displays = screen.getAllDisplays()
+      console.log('[Capture] Displays:', displays.map(d => ({
+        id: d.id,
+        bounds: d.bounds,
+        label: d.label
+      })))
+
+      return sources.map(source => {
+        const isScreen = source.id.startsWith('screen')
+        let bounds: ScreenBounds | undefined
+        let displayId: number | undefined
+
+        if (isScreen) {
+          // Extract display index from source.id (format: "screen:INDEX:0")
+          const match = source.id.match(/screen:(\d+):/)
+          if (match) {
+            const displayIndex = parseInt(match[1], 10)
+            const display = displays[displayIndex]
+            if (display) {
+              bounds = {
+                x: display.bounds.x,
+                y: display.bounds.y,
+                width: display.bounds.width,
+                height: display.bounds.height
+              }
+              displayId = display.id
+              console.log(`[Capture] Screen ${displayIndex} (${source.name}): bounds=`, bounds)
+            }
+          }
+        }
+
+        return {
+          id: source.id,
+          name: source.name,
+          thumbnail: source.thumbnail.toDataURL(),
+          type: isScreen ? 'screen' : 'window',
+          bounds,
+          displayId
+        } as ScreenSource
+      })
     } catch (error) {
       console.error('[Capture] Failed to get screen sources:', error)
       return []
@@ -102,7 +146,7 @@ class CaptureService extends EventEmitter {
    * Build FFmpeg input args for screen/window capture (Windows)
    */
   buildScreenCaptureArgs(options: {
-    source: ScreenSource
+    source: ScreenSource | null
     fps: number
     captureAudio?: boolean
   }): string[] {
@@ -110,14 +154,28 @@ class CaptureService extends EventEmitter {
 
     const args: string[] = []
 
+    // If no source, return empty args (stream without screen capture)
+    if (!source) {
+      console.log('[Capture] No source provided, skipping screen capture args')
+      return args
+    }
+
     // Video input
     if (source.type === 'screen') {
-      args.push(
-        '-f', 'gdigrab',
-        '-framerate', fps.toString(),
-        '-i', 'desktop'
-      )
+      args.push('-f', 'gdigrab')
+      args.push('-framerate', fps.toString())
+
+      // If we have bounds, capture only that specific screen region
+      if (source.bounds) {
+        console.log(`[Capture] Capturing screen region: offset=(${source.bounds.x},${source.bounds.y}) size=${source.bounds.width}x${source.bounds.height}`)
+        args.push('-offset_x', source.bounds.x.toString())
+        args.push('-offset_y', source.bounds.y.toString())
+        args.push('-video_size', `${source.bounds.width}x${source.bounds.height}`)
+      }
+
+      args.push('-i', 'desktop')
     } else {
+      // Window capture - use window title
       args.push(
         '-f', 'gdigrab',
         '-framerate', fps.toString(),

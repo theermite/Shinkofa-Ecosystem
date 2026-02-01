@@ -51,6 +51,18 @@ class DependenciesService {
     return join(this.binPath, 'scrcpy', 'adb.exe')
   }
 
+  get scrcpyDir(): string {
+    return join(this.binPath, 'scrcpy')
+  }
+
+  isScrcpyInstalled(): boolean {
+    return existsSync(this.scrcpyPath)
+  }
+
+  isFFmpegInstalled(): boolean {
+    return existsSync(this.ffmpegPath)
+  }
+
   checkStatus(): DependencyStatus {
     const ffmpegInstalled = existsSync(this.ffmpegPath)
     const scrcpyInstalled = existsSync(this.scrcpyPath)

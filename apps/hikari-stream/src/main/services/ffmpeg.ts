@@ -146,10 +146,32 @@ class FFmpegService extends EventEmitter {
     this._isRunning = true
     this.emit('start')
 
-    // Parse stderr for progress
+    // Buffer for collecting stderr output for error detection
+    let stderrBuffer = ''
+
+    // Parse stderr for progress and errors
     this.process.stderr?.on('data', (data: Buffer) => {
       const output = data.toString()
+      stderrBuffer += output
+
+      // Log all FFmpeg output for debugging
+      console.log('[FFmpeg stderr]', output.trim())
+
       this.parseProgress(output)
+
+      // Detect RTMP connection errors
+      if (
+        output.includes('Connection refused') ||
+        output.includes('Connection timed out') ||
+        output.includes('Failed to connect') ||
+        output.includes('Server returned 4') || // RTMP errors 4xx
+        output.includes('RTMP_Connect') ||
+        output.includes('WriteN, RTMP send error') ||
+        output.includes('Handshake') && output.includes('error')
+      ) {
+        console.error('[FFmpeg] RTMP connection error detected:', output)
+        this.emit('error', new Error(`Erreur connexion RTMP: ${output.trim()}`))
+      }
     })
 
     this.process.on('close', (code) => {

@@ -4,12 +4,16 @@ import { dependenciesService } from './dependencies'
 
 export interface ScrcpyOptions {
   serial?: string // Device serial (optional if only one device)
+  tcpip?: string // IP address for WiFi connection (e.g., '192.168.1.100:5555')
   maxSize?: number // Max dimension (e.g., 1920 for 1080p)
   bitrate?: string // e.g., '8M' for 8 Mbps
   maxFps?: number // Max framerate
   crop?: string // Crop format: 'width:height:x:y'
   rotation?: 0 | 1 | 2 | 3 // 0, 90, 180, 270 degrees
   noAudio?: boolean // Disable audio forwarding
+  audioSource?: 'output' | 'mic' // Audio source: internal (output) or microphone
+  audioCodec?: 'opus' | 'aac' | 'flac' | 'raw' // Audio codec
+  audioBitrate?: string // Audio bitrate e.g., '128K'
   noControl?: boolean // Disable device control (view only)
   stayAwake?: boolean // Keep device awake while mirroring
   showTouches?: boolean // Show touch indicators on device
@@ -120,6 +124,171 @@ class ScrcpyService extends EventEmitter {
   }
 
   /**
+   * Enable tcpip mode on a device (requires USB connection first)
+   * This allows subsequent WiFi connections
+   */
+  async enableTcpip(serial?: string, port: number = 5555): Promise<boolean> {
+    return new Promise((resolve) => {
+      const args = serial ? ['-s', serial, 'tcpip', port.toString()] : ['tcpip', port.toString()]
+      console.log('[Scrcpy] Enabling tcpip mode:', args.join(' '))
+
+      const proc = spawn(this.adbPath, args, { windowsHide: true })
+      let output = ''
+
+      proc.stdout?.on('data', (data: Buffer) => {
+        output += data.toString()
+      })
+
+      proc.stderr?.on('data', (data: Buffer) => {
+        output += data.toString()
+      })
+
+      proc.on('close', (code) => {
+        console.log('[Scrcpy] tcpip output:', output.trim(), 'code:', code)
+        resolve(code === 0 || output.includes('restarting'))
+      })
+
+      proc.on('error', (error) => {
+        console.error('[Scrcpy] tcpip error:', error)
+        resolve(false)
+      })
+    })
+  }
+
+  /**
+   * Connect to a device via WiFi (IP address)
+   */
+  async connectWifi(ipAddress: string, port: number = 5555): Promise<boolean> {
+    return new Promise((resolve) => {
+      const target = `${ipAddress}:${port}`
+      console.log('[Scrcpy] Connecting to:', target)
+
+      const proc = spawn(this.adbPath, ['connect', target], { windowsHide: true })
+      let output = ''
+
+      proc.stdout?.on('data', (data: Buffer) => {
+        output += data.toString()
+      })
+
+      proc.stderr?.on('data', (data: Buffer) => {
+        output += data.toString()
+      })
+
+      proc.on('close', () => {
+        console.log('[Scrcpy] connect output:', output.trim())
+        // Success if output contains "connected" and not "failed"
+        const success = output.includes('connected') && !output.includes('failed')
+        resolve(success)
+      })
+
+      proc.on('error', (error) => {
+        console.error('[Scrcpy] connect error:', error)
+        resolve(false)
+      })
+    })
+  }
+
+  /**
+   * Disconnect a WiFi device
+   */
+  async disconnectWifi(ipAddress: string, port: number = 5555): Promise<void> {
+    return new Promise((resolve) => {
+      const target = `${ipAddress}:${port}`
+      console.log('[Scrcpy] Disconnecting:', target)
+
+      const proc = spawn(this.adbPath, ['disconnect', target], { windowsHide: true })
+
+      proc.on('close', () => {
+        resolve()
+      })
+
+      proc.on('error', () => {
+        resolve()
+      })
+    })
+  }
+
+  /**
+   * Get the IP address of a connected USB device
+   * Tries multiple methods for compatibility with different Android versions
+   * Returns null if not found
+   */
+  async getDeviceIp(serial?: string): Promise<string | null> {
+    // If serial is already an IP:port format, extract the IP
+    if (serial && serial.includes(':')) {
+      const ip = serial.split(':')[0]
+      // Validate it looks like an IP address
+      if (/^\d+\.\d+\.\d+\.\d+$/.test(ip)) {
+        console.log('[Scrcpy] Device IP from serial:', ip)
+        return ip
+      }
+    }
+
+    // Try multiple methods to get the IP
+    const methods = [
+      { name: 'ip route', args: ['shell', 'ip', 'route'], regex: /src\s+(\d+\.\d+\.\d+\.\d+)/ },
+      { name: 'ip addr wlan0', args: ['shell', 'ip', 'addr', 'show', 'wlan0'], regex: /inet\s+(\d+\.\d+\.\d+\.\d+)/ },
+      { name: 'ifconfig wlan0', args: ['shell', 'ifconfig', 'wlan0'], regex: /inet\s+addr:(\d+\.\d+\.\d+\.\d+)|inet\s+(\d+\.\d+\.\d+\.\d+)/ },
+      { name: 'dumpsys wifi', args: ['shell', 'dumpsys', 'wifi'], regex: /ip(?:Address|_address)[=:\s]+(\d+\.\d+\.\d+\.\d+)/i }
+    ]
+
+    for (const method of methods) {
+      const ip = await this.tryGetIp(serial, method.args, method.regex, method.name)
+      if (ip) {
+        return ip
+      }
+    }
+
+    console.log('[Scrcpy] Could not find device IP with any method')
+    return null
+  }
+
+  /**
+   * Try to get IP using a specific command and regex
+   */
+  private tryGetIp(serial: string | undefined, shellArgs: string[], regex: RegExp, methodName: string): Promise<string | null> {
+    return new Promise((resolve) => {
+      const args = serial ? ['-s', serial, ...shellArgs] : shellArgs
+
+      const proc = spawn(this.adbPath, args, { windowsHide: true })
+      let output = ''
+
+      proc.stdout?.on('data', (data: Buffer) => {
+        output += data.toString()
+      })
+
+      proc.stderr?.on('data', (data: Buffer) => {
+        // Some commands output to stderr
+        output += data.toString()
+      })
+
+      proc.on('close', () => {
+        const match = output.match(regex)
+        if (match) {
+          // Find the first captured group that has a value
+          const ip = match[1] || match[2]
+          if (ip) {
+            console.log(`[Scrcpy] Device IP via ${methodName}:`, ip)
+            resolve(ip)
+            return
+          }
+        }
+        resolve(null)
+      })
+
+      proc.on('error', () => {
+        resolve(null)
+      })
+
+      // Timeout after 3 seconds
+      setTimeout(() => {
+        proc.kill()
+        resolve(null)
+      }, 3000)
+    })
+  }
+
+  /**
    * Start scrcpy for a device
    */
   async start(options: ScrcpyOptions = {}): Promise<boolean> {
@@ -133,8 +302,24 @@ class ScrcpyService extends EventEmitter {
       return false
     }
 
-    // If no serial specified, check if there's exactly one device
-    if (!options.serial) {
+    // WiFi connection mode
+    if (options.tcpip) {
+      // Ensure port is included
+      const target = options.tcpip.includes(':') ? options.tcpip : `${options.tcpip}:5555`
+      console.log('[Scrcpy] Starting in WiFi mode:', target)
+
+      // Use tcpip address as serial
+      options.serial = target
+
+      // Create a virtual device for WiFi connection
+      this._currentDevice = {
+        serial: target,
+        status: 'device',
+        model: 'WiFi Device'
+      }
+    }
+    // USB connection mode - If no serial specified, check if there's exactly one device
+    else if (!options.serial) {
       const devices = await this.listDevices()
       const connected = devices.filter(d => d.status === 'device')
 
@@ -248,6 +433,17 @@ class ScrcpyService extends EventEmitter {
 
     if (options.noAudio) {
       args.push('--no-audio')
+    } else {
+      // Audio options (only if audio is enabled)
+      if (options.audioSource) {
+        args.push('--audio-source', options.audioSource)
+      }
+      if (options.audioCodec) {
+        args.push('--audio-codec', options.audioCodec)
+      }
+      if (options.audioBitrate) {
+        args.push('--audio-bit-rate', options.audioBitrate)
+      }
     }
 
     if (options.noControl) {
@@ -287,7 +483,9 @@ class ScrcpyService extends EventEmitter {
       maxFps: 60,
       stayAwake: true,
       windowTitle: 'Hikari Stream - Mobile',
-      noAudio: false // Keep audio for game sounds
+      noAudio: false, // Keep audio for game sounds
+      audioCodec: 'aac', // AAC works better on some Android versions
+      audioBitrate: '128K'
     }
   }
 }
