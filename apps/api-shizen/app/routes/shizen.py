@@ -28,6 +28,8 @@ from app.utils.tier_service import (
 )
 from app.core.database import get_async_db
 from app.models.holistic_profile import HolisticProfile
+from app.models.questionnaire_session import QuestionnaireSession
+from app.models.questionnaire_response import QuestionnaireResponse
 from app.models import MessageRole, ConversationStatus
 from sqlalchemy import select
 
@@ -746,6 +748,84 @@ async def enrich_profile_section(
         elif request.section == 'recommendations':
             section_data = profile.recommendations
 
+        # Check if section is empty or pending - trigger REGENERATION instead of enrichment
+        is_pending = (
+            not section_data or
+            (isinstance(section_data, dict) and section_data.get('_analysis_status') == 'pending') or
+            (isinstance(section_data, dict) and section_data.get('adhd', {}).get('score_global') == -1)
+        )
+
+        if is_pending and request.section == 'neurodivergence':
+            # REGENERATE neurodivergence section from questionnaire responses
+            logger.info(f"🔄 Section neurodivergence is empty/pending - triggering REGENERATION")
+
+            # Load questionnaire session and responses
+            session_result = await db.execute(
+                select(QuestionnaireSession).where(QuestionnaireSession.id == profile.session_id)
+            )
+            session = session_result.scalar_one_or_none()
+
+            if not session:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="Original questionnaire session not found - cannot regenerate",
+                )
+
+            # Load responses
+            responses_result = await db.execute(
+                select(QuestionnaireResponse)
+                .where(QuestionnaireResponse.session_id == profile.session_id)
+                .order_by(QuestionnaireResponse.answered_at)
+            )
+            responses = list(responses_result.scalars().all())
+
+            if len(responses) < 10:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail=f"Not enough questionnaire responses ({len(responses)}) to regenerate analysis",
+                )
+
+            # Convert responses to dict format
+            responses_dict = [
+                {
+                    "bloc": r.bloc,
+                    "question_text": r.question_text,
+                    "answer": r.answer,
+                    "question_type": r.question_type,
+                }
+                for r in responses
+            ]
+
+            # Regenerate neurodivergence analysis
+            from app.services.psychological_analysis_service import get_psychological_analysis_service
+            psych_service = get_psychological_analysis_service()
+
+            try:
+                logger.info(f"🧬 Regenerating neurodivergence analysis...")
+                new_neurodivergence = await psych_service.analyze_neurodivergence(responses_dict)
+
+                # Update profile
+                profile.neurodivergence_analysis = new_neurodivergence
+                profile.updated_at = datetime.now(timezone.utc)
+                await db.commit()
+
+                logger.info(f"✅ Neurodivergence analysis regenerated successfully for user {user_id}")
+
+                return {
+                    "status": "success",
+                    "message": "Section 'neurodivergence' régénérée avec succès !",
+                    "section": request.section,
+                    "profile_id": request.profile_id,
+                    "regenerated": True,
+                }
+
+            except Exception as regen_error:
+                logger.error(f"❌ Neurodivergence regeneration failed: {regen_error}")
+                raise HTTPException(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    detail=f"Régénération échouée: {str(regen_error)[:200]}",
+                )
+
         if not section_data:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -1242,7 +1322,8 @@ async def websocket_chat(
                 message_data = json.loads(data)
 
                 user_message = message_data.get("message")
-                user_id = message_data.get("user_id") or conversation.user_id
+                # Security: Always use conversation owner, ignore client-provided user_id
+                # to prevent tier limit bypass attacks
 
                 if not user_message:
                     await websocket.send_json({"error": "No message provided"})

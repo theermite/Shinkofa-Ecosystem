@@ -39,9 +39,18 @@ interface NeurodivergenceProfile {
 }
 
 // Helper to get score from either format - with null safety
+// Returns -1 for "pending analysis" state, 0 for "not analyzed"
 const getScore = (data?: NeurodivergenceProfileRaw | null): number => {
   if (!data) return 0
-  return data.score_global ?? data.score ?? 0
+  const score = data.score_global ?? data.score ?? 0
+  return score
+}
+
+// Check if analysis is pending (score = -1 or has _pending flag)
+const isAnalysisPending = (data?: NeurodivergenceProfileRaw | null): boolean => {
+  if (!data) return false
+  const score = data.score_global ?? data.score
+  return score === -1 || (data as any)?._pending === true
 }
 
 // Helper to get profile label from any format
@@ -127,12 +136,38 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
   const eatingDisorder = getSafeProfile(data?.eating_disorder)
   const sleepDisorder = getSafeProfile(data?.sleep_disorder)
 
+  // Check if analysis is pending for each type
+  const adhdPending = isAnalysisPending(data?.adhd)
+  const autismPending = isAnalysisPending(data?.autism)
+  const hpiPending = isAnalysisPending(data?.hpi)
+  const multipotentialityPending = isAnalysisPending(data?.multipotentiality)
+  const hypersensitivityPending = isAnalysisPending(data?.hypersensitivity)
+
+  // Check if overall analysis is pending (from _analysis_status flag)
+  const overallPending = (data as any)?._analysis_status === 'pending'
+
   return (
     <ProfileSection
       title="Profil Neurodivergent"
       icon="🌈"
       gradient="from-green-500 to-teal-600"
     >
+      {/* Show warning banner if analysis is pending */}
+      {overallPending && (
+        <div className="bg-amber-100 dark:bg-amber-900/30 border-2 border-amber-400 dark:border-amber-600 rounded-xl p-4 mb-4">
+          <div className="flex items-center gap-3">
+            <span className="text-3xl">⚠️</span>
+            <div>
+              <h4 className="font-bold text-amber-800 dark:text-amber-200">Analyse en attente</h4>
+              <p className="text-sm text-amber-700 dark:text-amber-300">
+                L'analyse de neurodivergence n'a pas pu être complétée.
+                Cliquez sur "Enrichir avec Shizen" pour relancer l'analyse.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ADD/ADHD */}
       <NeurodivergenceItem
         title="TDA(H) - Trouble du Déficit de l'Attention avec ou sans Hyperactivité"
@@ -142,6 +177,7 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
         manifestations={adhd.manifestations}
         strategies={adhd.strategies}
         color="purple"
+        isPending={adhdPending || overallPending}
       />
 
       {/* Autism */}
@@ -153,6 +189,7 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
         manifestations={autism.manifestations}
         strategies={autism.strategies}
         color="blue"
+        isPending={autismPending || overallPending}
       />
 
       {/* HPI */}
@@ -164,6 +201,7 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
         manifestations={hpi.manifestations}
         strategies={hpi.strategies}
         color="indigo"
+        isPending={hpiPending || overallPending}
       />
 
       {/* Multipotentiality */}
@@ -175,10 +213,11 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
         manifestations={multipotentiality.manifestations}
         strategies={multipotentiality.strategies}
         color="pink"
+        isPending={multipotentialityPending || overallPending}
       />
 
       {/* Hypersensitivity */}
-      <div className="bg-gradient-to-br from-rose-50 to-pink-50 dark:from-rose-900/20 dark:to-pink-900/20 rounded-xl p-6 border-2 border-rose-200 dark:border-rose-800">
+      <div className={`bg-gradient-to-br from-rose-50 to-pink-50 dark:from-rose-900/20 dark:to-pink-900/20 rounded-xl p-6 border-2 border-rose-200 dark:border-rose-800 ${hypersensitivityPending || overallPending ? 'opacity-75' : ''}`}>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <span className="text-4xl">💎</span>
@@ -186,16 +225,16 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
                 Hypersensibilité
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                Profil : {hypersensitivity.profile}
+              <p className={`text-sm mt-1 ${hypersensitivityPending || overallPending ? 'text-amber-600 dark:text-amber-400 font-medium' : 'text-gray-600 dark:text-gray-400'}`}>
+                Profil : {hypersensitivityPending || overallPending ? 'Analyse en attente' : hypersensitivity.profile}
               </p>
             </div>
           </div>
-          <ScoreBadge score={hypersensitivity.score} />
+          <ScoreBadge score={hypersensitivity.score} isPending={hypersensitivityPending || overallPending} />
         </div>
 
         {/* Types d'hypersensibilité */}
-        {hypersensitivity.types && hypersensitivity.types.length > 0 && (
+        {hypersensitivity.types && hypersensitivity.types.length > 0 && !(hypersensitivityPending || overallPending) && (
           <div className="mb-6 p-4 bg-white/70 dark:bg-gray-800/70 rounded-lg">
             <h4 className="font-semibold text-gray-900 dark:text-white mb-3 text-lg">
               Types d'hypersensibilité identifiés :
@@ -215,14 +254,18 @@ export const NeurodivergenceCard: React.FC<NeurodivergenceCardProps> = ({ data }
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <DetailCard
-            title="🔍 Manifestations"
-            items={hypersensitivity.manifestations}
+            title={hypersensitivityPending || overallPending ? "⏳ En attente" : "🔍 Manifestations"}
+            items={hypersensitivityPending || overallPending
+              ? ["L'analyse n'a pas pu être complétée", "Cliquez sur 'Enrichir avec Shizen' pour relancer"]
+              : hypersensitivity.manifestations}
             icon="•"
             color="purple"
           />
           <DetailCard
-            title="💡 Stratégies d'Adaptation"
-            items={hypersensitivity.strategies}
+            title={hypersensitivityPending || overallPending ? "💡 Action requise" : "💡 Stratégies d'Adaptation"}
+            items={hypersensitivityPending || overallPending
+              ? ["Régénérez votre profil pour obtenir des stratégies personnalisées"]
+              : hypersensitivity.strategies}
             icon="✓"
             color="green"
           />
@@ -301,6 +344,7 @@ interface NeurodivergenceItemProps {
   manifestations: string[]
   strategies: string[]
   color: 'purple' | 'blue' | 'indigo' | 'pink'
+  isPending?: boolean
 }
 
 const NeurodivergenceItem: React.FC<NeurodivergenceItemProps> = ({
@@ -311,6 +355,7 @@ const NeurodivergenceItem: React.FC<NeurodivergenceItemProps> = ({
   manifestations,
   strategies,
   color,
+  isPending = false,
 }) => {
   const colorClasses = {
     purple: 'from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 border-purple-200 dark:border-purple-800',
@@ -319,8 +364,17 @@ const NeurodivergenceItem: React.FC<NeurodivergenceItemProps> = ({
     pink: 'from-pink-50 to-fuchsia-50 dark:from-pink-900/20 dark:to-fuchsia-900/20 border-pink-200 dark:border-pink-800',
   }
 
+  // Show pending state with informative message
+  const displayProfile = isPending ? 'Analyse en attente' : profile
+  const displayManifestations = isPending && manifestations.length === 0
+    ? ["L'analyse n'a pas pu être complétée", "Cliquez sur 'Enrichir avec Shizen' pour relancer"]
+    : manifestations
+  const displayStrategies = isPending && strategies.length === 0
+    ? ["Régénérez votre profil pour obtenir des stratégies personnalisées"]
+    : strategies
+
   return (
-    <div className={`bg-gradient-to-br ${colorClasses[color]} rounded-xl p-6 border-2`}>
+    <div className={`bg-gradient-to-br ${colorClasses[color]} rounded-xl p-6 border-2 ${isPending ? 'opacity-75' : ''}`}>
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
           <span className="text-4xl">{icon}</span>
@@ -328,24 +382,24 @@ const NeurodivergenceItem: React.FC<NeurodivergenceItemProps> = ({
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
               {title}
             </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-              Profil : {profile}
+            <p className={`text-sm mt-1 ${isPending ? 'text-amber-600 dark:text-amber-400 font-medium' : 'text-gray-600 dark:text-gray-400'}`}>
+              Profil : {displayProfile}
             </p>
           </div>
         </div>
-        <ScoreBadge score={score} />
+        <ScoreBadge score={score} isPending={isPending} />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <DetailCard
-          title="🔍 Manifestations"
-          items={manifestations}
+          title={isPending ? "⏳ En attente" : "🔍 Manifestations"}
+          items={displayManifestations}
           icon="•"
           color="purple"
         />
         <DetailCard
-          title="💡 Stratégies d'Adaptation"
-          items={strategies}
+          title={isPending ? "💡 Action requise" : "💡 Stratégies d'Adaptation"}
+          items={displayStrategies}
           icon="✓"
           color="green"
         />
@@ -356,9 +410,20 @@ const NeurodivergenceItem: React.FC<NeurodivergenceItemProps> = ({
 
 interface ScoreBadgeProps {
   score: number
+  isPending?: boolean
 }
 
-const ScoreBadge: React.FC<ScoreBadgeProps> = ({ score }) => {
+const ScoreBadge: React.FC<ScoreBadgeProps> = ({ score, isPending = false }) => {
+  // Handle pending state
+  if (isPending || score === -1) {
+    return (
+      <div className="flex flex-col items-center justify-center w-24 h-24 rounded-full bg-gray-400 text-white shadow-lg animate-pulse">
+        <span className="text-2xl font-bold">⏳</span>
+        <span className="text-xs font-semibold text-center px-1">En attente</span>
+      </div>
+    )
+  }
+
   const getScoreColor = (val: number) => {
     if (val >= 70) return 'bg-red-500 text-white'
     if (val >= 50) return 'bg-orange-500 text-white'

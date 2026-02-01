@@ -210,15 +210,23 @@ class HolisticProfileService:
                 operation_name="Psychology Analysis"
             )
 
-            # 8. Analyze Neurodivergence (Ollama) - WITH RETRY
+            # 8. Analyze Neurodivergence (Ollama) - WITH RETRY + GRACEFUL FALLBACK
             logger.info("🧬 Analyzing neurodivergence patterns...")
-            neurodivergence_analysis = await self._retry_with_backoff(
-                self._analyze_neurodivergence,
-                responses,
-                max_retries=3,
-                initial_delay=2.0,
-                operation_name="Neurodivergence Analysis"
-            )
+            try:
+                neurodivergence_analysis = await self._retry_with_backoff(
+                    self._analyze_neurodivergence,
+                    responses,
+                    max_retries=3,
+                    initial_delay=2.0,
+                    operation_name="Neurodivergence Analysis"
+                )
+            except Exception as neuro_error:
+                # Graceful fallback: don't fail entire profile if neurodivergence fails
+                logger.error(f"❌ Neurodivergence analysis failed after all retries: {neuro_error}")
+                logger.warning("⚠️ Using fallback neurodivergence profile - will show as 'analysis pending'")
+                neurodivergence_analysis = self._get_fallback_neurodivergence_with_message(
+                    error_msg=str(neuro_error)
+                )
 
             # 9. Analyze Shinkofa dimensions (Ollama) - WITH RETRY
             logger.info("🌈 Analyzing Shinkofa dimensions...")
@@ -784,6 +792,60 @@ class HolisticProfileService:
             })
 
         return recommendations
+
+    def _get_fallback_neurodivergence_with_message(self, error_msg: str = "") -> Dict:
+        """
+        Create informative fallback neurodivergence profile when analysis fails
+
+        Unlike the empty fallback, this one provides context to the user about why
+        the analysis is pending and suggests regeneration.
+
+        Args:
+            error_msg: Error message for logging/debugging
+
+        Returns:
+            Dict with fallback profile containing informative messages
+        """
+        # Informative profile that explains the situation
+        pending_profile = {
+            "score_global": -1,  # -1 indicates "pending analysis" (not 0 which means "absent")
+            "score": -1,
+            "profil": "analysis_pending",
+            "profil_label": "Analyse en attente - veuillez régénérer le profil",
+            "profile": "Analyse en attente",
+            "dimensions": {},
+            "manifestations_principales": [
+                "L'analyse de cette section n'a pas pu être complétée.",
+                "Cliquez sur 'Enrichir avec Shizen' pour relancer l'analyse.",
+            ],
+            "manifestations": [],
+            "strategies_adaptation": [
+                "Régénérez votre profil pour obtenir une analyse complète.",
+                "Si le problème persiste, contactez le support.",
+            ],
+            "strategies": [],
+            "_error": error_msg[:200] if error_msg else "Analysis timeout or LLM error",
+            "_pending": True,
+        }
+
+        logger.warning(f"⚠️ Creating fallback neurodivergence profile due to: {error_msg[:100]}")
+
+        return {
+            "adhd": {**pending_profile, "profil_label": "TDAH - Analyse en attente"},
+            "autism": {**pending_profile, "profil_label": "TSA - Analyse en attente"},
+            "hpi": {**pending_profile, "profil_label": "HPI - Analyse en attente"},
+            "multipotentiality": {**pending_profile, "profil_label": "Multipotentialité - Analyse en attente"},
+            "hypersensitivity": {**pending_profile, "profil_label": "Hypersensibilité - Analyse en attente", "types": []},
+            "toc": {**pending_profile, "profil_label": "TOC - Analyse en attente"},
+            "dys": {**pending_profile, "profil_label": "Dys - Analyse en attente", "types_detectes": []},
+            "anxiety": {**pending_profile, "profil_label": "Anxiété - Analyse en attente"},
+            "bipolar": {**pending_profile, "profil_label": "Bipolarité - Analyse en attente"},
+            "ptsd": {**pending_profile, "profil_label": "PTSD - Analyse en attente"},
+            "eating_disorder": {**pending_profile, "profil_label": "Troubles alimentaires - Analyse en attente", "types_detectes": []},
+            "sleep_disorder": {**pending_profile, "profil_label": "Troubles sommeil - Analyse en attente", "types_detectes": []},
+            "_analysis_status": "pending",
+            "_error_summary": error_msg[:200] if error_msg else "LLM analysis failed",
+        }
 
 
 # Singleton instance

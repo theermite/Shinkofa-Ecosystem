@@ -138,34 +138,66 @@ class PsychologicalAnalysisService:
 
         Returns:
             {
-                "adhd": {"score": 72, "profile": "inattention", "manifestations": [...], "strategies": [...]},
-                "autism": {"score": 45, ...},
-                "hpi": {"score": 85, ...},
-                "multipotentiality": {"score": 70, ...},
-                "hypersensitivity": {"score": 80, "types": ["emotional", "sensory"], ...},
+                "adhd": {"score_global": 72, "profil_label": "...", "manifestations_principales": [...], "strategies_adaptation": [...]},
+                "autism": {"score_global": 45, ...},
+                "hpi": {"score_global": 85, ...},
+                "multipotentiality": {"score_global": 70, ...},
+                "hypersensitivity": {"score_global": 80, "types": ["emotional", "sensory"], ...},
                 ...
             }
         """
         prompt = self._build_neurodivergence_prompt(responses)
 
+        # Required neurodivergence types (must be present in response)
+        required_neuro_types = ['adhd', 'autism', 'hpi', 'multipotentiality', 'hypersensitivity']
+
         try:
+            logger.info("🧬 Calling LLM for neurodivergence analysis...")
             result = await self.llm.generate(
                 prompt=prompt,
                 system=self._get_system_prompt("neurodivergence"),
                 temperature=0.3,
             )
 
-            neuro_data = self._parse_json_response(result)
-            # Support both old (score) and new (score_global) formats
+            # Parse with required keys validation
+            neuro_data = self._parse_json_response(result, required_keys=required_neuro_types)
+
+            # Validate the structure has actual scores (not empty dicts)
+            valid_types = 0
+            for neuro_type in required_neuro_types:
+                type_data = neuro_data.get(neuro_type, {})
+                if isinstance(type_data, dict):
+                    # Check for score (either format)
+                    score = type_data.get('score_global') or type_data.get('score')
+                    if score is not None:
+                        valid_types += 1
+
+            if valid_types < 3:
+                # Less than 3 valid types = likely corrupted response
+                logger.warning(f"⚠️ Only {valid_types}/5 neurodivergence types have valid scores")
+                logger.warning(f"   Keys found: {list(neuro_data.keys())}")
+                # Log a sample of what we got for debugging
+                for key in required_neuro_types[:2]:
+                    logger.warning(f"   {key}: {neuro_data.get(key, 'MISSING')}")
+                raise ValueError(f"Incomplete neurodivergence data: only {valid_types}/5 types valid")
+
+            # Support both old (score) and new (score_global) formats for logging
             adhd_score = neuro_data.get('adhd', {}).get('score_global') or neuro_data.get('adhd', {}).get('score')
             hpi_score = neuro_data.get('hpi', {}).get('score_global') or neuro_data.get('hpi', {}).get('score')
-            logger.info(f"✅ Neurodivergence analyzed: ADHD={adhd_score}, HPI={hpi_score}")
-            logger.debug(f"📊 Neurodivergence keys: {list(neuro_data.keys())}")
+            autism_score = neuro_data.get('autism', {}).get('score_global') or neuro_data.get('autism', {}).get('score')
+
+            logger.info(f"✅ Neurodivergence analyzed successfully:")
+            logger.info(f"   ADHD={adhd_score}, HPI={hpi_score}, Autism={autism_score}")
+            logger.info(f"   Types found: {list(neuro_data.keys())}")
+
             return neuro_data
 
         except Exception as e:
-            logger.error(f"❌ Neurodivergence analysis error: {e}")
-            return self._get_fallback_neurodivergence()
+            error_msg = f"{type(e).__name__}: {str(e)}"
+            logger.error(f"❌ Neurodivergence analysis failed: {error_msg}")
+            logger.error(f"   This will trigger fallback with empty scores")
+            # Re-raise to trigger retry mechanism in holistic_profile_service
+            raise Exception(f"Neurodivergence analysis failed: {error_msg}")
 
     async def analyze_pnl_meta_programs(self, responses: List[Dict]) -> Dict:
         """
@@ -1548,53 +1580,124 @@ Retourne UNIQUEMENT un JSON valide, sans texte explicatif avant/après."""
         }
         return prompts.get(analysis_type, f"Tu es un expert en analyse psychologique.{base_instruction}")
 
-    def _parse_json_response(self, response: str) -> Dict:
+    def _parse_json_response(self, response: str, required_keys: List[str] = None) -> Dict:
         """
-        Parse JSON from LLM response
+        Parse JSON from LLM response with robust error handling
 
         Handles cases where LLM adds extra text before/after JSON
         and common JSON formatting issues from LLMs
+
+        Args:
+            response: Raw LLM response string
+            required_keys: Optional list of keys that must be present in result
+
+        Returns:
+            Parsed JSON dict
+
+        Raises:
+            ValueError: If JSON cannot be parsed or is missing required keys
         """
         def clean_json(json_str: str) -> str:
             """Clean common LLM JSON mistakes"""
-            # Remove markdown code blocks
-            json_str = re.sub(r'```json\s*', '', json_str)
-            json_str = re.sub(r'```\s*', '', json_str)
+            # Remove markdown code blocks (various formats)
+            json_str = re.sub(r'```json\s*\n?', '', json_str)
+            json_str = re.sub(r'```\s*\n?', '', json_str)
             # Remove trailing commas before } or ]
             json_str = re.sub(r',\s*([}\]])', r'\1', json_str)
             # Remove control characters except whitespace
             json_str = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f]', '', json_str)
+            # Fix unescaped newlines in strings (common LLM mistake)
+            json_str = re.sub(r'(?<!\\)\n(?=[^"]*"[^"]*$)', '\\n', json_str)
             return json_str.strip()
 
-        try:
-            # Try direct parse first
-            return json.loads(response)
-        except json.JSONDecodeError:
-            pass
+        def try_parse(json_str: str, method_name: str) -> Dict:
+            """Try to parse JSON and log the attempt"""
+            try:
+                result = json.loads(json_str)
+                if isinstance(result, dict) and result:
+                    logger.debug(f"✅ JSON parsed successfully via {method_name}")
+                    return result
+            except json.JSONDecodeError as e:
+                logger.debug(f"   {method_name} failed: {e}")
+            return None
 
-        # Try to extract JSON from response
+        # Log raw response for debugging (truncated)
+        response_preview = response[:500] if len(response) > 500 else response
+        logger.debug(f"🔍 Parsing LLM response ({len(response)} chars): {response_preview}...")
+
+        # Method 1: Direct parse
+        result = try_parse(response, "direct parse")
+        if result:
+            return self._validate_parsed_json(result, required_keys)
+
+        # Method 2: Extract JSON object from response
         start = response.find("{")
         end = response.rfind("}") + 1
 
         if start != -1 and end > start:
             json_str = response[start:end]
-            # Try with cleaning
-            try:
-                return json.loads(clean_json(json_str))
-            except json.JSONDecodeError:
-                pass
 
-            # Try fixing common issues more aggressively
-            try:
-                # Replace single quotes with double quotes (risky but sometimes needed)
-                fixed_json = json_str.replace("'", '"')
-                return json.loads(clean_json(fixed_json))
-            except json.JSONDecodeError:
-                pass
+            # Method 2a: Clean and parse
+            result = try_parse(clean_json(json_str), "clean + extract")
+            if result:
+                return self._validate_parsed_json(result, required_keys)
 
-        # Fallback
-        logger.warning(f"⚠️ Could not parse JSON from response: {response[:200]}")
-        return {}
+            # Method 2b: Replace single quotes
+            fixed_json = json_str.replace("'", '"')
+            result = try_parse(clean_json(fixed_json), "single quotes fix")
+            if result:
+                return self._validate_parsed_json(result, required_keys)
+
+            # Method 2c: Fix common LLM issues more aggressively
+            aggressive_fix = json_str
+            # Fix: "key": value, where value has no quotes but should
+            aggressive_fix = re.sub(r':\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*([,}])', r': "\1"\2', aggressive_fix)
+            # Fix: True/False -> true/false
+            aggressive_fix = aggressive_fix.replace('True', 'true').replace('False', 'false')
+            # Fix: None -> null
+            aggressive_fix = aggressive_fix.replace('None', 'null')
+            result = try_parse(clean_json(aggressive_fix), "aggressive fix")
+            if result:
+                return self._validate_parsed_json(result, required_keys)
+
+            # Method 2d: Try to balance braces (truncated JSON)
+            brace_count = json_str.count('{') - json_str.count('}')
+            if brace_count > 0:
+                balanced_json = json_str + ('}' * brace_count)
+                result = try_parse(clean_json(balanced_json), "brace balance")
+                if result:
+                    logger.warning(f"⚠️ JSON was truncated, added {brace_count} closing braces")
+                    return self._validate_parsed_json(result, required_keys)
+
+        # All methods failed - raise exception with details
+        error_msg = f"Failed to parse JSON from LLM response. Response preview: {response_preview}"
+        logger.error(f"❌ {error_msg}")
+        raise ValueError(error_msg)
+
+    def _validate_parsed_json(self, data: Dict, required_keys: List[str] = None) -> Dict:
+        """
+        Validate parsed JSON has required structure
+
+        Args:
+            data: Parsed JSON dict
+            required_keys: Optional list of keys that must be present
+
+        Returns:
+            Validated dict
+
+        Raises:
+            ValueError: If validation fails
+        """
+        if not data:
+            raise ValueError("Parsed JSON is empty")
+
+        if required_keys:
+            missing_keys = [k for k in required_keys if k not in data]
+            if missing_keys:
+                logger.warning(f"⚠️ JSON missing required keys: {missing_keys}")
+                # Don't raise - just warn, some keys may be optional
+
+        return data
 
     # ===== FALLBACK METHODS =====
 
