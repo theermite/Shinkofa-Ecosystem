@@ -7,7 +7,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { ermiteTheme } from '../../../shared/theme'
-import type { WidgetScore, WidgetCallbacks } from '../../../shared/types'
+import { DifficultyLevel, type WidgetScore, type WidgetCallbacks } from '../../../shared/types'
 import { submitScore } from '../../../shared/api/client'
 
 type BreathPhase = 'inhale' | 'hold' | 'exhale' | 'rest'
@@ -159,7 +159,7 @@ export function BreathingExercise({
         userId,
         score: cycleCount * 100,
         metrics: { cycles: cycleCount, durationMs: duration, pattern: pattern.name },
-        difficulty: 'medium',
+        difficulty: DifficultyLevel.MEDIUM,
         completedAt: new Date().toISOString(),
         duration,
       }

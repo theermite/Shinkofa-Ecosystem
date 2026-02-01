@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3016",
-    "build": "echo 'Build skipped - requires DATABASE_URL and Redis'",
+    "build": "echo 'Build runs on VPS with DATABASE_URL - skipped in CI'",
+    "build:local": "prisma generate && next build",
     "start": "next start -p 3016",
     "lint": "echo 'Lint skipped - TODO: fix ESLint flat config with Next.js 16'",
     "type-check": "tsc --noEmit",

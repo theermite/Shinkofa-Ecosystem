@@ -1,6 +1,9 @@
 import db from '@/lib/db';
 import { MediaPageClient } from '@/components/media/MediaPageClient';
 
+// Force dynamic rendering - page requires database connection
+export const dynamic = 'force-dynamic';
+
 async function getMediaFiles() {
   const files = await db.mediaFile.findMany({
     orderBy: { createdAt: 'desc' },

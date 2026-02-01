@@ -2,6 +2,9 @@ import { notFound } from 'next/navigation';
 import db from '@/lib/db';
 import { EditorPageClient } from '@/components/editor/EditorPageClient';
 
+// Force dynamic rendering - page requires database connection
+export const dynamic = 'force-dynamic';
+
 type Params = Promise<{ clipId: string }>;
 
 async function getMediaFile(id: string) {

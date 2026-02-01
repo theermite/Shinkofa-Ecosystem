@@ -14,7 +14,7 @@ export interface WidgetScore {
   widgetName: string
   userId?: string
   score: number
-  metrics: Record<string, number>
+  metrics: Record<string, number | string>
   difficulty: DifficultyLevel
   completedAt: string
   duration: number // ms
@@ -58,7 +58,7 @@ export interface WidgetProgress {
   currentStep: number
   totalSteps: number
   partialScore?: number
-  metrics?: Record<string, number>
+  metrics?: Record<string, number | string>
 }
 
 // ============================================================================
