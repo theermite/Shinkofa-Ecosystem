@@ -83,6 +83,9 @@ async def submit_application(
         db.commit()
         db.refresh(application)
 
+        # Store application ID for later use (after potential session detachment)
+        application_id = application.id
+
         # Create in-app notifications for managers and coaches
         try:
             # Find all managers and coaches
@@ -104,7 +107,7 @@ async def submit_application(
                 db.add(notification)
 
             db.commit()
-            logger.info(f"Created {len(managers_coaches)} notifications for recruitment application #{application.id}")
+            logger.info(f"Created {len(managers_coaches)} notifications for recruitment application #{application_id}")
         except Exception as e:
             logger.error(f"Failed to create in-app notifications: {e}")
             # Don't fail the submission
@@ -112,7 +115,7 @@ async def submit_application(
         # Send notification email to managers
         try:
             email_service.send_recruitment_notification_email(
-                application_id=application.id,
+                application_id=application_id,
                 pseudo=data.pseudo,
                 email=data.email,
                 motivation=data.motivation[:200] + "..." if len(data.motivation) > 200 else data.motivation,
@@ -122,6 +125,8 @@ async def submit_application(
             # Log error but don't fail the submission
             logger.error(f"Failed to send recruitment notification email: {e}")
 
+        # Refresh application to ensure it's attached to session before returning
+        db.refresh(application)
         return application
 
     except HTTPException:

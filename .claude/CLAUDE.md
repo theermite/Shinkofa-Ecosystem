@@ -6,6 +6,45 @@
 
 ---
 
+## ⚠️ SOURCE DE VÉRITÉ MÉTHODOLOGIE — OBLIGATOIRE
+
+> **IMPORTANT** : Ce monorepo n'a PAS de copie locale de la méthodologie.
+> La source unique est **Instruction-Claude-Code**.
+
+### Règle Absolue
+
+```
+AVANT toute action de développement dans ce monorepo :
+1. Charger D:\30-Dev-Projects\Instruction-Claude-Code\Prompt-2026-Optimized\
+2. Consulter les Maîtres pertinents dans Master-Agents/
+3. Appliquer les conventions de Core-System/Conventions.md
+```
+
+### Fichiers à Consulter Systématiquement
+
+| Besoin | Fichier Source (Instruction-Claude-Code) |
+|--------|------------------------------------------|
+| **Workflow** | `Prompt-2026-Optimized/Core-System/Workflow.md` |
+| **Conventions** | `Prompt-2026-Optimized/Core-System/Conventions.md` |
+| **Agents/Maîtres** | `Prompt-2026-Optimized/Master-Agents/INDEX-MAITRES.md` |
+| **Skills** | `Prompt-2026-Optimized/Master-Skills/` |
+| **Checklists** | `Prompt-2026-Optimized/Process-Checklists/` |
+| **Leçons** | `Prompt-2026-Optimized/Infrastructure/Lessons/` |
+
+### Chemin Complet
+
+```
+D:\30-Dev-Projects\Instruction-Claude-Code\Prompt-2026-Optimized\
+├── Core-System/           # Profil, Workflow, Conventions
+├── Master-Agents/         # 31 Maîtres
+├── Master-Skills/         # 20 Skills
+├── Quick-References/      # Références rapides
+├── Process-Checklists/    # Pre-commit, Pre-deploy
+└── Infrastructure/        # Lessons, VPS, etc.
+```
+
+---
+
 ## 📁 Structure du Monorepo
 
 ```
@@ -211,12 +250,6 @@ Voir `.github/SECRETS-REQUIRED.md` pour configurer:
 
 ---
 
-## ⚠️ Nettoyage Requis
-
-- `apps/sakusei/Social-Content-Master/` — Ancien projet imbriqué à supprimer après vérification
-
----
-
 ## 🔗 Ressources
 
 - **Catalogue complet** : `docs/Ecosysteme-Projets-Shinkofa.md`
@@ -225,4 +258,4 @@ Voir `.github/SECRETS-REQUIRED.md` pour configurer:
 
 ---
 
-**Version** : 3.1.0 | **Date** : 2026-02-01 | **Apps** : 25+ | **Sync** : Conventions Title-Kebab-Case
+**Version** : 4.0.0 | **Date** : 2026-02-01 | **Apps** : 25+ | **Change** : Source de vérité unique (Instruction-Claude-Code)

@@ -23,7 +23,17 @@
       "Skill(Session-Manager)",
       "Bash(pip-audit:*)",
       "Bash(find:*)",
-      "Bash(xargs -I {} sh -c 'echo \"\"=== $\\(basename {}\\) ===\"\" && grep \"\"router\\\\.\"\" \"\"{}\"\" | grep -E \"\"^\\\\s*@router\\\\.\"\" | head -15')"
+      "Bash(xargs -I {} sh -c 'echo \"\"=== $\\(basename {}\\) ===\"\" && grep \"\"router\\\\.\"\" \"\"{}\"\" | grep -E \"\"^\\\\s*@router\\\\.\"\" | head -15')",
+      "Bash(curl:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm add:*)",
+      "Bash(VITE_API_URL=\"\" VITE_WEBSOCKET_URL=\"wss://lslf.shinkofa.com/ws\" VITE_ENVIRONMENT=\"production\" pnpm build:*)",
+      "Bash(del \"D:\\\\30-Dev-Projects\\\\Shinkofa-Ecosystem\\\\apps\\\\slf-esport\\\\frontend\\\\src\\\\types\\\\notification.ts\")",
+      "Bash(npx tsc:*)",
+      "Bash(pnpm run build:*)",
+      "Bash(rsync:*)",
+      "Bash(dir \"D:\\\\30-Dev-Projects\\\\Shinkofa-Ecosystem\\\\apps\\\\slf-esport\\\\frontend\\\\src\" /b)"
     ]
   }
 }
