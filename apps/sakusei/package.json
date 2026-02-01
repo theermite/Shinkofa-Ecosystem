@@ -7,7 +7,7 @@
     "build": "echo 'Build runs on VPS with DATABASE_URL - skipped in CI'",
     "build:local": "prisma generate && next build",
     "start": "next start -p 3016",
-    "lint": "echo 'Lint skipped - TODO: fix ESLint flat config with Next.js 16'",
+    "lint": "eslint app src --max-warnings 70",
     "type-check": "tsc --noEmit",
     "test": "echo 'Tests skipped'",
     "db:generate": "prisma generate",
