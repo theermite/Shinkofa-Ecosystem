@@ -135,6 +135,10 @@ jobs:
           ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'ENDSSH'
             cd ${{ env.VPS_PATH }}
 
+            echo "🧹 Cleaning Python cache (CRITICAL for code updates)..."
+            find apps/api-shizen -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
+            find apps/api-shizen -type f -name "*.pyc" -delete 2>/dev/null || true
+
             echo "📥 Pulling latest code..."
             git pull origin master
 
@@ -142,6 +146,10 @@ jobs:
             cd apps/api-shizen
             source venv/bin/activate || (python3.12 -m venv venv && source venv/bin/activate)
             pip install -r requirements.txt --upgrade
+
+            echo "🧹 Final cache cleanup after install..."
+            find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
+            find . -type f -name "*.pyc" -delete 2>/dev/null || true
 
             echo "🗃️ Running migrations..."
             alembic upgrade head || echo "⚠️ Migrations skipped or failed"
