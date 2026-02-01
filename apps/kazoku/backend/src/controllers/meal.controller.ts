@@ -8,6 +8,7 @@ import { AuthRequest } from '../types';
 import * as MealModel from '../models/meal.model';
 import { logger } from '../utils/logger';
 import { ApiError } from '../middleware/errorHandler';
+import { checkOwnership } from '../middleware/auth';
 
 /**
  * Create meal
@@ -45,21 +46,26 @@ export async function createMeal(req: AuthRequest, res: Response): Promise<void>
  */
 export async function getMeals(req: AuthRequest, res: Response): Promise<void> {
   try {
+    if (!req.user) {
+      throw new ApiError(401, 'Non authentifié');
+    }
+
     const { start_date, end_date, week_start } = req.query;
 
     let meals;
     if (week_start) {
-      // Get meals for specific week
+      // Get meals for specific week (filtered by user)
       const weekStartDate = new Date(week_start as string);
-      meals = await MealModel.getMealsByWeek(weekStartDate);
+      meals = await MealModel.getMealsByWeek(req.user.userId, weekStartDate);
     } else if (start_date && end_date) {
-      // Get meals for date range
+      // Get meals for date range (filtered by user)
       meals = await MealModel.getMealsByDateRange(
+        req.user.userId,
         new Date(start_date as string),
         new Date(end_date as string)
       );
     } else {
-      // Default: get meals for current week
+      // Default: get meals for current week (filtered by user)
       const today = new Date();
       const currentDayOfWeek = today.getDay();
       const daysToMonday = currentDayOfWeek === 0 ? 6 : currentDayOfWeek - 1;
@@ -67,7 +73,7 @@ export async function getMeals(req: AuthRequest, res: Response): Promise<void> {
       weekStart.setDate(today.getDate() - daysToMonday);
       weekStart.setHours(0, 0, 0, 0);
 
-      meals = await MealModel.getMealsByWeek(weekStart);
+      meals = await MealModel.getMealsByWeek(req.user.userId, weekStart);
     }
 
     res.json({
@@ -85,12 +91,21 @@ export async function getMeals(req: AuthRequest, res: Response): Promise<void> {
  */
 export async function getMealById(req: AuthRequest, res: Response): Promise<void> {
   try {
+    if (!req.user) {
+      throw new ApiError(401, 'Non authentifié');
+    }
+
     const { id } = req.params;
 
     const meal = await MealModel.getMealById(id);
 
     if (!meal) {
       throw new ApiError(404, 'Repas non trouvé');
+    }
+
+    // Check ownership
+    if (!checkOwnership(req.user.userId, meal.created_by, req.user.role)) {
+      throw new ApiError(403, 'Accès refusé - ressource non autorisée');
     }
 
     res.json({
@@ -108,12 +123,21 @@ export async function getMealById(req: AuthRequest, res: Response): Promise<void
  */
 export async function updateMeal(req: AuthRequest, res: Response): Promise<void> {
   try {
+    if (!req.user) {
+      throw new ApiError(401, 'Non authentifié');
+    }
+
     const { id } = req.params;
     const updates = req.body;
 
     const meal = await MealModel.getMealById(id);
     if (!meal) {
       throw new ApiError(404, 'Repas non trouvé');
+    }
+
+    // Check ownership
+    if (!checkOwnership(req.user.userId, meal.created_by, req.user.role)) {
+      throw new ApiError(403, 'Accès refusé - ressource non autorisée');
     }
 
     await MealModel.updateMeal(id, updates);
@@ -135,11 +159,20 @@ export async function updateMeal(req: AuthRequest, res: Response): Promise<void>
  */
 export async function deleteMeal(req: AuthRequest, res: Response): Promise<void> {
   try {
+    if (!req.user) {
+      throw new ApiError(401, 'Non authentifié');
+    }
+
     const { id } = req.params;
 
     const meal = await MealModel.getMealById(id);
     if (!meal) {
       throw new ApiError(404, 'Repas non trouvé');
+    }
+
+    // Check ownership
+    if (!checkOwnership(req.user.userId, meal.created_by, req.user.role)) {
+      throw new ApiError(403, 'Accès refusé - ressource non autorisée');
     }
 
     await MealModel.deleteMeal(id);

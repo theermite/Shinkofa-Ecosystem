@@ -64,18 +64,19 @@ export async function getEventsByUserId(userId: string): Promise<Event[]> {
 }
 
 /**
- * Get events by date range
+ * Get events by date range (filtered by user)
  */
 export async function getEventsByDateRange(
+  userId: string,
   startDate: Date,
   endDate: Date
 ): Promise<Event[]> {
   const sql = `
     SELECT * FROM events
-    WHERE start_time >= ? AND end_time <= ?
+    WHERE user_id = ? AND start_time >= ? AND end_time <= ?
     ORDER BY start_time ASC
   `;
-  return query<(Event & RowDataPacket)[]>(sql, [startDate, endDate]);
+  return query<(Event & RowDataPacket)[]>(sql, [userId, startDate, endDate]);
 }
 
 /**

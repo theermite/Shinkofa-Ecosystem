@@ -130,3 +130,21 @@ export function canAccessResource(userIdField: string = 'user_id') {
     next();
   };
 }
+
+/**
+ * Helper function to check resource ownership
+ * Can be called from controllers to verify ownership
+ * Returns true if user owns the resource or is admin
+ */
+export function checkOwnership(
+  userId: string,
+  resourceOwnerId: string,
+  userRole: UserRole
+): boolean {
+  // Admin can access all resources
+  if (userRole === 'admin') {
+    return true;
+  }
+  // User can only access their own resources
+  return userId === resourceOwnerId;
+}

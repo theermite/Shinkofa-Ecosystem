@@ -8,6 +8,7 @@ import { AuthRequest } from '../types';
 import * as TaskModel from '../models/task.model';
 import { logger } from '../utils/logger';
 import { ApiError } from '../middleware/errorHandler';
+import { checkOwnership } from '../middleware/auth';
 
 /**
  * Create task
@@ -39,20 +40,30 @@ export async function createTask(req: AuthRequest, res: Response): Promise<void>
 }
 
 /**
- * Get all active tasks or filter by status/assigned
+ * Get all active tasks for current user or filter by status/assigned
  * GET /api/v1/tasks
  */
 export async function getTasks(req: AuthRequest, res: Response): Promise<void> {
   try {
+    if (!req.user) {
+      throw new ApiError(401, 'Non authentifié');
+    }
+
     const { status, assigned_to } = req.query;
 
     let tasks;
     if (status) {
-      tasks = await TaskModel.getTasksByStatus(status as any);
+      // Filter by status but only for current user's tasks
+      tasks = await TaskModel.getTasksByStatusAndUser(status as any, req.user.userId);
     } else if (assigned_to) {
+      // Only allow viewing own assigned tasks unless admin
+      if (assigned_to !== req.user.userId && req.user.role !== 'admin') {
+        throw new ApiError(403, 'Accès refusé - ressource non autorisée');
+      }
       tasks = await TaskModel.getTasksByAssignedUser(assigned_to as string);
     } else {
-      tasks = await TaskModel.getAllActiveTasks();
+      // Default: get user's own active tasks
+      tasks = await TaskModel.getActiveTasksByUser(req.user.userId);
     }
 
     res.json({
@@ -70,12 +81,22 @@ export async function getTasks(req: AuthRequest, res: Response): Promise<void> {
  */
 export async function getTaskById(req: AuthRequest, res: Response): Promise<void> {
   try {
+    if (!req.user) {
+      throw new ApiError(401, 'Non authentifié');
+    }
+
     const { id } = req.params;
 
     const task = await TaskModel.getTaskById(id);
 
     if (!task) {
       throw new ApiError(404, 'Tâche non trouvée');
+    }
+
+    // Check ownership (created_by or assigned_to)
+    const isOwner = task.created_by === req.user.userId || task.assigned_to === req.user.userId;
+    if (!isOwner && req.user.role !== 'admin') {
+      throw new ApiError(403, 'Accès refusé - ressource non autorisée');
     }
 
     res.json({
@@ -93,12 +114,21 @@ export async function getTaskById(req: AuthRequest, res: Response): Promise<void
  */
 export async function updateTask(req: AuthRequest, res: Response): Promise<void> {
   try {
+    if (!req.user) {
+      throw new ApiError(401, 'Non authentifié');
+    }
+
     const { id } = req.params;
     const updates = req.body;
 
     const task = await TaskModel.getTaskById(id);
     if (!task) {
       throw new ApiError(404, 'Tâche non trouvée');
+    }
+
+    // Check ownership
+    if (!checkOwnership(req.user.userId, task.created_by, req.user.role)) {
+      throw new ApiError(403, 'Accès refusé - ressource non autorisée');
     }
 
     await TaskModel.updateTask(id, updates);
@@ -120,11 +150,20 @@ export async function updateTask(req: AuthRequest, res: Response): Promise<void>
  */
 export async function deleteTask(req: AuthRequest, res: Response): Promise<void> {
   try {
+    if (!req.user) {
+      throw new ApiError(401, 'Non authentifié');
+    }
+
     const { id } = req.params;
 
     const task = await TaskModel.getTaskById(id);
     if (!task) {
       throw new ApiError(404, 'Tâche non trouvée');
+    }
+
+    // Check ownership
+    if (!checkOwnership(req.user.userId, task.created_by, req.user.role)) {
+      throw new ApiError(403, 'Accès refusé - ressource non autorisée');
     }
 
     await TaskModel.deleteTask(id);
@@ -157,6 +196,14 @@ export async function completeTask(req: AuthRequest, res: Response): Promise<voi
       throw new ApiError(404, 'Tâche non trouvée');
     }
 
+    // Allow completion if user is owner, assigned, or admin
+    const canComplete = task.created_by === req.user.userId ||
+                        task.assigned_to === req.user.userId ||
+                        req.user.role === 'admin';
+    if (!canComplete) {
+      throw new ApiError(403, 'Accès refusé - ressource non autorisée');
+    }
+
     await TaskModel.completeTask(id, req.user.userId);
 
     logger.info('Task completed', { taskId: id, completedBy: req.user.userId });
@@ -176,11 +223,20 @@ export async function completeTask(req: AuthRequest, res: Response): Promise<voi
  */
 export async function archiveTask(req: AuthRequest, res: Response): Promise<void> {
   try {
+    if (!req.user) {
+      throw new ApiError(401, 'Non authentifié');
+    }
+
     const { id } = req.params;
 
     const task = await TaskModel.getTaskById(id);
     if (!task) {
       throw new ApiError(404, 'Tâche non trouvée');
+    }
+
+    // Check ownership
+    if (!checkOwnership(req.user.userId, task.created_by, req.user.role)) {
+      throw new ApiError(403, 'Accès refusé - ressource non autorisée');
     }
 
     await TaskModel.archiveTask(id);

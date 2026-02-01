@@ -11,6 +11,7 @@ import { logger } from './utils/logger';
 import { testConnection } from './config/database';
 import { validateJwtConfig } from './config/jwt';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler';
+import { apiLimiter, authLimiter } from './middleware/rateLimiter';
 import authRoutes from './routes/auth.routes';
 import userRoutes from './routes/user.routes';
 import eventRoutes from './routes/event.routes';
@@ -93,8 +94,11 @@ app.get('/health', async (_req, res) => {
   });
 });
 
-// API routes
-app.use(`${API_PREFIX}/auth`, authRoutes);
+// Apply rate limiting to all API routes
+app.use(API_PREFIX, apiLimiter);
+
+// API routes (auth has stricter rate limiting)
+app.use(`${API_PREFIX}/auth`, authLimiter, authRoutes);
 app.use(`${API_PREFIX}/users`, userRoutes);
 app.use(`${API_PREFIX}/events`, eventRoutes);
 app.use(`${API_PREFIX}/tasks`, taskRoutes);

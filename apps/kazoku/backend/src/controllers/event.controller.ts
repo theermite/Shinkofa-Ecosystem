@@ -52,7 +52,9 @@ export async function getEvents(req: AuthRequest, res: Response): Promise<void> 
 
     let events;
     if (start_date && end_date) {
+      // Filter by user_id to prevent data exposure
       events = await EventModel.getEventsByDateRange(
+        req.user.userId,
         new Date(start_date as string),
         new Date(end_date as string)
       );
@@ -75,12 +77,21 @@ export async function getEvents(req: AuthRequest, res: Response): Promise<void> 
  */
 export async function getEventById(req: AuthRequest, res: Response): Promise<void> {
   try {
+    if (!req.user) {
+      throw new ApiError(401, 'Non authentifié');
+    }
+
     const { id } = req.params;
 
     const event = await EventModel.getEventById(id);
 
     if (!event) {
       throw new ApiError(404, 'Événement non trouvé');
+    }
+
+    // Check ownership
+    if (event.user_id !== req.user.userId) {
+      throw new ApiError(403, 'Accès refusé - ressource non autorisée');
     }
 
     res.json({
@@ -98,12 +109,21 @@ export async function getEventById(req: AuthRequest, res: Response): Promise<voi
  */
 export async function updateEvent(req: AuthRequest, res: Response): Promise<void> {
   try {
+    if (!req.user) {
+      throw new ApiError(401, 'Non authentifié');
+    }
+
     const { id } = req.params;
     const updates = req.body;
 
     const event = await EventModel.getEventById(id);
     if (!event) {
       throw new ApiError(404, 'Événement non trouvé');
+    }
+
+    // Check ownership
+    if (event.user_id !== req.user.userId) {
+      throw new ApiError(403, 'Accès refusé - ressource non autorisée');
     }
 
     await EventModel.updateEvent(id, updates);
@@ -125,11 +145,20 @@ export async function updateEvent(req: AuthRequest, res: Response): Promise<void
  */
 export async function deleteEvent(req: AuthRequest, res: Response): Promise<void> {
   try {
+    if (!req.user) {
+      throw new ApiError(401, 'Non authentifié');
+    }
+
     const { id } = req.params;
 
     const event = await EventModel.getEventById(id);
     if (!event) {
       throw new ApiError(404, 'Événement non trouvé');
+    }
+
+    // Check ownership
+    if (event.user_id !== req.user.userId) {
+      throw new ApiError(403, 'Accès refusé - ressource non autorisée');
     }
 
     await EventModel.deleteEvent(id);

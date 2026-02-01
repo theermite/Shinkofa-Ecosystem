@@ -58,15 +58,16 @@ export async function getMealById(id: string): Promise<Meal | null> {
 }
 
 /**
- * Get meals by date range
+ * Get meals by date range (filtered by user)
  */
 export async function getMealsByDateRange(
+  userId: string,
   startDate: Date,
   endDate: Date
 ): Promise<Meal[]> {
   const sql = `
     SELECT * FROM meals
-    WHERE date >= ? AND date <= ?
+    WHERE created_by = ? AND date >= ? AND date <= ?
     ORDER BY date ASC,
       CASE meal_type
         WHEN 'petit_déj' THEN 1
@@ -75,16 +76,16 @@ export async function getMealsByDateRange(
         WHEN 'dîner' THEN 4
       END ASC
   `;
-  return query<(Meal & RowDataPacket)[]>(sql, [startDate, endDate]);
+  return query<(Meal & RowDataPacket)[]>(sql, [userId, startDate, endDate]);
 }
 
 /**
- * Get meals by week (start of week = Monday)
+ * Get meals by week (start of week = Monday, filtered by user)
  */
-export async function getMealsByWeek(weekStart: Date): Promise<Meal[]> {
+export async function getMealsByWeek(userId: string, weekStart: Date): Promise<Meal[]> {
   const sql = `
     SELECT * FROM meals
-    WHERE date >= ? AND date < DATE_ADD(?, INTERVAL 7 DAY)
+    WHERE created_by = ? AND date >= ? AND date < DATE_ADD(?, INTERVAL 7 DAY)
     ORDER BY date ASC,
       CASE meal_type
         WHEN 'petit_déj' THEN 1
@@ -93,7 +94,7 @@ export async function getMealsByWeek(weekStart: Date): Promise<Meal[]> {
         WHEN 'dîner' THEN 4
       END ASC
   `;
-  return query<(Meal & RowDataPacket)[]>(sql, [weekStart, weekStart]);
+  return query<(Meal & RowDataPacket)[]>(sql, [userId, weekStart, weekStart]);
 }
 
 /**

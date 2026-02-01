@@ -58,7 +58,7 @@ export async function getTaskById(id: string): Promise<Task | null> {
 }
 
 /**
- * Get all active tasks
+ * Get all active tasks (DEPRECATED - use getActiveTasksByUser)
  */
 export async function getAllActiveTasks(): Promise<Task[]> {
   const sql = `
@@ -67,6 +67,19 @@ export async function getAllActiveTasks(): Promise<Task[]> {
     ORDER BY priority DESC, due_date ASC
   `;
   return query<(Task & RowDataPacket)[]>(sql);
+}
+
+/**
+ * Get active tasks for a specific user (created by or assigned to)
+ */
+export async function getActiveTasksByUser(userId: string): Promise<Task[]> {
+  const sql = `
+    SELECT * FROM tasks
+    WHERE status IN ('ouverte', 'assignée', 'en_cours')
+    AND (created_by = ? OR assigned_to = ?)
+    ORDER BY priority DESC, due_date ASC
+  `;
+  return query<(Task & RowDataPacket)[]>(sql, [userId, userId]);
 }
 
 /**
@@ -82,11 +95,23 @@ export async function getTasksByAssignedUser(userId: string): Promise<Task[]> {
 }
 
 /**
- * Get tasks by status
+ * Get tasks by status (DEPRECATED - use getTasksByStatusAndUser)
  */
 export async function getTasksByStatus(status: TaskStatus): Promise<Task[]> {
   const sql = 'SELECT * FROM tasks WHERE status = ? ORDER BY created_at DESC';
   return query<(Task & RowDataPacket)[]>(sql, [status]);
+}
+
+/**
+ * Get tasks by status filtered by user
+ */
+export async function getTasksByStatusAndUser(status: TaskStatus, userId: string): Promise<Task[]> {
+  const sql = `
+    SELECT * FROM tasks
+    WHERE status = ? AND (created_by = ? OR assigned_to = ?)
+    ORDER BY created_at DESC
+  `;
+  return query<(Task & RowDataPacket)[]>(sql, [status, userId, userId]);
 }
 
 /**
