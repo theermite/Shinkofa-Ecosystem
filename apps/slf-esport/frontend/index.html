@@ -15,7 +15,7 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <!-- Preconnect to API -->
-    <link rel="preconnect" href="http://localhost:8000" />
+    <link rel="preconnect" href="https://lslf.shinkofa.com" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,6 +24,18 @@
 
     <!-- Accessibility -->
     <meta name="color-scheme" content="light dark" />
+
+    <!-- PWA Auto-Update: Inline script ensures reload even with old cached JS -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        var refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', function() {
+          if (refreshing) return;
+          refreshing = true;
+          window.location.reload();
+        });
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
