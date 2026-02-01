@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "echo 'Lint skipped - TODO: configure ESLint'",
+    "lint": "eslint src",
     "type-check": "tsc --noEmit",
     "test": "echo 'Tests skipped'",
     "preview": "vite preview",

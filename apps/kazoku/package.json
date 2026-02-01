@@ -14,16 +14,18 @@
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:backend": "cd backend && npm run dev",
     "dev:frontend": "cd frontend && npm run dev",
-    "build": "echo 'Build skipped - TODO: fix TypeScript errors in backend/frontend'",
-    "build:backend": "echo 'Backend build skipped'",
-    "build:frontend": "echo 'Frontend build skipped'",
-    "test": "echo 'Tests skipped - TODO: configure Jest'",
-    "test:backend": "echo 'Backend tests skipped'",
-    "test:frontend": "echo 'Frontend tests skipped'",
-    "lint": "echo 'Lint skipped - TODO: configure ESLint'",
-    "lint:backend": "echo 'Backend lint skipped'",
-    "lint:frontend": "echo 'Frontend lint skipped'",
-    "type-check": "echo 'Type-check skipped - TODO: configure TypeScript'"
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd backend && tsc",
+    "build:frontend": "cd frontend && tsc && vite build",
+    "test": "npm run test:frontend",
+    "test:backend": "echo 'Backend tests - TODO: configure'",
+    "test:frontend": "cd frontend && vitest run",
+    "lint": "npm run lint:frontend",
+    "lint:backend": "echo 'Backend lint - TODO: configure'",
+    "lint:frontend": "cd frontend && eslint src --ext .ts,.tsx",
+    "type-check": "npm run type-check:backend && npm run type-check:frontend",
+    "type-check:backend": "cd backend && tsc --noEmit",
+    "type-check:frontend": "cd frontend && tsc --noEmit"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

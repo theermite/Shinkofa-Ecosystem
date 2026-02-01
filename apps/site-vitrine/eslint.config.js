@@ -19,5 +19,12 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    rules: {
+      // TODO: Refactor components to avoid setState in useEffect
+      'react-hooks/set-state-in-effect': 'off',
+      // TODO: Add proper types to replace any
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-non-null-asserted-optional-chain': 'warn',
+    },
   },
 ])

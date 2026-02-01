@@ -101,7 +101,7 @@ export const questionnaireDataV5: Questionnaire = {
             `En couple/marié(e)`,
             `Avec mes parents`,
             `En colocation`,
-            `Parent d\'enfants à la maison`,
+            `Parent d'enfants à la maison`,
             `Aidant familial`,
             `Autre configuration`
           ],
@@ -118,7 +118,7 @@ export const questionnaireDataV5: Questionnaire = {
             `Indépendant(e)/Freelance`,
             `Entrepreneur(e)`,
             `Étudiant(e)`,
-            `En recherche d\'emploi`,
+            `En recherche d'emploi`,
             `En transition`,
             `Retraité(e)`,
             `En pause/congé`,
@@ -149,7 +149,7 @@ export const questionnaireDataV5: Questionnaire = {
             `De vivre confortablement sans stress`,
             `De couvrir vos besoins avec quelques extras`,
             `De couvrir juste vos besoins essentiels`,
-            `D\'avoir parfois des difficultés`,
+            `D'avoir parfois des difficultés`,
             `Préfère ne pas répondre`
           ],
           comment: true,
@@ -157,8 +157,8 @@ export const questionnaireDataV5: Questionnaire = {
         {
           id: 'bloc_a_q8',
           type: 'checkbox',
-          title: `Votre famille d\'origine :`,
-          description: `Votre contexte familial d\'origine influence souvent vos patterns relationnels`,
+          title: `Votre famille d'origine :`,
+          description: `Votre contexte familial d'origine influence souvent vos patterns relationnels`,
           required: false,
           options: [
             `Parents ensemble`,
@@ -173,12 +173,12 @@ export const questionnaireDataV5: Questionnaire = {
         {
           id: 'bloc_a_q9',
           type: 'radio',
-          title: `Dans votre famille d\'origine, vous étiez :`,
+          title: `Dans votre famille d'origine, vous étiez :`,
           description: `La position dans la fratrie influence souvent les traits de personnalité`,
           required: false,
           options: [
             `Enfant unique`,
-            `L\'aîné(e)`,
+            `L'aîné(e)`,
             `Le/la cadet(te)`,
             `Le/la benjamin(e)`,
             `Jumeaux/jumelles`
@@ -187,8 +187,8 @@ export const questionnaireDataV5: Questionnaire = {
         {
           id: 'bloc_a_q10',
           type: 'likert-pairs',
-          title: `L\'ambiance générale de votre famille d\'origine était plutôt :`,
-          description: `Choisissez où votre famille se situait généralement, même si c\'était variable`,
+          title: `L'ambiance générale de votre famille d'origine était plutôt :`,
+          description: `Choisissez où votre famille se situait généralement, même si c'était variable`,
           required: false,
           min: 1,
           max: 5,
@@ -205,7 +205,7 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_a_q11',
           type: 'checkbox',
           title: `Dans votre enfance, vous vous sentiez :`,
-          description: `Ces ressentis d\'enfance influencent souvent nos patterns adultes`,
+          description: `Ces ressentis d'enfance influencent souvent nos patterns adultes`,
           required: false,
           options: [
             `Compris(e) et accepté(e)`,
@@ -213,7 +213,7 @@ export const questionnaireDataV5: Questionnaire = {
             `Très autonome`,
             `Surprotégé(e)`,
             `Responsable des autres`,
-            `Libre d\'être vous-même`,
+            `Libre d'être vous-même`,
             `Sous pression pour réussir`,
             `En sécurité`
           ],
@@ -229,18 +229,18 @@ export const questionnaireDataV5: Questionnaire = {
             `Vous encourager dans vos projets`,
             `Être très protecteurs`,
             `Avoir des attentes élevées`,
-            `Vous laisser beaucoup d\'autonomie`,
+            `Vous laisser beaucoup d'autonomie`,
             `Être critiques/perfectionnistes`,
             `Valoriser la réussite scolaire`,
             `Respecter votre rythme`,
-            `Comparer avec d\'autres`
+            `Comparer avec d'autres`
           ],
         },
         {
           id: 'bloc_a_q13',
           type: 'scale',
           title: `Actuellement, vos relations familiales sont :`,
-          description: `Relations avec votre famille d\'origine ou votre famille actuelle`,
+          description: `Relations avec votre famille d'origine ou votre famille actuelle`,
           required: false,
           min: 1,
           max: 5,
@@ -259,15 +259,15 @@ export const questionnaireDataV5: Questionnaire = {
         {
           id: 'bloc_b_q14',
           type: 'radio',
-          title: `Votre niveau d\'énergie au cours d\'une journée type :`,
+          title: `Votre niveau d'énergie au cours d'une journée type :`,
           description: `Pensez à vos tendances naturelles, pas aux contraintes imposées`,
           required: false,
           options: [
             `Très énergique le matin`,
             `Montée en puissance progressive`,
             `Stable toute la journée`,
-            `Plus efficace l\'après-midi`,
-            `Pic d\'énergie le soir/nuit`,
+            `Plus efficace l'après-midi`,
+            `Pic d'énergie le soir/nuit`,
             `Très variable selon les jours`
           ],
           comment: true,
@@ -275,7 +275,7 @@ export const questionnaireDataV5: Questionnaire = {
         {
           id: 'bloc_b_q15',
           type: 'checkbox',
-          title: `Quand vous vous sentez fatigué(e), c\'est généralement :`,
+          title: `Quand vous vous sentez fatigué(e), c'est généralement :`,
           description: `La fatigue peut avoir plusieurs origines, souvent mélangées`,
           required: false,
           options: [
@@ -293,7 +293,7 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_b_q16',
           type: 'checkbox',
           title: `Pour récupérer votre énergie, vous avez besoin de :`,
-          description: `Pensez à ce qui vous ressource vraiment, pas à ce qui est \"supposé\" vous faire du bien`,
+          description: `Pensez à ce qui vous ressource vraiment, pas à ce qui est "supposé" vous faire du bien`,
           required: false,
           options: [
             `Solitude et calme`,
@@ -316,7 +316,7 @@ export const questionnaireDataV5: Questionnaire = {
             `Se décuple (stress motivant)`,
             `Reste stable`,
             `Diminue progressivement`,
-            `S\'effondre rapidement`,
+            `S'effondre rapidement`,
             `Devient chaotique`,
             `Dépend totalement du type de stress`
           ],
@@ -328,46 +328,46 @@ export const questionnaireDataV5: Questionnaire = {
           description: `Décrivez votre sommeil naturel, pas celui contraint par vos obligations`,
           required: false,
           options: [
-            `J\'ai besoin de beaucoup dormir`,
+            `J'ai besoin de beaucoup dormir`,
             `Je fonctionne bien avec peu de sommeil`,
             `Mon sommeil est très fragile`,
-            `J\'ai du mal à m\'endormir`,
+            `J'ai du mal à m'endormir`,
             `Je me réveille souvent la nuit`,
             `Je rêve beaucoup`,
             `Mon sommeil dépend de mon stress`,
-            `J\'ai des horaires décalés naturellement`
+            `J'ai des horaires décalés naturellement`
           ],
         },
         {
           id: 'bloc_b_q19',
           type: 'checkbox',
           title: `Votre attention et concentration :`,
-          description: `Il n\'y a pas de \"bon\" type d\'attention - chacun a son fonctionnement`,
+          description: `Il n'y a pas de "bon" type d'attention - chacun a son fonctionnement`,
           required: false,
           options: [
             `Se maintient facilement sur les tâches`,
-            `Varie énormément selon l\'intérêt`,
-            `Comprend des périodes d\'hyperfocus`,
+            `Varie énormément selon l'intérêt`,
+            `Comprend des périodes d'hyperfocus`,
             `Se disperse facilement`,
             `Diminue rapidement sans pause`,
             `Fonctionne mieux en multitâches`,
             `Nécessite un environnement très calme`,
-            `Est influencée par l\'humeur`
+            `Est influencée par l'humeur`
           ],
         },
         {
           id: 'bloc_b_q20',
           type: 'radio',
-          title: `À l\'inverse, quand vous êtes déconcentré(e), ce qui vous aide le plus à revenir à votre tâche :`,
+          title: `À l'inverse, quand vous êtes déconcentré(e), ce qui vous aide le plus à revenir à votre tâche :`,
           description: `Question inverse pour valider vos stratégies attentionnelles`,
           required: false,
           options: [
-            `Changer complètement d\'activité puis revenir`,
+            `Changer complètement d'activité puis revenir`,
             `Faire une pause courte et me recentrer`,
             `Modifier mon environnement (musique`,
             `lieu...)`,
             `Me fixer un défi ou objectif précis`,
-            `Parler à quelqu\'un de ce qui me distraira`,
+            `Parler à quelqu'un de ce qui me distraira`,
             `Accepter la déconcentration et la laisser passer`,
             `Utiliser une technique spécifique (respiration`,
             `etc.)`
@@ -390,11 +390,11 @@ export const questionnaireDataV5: Questionnaire = {
           description: `Votre connexion naturelle avec les signaux de votre corps`,
           required: false,
           options: [
-            `Je suis très à l\'écoute de mes sensations`,
-            `J\'ai tendance à ignorer les signaux corporels`,
+            `Je suis très à l'écoute de mes sensations`,
+            `J'ai tendance à ignorer les signaux corporels`,
             `Mon corps me guide dans mes décisions`,
             `Je ressens intensément les émotions physiquement`,
-            `J\'ai souvent des tensions musculaires`,
+            `J'ai souvent des tensions musculaires`,
             `Je me sens déconnecté(e) de mon corps`,
             `Mon corps réagit vite au stress`,
             `Je prends naturellement soin de mon corps`
@@ -403,12 +403,12 @@ export const questionnaireDataV5: Questionnaire = {
         {
           id: 'bloc_c_q22',
           type: 'checkbox',
-          title: `Quand vous ressentez du stress ou de l\'anxiété, où le sentez-vous le plus dans votre corps :`,
+          title: `Quand vous ressentez du stress ou de l'anxiété, où le sentez-vous le plus dans votre corps :`,
           description: `Chacun a ses zones de tension privilégiées selon son fonctionnement`,
           required: false,
           options: [
             `Tension dans la nuque/épaules`,
-            `Nœud dans l\'estomac/ventre`,
+            `Nœud dans l'estomac/ventre`,
             `Oppression dans la poitrine`,
             `Mâchoires serrées`,
             `Mains crispées`,
@@ -439,20 +439,20 @@ export const questionnaireDataV5: Questionnaire = {
         {
           id: 'bloc_c_q24',
           type: 'radio',
-          title: `Votre rapport au mouvement et à l\'activité physique :`,
+          title: `Votre rapport au mouvement et à l'activité physique :`,
           description: `Votre relation naturelle avec le mouvement, sans jugement`,
           required: false,
           options: [
-            `J\'adore bouger`,
-            `c\'est vital pour moi`,
-            `J\'aime l\'activité modérée et régulière`,
+            `J'adore bouger`,
+            `c'est vital pour moi`,
+            `J'aime l'activité modérée et régulière`,
             `Je préfère les activités douces (yoga`,
             `marche)`,
             `Je fais du sport par obligation`,
-            `J\'évite l\'effort physique`,
+            `J'évite l'effort physique`,
             `Mon rapport varie selon mon humeur`,
-            `J\'ai des contraintes de santé qui limitent`,
-            `Le mouvement m\'aide à réfléchir`
+            `J'ai des contraintes de santé qui limitent`,
+            `Le mouvement m'aide à réfléchir`
           ],
         },
         {
@@ -471,7 +471,7 @@ export const questionnaireDataV5: Questionnaire = {
             `Pratiques énergétiques (reiki`,
             `acupuncture...)`,
             `Aucune pratique particulière`,
-            `J\'aimerais en développer mais je ne sais pas comment`
+            `J'aimerais en développer mais je ne sais pas comment`
           ],
         },
         {
@@ -484,9 +484,9 @@ export const questionnaireDataV5: Questionnaire = {
             `Me donne des signaux clairs (intuition corporelle)`,
             `Se tend ou se contracte selon les options`,
             `Me guide par des sensations de bien-être/malaise`,
-            `Réagit après coup quand j\'ai décidé`,
-            `Ne m\'influence pas dans mes choix`,
-            `M\'embrouille avec des signaux contradictoires`,
+            `Réagit après coup quand j'ai décidé`,
+            `Ne m'influence pas dans mes choix`,
+            `M'embrouille avec des signaux contradictoires`,
             `Je ne fais pas attention à ses signaux`
           ],
           comment: true,
@@ -526,11 +526,11 @@ export const questionnaireDataV5: Questionnaire = {
           required: false,
           options: [
             `Je décompose méthodiquement chaque élément`,
-            `Je cherche d\'abord à voir la vue d\'ensemble`,
+            `Je cherche d'abord à voir la vue d'ensemble`,
             `Je fais confiance à mon intuition`,
             `Je recherche des sources supplémentaires`,
             `Je pose des questions pour clarifier`,
-            `J\'ai tendance à éviter ou reporter`,
+            `J'ai tendance à éviter ou reporter`,
             `Je me sens rapidement submergé(e)`
           ],
         },
@@ -545,10 +545,10 @@ export const questionnaireDataV5: Questionnaire = {
             `Bien pour les idées générales`,
             `Mieux avec des images/visuels`,
             `Mieux avec des sons/musiques`,
-            `Par associations d\'idées`,
+            `Par associations d'idées`,
             `De façon séquentielle (étape par étape)`,
-            `Selon l\'émotion associée`,
-            `De manière très sélective selon l\'intérêt`
+            `Selon l'émotion associée`,
+            `De manière très sélective selon l'intérêt`
           ],
         },
         {
@@ -558,20 +558,20 @@ export const questionnaireDataV5: Questionnaire = {
           description: `Votre approche naturelle de résolution de problèmes`,
           required: false,
           options: [
-            `J\'analyse systématiquement toutes les options`,
-            `Je fais d\'abord confiance à mon intuition`,
-            `J\'expérimente directement différentes solutions`,
-            `Je cherche des conseils auprès d\'autres`,
+            `J'analyse systématiquement toutes les options`,
+            `Je fais d'abord confiance à mon intuition`,
+            `J'expérimente directement différentes solutions`,
+            `Je cherche des conseils auprès d'autres`,
             `Je procède par élimination`,
             `Je prends du recul pour y voir plus clair`,
-            `Je fonce et j\'ajuste en cours de route`
+            `Je fonce et j'ajuste en cours de route`
           ],
         },
         {
           id: 'bloc_d_q31',
           type: 'likert-pairs',
           title: `Votre style de réflexion est plutôt :`,
-          description: `Aucun style n\'est meilleur qu\'un autre - ils sont complémentaires`,
+          description: `Aucun style n'est meilleur qu'un autre - ils sont complémentaires`,
           required: false,
           min: 1,
           max: 5,
@@ -587,17 +587,17 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_d_q32',
           type: 'checkbox',
           title: `Quand vous lisez ou écoutez quelque chose :`,
-          description: `Votre façon naturelle de traiter l\'information que vous recevez`,
+          description: `Votre façon naturelle de traiter l'information que vous recevez`,
           required: false,
           options: [
             `Je retiens facilement les faits et chiffres`,
             `Je me souviens surtout des histoires/exemples`,
-            `Je fais spontanément des liens avec d\'autres sujets`,
+            `Je fais spontanément des liens avec d'autres sujets`,
             `Je visualise mentalement ce qui est décrit`,
-            `J\'ai besoin de prendre des notes`,
+            `J'ai besoin de prendre des notes`,
             `Je pose mentalement des questions`,
             `Je ressens des émotions liées au contenu`,
-            `J\'ai du mal à rester concentré(e) longtemps`
+            `J'ai du mal à rester concentré(e) longtemps`
           ],
         },
         {
@@ -609,26 +609,26 @@ export const questionnaireDataV5: Questionnaire = {
           options: [
             `Je les suis scrupuleusement`,
             `Je les adapte selon le contexte`,
-            `Je comprends d\'abord le pourquoi avant de les appliquer`,
-            `J\'ai tendance à les questionner`,
+            `Je comprends d'abord le pourquoi avant de les appliquer`,
+            `J'ai tendance à les questionner`,
             `Je préfère créer mes propres méthodes`,
-            `J\'ai besoin qu\'elles soient très claires`,
+            `J'ai besoin qu'elles soient très claires`,
             `Je les oublie facilement si elles sont trop nombreuses`
           ],
         },
         {
           id: 'bloc_d_q34',
           type: 'radio',
-          title: `À l\'inverse, dans des situations sans cadre ni directive claire :`,
-          description: `Question inverse pour valider votre rapport à l\'autonomie et à la structure`,
+          title: `À l'inverse, dans des situations sans cadre ni directive claire :`,
+          description: `Question inverse pour valider votre rapport à l'autonomie et à la structure`,
           required: false,
           options: [
-            `Je me sens perdu(e) et j\'ai besoin qu\'on me guide`,
+            `Je me sens perdu(e) et j'ai besoin qu'on me guide`,
             `Je crée rapidement ma propre structure`,
-            `Je m\'épanouis dans cette liberté`,
+            `Je m'épanouis dans cette liberté`,
             `Je cherche des repères externes ou des modèles`,
             `Je procède par essais-erreurs`,
-            `Je demande des clarifications avant d\'agir`,
+            `Je demande des clarifications avant d'agir`,
             `Ça dépend complètement du domaine`
           ],
         },
@@ -646,10 +646,10 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_e_q35',
           type: 'radio',
           title: `Quelle phrase vous ressemble le plus dans vos motivations profondes ?`,
-          description: `L\'Ennéagramme identifie 9 motivations fondamentales qui dirigent nos comportements`,
+          description: `L'Ennéagramme identifie 9 motivations fondamentales qui dirigent nos comportements`,
           required: false,
           options: [
-            `Je veux être parfait(e) et éviter l\'erreur`,
+            `Je veux être parfait(e) et éviter l'erreur`,
             `Je veux être aimé(e) et aider les autres`,
             `Je veux réussir et être admiré(e)`,
             `Je veux être unique et authentique`,
@@ -657,7 +657,7 @@ export const questionnaireDataV5: Questionnaire = {
             `Je veux être en sécurité et prévoir les risques`,
             `Je veux vivre pleinement et éviter la souffrance`,
             `Je veux être fort(e) et contrôler ma vie`,
-            `Je veux maintenir l\'harmonie et éviter les conflits`
+            `Je veux maintenir l'harmonie et éviter les conflits`
           ],
         },
         {
@@ -673,9 +673,9 @@ export const questionnaireDataV5: Questionnaire = {
             `Exprimer mes émotions authentiques sur la situation`,
             `Analyser les enjeux et me retirer pour réfléchir`,
             `Anticiper les problèmes et chercher du soutien`,
-            `Détendre l\'atmosphère et chercher des alternatives positives`,
+            `Détendre l'atmosphère et chercher des alternatives positives`,
             `Affronter directement et imposer ma vision`,
-            `Minimiser l\'importance et chercher un terrain d\'entente`
+            `Minimiser l'importance et chercher un terrain d'entente`
           ],
         },
         {
@@ -693,7 +693,7 @@ export const questionnaireDataV5: Questionnaire = {
             `Être abandonné(e) ou sans soutien`,
             `Être limité(e) ou dans la souffrance`,
             `Être contrôlé(e) ou vulnérable`,
-            `Perdre la connexion et l\'harmonie`
+            `Perdre la connexion et l'harmonie`
           ],
         },
         {
@@ -704,13 +704,13 @@ export const questionnaireDataV5: Questionnaire = {
           required: false,
           options: [
             `Je deviens critique et perfectionniste`,
-            `Je me sacrifie pour les autres en m\'oubliant`,
+            `Je me sacrifie pour les autres en m'oubliant`,
             `Je deviens compétitif(e) et impatient(e)`,
             `Je me replie dans mes émotions intenses`,
             `Je me retire et économise mon énergie`,
             `Je deviens anxieux(se) et réactif(ve)`,
-            `Je m\'éparpille et évite les responsabilités`,
-            `J\'impose ma volonté et contrôle tout`,
+            `Je m'éparpille et évite les responsabilités`,
+            `J'impose ma volonté et contrôle tout`,
             `Je procrastine et évite les décisions`
           ],
         },
@@ -735,32 +735,32 @@ export const questionnaireDataV5: Questionnaire = {
         {
           id: 'bloc_e_q40',
           type: 'radio',
-          title: `Votre centre d\'intelligence dominant :`,
-          description: `L\'Ennéagramme identifie 3 centres : mental (types 5,6,7), émotionnel (2,3,4), instinctif (8,9,1)`,
+          title: `Votre centre d'intelligence dominant :`,
+          description: `L'Ennéagramme identifie 3 centres : mental (types 5,6,7), émotionnel (2,3,4), instinctif (8,9,1)`,
           required: false,
           options: [
             `Mental - Je réfléchis beaucoup et anticipe`,
-            `Émotionnel - Je ressens intensément et m\'adapte aux autres`,
-            `Instinctif - J\'agis sur mes impulsions et mon intuition corporelle`
+            `Émotionnel - Je ressens intensément et m'adapte aux autres`,
+            `Instinctif - J'agis sur mes impulsions et mon intuition corporelle`
           ],
         },
         {
           id: 'bloc_e_q41',
           type: 'radio',
           title: `Comment traitez-vous une nouvelle information ?`,
-          description: `Filtre \"Similitude/Différence\" - votre façon de comparer l\'information`,
+          description: `Filtre "Similitude/Différence" - votre façon de comparer l'information`,
           required: false,
           options: [
-            `Je cherche d\'abord les similitudes avec ce que je connais`,
+            `Je cherche d'abord les similitudes avec ce que je connais`,
             `Je remarque immédiatement les différences et particularités`,
-            `J\'alterne selon le contexte entre similitudes et différences`
+            `J'alterne selon le contexte entre similitudes et différences`
           ],
         },
         {
           id: 'bloc_e_q42',
           type: 'radio',
           title: `Face à un problème, vous êtes plutôt orienté(e) :`,
-          description: `Filtre \"Vers/Loin de\" - votre motivation primaire`,
+          description: `Filtre "Vers/Loin de" - votre motivation primaire`,
           required: false,
           options: [
             `Vers la solution - ce que je veux obtenir`,
@@ -771,12 +771,12 @@ export const questionnaireDataV5: Questionnaire = {
         {
           id: 'bloc_e_q43',
           type: 'radio',
-          title: `Votre style de traitement de l\'information :`,
-          description: `Filtre \"Global/Spécifique\" - votre façon de structurer l\'information`,
+          title: `Votre style de traitement de l'information :`,
+          description: `Filtre "Global/Spécifique" - votre façon de structurer l'information`,
           required: false,
           options: [
-            `Global - je vois d\'abord la vue d\'ensemble puis les détails`,
-            `Spécifique - je construis l\'ensemble à partir des détails`,
+            `Global - je vois d'abord la vue d'ensemble puis les détails`,
+            `Spécifique - je construis l'ensemble à partir des détails`,
             `Alternatif - ça dépend du contexte`
           ],
         },
@@ -784,7 +784,7 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_e_q44',
           type: 'radio',
           title: `Dans votre travail, vous préférez :`,
-          description: `Filtre \"Procédures/Options\" - votre rapport aux règles`,
+          description: `Filtre "Procédures/Options" - votre rapport aux règles`,
           required: false,
           options: [
             `Des procédures claires et des options définies`,
@@ -796,12 +796,12 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_e_q45',
           type: 'radio',
           title: `Votre motivation principale vient :`,
-          description: `Filtre \"Interne/Externe\" - source de votre validation`,
+          description: `Filtre "Interne/Externe" - source de votre validation`,
           required: false,
           options: [
-            `De l\'intérieur - mes valeurs et convictions personnelles`,
-            `De l\'extérieur - les retours et validation des autres`,
-            `D\'un équilibre entre les deux`
+            `De l'intérieur - mes valeurs et convictions personnelles`,
+            `De l'extérieur - les retours et validation des autres`,
+            `D'un équilibre entre les deux`
           ],
         },
         {
@@ -812,7 +812,7 @@ export const questionnaireDataV5: Questionnaire = {
           required: false,
           options: [
             `Dans le temps - je respecte les horaires et planifications`,
-            `À travers le temps - je m\'adapte au flux naturel des événements`,
+            `À travers le temps - je m'adapte au flux naturel des événements`,
             `Variable selon les circonstances`
           ],
         },
@@ -824,9 +824,9 @@ export const questionnaireDataV5: Questionnaire = {
           required: false,
           options: [
             `Sameness - je préfère la stabilité et les habitudes`,
-            `Difference - j\'aime le changement et la nouveauté`,
-            `Sameness with exception - j\'aime l\'évolution progressive`,
-            `Difference with exception - j\'aime la nouveauté mais avec des repères`
+            `Difference - j'aime le changement et la nouveauté`,
+            `Sameness with exception - j'aime l'évolution progressive`,
+            `Difference with exception - j'aime la nouveauté mais avec des repères`
           ],
         },
         {
@@ -840,7 +840,7 @@ export const questionnaireDataV5: Questionnaire = {
             `données et logique`,
             `En exprimant mes opinions et convictions`,
             `En partageant mes émotions et sentiments`,
-            `En utilisant l\'humour et la créativité`,
+            `En utilisant l'humour et la créativité`,
             `Par des questions et une écoute attentive`,
             `Avec imagination et réflexion profonde`
           ],
@@ -857,7 +857,7 @@ export const questionnaireDataV5: Questionnaire = {
             `Chaleureux avec des relations harmonieuses`,
             `Dynamique avec de la variété et du fun`,
             `Calme où je peux aider les autres`,
-            `Créatif permettant l\'innovation et la réflexion`
+            `Créatif permettant l'innovation et la réflexion`
           ],
         },
         {
@@ -869,9 +869,9 @@ export const questionnaireDataV5: Questionnaire = {
           options: [
             `La reconnaissance de mon travail et compétences`,
             `Le respect de mes valeurs et convictions`,
-            `L\'acceptation inconditionnelle de ma personne`,
+            `L'acceptation inconditionnelle de ma personne`,
             `Les stimulations et contacts variés`,
-            `La reconnaissance de ma capacité d\'écoute`,
+            `La reconnaissance de ma capacité d'écoute`,
             `La reconnaissance de mon imagination créative`
           ],
         },
@@ -879,7 +879,7 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_e_q51',
           type: 'radio',
           title: `Sous stress, vous avez tendance à :`,
-          description: `Les drivers et mécanismes d\'échec du PCM`,
+          description: `Les drivers et mécanismes d'échec du PCM`,
           required: false,
           options: [
             `Devenir perfectionniste et critiquer les erreurs`,
@@ -897,30 +897,30 @@ export const questionnaireDataV5: Questionnaire = {
           description: `Les drivers sont des injonctions inconscientes qui nous poussent`,
           required: false,
           options: [
-            `\"Sois parfait\" - tout doit être impeccable`,
-            `\"Sois fort\" - ne montre pas tes émotions`,
-            `\"Fais plaisir\" - évite les conflits à tout prix`,
-            `\"Essaie encore\" - recommence jusqu\'à réussir`,
-            `\"Dépêche-toi\" - va plus vite`,
+            `"Sois parfait" - tout doit être impeccable`,
+            `"Sois fort" - ne montre pas tes émotions`,
+            `"Fais plaisir" - évite les conflits à tout prix`,
+            `"Essaie encore" - recommence jusqu'à réussir`,
+            `"Dépêche-toi" - va plus vite`,
             `efficacité maximum`
           ],
         },
         {
           id: 'bloc_e_q53',
           type: 'radio',
-          title: `Quand vous vous rappelez d\'un événement heureux, qu\'est-ce qui vous vient en premier ?`,
+          title: `Quand vous vous rappelez d'un événement heureux, qu'est-ce qui vous vient en premier ?`,
           description: `Votre canal sensoriel dominant : Visuel, Auditif, Kinesthésique, Olfactif ou Gustatif`,
           required: false,
           options: [
             `Les images`,
             `couleurs`,
-            `visages que j\'ai vus`,
+            `visages que j'ai vus`,
             `Les sons`,
             `voix`,
-            `musiques que j\'ai entendus`,
+            `musiques que j'ai entendus`,
             `Les sensations`,
             `émotions`,
-            `textures que j\'ai ressenties`,
+            `textures que j'ai ressenties`,
             `Les odeurs particulières de ce moment`,
             `Les goûts associés à cette expérience`
           ],
@@ -934,31 +934,31 @@ export const questionnaireDataV5: Questionnaire = {
           options: [
             `La voir écrite`,
             `en couleurs ou schématisée`,
-            `L\'entendre répétée ou mise en musique`,
+            `L'entendre répétée ou mise en musique`,
             `La manipuler`,
-            `l\'expérimenter physiquement`,
-            `L\'associer à une odeur ou ambiance particulière`,
+            `l'expérimenter physiquement`,
+            `L'associer à une odeur ou ambiance particulière`,
             `La relier à un goût ou moment de repas`
           ],
         },
         {
           id: 'bloc_e_q55',
           type: 'radio',
-          title: `Dans un lieu nouveau, vous remarquez d\'abord :`,
-          description: `Votre sensorialité dominante dans la perception de l\'environnement`,
+          title: `Dans un lieu nouveau, vous remarquez d'abord :`,
+          description: `Votre sensorialité dominante dans la perception de l'environnement`,
           required: false,
           options: [
-            `L\'organisation visuelle`,
+            `L'organisation visuelle`,
             `les couleurs`,
-            `l\'éclairage`,
-            `L\'ambiance sonore`,
+            `l'éclairage`,
+            `L'ambiance sonore`,
             `les bruits`,
             `la musique`,
-            `L\'atmosphère générale`,
+            `L'atmosphère générale`,
             `la température`,
             `le confort`,
             `Les odeurs caractéristiques du lieu`,
-            `Les goûts si c\'est un restaurant ou lieu culinaire`
+            `Les goûts si c'est un restaurant ou lieu culinaire`
           ],
         },
         {
@@ -968,18 +968,18 @@ export const questionnaireDataV5: Questionnaire = {
           description: `Votre vocabulaire révèle vos préférences sensorielles VAKOG`,
           required: false,
           options: [
-            `Des mots comme \"voir\"`,
-            `\"regarder\"`,
-            `\"clair\"`,
-            `\"lumineux\"`,
-            `Des mots comme \"entendre\"`,
-            `\"écouter\"`,
-            `\"résonner\"`,
-            `\"harmonieux\"`,
-            `Des mots comme \"sentir\"`,
-            `\"toucher\"`,
-            `\"solide\"`,
-            `\"chaud\"`,
+            `Des mots comme "voir"`,
+            `"regarder"`,
+            `"clair"`,
+            `"lumineux"`,
+            `Des mots comme "entendre"`,
+            `"écouter"`,
+            `"résonner"`,
+            `"harmonieux"`,
+            `Des mots comme "sentir"`,
+            `"toucher"`,
+            `"solide"`,
+            `"chaud"`,
             `Des références aux odeurs et parfums`,
             `Des références aux saveurs et textures gustatives`
           ],
@@ -1050,9 +1050,9 @@ export const questionnaireDataV5: Questionnaire = {
           options: [
             `Jamais ou très rarement`,
             `Parfois mais je les contrôle facilement`,
-            `Régulièrement et c\'est difficile à arrêter`,
-            `Très souvent et ça m\'épuise`,
-            `Constamment et c\'est envahissant`
+            `Régulièrement et c'est difficile à arrêter`,
+            `Très souvent et ça m'épuise`,
+            `Constamment et c'est envahissant`
           ],
         },
         {
@@ -1066,25 +1066,25 @@ export const questionnaireDataV5: Questionnaire = {
             `La sécurité (portes`,
             `gaz`,
             `etc.)`,
-            `L\'ordre et la symétrie`,
+            `L'ordre et la symétrie`,
             `Des doutes sur vos actions`,
             `La peur de faire du mal`,
             `Des images ou mots interdits`,
             `La perfection dans vos actions`,
             `Des superstitions/chiffres`,
-            `Je n\'ai pas ce type de pensées`
+            `Je n'ai pas ce type de pensées`
           ],
         },
         {
           id: 'bloc_f_q61',
           type: 'checkbox',
           title: `Face à ces pensées, ressentez-vous le besoin de :`,
-          description: `Les compulsions sont des comportements répétitifs pour réduire l\'anxiété`,
+          description: `Les compulsions sont des comportements répétitifs pour réduire l'anxiété`,
           required: false,
           options: [
             `Vérifier plusieurs fois la même chose`,
             `Nettoyer/laver de façon excessive`,
-            `Ranger/réorganiser jusqu\'à ce que ce soit \"parfait\"`,
+            `Ranger/réorganiser jusqu'à ce que ce soit "parfait"`,
             `Compter ou répéter des mots/phrases`,
             `Éviter certains lieux ou situations`,
             `Demander réassurance aux autres`,
@@ -1096,10 +1096,10 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_f_q62',
           type: 'radio',
           title: `Ces comportements répétitifs :`,
-          description: `L\'intensité des compulsions impacte le diagnostic TOC`,
+          description: `L'intensité des compulsions impacte le diagnostic TOC`,
           required: false,
           options: [
-            `N\'existent pas chez moi`,
+            `N'existent pas chez moi`,
             `Prennent moins de 30 min par jour`,
             `Prennent 30 min à 1h par jour`,
             `Prennent 1 à 3h par jour`,
@@ -1110,7 +1110,7 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_f_q63',
           type: 'radio',
           title: `Ces patterns interfèrent-ils avec votre vie quotidienne ?`,
-          description: `L\'impact fonctionnel est crucial pour identifier un TOC clinique`,
+          description: `L'impact fonctionnel est crucial pour identifier un TOC clinique`,
           required: false,
           options: [
             `Pas du tout`,
@@ -1130,15 +1130,15 @@ export const questionnaireDataV5: Questionnaire = {
             `La lecture (lenteur`,
             `erreurs`,
             `compréhension)`,
-            `L\'écriture (orthographe`,
+            `L'écriture (orthographe`,
             `formation des lettres)`,
             `Les mathématiques (calculs`,
             `géométrie)`,
             `La coordination motrice (sport`,
             `écriture)`,
-            `L\'organisation dans l\'espace/temps`,
+            `L'organisation dans l'espace/temps`,
             `La mémorisation de séquences`,
-            `L\'attention soutenue`,
+            `L'attention soutenue`,
             `Aucune difficulté particulière`
           ],
         },
@@ -1146,15 +1146,15 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_f_q65',
           type: 'radio',
           title: `Actuellement, quand vous lisez un texte long :`,
-          description: `La dyslexie peut persister à l\'âge adulte sous forme atténuée`,
+          description: `La dyslexie peut persister à l'âge adulte sous forme atténuée`,
           required: false,
           options: [
             `Je lis facilement et rapidement`,
             `Je lis normalement mais me fatigue`,
             `Je dois relire souvent pour comprendre`,
-            `J\'ai du mal à me concentrer longtemps`,
+            `J'ai du mal à me concentrer longtemps`,
             `Je confonds encore parfois des lettres/mots`,
-            `J\'évite la lecture autant que possible`
+            `J'évite la lecture autant que possible`
           ],
         },
         {
@@ -1164,11 +1164,11 @@ export const questionnaireDataV5: Questionnaire = {
           description: `La dyscalculie affecte le traitement des nombres`,
           required: false,
           options: [
-            `C\'est automatique et rapide`,
+            `C'est automatique et rapide`,
             `Je calcule normalement`,
-            `J\'ai besoin de réfléchir davantage`,
+            `J'ai besoin de réfléchir davantage`,
             `Je préfère utiliser une calculatrice`,
-            `J\'ai vraiment du mal avec les chiffres`,
+            `J'ai vraiment du mal avec les chiffres`,
             `Je compte encore sur mes doigts parfois`
           ],
         },
@@ -1176,71 +1176,71 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_f_q67',
           type: 'checkbox',
           title: `Votre coordination motrice et organisation :`,
-          description: `La dyspraxie affecte la coordination et l\'organisation`,
+          description: `La dyspraxie affecte la coordination et l'organisation`,
           required: false,
           options: [
-            `J\'ai une excellente coordination`,
+            `J'ai une excellente coordination`,
             `Je suis parfois maladroit(e) mais ça va`,
-            `J\'ai du mal à faire plusieurs choses en même temps`,
+            `J'ai du mal à faire plusieurs choses en même temps`,
             `Je me cogne souvent/renverse des choses`,
-            `J\'ai des difficultés avec les gestes fins`,
+            `J'ai des difficultés avec les gestes fins`,
             `Mon organisation spatiale est chaotique`,
             `Ma gestion du temps est difficile`,
-            `Je n\'ai aucun problème de coordination`
+            `Je n'ai aucun problème de coordination`
           ],
         },
         {
           id: 'bloc_f_q68',
           type: 'radio',
-          title: `Votre rapport à l\'écriture manuscrite :`,
+          title: `Votre rapport à l'écriture manuscrite :`,
           description: `La dysgraphie affecte la production écrite`,
           required: false,
           options: [
-            `J\'écris facilement et lisiblement`,
+            `J'écris facilement et lisiblement`,
             `Mon écriture est correcte mais me fatigue`,
             `Mon écriture est difficile à relire`,
-            `J\'évite d\'écrire à la main`,
+            `J'évite d'écrire à la main`,
             `Je préfère toujours taper`,
-            `J\'ai toujours eu une écriture illisible`
+            `J'ai toujours eu une écriture illisible`
           ],
         },
         {
           id: 'bloc_f_q69',
           type: 'radio',
-          title: `Votre niveau d\'inquiétude quotidien :`,
-          description: `L\'anxiété généralisée implique des inquiétudes excessives et incontrôlables`,
+          title: `Votre niveau d'inquiétude quotidien :`,
+          description: `L'anxiété généralisée implique des inquiétudes excessives et incontrôlables`,
           required: false,
           options: [
-            `Je m\'inquiète rarement`,
-            `Je m\'inquiète normalement des vraies préoccupations`,
-            `Je m\'inquiète souvent de choses probables`,
-            `Je m\'inquiète constamment même pour des détails`,
-            `Je m\'inquiète de tout`,
-            `même de l\'improbable`
+            `Je m'inquiète rarement`,
+            `Je m'inquiète normalement des vraies préoccupations`,
+            `Je m'inquiète souvent de choses probables`,
+            `Je m'inquiète constamment même pour des détails`,
+            `Je m'inquiète de tout`,
+            `même de l'improbable`
           ],
         },
         {
           id: 'bloc_f_q70',
           type: 'checkbox',
           title: `Vos inquiétudes portent principalement sur :`,
-          description: `Les domaines d\'inquiétude révèlent le type d\'anxiété`,
+          description: `Les domaines d'inquiétude révèlent le type d'anxiété`,
           required: false,
           options: [
             `Votre santé et celle de vos proches`,
             `Votre performance au travail/études`,
             `Vos finances et sécurité matérielle`,
             `Vos relations et ce que pensent les autres`,
-            `L\'avenir et les catastrophes possibles`,
+            `L'avenir et les catastrophes possibles`,
             `Des détails du quotidien`,
             `Le contrôle de vos émotions`,
-            `Je ne m\'inquiète pas particulièrement`
+            `Je ne m'inquiète pas particulièrement`
           ],
         },
         {
           id: 'bloc_f_q71',
           type: 'checkbox',
-          title: `Physiquement, l\'anxiété se manifeste chez vous par :`,
-          description: `L\'anxiété a souvent des manifestations somatiques`,
+          title: `Physiquement, l'anxiété se manifeste chez vous par :`,
+          description: `L'anxiété a souvent des manifestations somatiques`,
           required: false,
           options: [
             `Tensions musculaires/maux de tête`,
@@ -1257,37 +1257,37 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_f_q72',
           type: 'radio',
           title: `Face à une situation stressante inattendue :`,
-          description: `La réaction aux imprévus révèle le niveau d\'anxiété`,
+          description: `La réaction aux imprévus révèle le niveau d'anxiété`,
           required: false,
           options: [
             `Je gère calmement`,
-            `Je ressens du stress normal puis m\'adapte`,
+            `Je ressens du stress normal puis m'adapte`,
             `Je panique momentanément puis me reprends`,
-            `Je suis paralysé(e) par l\'anxiété`,
+            `Je suis paralysé(e) par l'anxiété`,
             `Je fuis ou évite complètement la situation`
           ],
         },
         {
           id: 'bloc_f_q73',
           type: 'checkbox',
-          title: `Vos stratégies pour gérer l\'anxiété :`,
-          description: `Les stratégies révèlent l\'adaptation aux troubles anxieux`,
+          title: `Vos stratégies pour gérer l'anxiété :`,
+          description: `Les stratégies révèlent l'adaptation aux troubles anxieux`,
           required: false,
           options: [
             `Respiration/relaxation`,
             `Activité physique`,
             `Évitement des situations stressantes`,
-            `Recherche de réassurance auprès d\'autres`,
-            `Contrôle excessif de l\'environnement`,
+            `Recherche de réassurance auprès d'autres`,
+            `Contrôle excessif de l'environnement`,
             `Rumination mentale`,
             `Techniques de méditation/mindfulness`,
-            `Je n\'ai pas de stratégies particulières`
+            `Je n'ai pas de stratégies particulières`
           ],
         },
         {
           id: 'bloc_f_q74',
           type: 'radio',
-          title: `Vos variations d\'humeur :`,
+          title: `Vos variations d'humeur :`,
           description: `La cyclothymie et bipolarité impliquent des variations extrêmes`,
           required: false,
           options: [
@@ -1312,34 +1312,34 @@ export const questionnaireDataV5: Questionnaire = {
             `Vous aviez des idées de grandeur`,
             `Vous preniez des décisions impulsives`,
             `Vous étiez irritable/agressif sans raison`,
-            `Je n\'ai jamais vécu ce type de périodes`
+            `Je n'ai jamais vécu ce type de périodes`
           ],
         },
         {
           id: 'bloc_f_q76',
           type: 'checkbox',
-          title: `À l\'inverse, avez-vous vécu des périodes prolongées de :`,
+          title: `À l'inverse, avez-vous vécu des périodes prolongées de :`,
           description: `Symptômes de phases dépressives majeures`,
           required: false,
           options: [
             `Tristesse profonde sans raison claire`,
-            `Perte totale d\'intérêt et de plaisir`,
+            `Perte totale d'intérêt et de plaisir`,
             `Fatigue extrême et ralentissement`,
-            `Sentiments d\'inutilité ou de culpabilité`,
+            `Sentiments d'inutilité ou de culpabilité`,
             `Difficultés majeures de concentration`,
             `Pensées sombres sur la vie/mort`,
-            `Changements importants d\'appétit/sommeil`,
-            `Je n\'ai pas vécu ce type de périodes`
+            `Changements importants d'appétit/sommeil`,
+            `Je n'ai pas vécu ce type de périodes`
           ],
         },
         {
           id: 'bloc_f_q77',
           type: 'radio',
-          title: `Ces variations d\'humeur :`,
-          description: `L\'impact fonctionnel détermine la sévérité du trouble`,
+          title: `Ces variations d'humeur :`,
+          description: `L'impact fonctionnel détermine la sévérité du trouble`,
           required: false,
           options: [
-            `N\'existent pas chez moi`,
+            `N'existent pas chez moi`,
             `Sont légères et gérables`,
             `Perturbent parfois mes relations`,
             `Impactent significativement ma vie`,
@@ -1353,7 +1353,7 @@ export const questionnaireDataV5: Questionnaire = {
           description: `La durée aide à différencier cyclothymie, bipolarité I et II`,
           required: false,
           options: [
-            `Ne s\'applique pas à moi`,
+            `Ne s'applique pas à moi`,
             `Quelques heures à quelques jours`,
             `Une à deux semaines`,
             `Plusieurs semaines à quelques mois`,
@@ -1363,7 +1363,7 @@ export const questionnaireDataV5: Questionnaire = {
         {
           id: 'bloc_f_q79',
           type: 'checkbox',
-          title: `Avez-vous vécu ou été témoin d\'événements :`,
+          title: `Avez-vous vécu ou été témoin d'événements :`,
           description: `Les traumatismes peuvent déclencher un SSPT - liste non exhaustive`,
           required: false,
           options: [
@@ -1373,7 +1373,7 @@ export const questionnaireDataV5: Questionnaire = {
             `Deuil traumatique/perte soudaine`,
             `Violence domestique/familiale`,
             `Guerre/attentat/violence collective`,
-            `Négligence/abandon dans l\'enfance`,
+            `Négligence/abandon dans l'enfance`,
             `Harcèlement scolaire/professionnel sévère`,
             `Aucun événement de ce type`
           ],
@@ -1387,7 +1387,7 @@ export const questionnaireDataV5: Questionnaire = {
           options: [
             `Des reviviscences/flashbacks`,
             `Des cauchemars récurrents`,
-            `L\'évitement de lieux/personnes/situations rappelant l\'événement`,
+            `L'évitement de lieux/personnes/situations rappelant l'événement`,
             `Une hypervigilance constante`,
             `Des sursauts exagérés`,
             `Un engourdissement émotionnel`,
@@ -1403,17 +1403,17 @@ export const questionnaireDataV5: Questionnaire = {
           description: `La persistance distingue le SSPT de réactions normales au trauma`,
           required: false,
           options: [
-            `N\'existent pas`,
+            `N'existent pas`,
             `Sont apparus puis ont disparu naturellement`,
-            `Persistent depuis plus d\'un mois`,
+            `Persistent depuis plus d'un mois`,
             `Persistent depuis plus de 6 mois`,
-            `S\'aggravent avec le temps`
+            `S'aggravent avec le temps`
           ],
         },
         {
           id: 'bloc_f_q82',
           type: 'radio',
-          title: `L\'impact sur votre fonctionnement quotidien :`,
+          title: `L'impact sur votre fonctionnement quotidien :`,
           description: `Le retentissement fonctionnel est crucial pour le diagnostic`,
           required: false,
           options: [
@@ -1428,7 +1428,7 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_f_q83',
           type: 'radio',
           title: `Votre rapport à la nourriture et à votre corps :`,
-          description: `L\'intensité de la préoccupation alimentaire/corporelle`,
+          description: `L'intensité de la préoccupation alimentaire/corporelle`,
           required: false,
           options: [
             `Serein et équilibré`,
@@ -1447,8 +1447,8 @@ export const questionnaireDataV5: Questionnaire = {
           options: [
             `Je mange selon ma faim naturellement`,
             `Je contrôle strictement mes portions/calories`,
-            `J\'évite certains aliments \"interdits\"`,
-            `J\'ai des crises de boulimie incontrôlables`,
+            `J'évite certains aliments "interdits"`,
+            `J'ai des crises de boulimie incontrôlables`,
             `Je compense par vomissements/laxatifs/sport excessif`,
             `Je saute souvent des repas`,
             `Je mange émotionnellement (stress/ennui)`,
@@ -1462,11 +1462,11 @@ export const questionnaireDataV5: Questionnaire = {
           description: `La dysmorphie corporelle accompagne souvent les troubles alimentaires`,
           required: false,
           options: [
-            `J\'accepte mon corps tel qu\'il est`,
-            `J\'aimerais changer quelques détails`,
+            `J'accepte mon corps tel qu'il est`,
+            `J'aimerais changer quelques détails`,
             `Je suis insatisfait(e) de mon apparence`,
             `Je me vois plus gros(se) que je ne suis`,
-            `Je déteste mon corps et l\'évite (miroirs`,
+            `Je déteste mon corps et l'évite (miroirs`,
             `photos)`
           ],
         },
@@ -1474,7 +1474,7 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_f_q86',
           type: 'radio',
           title: `La nourriture occupe dans vos pensées :`,
-          description: `L\'obsession alimentaire caractérise les troubles du comportement alimentaire`,
+          description: `L'obsession alimentaire caractérise les troubles du comportement alimentaire`,
           required: false,
           options: [
             `Une place normale`,
@@ -1488,7 +1488,7 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_f_q87',
           type: 'radio',
           title: `Votre qualité de sommeil générale :`,
-          description: `Vue d\'ensemble de la qualité du sommeil`,
+          description: `Vue d'ensemble de la qualité du sommeil`,
           required: false,
           options: [
             `Excellente - je dors bien`,
@@ -1505,14 +1505,14 @@ export const questionnaireDataV5: Questionnaire = {
           description: `Types de troubles du sommeil les plus fréquents`,
           required: false,
           options: [
-            `L\'endormissement (plus de 30 min)`,
+            `L'endormissement (plus de 30 min)`,
             `Les réveils nocturnes fréquents`,
             `Le réveil très matinal non désiré`,
             `Un sommeil non réparateur`,
             `Des cauchemars récurrents`,
             `Des mouvements involontaires (jambes sans repos)`,
             `Des ronflements/apnées`,
-            `L\'hypersomnie (besoin excessif de dormir)`,
+            `L'hypersomnie (besoin excessif de dormir)`,
             `Aucune difficulté particulière`
           ],
         },
@@ -1520,26 +1520,26 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_f_q89',
           type: 'radio',
           title: `Ces troubles de sommeil :`,
-          description: `La chronicité influence l\'approche thérapeutique`,
+          description: `La chronicité influence l'approche thérapeutique`,
           required: false,
           options: [
-            `N\'existent pas`,
+            `N'existent pas`,
             `Sont récents (moins de 3 mois)`,
             `Durent depuis 3 mois à 1 an`,
-            `Persistent depuis plus d\'un an`,
+            `Persistent depuis plus d'un an`,
             `Existent depuis toujours`
           ],
         },
         {
           id: 'bloc_f_q90',
           type: 'checkbox',
-          title: `L\'impact sur votre quotidien :`,
+          title: `L'impact sur votre quotidien :`,
           description: `Les conséquences diurnes des troubles du sommeil`,
           required: false,
           options: [
             `Fatigue chronique le jour`,
             `Difficultés de concentration/mémoire`,
-            `Irritabilité/changements d\'humeur`,
+            `Irritabilité/changements d'humeur`,
             `Somnolence diurne`,
             `Performance réduite au travail/études`,
             `Risques de sécurité (conduite)`,
@@ -1551,7 +1551,7 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_f_q91',
           type: 'checkbox',
           title: `Vos stratégies actuelles :`,
-          description: `Évaluation des stratégies d\'adaptation existantes`,
+          description: `Évaluation des stratégies d'adaptation existantes`,
           required: false,
           options: [
             `Horaires réguliers de coucher/lever`,
@@ -1559,7 +1559,7 @@ export const questionnaireDataV5: Questionnaire = {
             `Relaxation/méditation`,
             `Médicaments sur ordonnance`,
             `Médicaments en automédication`,
-            `Alcool pour m\'endormir`,
+            `Alcool pour m'endormir`,
             `Siestes compensatrices`,
             `Aucune stratégie particulière`
           ],
@@ -1688,12 +1688,12 @@ export const questionnaireDataV5: Questionnaire = {
             `Le Créateur/Innovateur`,
             `Le Protecteur/Gardien`,
             `Le Guide/Mentor`,
-            `L\'Explorateur/Aventurier`,
+            `L'Explorateur/Aventurier`,
             `Le Guérisseur/Soignant`,
             `Le Sage/Philosophe`,
             `Le Guerrier/Combattant`,
             `Le Connecteur/Rassembleur`,
-            `L\'Organisateur/Bâtisseur`
+            `L'Organisateur/Bâtisseur`
           ],
         },
         {
@@ -1718,18 +1718,18 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_g_q103',
           type: 'checkbox',
           title: `Vos dons naturels principaux :`,
-          description: `Talents innés identifiés par l\'approche Shinkofa`,
+          description: `Talents innés identifiés par l'approche Shinkofa`,
           required: false,
           options: [
             `Vision créative et innovation`,
             `Intuition et empathie profonde`,
-            `Capacité d\'enseignement et transmission`,
+            `Capacité d'enseignement et transmission`,
             `Curiosité et adaptabilité`,
             `Compassion et capacité de soin`,
             `Sagesse et discernement`,
             `Courage et détermination`,
             `Charisme et facilité relationnelle`,
-            `Sens de l\'organisation et efficacité`
+            `Sens de l'organisation et efficacité`
           ],
         },
         {
@@ -1742,12 +1742,12 @@ export const questionnaireDataV5: Questionnaire = {
             `Le Créateur/Innovateur`,
             `Le Protecteur/Gardien`,
             `Le Guide/Mentor`,
-            `L\'Explorateur/Aventurier`,
+            `L'Explorateur/Aventurier`,
             `Le Guérisseur/Soignant`,
             `Le Sage/Philosophe`,
             `Le Guerrier/Combattant`,
             `Le Connecteur/Rassembleur`,
-            `L\'Organisateur/Bâtisseur`,
+            `L'Organisateur/Bâtisseur`,
             `Aucun archétype secondaire clair`
           ],
         },
@@ -1761,12 +1761,12 @@ export const questionnaireDataV5: Questionnaire = {
             `En solitude et autonomie`,
             `En équipe collaborative`,
             `En position de leadership`,
-            `Dans l\'accompagnement individuel`,
+            `Dans l'accompagnement individuel`,
             `Dans la création artistique`,
             `Dans la résolution de problèmes`,
-            `Dans l\'enseignement et transmission`,
-            `Dans l\'organisation et la structure`,
-            `Dans l\'exploration et l\'aventure`
+            `Dans l'enseignement et transmission`,
+            `Dans l'organisation et la structure`,
+            `Dans l'exploration et l'aventure`
           ],
         },
         {
@@ -1776,16 +1776,16 @@ export const questionnaireDataV5: Questionnaire = {
           description: `Auto-sabotage et croyances limitantes sur vos capacités`,
           required: false,
           options: [
-            `\"Je ne suis pas assez...\"`,
-            `\"Je n\'y arriverai jamais\"`,
-            `\"Les autres sont meilleurs que moi\"`,
-            `\"Je ne mérite pas le succès\"`,
-            `\"Je dois être parfait(e) pour être accepté(e)\"`,
-            `\"Si j\'échoue`,
-            `je suis un(e) raté(e)\"`,
-            `\"Je ne peux pas changer\"`,
-            `\"C\'est trop difficile pour moi\"`,
-            `\"Je n\'ai aucune croyance limitante sur moi\"`
+            `"Je ne suis pas assez..."`,
+            `"Je n'y arriverai jamais"`,
+            `"Les autres sont meilleurs que moi"`,
+            `"Je ne mérite pas le succès"`,
+            `"Je dois être parfait(e) pour être accepté(e)"`,
+            `"Si j'échoue`,
+            `je suis un(e) raté(e)"`,
+            `"Je ne peux pas changer"`,
+            `"C'est trop difficile pour moi"`,
+            `"Je n'ai aucune croyance limitante sur moi"`
           ],
         },
         {
@@ -1795,16 +1795,16 @@ export const questionnaireDataV5: Questionnaire = {
           description: `Peurs et schémas répétitifs dans vos relations`,
           required: false,
           options: [
-            `\"Si je dis non`,
-            `on ne m\'aimera plus\"`,
-            `\"Les autres vont me juger\"`,
-            `\"Je vais être abandonné(e)\"`,
-            `\"On va découvrir que je suis un imposteur\"`,
-            `\"Je ne peux faire confiance à personne\"`,
-            `\"Les conflits sont dangereux\"`,
-            `\"Je dois plaire à tout le monde\"`,
-            `\"L\'amour n\'est pas fait pour moi\"`,
-            `\"Je n\'ai pas de peurs particulières en relation\"`
+            `"Si je dis non`,
+            `on ne m'aimera plus"`,
+            `"Les autres vont me juger"`,
+            `"Je vais être abandonné(e)"`,
+            `"On va découvrir que je suis un imposteur"`,
+            `"Je ne peux faire confiance à personne"`,
+            `"Les conflits sont dangereux"`,
+            `"Je dois plaire à tout le monde"`,
+            `"L'amour n'est pas fait pour moi"`,
+            `"Je n'ai pas de peurs particulières en relation"`
           ],
         },
         {
@@ -1814,15 +1814,15 @@ export const questionnaireDataV5: Questionnaire = {
           description: `Messages familiaux intériorisés qui influencent encore vos choix`,
           required: false,
           options: [
-            `\"Le travail avant tout\"`,
-            `\"Il faut souffrir pour réussir\"`,
-            `\"L\'argent ne fait pas le bonheur\"`,
-            `\"Les émotions sont un signe de faiblesse\"`,
-            `\"Il faut toujours faire plaisir aux autres\"`,
-            `\"La réussite c\'est avoir un travail stable\"`,
-            `\"On ne peut compter que sur soi\"`,
-            `\"Il ne faut pas se faire remarquer\"`,
-            `\"Je ne me reconnais dans aucun conditionnement familial\"`
+            `"Le travail avant tout"`,
+            `"Il faut souffrir pour réussir"`,
+            `"L'argent ne fait pas le bonheur"`,
+            `"Les émotions sont un signe de faiblesse"`,
+            `"Il faut toujours faire plaisir aux autres"`,
+            `"La réussite c'est avoir un travail stable"`,
+            `"On ne peut compter que sur soi"`,
+            `"Il ne faut pas se faire remarquer"`,
+            `"Je ne me reconnais dans aucun conditionnement familial"`
           ],
         },
         {
@@ -1832,51 +1832,51 @@ export const questionnaireDataV5: Questionnaire = {
           description: `Pressions sociétales qui influencent vos comportements`,
           required: false,
           options: [
-            `\"À mon âge`,
-            `je devrais...\"`,
-            `\"Une personne de mon sexe doit...\"`,
-            `\"Il faut réussir selon les normes sociales\"`,
-            `\"Paraître heureux(se) en permanence\"`,
-            `\"Avoir une vie parfaite sur les réseaux\"`,
-            `\"Consommer pour être heureux(se)\"`,
-            `\"Être productif(ve) en permanence\"`,
-            `\"Correspondre aux standards de beauté\"`,
-            `\"Je ne subis pas d\'injonctions sociales particulières\"`
+            `"À mon âge`,
+            `je devrais..."`,
+            `"Une personne de mon sexe doit..."`,
+            `"Il faut réussir selon les normes sociales"`,
+            `"Paraître heureux(se) en permanence"`,
+            `"Avoir une vie parfaite sur les réseaux"`,
+            `"Consommer pour être heureux(se)"`,
+            `"Être productif(ve) en permanence"`,
+            `"Correspondre aux standards de beauté"`,
+            `"Je ne subis pas d'injonctions sociales particulières"`
           ],
         },
         {
           id: 'bloc_g_q110',
           type: 'radio',
           title: `Votre récit personnel dominant :`,
-          description: `L\'histoire que vous vous racontez sur vous-même et votre vie`,
+          description: `L'histoire que vous vous racontez sur vous-même et votre vie`,
           required: false,
           options: [
-            `\"Je suis une victime des circonstances\"`,
-            `\"Je suis un(e) guerrier(e) qui surmonte tout\"`,
-            `\"Je suis quelqu\'un d\'unique et incompris(e)\"`,
-            `\"Je suis responsable du bonheur des autres\"`,
-            `\"Je suis en apprentissage constant\"`,
-            `\"Je suis un imposteur qui va être découvert\"`,
-            `\"Je suis destiné(e) à accomplir quelque chose de grand\"`,
-            `\"Je n\'ai pas de récit personnel particulier\"`
+            `"Je suis une victime des circonstances"`,
+            `"Je suis un(e) guerrier(e) qui surmonte tout"`,
+            `"Je suis quelqu'un d'unique et incompris(e)"`,
+            `"Je suis responsable du bonheur des autres"`,
+            `"Je suis en apprentissage constant"`,
+            `"Je suis un imposteur qui va être découvert"`,
+            `"Je suis destiné(e) à accomplir quelque chose de grand"`,
+            `"Je n'ai pas de récit personnel particulier"`
           ],
         },
         {
           id: 'bloc_g_q111',
           type: 'checkbox',
-          title: `Votre ENFANT INTÉRIEUR s\'exprime par :`,
+          title: `Votre ENFANT INTÉRIEUR s'exprime par :`,
           description: `La partie spontanée, créative et émotionnelle de votre personnalité`,
           required: false,
           options: [
             `Spontanéité et joie de vivre`,
             `Créativité et imagination`,
-            `Besoin de jeu et d\'amusement`,
+            `Besoin de jeu et d'amusement`,
             `Émotions authentiques et directes`,
             `Curiosité et émerveillement`,
             `Vulnérabilité et besoin de protection`,
             `Rébellion et opposition`,
             `Peurs et insécurités`,
-            `Je n\'entends pas cette voix`
+            `Je n'entends pas cette voix`
           ],
         },
         {
@@ -1889,30 +1889,30 @@ export const questionnaireDataV5: Questionnaire = {
             `Détermination et persévérance`,
             `Protection de vos valeurs et limites`,
             `Courage face aux défis`,
-            `Action et prise d\'initiative`,
+            `Action et prise d'initiative`,
             `Combativité et compétitivité`,
             `Discipline et rigueur`,
-            `Colère constructive face à l\'injustice`,
+            `Colère constructive face à l'injustice`,
             `Force et résilience`,
-            `Je n\'entends pas cette voix`
+            `Je n'entends pas cette voix`
           ],
         },
         {
           id: 'bloc_g_q113',
           type: 'checkbox',
-          title: `Votre GUIDE INTÉRIEUR s\'exprime par :`,
+          title: `Votre GUIDE INTÉRIEUR s'exprime par :`,
           description: `La partie aimante, guidante et empathique de votre personnalité`,
           required: false,
           options: [
             `Compassion et bienveillance`,
             `Sagesse et conseils éclairés`,
-            `Capacité d\'accompagnement des autres`,
+            `Capacité d'accompagnement des autres`,
             `Écoute profonde et empathie`,
             `Transmission de connaissances`,
             `Soutien et encouragement`,
             `Vision globale et perspective`,
             `Patience et compréhension`,
-            `Je n\'entends pas cette voix`
+            `Je n'entends pas cette voix`
           ],
         },
         {
@@ -1926,11 +1926,11 @@ export const questionnaireDataV5: Questionnaire = {
             `Recherche de sens et de vérité`,
             `Acceptation et lâcher-prise`,
             `Discernement et clairvoyance`,
-            `Connexion à l\'universel`,
+            `Connexion à l'universel`,
             `Paix intérieure et sérénité`,
             `Compréhension des cycles de la vie`,
             `Détachement et non-jugement`,
-            `Je n\'entends pas cette voix`
+            `Je n'entends pas cette voix`
           ],
         },
         {
@@ -1940,7 +1940,7 @@ export const questionnaireDataV5: Questionnaire = {
           description: `Votre mode de fonctionnement décisionnel dominant`,
           required: false,
           options: [
-            `L\'Enfant (émotion et spontanéité)`,
+            `L'Enfant (émotion et spontanéité)`,
             `Le Guerrier (action et détermination)`,
             `Le Guide (bienveillance et accompagnement)`,
             `Le Sage (sagesse et détachement)`,
@@ -1955,7 +1955,7 @@ export const questionnaireDataV5: Questionnaire = {
           description: `Direction de développement personnel souhaité dans le dialogue intérieur`,
           required: false,
           options: [
-            `L\'Enfant (plus de spontanéité)`,
+            `L'Enfant (plus de spontanéité)`,
             `Le Guerrier (plus de force)`,
             `Le Guide (plus de compassion)`,
             `Le Sage (plus de sagesse)`,
@@ -2049,14 +2049,14 @@ export const questionnaireDataV5: Questionnaire = {
         {
           id: 'bloc_h_q121',
           type: 'radio',
-          title: `Votre familiarité avec l\'Intelligence Artificielle :`,
-          description: `Votre niveau d\'expérience avec les outils d\'IA actuels`,
+          title: `Votre familiarité avec l'Intelligence Artificielle :`,
+          description: `Votre niveau d'expérience avec les outils d'IA actuels`,
           required: false,
           options: [
             `Aucune connaissance particulière`,
-            `J\'ai entendu parler mais ne l\'utilise pas`,
-            `J\'utilise occasionnellement ChatGPT/IA grand public`,
-            `J\'utilise régulièrement plusieurs outils IA`,
+            `J'ai entendu parler mais ne l'utilise pas`,
+            `J'utilise occasionnellement ChatGPT/IA grand public`,
+            `J'utilise régulièrement plusieurs outils IA`,
             `Je maîtrise le prompting avancé`,
             `Je développe avec des API IA`
           ],
@@ -2065,7 +2065,7 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_h_q122',
           type: 'checkbox',
           title: `Les outils IA que vous utilisez :`,
-          description: `Quels outils d\'IA font partie de vos habitudes`,
+          description: `Quels outils d'IA font partie de vos habitudes`,
           required: false,
           options: [
             `ChatGPT/GPT-4`,
@@ -2076,7 +2076,7 @@ export const questionnaireDataV5: Questionnaire = {
             `Outils de transcription automatique`,
             `IA de coding (GitHub Copilot)`,
             `Traduction automatique avancée`,
-            `Je n\'utilise pas d\'outils IA`,
+            `Je n'utilise pas d'outils IA`,
             `Autres outils IA`
           ],
           comment: true,
@@ -2084,16 +2084,16 @@ export const questionnaireDataV5: Questionnaire = {
         {
           id: 'bloc_h_q123',
           type: 'radio',
-          title: `Votre approche du prompting (instructions à l\'IA) :`,
+          title: `Votre approche du prompting (instructions à l'IA) :`,
           description: `Comment vous formulez vos demandes aux intelligences artificielles`,
           required: false,
           options: [
-            `J\'écris des questions simples et directes`,
-            `J\'adapte mes demandes selon les résultats`,
-            `J\'utilise des techniques de prompting spécifiques`,
+            `J'écris des questions simples et directes`,
+            `J'adapte mes demandes selon les résultats`,
+            `J'utilise des techniques de prompting spécifiques`,
             `Je structure mes prompts avec contexte et exemples`,
             `Je maîtrise le prompt engineering avancé`,
-            `Je ne m\'y connais pas en prompting`
+            `Je ne m'y connais pas en prompting`
           ],
         },
         {
@@ -2120,16 +2120,16 @@ export const questionnaireDataV5: Questionnaire = {
         {
           id: 'bloc_h_q125',
           type: 'radio',
-          title: `Votre rapport à l\'apprentissage technologique :`,
-          description: `Votre attitude face à l\'évolution technologique`,
+          title: `Votre rapport à l'apprentissage technologique :`,
+          description: `Votre attitude face à l'évolution technologique`,
           required: false,
           options: [
-            `J\'évite les nouveautés tech autant que possible`,
-            `J\'apprends seulement quand c\'est nécessaire`,
+            `J'évite les nouveautés tech autant que possible`,
+            `J'apprends seulement quand c'est nécessaire`,
             `Je suis modérément curieux des innovations`,
             `Je me tiens informé(e) des tendances tech`,
             `Je suis passionné(e) par les nouvelles technologies`,
-            `J\'adopte rapidement les outils émergents`
+            `J'adopte rapidement les outils émergents`
           ],
         },
         {
@@ -2139,7 +2139,7 @@ export const questionnaireDataV5: Questionnaire = {
           description: `Votre stratégie de résolution des problèmes technologiques`,
           required: false,
           options: [
-            `Demandez de l\'aide immédiatement`,
+            `Demandez de l'aide immédiatement`,
             `Essayez quelques solutions basiques`,
             `Cherchez des tutoriels en ligne`,
             `Explorez méthodiquement les options`,
@@ -2150,29 +2150,29 @@ export const questionnaireDataV5: Questionnaire = {
         {
           id: 'bloc_h_q127',
           type: 'checkbox',
-          title: `L\'impact de la technologie sur votre bien-être :`,
+          title: `L'impact de la technologie sur votre bien-être :`,
           description: `Les effets positifs et négatifs de votre usage technologique`,
           required: false,
           options: [
-            `La tech m\'aide à être plus efficace`,
-            `Elle me connecte avec d\'autres personnes`,
-            `Elle me surcharge parfois d\'informations`,
+            `La tech m'aide à être plus efficace`,
+            `Elle me connecte avec d'autres personnes`,
+            `Elle me surcharge parfois d'informations`,
             `Je ressens une dépendance aux écrans`,
             `Elle améliore ma créativité`,
-            `Elle génère du stress et de l\'anxiété`,
+            `Elle génère du stress et de l'anxiété`,
             `Elle me fait gagner du temps précieux`,
-            `Je n\'y pense pas particulièrement`
+            `Je n'y pense pas particulièrement`
           ],
         },
         {
           id: 'bloc_h_q128',
           type: 'radio',
-          title: `Votre vision de l\'IA dans les 5 prochaines années :`,
-          description: `Vos attentes et projections personnelles concernant l\'évolution de l\'IA`,
+          title: `Votre vision de l'IA dans les 5 prochaines années :`,
+          description: `Vos attentes et projections personnelles concernant l'évolution de l'IA`,
           required: false,
           options: [
-            `Cela ne m\'intéresse pas/m\'inquiète`,
-            `Elle restera un outil parmi d\'autres`,
+            `Cela ne m'intéresse pas/m'inquiète`,
+            `Elle restera un outil parmi d'autres`,
             `Elle transformera modérément mon quotidien`,
             `Elle révolutionnera ma façon de travailler`,
             `Elle sera omniprésente dans ma vie`,
@@ -2183,10 +2183,10 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_h_q129',
           type: 'checkbox',
           title: `Pour optimiser votre relation à la technologie, vous aimeriez :`,
-          description: `Vos objectifs d\'amélioration dans votre rapport à la technologie`,
+          description: `Vos objectifs d'amélioration dans votre rapport à la technologie`,
           required: false,
           options: [
-            `Réduire votre temps d\'écran`,
+            `Réduire votre temps d'écran`,
             `Apprendre de nouveaux outils utiles`,
             `Maîtriser le prompting IA`,
             `Automatiser des tâches répétitives`,
@@ -2201,7 +2201,7 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_h_q130',
           type: 'text',
           title: `Votre outil/application indispensable au quotidien :`,
-          description: `L\'outil numérique dont vous ne pourriez plus vous passer`,
+          description: `L'outil numérique dont vous ne pourriez plus vous passer`,
           required: false,
           comment: true,
         },
@@ -2213,8 +2213,8 @@ export const questionnaireDataV5: Questionnaire = {
           required: false,
           options: [
             `Jamais entendu parler`,
-            `J\'ai entendu le terme sans plus`,
-            `J\'ai des notions de base (types`,
+            `J'ai entendu le terme sans plus`,
+            `J'ai des notions de base (types`,
             `autorités)`,
             `Je connais bien les concepts principaux`,
             `Je pratique et étudie régulièrement`,
@@ -2251,15 +2251,15 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_h_q133',
           type: 'radio',
           title: `Votre niveau en astrologie :`,
-          description: `Votre familiarité avec l\'astrologie occidentale traditionnelle`,
+          description: `Votre familiarité avec l'astrologie occidentale traditionnelle`,
           required: false,
           options: [
             `Aucune connaissance`,
             `Je connais juste mon signe`,
-            `J\'ai des notions sur les planètes/maisons`,
+            `J'ai des notions sur les planètes/maisons`,
             `Je comprends les aspects et transits`,
-            `J\'étudie l\'astrologie sérieusement`,
-            `Je pratique l\'astrologie (consultations/études)`
+            `J'étudie l'astrologie sérieusement`,
+            `Je pratique l'astrologie (consultations/études)`
           ],
         },
         {
@@ -2275,24 +2275,24 @@ export const questionnaireDataV5: Questionnaire = {
             `Les aspects planétaires (trigones`,
             `carrés...)`,
             `Les transits et progressions`,
-            `L\'astrologie karmique/évolutive`,
-            `D\'autres systèmes (védique`,
+            `L'astrologie karmique/évolutive`,
+            `D'autres systèmes (védique`,
             `chinoise...)`,
-            `Je ne m\'y connais pas en astrologie`
+            `Je ne m'y connais pas en astrologie`
           ],
         },
         {
           id: 'bloc_h_q135',
           type: 'radio',
           title: `Votre familiarité avec la numérologie :`,
-          description: `Votre niveau avec l\'art d\'interpréter les nombres en lien avec la personnalité`,
+          description: `Votre niveau avec l'art d'interpréter les nombres en lien avec la personnalité`,
           required: false,
           options: [
             `Aucune connaissance`,
-            `J\'ai calculé mon chemin de vie`,
+            `J'ai calculé mon chemin de vie`,
             `Je connais les nombres principaux de ma carte`,
             `Je comprends les cycles personnels`,
-            `J\'étudie la numérologie régulièrement`,
+            `J'étudie la numérologie régulièrement`,
             `Je pratique la numérologie pour moi/autres`
           ],
         },
@@ -2304,12 +2304,12 @@ export const questionnaireDataV5: Questionnaire = {
           required: false,
           options: [
             `Votre Chemin de vie`,
-            `Votre Nombre d\'expression/personnalité`,
+            `Votre Nombre d'expression/personnalité`,
             `Votre Élan spirituel/motivation profonde`,
             `Vos Défis à surmonter`,
             `Les Années personnelles (cycles de 9 ans)`,
             `La compatibilité numérologique`,
-            `D\'autres systèmes (Kabbale`,
+            `D'autres systèmes (Kabbale`,
             `Pythagoricien...)`,
             `Je ne connais pas la numérologie`
           ],
@@ -2347,10 +2347,10 @@ export const questionnaireDataV5: Questionnaire = {
           options: [
             `Totalement sceptique/matérialiste`,
             `Curieux(se) mais prudent(e)`,
-            `Ouvert(e) à l\'expérimentation`,
+            `Ouvert(e) à l'expérimentation`,
             `Je crois en certains concepts`,
             `Très intéressé(e) et pratiquant(e)`,
-            `C\'est central dans ma vision du monde`
+            `C'est central dans ma vision du monde`
           ],
         },
         {
@@ -2360,14 +2360,14 @@ export const questionnaireDataV5: Questionnaire = {
           description: `Aspects de la spiritualité qui résonnent avec vous`,
           required: false,
           options: [
-            `Développement de l\'intuition`,
+            `Développement de l'intuition`,
             `Compréhension des synchronicités`,
             `Connexion avec les guides/anges`,
             `Exploration des vies antérieures`,
             `Éveil de la kundalini/énergies subtiles`,
             `Chamanisme et traditions ancestrales`,
             `Géobiologie et énergies des lieux`,
-            `Aucun de ces domaines ne m\'intéresse`,
+            `Aucun de ces domaines ne m'intéresse`,
             `Autres approches spirituelles`
           ],
           comment: true,
@@ -2388,14 +2388,14 @@ export const questionnaireDataV5: Questionnaire = {
             `magnétisme)`,
             `Séance de médiumnité/channeling`,
             `Consultation en chamanisme`,
-            `Je n\'ai jamais consulté dans ces domaines`,
+            `Je n'ai jamais consulté dans ces domaines`,
             `Autres types de consultations`
           ],
         },
         {
           id: 'bloc_h_q141',
           type: 'radio',
-          title: `Le vocabulaire spirituel dans l\'IA Shizen :`,
+          title: `Le vocabulaire spirituel dans l'IA Shizen :`,
           description: `Comment souhaitez-vous que Shizen adapte son langage spirituel avec vous`,
           required: false,
           options: [
@@ -2411,7 +2411,7 @@ export const questionnaireDataV5: Questionnaire = {
           id: 'bloc_h_q142',
           type: 'radio',
           title: `Votre objectif principal avec ces connaissances :`,
-          description: `Ce que vous cherchez à travers l\'exploration spirituelle/ésotérique`,
+          description: `Ce que vous cherchez à travers l'exploration spirituelle/ésotérique`,
           required: false,
           options: [
             `Simple curiosité intellectuelle`,
@@ -2419,8 +2419,8 @@ export const questionnaireDataV5: Questionnaire = {
             `Améliorer mes relations avec les autres`,
             `Développer mon intuition et créativité`,
             `Trouver ma mission de vie`,
-            `Accompagner d\'autres personnes`,
-            `Je n\'ai pas d\'objectif particulier`
+            `Accompagner d'autres personnes`,
+            `Je n'ai pas d'objectif particulier`
           ],
           comment: true,
         },
@@ -2458,32 +2458,32 @@ export const questionnaireDataV5: Questionnaire = {
             `Non`,
             `tout est cohérent`,
             `Oui`,
-            `j\'aimerais nuancer quelques réponses`,
+            `j'aimerais nuancer quelques réponses`,
             `Oui`,
-            `j\'ai changé d\'avis sur certains points`,
-            `Je n\'ai pas relu mes réponses`
+            `j'ai changé d'avis sur certains points`,
+            `Je n'ai pas relu mes réponses`
           ],
           comment: true,
         },
         {
           id: 'bloc_i_q145',
           type: 'radio',
-          title: `En répondant à ce questionnaire, avez-vous parfois choisi la réponse qui \"fait mieux\" socialement ?`,
+          title: `En répondant à ce questionnaire, avez-vous parfois choisi la réponse qui "fait mieux" socialement ?`,
           description: `Détection de biais de désirabilité sociale - soyez honnête, cela améliore la qualité de votre profil`,
           required: false,
           options: [
-            `Jamais - j\'ai été totalement authentique`,
+            `Jamais - j'ai été totalement authentique`,
             `Rarement - juste sur 1-2 questions sensibles`,
             `Parfois - quand je me sentais jugé(e)`,
-            `Souvent - j\'ai du mal à être authentique`,
-            `Très souvent - j\'ai répondu ce qui était attendu`
+            `Souvent - j'ai du mal à être authentique`,
+            `Très souvent - j'ai répondu ce qui était attendu`
           ],
         },
         {
           id: 'bloc_i_q146',
           type: 'checkbox',
-          title: `Quelle était votre disposition d\'esprit en répondant ?`,
-          description: `Votre état d\'esprit influence la qualité de vos réponses`,
+          title: `Quelle était votre disposition d'esprit en répondant ?`,
+          description: `Votre état d'esprit influence la qualité de vos réponses`,
           required: false,
           options: [
             `Calme et concentré(e)`,
@@ -2493,7 +2493,7 @@ export const questionnaireDataV5: Questionnaire = {
             `Optimiste sur mon avenir`,
             `Critique envers moi-même`,
             `Préoccupé(e) par autre chose`,
-            `Enthousiaste à l\'idée du résultat`
+            `Enthousiaste à l'idée du résultat`
           ],
         },
         {
@@ -2505,7 +2505,7 @@ export const questionnaireDataV5: Questionnaire = {
           options: [
             `Identiques - je suis stable dans mes traits`,
             `Très similaires avec quelques nuances`,
-            `Partiellement différentes - j\'évolue`,
+            `Partiellement différentes - j'évolue`,
             `Assez différentes - je suis en transition`,
             `Totalement différentes - je change beaucoup`,
             `Je ne sais pas du tout`
@@ -2518,12 +2518,12 @@ export const questionnaireDataV5: Questionnaire = {
           description: `Votre rapport actuel à la connaissance de soi`,
           required: false,
           options: [
-            `\"Je me connais bien et assume mes particularités\"`,
-            `\"Je découvre encore des aspects de ma personnalité\"`,
-            `\"Je remets en question beaucoup de choses sur moi\"`,
-            `\"Je traverse une période de transformation\"`,
-            `\"Je cherche à devenir une meilleure version de moi\"`,
-            `\"Je suis en phase d\'acceptation de qui je suis\"`
+            `"Je me connais bien et assume mes particularités"`,
+            `"Je découvre encore des aspects de ma personnalité"`,
+            `"Je remets en question beaucoup de choses sur moi"`,
+            `"Je traverse une période de transformation"`,
+            `"Je cherche à devenir une meilleure version de moi"`,
+            `"Je suis en phase d'acceptation de qui je suis"`
           ],
         },
         {
@@ -2538,22 +2538,22 @@ export const questionnaireDataV5: Questionnaire = {
             `Modérément - des nuances intéressantes`,
             `Beaucoup - plusieurs révélations`,
             `Énormément - je me découvre`,
-            `C\'est trop tôt pour le dire`
+            `C'est trop tôt pour le dire`
           ],
         },
         {
           id: 'bloc_i_q150',
           type: 'checkbox',
-          title: `Y a-t-il des domaines importants de votre personnalité que ce questionnaire n\'a pas explorés ?`,
-          description: `Identification des zones manquantes dans l\'évaluation`,
+          title: `Y a-t-il des domaines importants de votre personnalité que ce questionnaire n'a pas explorés ?`,
+          description: `Identification des zones manquantes dans l'évaluation`,
           required: false,
           options: [
             `Votre créativité artistique`,
-            `Votre rapport à l\'argent/sécurité`,
+            `Votre rapport à l'argent/sécurité`,
             `Votre sexualité/intimité`,
             `Vos peurs profondes`,
             `Votre rapport au pouvoir/leadership`,
-            `Votre sens de l\'humour`,
+            `Votre sens de l'humour`,
             `Vos talents cachés`,
             `Non`,
             `tout a été couvert`,
@@ -2564,23 +2564,23 @@ export const questionnaireDataV5: Questionnaire = {
         {
           id: 'bloc_i_q151',
           type: 'radio',
-          title: `Si un proche (ami, famille, partenaire) répondait à ce questionnaire sur vous, pensez-vous qu\'il/elle :`,
-          description: `Cohérence entre votre auto-perception et l\'image que vous renvoyez`,
+          title: `Si un proche (ami, famille, partenaire) répondait à ce questionnaire sur vous, pensez-vous qu'il/elle :`,
+          description: `Cohérence entre votre auto-perception et l'image que vous renvoyez`,
           required: false,
           options: [
             `Donnerait des réponses très similaires aux miennes`,
-            `Serait d\'accord sur l\'essentiel avec quelques différences`,
+            `Serait d'accord sur l'essentiel avec quelques différences`,
             `Aurait une vision partiellement différente de moi`,
             `Aurait une vision assez différente de la mienne`,
             `Donnerait des réponses très différentes`,
-            `Je n\'en ai aucune idée`
+            `Je n'en ai aucune idée`
           ],
         },
         {
           id: 'bloc_i_q152',
           type: 'scale',
           title: `Quel est votre niveau de confiance dans la précision de vos réponses ?`,
-          description: `Auto-évaluation de la fiabilité de vos réponses pour ajuster l\'interprétation`,
+          description: `Auto-évaluation de la fiabilité de vos réponses pour ajuster l'interprétation`,
           required: false,
           min: 1,
           max: 10,
@@ -2589,7 +2589,7 @@ export const questionnaireDataV5: Questionnaire = {
         {
           id: 'bloc_i_q153',
           type: 'checkbox',
-          title: `Pour finir, qu\'attendez-vous en priorité de l\'analyse de ce questionnaire ?`,
+          title: `Pour finir, qu'attendez-vous en priorité de l'analyse de ce questionnaire ?`,
           description: `Vos attentes guideront la personnalisation de votre accompagnement Shizen`,
           required: false,
           options: [

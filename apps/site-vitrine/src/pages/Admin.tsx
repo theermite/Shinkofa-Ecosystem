@@ -3,7 +3,7 @@
  * TEMPORAIRE : Auth simple localStorage (sera remplacé par backend Phase 2)
  */
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Type pour les stats mockées (sera remplacé par API)
@@ -17,21 +17,17 @@ interface AdminStats {
 
 export function Admin() {
   const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // Initialisation lazy pour éviter setState dans useEffect
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return localStorage.getItem('shinkofa-admin-auth') === 'true';
+  });
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState<'dashboard' | 'demandes' | 'temoignages' | 'users'>('dashboard');
 
   // Mot de passe admin (TEMPORAIRE - sera remplacé par auth backend)
   const ADMIN_PASSWORD = 'LifeisShinkofa177.'; // TODO: Déplacer dans .env
-
-  // Vérifier si déjà authentifié (localStorage)
-  useEffect(() => {
-    const isAdmin = localStorage.getItem('shinkofa-admin-auth') === 'true';
-    if (isAdmin) {
-      setIsAuthenticated(true);
-    }
-  }, []);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();

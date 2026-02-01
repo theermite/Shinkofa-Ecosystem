@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "echo 'Lint skipped - TODO: configure ESLint'",
+    "lint": "eslint src --ext .ts,.tsx",
     "type-check": "tsc --noEmit",
     "test": "echo 'Tests skipped'",
     "clean": "rm -rf dist node_modules"

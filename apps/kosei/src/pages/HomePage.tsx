@@ -8,7 +8,7 @@ import {
 import { Brain, Sparkles, MessageSquare } from 'lucide-react';
 
 export default function HomePage() {
-  const { t: _t } = useTranslation();
+  useTranslation(); // Hook appelé pour initialiser i18n
   const { locale, changeLanguage } = useLocale();
   const { adaptation } = useMorphic();
   const { energyLevel, isOptimal } = useEnergyLevel();
@@ -53,7 +53,7 @@ export default function HomePage() {
             <div className="flex items-center gap-2 mb-4">
               <Sparkles className="w-5 h-5 text-dore-principal" />
               <p className="text-bleu-profond/80 dark:text-blanc-pur/80">
-                Shizen s'adapte à ton profil holistique pour t'accompagner au quotidien
+                Shizen s&apos;adapte à ton profil holistique pour t&apos;accompagner au quotidien
               </p>
             </div>
 
@@ -70,7 +70,7 @@ export default function HomePage() {
                   }`}
                 />
                 <span className="text-sm text-bleu-profond dark:text-blanc-pur">
-                  Niveau d'énergie:{' '}
+                  Niveau d&apos;énergie:{' '}
                   <strong>
                     {energyLevel === 'optimal'
                       ? 'Optimal'
