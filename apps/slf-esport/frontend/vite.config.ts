@@ -32,10 +32,11 @@ export default defineConfig({
     react(),
     spaFallback(),
     VitePWA({
-      registerType: 'autoUpdate', // Changed from 'prompt' to avoid persistent notifications
-      includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
+      registerType: 'autoUpdate',
+      // Only include PWA essentials - NO app code precaching
+      includeAssets: ['favicon.ico', 'favicon.png', 'apple-touch-icon.png'],
       devOptions: {
-        enabled: false, // Disabled in dev to avoid conflicts with HMR
+        enabled: false,
         type: 'module'
       },
       manifest: {
@@ -68,40 +69,64 @@ export default defineConfig({
         ]
       },
       workbox: {
-        skipWaiting: true, // Auto-activate new service worker
+        // CRITICAL: Force immediate activation of new SW
+        skipWaiting: true,
         clientsClaim: true,
         cleanupOutdatedCaches: true,
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2}'],
-        // Don't cache API calls - always network first for fresh data
+
+        // MINIMAL PRECACHING: Only PWA icons, NOT app code
+        // This ensures users always get fresh JS/CSS/HTML from network
+        globPatterns: ['pwa-*.png', 'favicon.ico', 'favicon.png', 'apple-touch-icon.png'],
+
+        // Navigation fallback for SPA
         navigateFallback: '/index.html',
-        navigateFallbackDenylist: [/^\/api/],
+        navigateFallbackDenylist: [/^\/api/, /\.[a-z]+$/i],
+
         runtimeCaching: [
+          // API: Always network, no cache (fresh data)
           {
             urlPattern: /^https?:\/\/.*\/api\/.*/i,
+            handler: 'NetworkOnly'
+          },
+          // HTML/JS/CSS: Network first, cache only as offline fallback
+          {
+            urlPattern: /\.(?:js|css)$/,
             handler: 'NetworkFirst',
             options: {
-              cacheName: 'api-cache',
+              cacheName: 'assets-cache',
               expiration: {
                 maxEntries: 50,
-                maxAgeSeconds: 60 * 5 // Only 5 minutes for API responses
+                maxAgeSeconds: 60 * 60 // 1 hour max
               },
-              networkTimeoutSeconds: 10,
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
+              networkTimeoutSeconds: 3 // Fast timeout, prefer fresh
             }
           },
+          // HTML pages: Always fresh
+          {
+            urlPattern: /\.html$/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'pages-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 5 // 5 minutes
+              },
+              networkTimeoutSeconds: 3
+            }
+          },
+          // Images: Cache with revalidation (images change less often)
           {
             urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico)$/,
-            handler: 'CacheFirst',
+            handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'images-cache',
               expiration: {
                 maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
+                maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
               }
             }
           },
+          // Fonts: Cache longer (rarely change)
           {
             urlPattern: /\.(?:woff|woff2|ttf|eot)$/,
             handler: 'CacheFirst',
@@ -109,7 +134,7 @@ export default defineConfig({
               cacheName: 'fonts-cache',
               expiration: {
                 maxEntries: 20,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
               }
             }
           }
@@ -126,7 +151,8 @@ export default defineConfig({
       '@hooks': path.resolve(__dirname, './src/hooks'),
       '@utils': path.resolve(__dirname, './src/utils'),
       '@styles': path.resolve(__dirname, './src/styles'),
-      '@assets': path.resolve(__dirname, './src/assets')
+      '@assets': path.resolve(__dirname, './src/assets'),
+      '@theermite/brain-training': path.resolve(__dirname, './brain-training-package/src')
     }
   },
   server: {
