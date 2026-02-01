@@ -20,6 +20,7 @@ export function useAudioLevels(): {
   const audioContextRef = useRef<AudioContext | null>(null)
   const sourcesRef = useRef<Map<string, AudioSource>>(new Map())
   const animationFrameRef = useRef<number | null>(null)
+  const updateLevelsRef = useRef<(() => void) | null>(null)
   const [isMicActive, setIsMicActive] = useState(false)
   const [isDesktopActive, setIsDesktopActive] = useState(false)
 
@@ -53,22 +54,31 @@ export function useAudioLevels(): {
   }, [])
 
   // Animation loop to update all audio levels
+  // Using a ref to avoid circular reference issues with the recursive call
   const updateLevels = useCallback(() => {
     sourcesRef.current.forEach((source) => {
       source.analyser.getByteFrequencyData(source.dataArray as Uint8Array<ArrayBuffer>)
       const level = calculateLevel(source.dataArray)
       updateAudioLevel(source.id, level)
     })
-    animationFrameRef.current = requestAnimationFrame(updateLevels)
+    // Use ref for recursive call to avoid "accessed before declaration" error
+    if (updateLevelsRef.current) {
+      animationFrameRef.current = requestAnimationFrame(updateLevelsRef.current)
+    }
   }, [calculateLevel, updateAudioLevel])
+
+  // Keep ref in sync with the latest updateLevels function
+  updateLevelsRef.current = updateLevels
 
   // Start the animation loop
   const startLoop = useCallback(() => {
     if (!animationFrameRef.current && sourcesRef.current.size > 0) {
       console.log('[AudioLevels] Starting animation loop')
-      updateLevels()
+      if (updateLevelsRef.current) {
+        updateLevelsRef.current()
+      }
     }
-  }, [updateLevels])
+  }, [])
 
   // Stop the animation loop
   const stopLoop = useCallback(() => {

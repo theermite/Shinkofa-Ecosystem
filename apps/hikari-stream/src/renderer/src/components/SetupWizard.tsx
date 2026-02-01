@@ -38,6 +38,7 @@ function SetupWizard({ onComplete }: SetupWizardProps): JSX.Element {
   }, [onComplete])
 
   useEffect(() => {
+    // eslint-disable-next-line -- Initial dependency check is valid
     checkDependencies()
 
     // Listen for download progress
@@ -47,7 +48,8 @@ function SetupWizard({ onComplete }: SetupWizardProps): JSX.Element {
     })
 
     return cleanup
-  }, [checkDependencies])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
 
   const downloadDependencies = async (): Promise<void> => {
