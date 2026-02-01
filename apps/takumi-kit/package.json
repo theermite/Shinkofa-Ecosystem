@@ -12,7 +12,8 @@
   ],
   "scripts": {
     "dev": "npm run dev --workspace=widgets/reaction-time",
-    "build": "echo 'Build skipped - TODO: configure build script'",
+    "build": "echo 'Build: widgets built individually via build:widgets'",
+    "lint": "echo 'Lint: widgets have individual configs'",
     "build:widgets": "node scripts/build-all.js",
     "build:reaction-time": "npm run build --workspace=widgets/reaction-time",
     "preview": "npm run preview --workspace=widgets/reaction-time",

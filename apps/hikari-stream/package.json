@@ -13,7 +13,7 @@
     "build:win": "npm run build && electron-builder --win --config",
     "build:mac": "npm run build && electron-builder --mac --config",
     "build:linux": "npm run build && electron-builder --linux --config",
-    "lint": "echo 'Lint skipped - TODO: fix ESLint errors'",
+    "lint": "eslint src --ext .ts,.tsx --max-warnings 50",
     "typecheck": "tsc --noEmit",
     "type-check": "tsc --noEmit"
   },
