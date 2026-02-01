@@ -800,12 +800,25 @@ async def trigger_analysis(
             logger.info(f"🔍 Found {len(user_profiles)} profile(s) for user {session.user_id} (different session)")
             existing_profiles = user_profiles
 
-    # If no existing profile, session MUST be completed
+    # If no existing profile, check if session is ready for analysis
     if not existing_profiles and session.status != SessionStatus.COMPLETED:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Session must be completed before analysis"
+        # Check if session has enough responses to analyze anyway
+        from app.models.questionnaire_response import QuestionnaireResponse
+        responses_result = await db.execute(
+            select(QuestionnaireResponse).where(QuestionnaireResponse.session_id == session_id)
         )
+        responses_count = len(list(responses_result.scalars().all()))
+
+        if responses_count >= 10:
+            # Enough responses - allow analysis and mark session as completed
+            logger.warning(f"⚠️ Session {session_id} has {responses_count} responses but status={session.status}. Forcing to COMPLETED.")
+            session.status = SessionStatus.COMPLETED
+            await db.flush()
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Session must be completed before analysis (current: {session.status}, responses: {responses_count})"
+            )
 
     # If profile exists, allow re-analysis (session was analyzed before)
     if existing_profiles:
